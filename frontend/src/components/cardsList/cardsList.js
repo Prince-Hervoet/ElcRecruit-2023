@@ -11,7 +11,7 @@ export default function CardsList({ values }) {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
-      setCards([]);
+      setCards(["asdf"]);
       setIsLoading(false);
     }, 1000);
   }, []);
@@ -35,24 +35,6 @@ export default function CardsList({ values }) {
   return (
     <div className="cards-list-body">
       <div className="cards-list-content">
-        {/* <div>
-          <Card></Card>
-        </div>
-        <div>
-          <Card></Card>
-        </div>
-        <div>
-          <Card></Card>
-        </div>
-        <div>
-          <Card></Card>
-        </div>
-        <div>
-          <Card></Card>
-        </div>
-        <div>
-          <Card></Card>
-        </div> */}
         {content.map((c) => {
           return c;
         })}
@@ -64,7 +46,7 @@ export default function CardsList({ values }) {
             defaultPageSize={6}
             pageSize={6}
             pageSizeOptions={[]}
-            total={100}
+            total={cards.length}
           />
         </div>
       </div>
