@@ -1,0 +1,94 @@
+.host-page {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(250, 250, 250);
+}
+
+.host-page * {
+  user-select: none;
+}
+
+.host-header {
+  width: 100%;
+  height: 40px;
+  border-bottom: 2px solid black;
+  display: flex;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.host-header > div {
+  width: 45px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.host-header-flesh:hover {
+  background-color: rgb(201, 193, 255);
+  color: white;
+  cursor: pointer;
+}
+
+.host-header-flesh:active {
+  background-color: #aaa;
+}
+
+.host-body {
+  width: 100%;
+  height: calc(100% - 42px);
+  min-height: 678px;
+  display: grid;
+  grid-template-columns: 2fr 10fr 2fr;
+}
+
+.host-body-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.host-body-middle {
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.host-body-right {
+  height: 100%;
+  border-left: 1px solid #ccc;
+  min-width: 95px;
+}
+
+.host-left-list-div {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.host-cards-body {
+  width: 95%;
+  height: 85%;
+  min-width: 450px;
+  /* background-color: rgb(117, 124, 122); */
+  margin: auto;
+}
+
+.host-color-flag {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.host-color-flag > div {
+  box-sizing: border-box;
+  margin-right: 5px;
+}
