@@ -14,7 +14,17 @@ export default function Card({ colorFlag, title, content }) {
           <span>振炫哥哥</span>
         </div>
       </div>
-      <div className="card-content"></div>
+      <div className="card-content">
+        <div>
+          <div className="card-content-text">学号: 3120007474</div>
+        </div>
+        <div>
+          <div className="card-content-text">学院: 物理与光电工程学院</div>
+        </div>
+        <div>
+          <div className="card-content-text">班级: 光电1班</div>
+        </div>
+      </div>
     </div>
   );
 }
