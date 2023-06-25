@@ -9,5 +9,5 @@ export function setToken(token) {
 }
 
 export const ServiceUrls = {
-  login: "",
+  login: `${BASE_URL}/login`,
 };

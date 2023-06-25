@@ -11,17 +11,7 @@ export default function CardsList({ values }) {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
-      setCards([
-        "asdf",
-        "435u8",
-        "234",
-        "asdf",
-        "435u8",
-        "234",
-        "asdf",
-        "435u8",
-        "234",
-      ]);
+      setCards(["asdf", "234", "asdf", "435u8", "234", "asdf"]);
       setIsLoading(false);
     }, 1000);
   }, []);

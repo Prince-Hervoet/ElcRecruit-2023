@@ -1,5 +1,17 @@
 import axios from "axios";
 
+const DataRequest = {
+  getAllInfos,
+  getInfosByDepartmentId,
+  getAdjustInfos,
+  getDepartmentSizeById,
+  getStudentInfoById,
+  getCheckinInfos,
+  getCurrentProcess,
+  updateStudentStatus,
+  updateCommentAndScore,
+};
+
 // 获取所有部门报名信息 分页
 async function getAllInfos(pageCount, pageLimit) {}
 
@@ -18,11 +30,13 @@ async function getStudentInfoById(stuId) {}
 // 获取当前部门的签到列表
 async function getCheckinInfos(depId) {}
 
+// 获取当前总进度
+async function getCurrentProcess() {}
+
 // 更新学生的面试状态
 async function updateStudentStatus(stuId, nStatus) {}
 
 // 更新评价和评分
 async function updateCommentAndScore(stuId, content, score) {}
 
-// 获取当前总进度
-async function getCurrentProcess() {}
+export default DataRequest;
