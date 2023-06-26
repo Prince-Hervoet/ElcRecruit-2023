@@ -1,28 +1,26 @@
 import React from "react";
 import "./card.css";
 
-const colorMapping = {};
-
-export default function Card({ colorFlag, title, content }) {
+export default function Card({ color, baseInfo }) {
   return (
-    <div className="card-body" style={{ borderLeft: "5px solid red" }}>
+    <div className="card-body" style={{ borderLeft: "5px solid " + color }}>
       <div className="card-title">
         <div className="card-title-dep">
-          <span>维修部</span>
+          <span>{baseInfo.department}</span>
         </div>
         <div className="card-title-name">
-          <span>振炫哥哥</span>
+          <span>{baseInfo.name}</span>
         </div>
       </div>
       <div className="card-content">
         <div>
-          <div className="card-content-text">学号: 3120007474</div>
+          <div className="card-content-text">学号: {baseInfo.stuId}</div>
         </div>
         <div>
-          <div className="card-content-text">学院: 物理与光电工程学院</div>
+          <div className="card-content-text">学院: {baseInfo.college}</div>
         </div>
         <div>
-          <div className="card-content-text">班级: 光电1班</div>
+          <div className="card-content-text">班级: {baseInfo.grade}</div>
         </div>
       </div>
     </div>

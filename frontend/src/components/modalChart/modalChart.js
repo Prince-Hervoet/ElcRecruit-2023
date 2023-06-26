@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./modalChart.css";
 import * as echarts from "echarts";
+import { observer } from "mobx-react-lite";
+import rootStore from "../../store/rootStore";
 
-export default function ModalChart({ values, clickOnSpace }) {
+const { cardListStore } = rootStore;
+
+function ModalChart({ clickOnSpace }) {
+  // 所需信息 -- 部门总人数
+  const { depSizeList } = cardListStore;
+
   const echart = useRef();
   function createEchart() {
     const chart = echarts.init(echart.current);
     const option = {
-      //   legend: {
-      //     top: "bottom",
-      //   },
       series: [
         {
           name: "Nightingale Chart",
@@ -54,3 +58,5 @@ export default function ModalChart({ values, clickOnSpace }) {
     </div>
   );
 }
+
+export default observer(ModalChart);

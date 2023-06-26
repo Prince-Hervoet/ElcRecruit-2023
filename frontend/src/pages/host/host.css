@@ -27,7 +27,7 @@
 }
 
 .host-header-flesh:hover {
-  background-color: rgb(201, 193, 255);
+  background-color: rgba(83, 64, 206, 0.2);
   color: white;
   cursor: pointer;
 }
