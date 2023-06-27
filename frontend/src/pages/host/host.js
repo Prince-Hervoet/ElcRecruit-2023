@@ -17,6 +17,7 @@ async function updateCardList() {
   cardListStore.setCardList(["123", "123"]);
 }
 
+// 更新签到列表的数据，响应式更新
 async function updateCheckinList() {
   checkinListStore.setCheckinList([
     "123",
@@ -38,9 +39,9 @@ export default function Host() {
   const [isShowModalChart, setIsShowModalChart] = useState(false);
 
   // 点击显示图表
-  const clickOnShowModalChart = useCallback(() => {
+  const clickOnShowModalChart = () => {
     setIsShowModalChart(true);
-  }, []);
+  };
 
   // 点击刷新数据
   const clickOnRefresh = () => {
@@ -49,10 +50,10 @@ export default function Host() {
   };
 
   // 点击注销用户
-  const clickOnExitMe = useCallback(() => {
+  const clickOnExitMe = () => {
     clearToken();
     // 跳转到登录页面
-  }, []);
+  };
 
   return (
     <div className="host-page">

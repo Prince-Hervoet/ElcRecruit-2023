@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./checkin.css";
 import Empty from "../empty/empty";
 import rootStore from "../../store/rootStore";

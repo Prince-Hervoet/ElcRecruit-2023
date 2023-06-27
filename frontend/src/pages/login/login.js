@@ -23,9 +23,15 @@ export default function Login() {
     goto("/host");
   };
 
+  const clickOnKeyDown = (event) => {
+    if (event.key === "Enter") {
+      clickOnLogin();
+    }
+  };
+
   return (
     <>
-      <div className="login-body">
+      <div className="login-body" onKeyDown={clickOnKeyDown}>
         <div className="login-content">
           <div className="login-content-title">
             <svg
