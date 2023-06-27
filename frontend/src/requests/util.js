@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1";
+const BASE_URL = "http://localhost:3000";
 
 export function getToken() {
   return localStorage.getItem("token");
@@ -14,6 +14,7 @@ export function clearToken() {
 
 export const ServiceUrls = {
   login: `${BASE_URL}/login`,
+  resume: `${BASE_URL}/#/resume?userId=`,
 };
 
 export function handleResponse(res) {

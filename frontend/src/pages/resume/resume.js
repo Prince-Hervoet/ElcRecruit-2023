@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Descriptions, Button } from "antd";
 import { Input, InputNumber } from "antd";
 
 import "./resume.css";
 
+function getUrlParam(name) {
+  let u = arguments[1] || window.location.href,
+    reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+    r = u.substr(u.indexOf("?") + 1).match(reg);
+  return r != null ? decodeURI(r[2]) : "";
+}
+
 export default function Resume({ userId }) {
   const [flagType, setFlagType] = useState(1);
   const { TextArea } = Input;
+  const hiddenInput = useRef();
+  useEffect(() => {
+    const userId = getUrlParam("userId");
+    hiddenInput.current.value = userId;
+  }, []);
+
+  const getUserId = () => {
+    return hiddenInput.current.value;
+  };
+
+  const clickOnStart = () => {};
+  const clickOnContinued = () => {};
+  const clickOnSuccess = () => {};
+  const clickOnReject = () => {};
 
   let content = <></>;
   switch (flagType) {
@@ -190,7 +211,7 @@ export default function Resume({ userId }) {
               </div>
               <div style={{ marginBottom: 50 }}>
                 <Button size="large" style={{ marginRight: 10 }} danger>
-                  开始面试
+                  开始
                 </Button>
                 <Button
                   size="large"
@@ -227,7 +248,7 @@ export default function Resume({ userId }) {
           </div>
         </div>
       </div>
-      <input type="hidden" value={userId} />
+      <input type="hidden" id="userIdSave" value={userId} ref={hiddenInput} />
       <div className="resume-flag">{content}</div>
     </>
   );
