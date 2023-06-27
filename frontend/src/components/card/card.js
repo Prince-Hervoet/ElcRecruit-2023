@@ -11,16 +11,16 @@ export default function Card({ color, baseInfo }) {
   return (
     <div
       className="card-body"
-      style={{ borderLeft: "5px solid " + color }}
+      style={{ borderLeft: "5px solid " + "blue" }}
       onClick={clickOnLinkTo}
     >
       <input type="hidden" value={"123123"}></input>
       <div className="card-title">
         <div className="card-title-dep">
-          <span>{baseInfo.department}</span>
+          <span>{baseInfo.department}123123</span>
         </div>
         <div className="card-title-name">
-          <span>{baseInfo.name}</span>
+          <span>{baseInfo.name}asdf</span>
         </div>
       </div>
       <div className="card-content">

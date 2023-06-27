@@ -5,8 +5,14 @@ import Login from "./pages/login/login";
 import Resume from "./pages/resume/resume";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./pages/admin/admin";
+import rootStore from "./store/rootStore";
+import { observer } from "mobx-react-lite";
+import DanglingBox from "./components/danglingBox/danglingBox";
 
-export default function App() {
+const { danglingStore } = rootStore;
+
+function App() {
+  const { title, textContent, isShow } = danglingStore;
   return (
     <>
       <Routes>
@@ -15,6 +21,15 @@ export default function App() {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/resume" element={<Resume></Resume>}></Route>
       </Routes>
+      {
+        <DanglingBox
+          title={title}
+          textContent={textContent}
+          isShow={isShow}
+        ></DanglingBox>
+      }
     </>
   );
 }
+
+export default observer(App);

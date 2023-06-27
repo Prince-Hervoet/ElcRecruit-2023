@@ -4,6 +4,18 @@ import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
+import rootStore from "../../store/rootStore";
+
+const { danglingStore } = rootStore;
+
+async function updateDangling(title, message) {
+  danglingStore.setIsShow(true);
+  danglingStore.setTitle(title);
+  danglingStore.setTextContent(message);
+  setTimeout(() => {
+    danglingStore.setIsShow(false);
+  }, 1500);
+}
 
 export default function Login() {
   let userName = "";
@@ -17,7 +29,7 @@ export default function Login() {
 
   const clickOnLogin = () => {
     if (userName === "" || password === "") {
-      alert("用户名或密码不能为空");
+      updateDangling("登录信息", "用户名或密码不能为空");
       return;
     }
     goto("/host");

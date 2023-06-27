@@ -20,10 +20,6 @@ export default function Resume({ userId }) {
     hiddenInput.current.value = userId;
   }, []);
 
-  const getUserId = () => {
-    return hiddenInput.current.value;
-  };
-
   const clickOnStart = () => {};
   const clickOnContinued = () => {};
   const clickOnSuccess = () => {};
@@ -172,11 +168,11 @@ export default function Resume({ userId }) {
             <Descriptions
               title="个人简历"
               labelStyle={{
-                fontSize: "larger",
+                fontSize: "middle",
                 fontWeight: 700,
                 userSelect: "none",
               }}
-              contentStyle={{ fontSize: "larger", fontWeight: 700 }}
+              contentStyle={{ fontSize: "middle", fontWeight: 700 }}
             >
               <Descriptions.Item label="姓名">振炫</Descriptions.Item>
               <Descriptions.Item label="手机号码">1810000000</Descriptions.Item>
