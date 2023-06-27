@@ -4,17 +4,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .resume-content {
   width: 60%;
-  height: 90%;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* background-color: antiquewhite; */
   min-width: 525px;
 }
 
@@ -48,4 +45,10 @@
 
 .resume-comment > div {
   margin-top: 10px;
+}
+
+.resume-flag {
+  position: fixed;
+  top: 0;
+  right: 0;
 }
