@@ -30,7 +30,8 @@ function Checkin() {
         </div>
       );
     } else {
-      contents = checkinList.map((checkin) => {
+      contents = checkinList.map((checkin, index) => {
+        const { userId, name, stuId } = checkinList[index];
         return <CheckinCard></CheckinCard>;
       });
     }

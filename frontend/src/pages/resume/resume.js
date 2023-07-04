@@ -18,6 +18,8 @@ export default function Resume({ userId }) {
   useEffect(() => {
     const userId = getUrlParam("userId");
     hiddenInput.current.value = userId;
+
+    // 发送网络请求，获取报名者详细个人资料
   }, []);
 
   const clickOnStart = () => {};

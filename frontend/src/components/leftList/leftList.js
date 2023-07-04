@@ -6,15 +6,15 @@ import rootStore from "../../store/rootStore";
 const { cardListStore } = rootStore;
 
 const leftListArray = [
-  { key: 0, value: "总览表" },
-  { key: 1, value: "调剂区" },
-  { key: 2, value: "维修部" },
-  { key: 3, value: "秘书部" },
-  { key: 4, value: "项目部" },
-  { key: 5, value: "网宣部" },
-  { key: 6, value: "外联部" },
-  { key: 7, value: "实践部" },
-  { key: 8, value: "软件组" },
+  { key: 0, value: "总览表", depId: 0 },
+  { key: 1, value: "调剂区", depId: 10 },
+  { key: 2, value: "维修部", depId: 1 },
+  { key: 3, value: "秘书部", depId: 2 },
+  { key: 4, value: "项目部", depId: 3 },
+  { key: 5, value: "网宣部", depId: 4 },
+  { key: 6, value: "外联部", depId: 5 },
+  { key: 7, value: "实践部", depId: 6 },
+  { key: 8, value: "软件组", depId: 7 },
 ];
 
 async function updateCardList() {
@@ -28,16 +28,16 @@ async function updateCardList() {
   // studentStore.setStudents(nStudents);
 }
 
-export default function LeftList({ values }) {
+export default function LeftList() {
   const [select, setSelect] = useState(-1);
 
   // 选中
-  const clickOnSelect = useCallback((event) => {
+  const clickOnSelect = (event) => {
     // 更新当前视图
     setSelect(event.target.id);
     // 更新卡片列表
     updateCardList();
-  }, []);
+  };
 
   return (
     <div
