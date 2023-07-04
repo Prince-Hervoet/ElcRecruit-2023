@@ -39,7 +39,7 @@ function Checkin() {
 
   return (
     <div className="checkin-body">
-      <div className="checkin-content-title">签到列表</div>
+      <div className="checkin-content-title">签到列表 (当前部门)</div>
       <div className="checkin-content-card-list">
         {contents.map((content) => {
           return content;

@@ -33,7 +33,7 @@ export default function Resume({ userId }) {
       content = (
         <svg
           t="1687855695804"
-          class="icon"
+          className="icon"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ export default function Resume({ userId }) {
       content = (
         <svg
           t="1687855836491"
-          class="icon"
+          className="icon"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ export default function Resume({ userId }) {
       content = (
         <svg
           t="1687855724659"
-          class="icon"
+          className="icon"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@ export default function Resume({ userId }) {
       content = (
         <svg
           t="1687855854754"
-          class="icon"
+          className="icon"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"

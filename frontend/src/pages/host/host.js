@@ -9,6 +9,7 @@ import ModalChart from "../../components/modalChart/modalChart";
 import { clearToken } from "../../requests/util";
 import rootStore from "../../store/rootStore";
 import Checkin from "../../components/checkin/checkin";
+import useThrottle from "../../hooks/throttle";
 
 const { cardListStore, checkinListStore } = rootStore;
 
@@ -44,10 +45,11 @@ export default function Host() {
   };
 
   // 点击刷新数据
-  const clickOnRefresh = () => {
+  const clickOnRefresh = useThrottle(() => {
     updateCardList();
     updateCheckinList();
-  };
+    console.log("触发了");
+  }, 1000);
 
   // 点击注销用户
   const clickOnExitMe = () => {
@@ -61,7 +63,7 @@ export default function Host() {
         <div>
           <svg
             t="1687797384911"
-            class="icon"
+            className="icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +81,7 @@ export default function Host() {
         <div className="host-header-flesh" onClick={clickOnExitMe}>
           <svg
             t="1687627764833"
-            class="icon"
+            className="icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +124,7 @@ export default function Host() {
         <div className="host-header-flesh" onClick={clickOnRefresh}>
           <svg
             t="1687627328808"
-            class="icon"
+            className="icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +147,7 @@ export default function Host() {
         <div className="host-header-flesh" onClick={clickOnShowModalChart}>
           <svg
             t="1687679436707"
-            class="icon"
+            className="icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
