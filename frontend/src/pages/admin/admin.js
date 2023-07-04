@@ -16,7 +16,6 @@ export default function Admin() {
             },
             {
               title: "In Progress",
-              //   subTitle: "Left 00:00:08",
             },
             {
               title: "Waiting",
@@ -30,13 +29,13 @@ export default function Admin() {
             defaultValue="a"
             style={{ fontWeight: 700 }}
           >
-            <Radio.Button value="a">维修部</Radio.Button>
-            <Radio.Button value="b">秘书部</Radio.Button>
-            <Radio.Button value="c">项目部</Radio.Button>
-            <Radio.Button value="d">网宣部</Radio.Button>
-            <Radio.Button value="e">外联部</Radio.Button>
-            <Radio.Button value="f">实践部</Radio.Button>
-            <Radio.Button value="g">软件组</Radio.Button>
+            <Radio.Button value="1">维修部</Radio.Button>
+            <Radio.Button value="2">秘书部</Radio.Button>
+            <Radio.Button value="3">项目部</Radio.Button>
+            <Radio.Button value="4">网宣部</Radio.Button>
+            <Radio.Button value="5">外联部</Radio.Button>
+            <Radio.Button value="6">实践部</Radio.Button>
+            <Radio.Button value="7">软件组</Radio.Button>
           </Radio.Group>
         </p>
 

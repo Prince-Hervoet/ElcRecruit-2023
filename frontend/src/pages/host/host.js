@@ -20,20 +20,7 @@ async function updateCardList() {
 
 // 更新签到列表的数据，响应式更新
 async function updateCheckinList() {
-  checkinListStore.setCheckinList([
-    "123",
-    "3434",
-    "@34234234",
-    "123",
-    "123",
-    "3434",
-    "@34234234",
-    "123",
-    "123",
-    "3434",
-    "@34234234",
-    "123",
-  ]);
+  checkinListStore.setCheckinList(["123", "3434", "@34234234", "123", "123"]);
 }
 
 export default function Host() {
