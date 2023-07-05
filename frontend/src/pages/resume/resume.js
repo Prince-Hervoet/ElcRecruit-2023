@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Descriptions, Button } from "antd";
 import { Input, InputNumber } from "antd";
+import DataRequest from "../../requests/dataRequest";
 
 import "./resume.css";
 
@@ -22,9 +23,18 @@ export default function Resume({ userId }) {
     // 发送网络请求，获取报名者详细个人资料
   }, []);
 
-  const clickOnStart = () => {};
-  const clickOnContinued = () => {};
-  const clickOnSuccess = () => {};
+  const clickOnStart = async () => {
+    const userId = hiddenInput.current.value;
+    const res = await DataRequest.updateStudentStatus(userId, 10);
+  };
+  const clickOnContinued = async () => {
+    const userId = hiddenInput.current.value;
+    const res = await DataRequest.updateStudentStatus(userId, 20);
+  };
+  const clickOnSuccess = async () => {
+    const userId = hiddenInput.current.value;
+    const res = await DataRequest.updateStudentStatus(userId, 30);
+  };
   const clickOnReject = () => {};
 
   let content = <></>;
@@ -206,8 +216,43 @@ export default function Resume({ userId }) {
                   评分(1 ~ 100) :{" "}
                 </span>
                 <InputNumber size="large" min={0} max={100} defaultValue={50} />
+
+                <span
+                  style={{
+                    fontWeight: 700,
+                    userSelect: "none",
+                    marginLeft: 10,
+                  }}
+                >
+                  评价人 :{" "}
+                </span>
+                <InputNumber size="large" min={0} max={100} defaultValue={50} />
+                <Button
+                  size="large"
+                  style={{
+                    marginLeft: 24,
+                    backgroundColor: "blue",
+                    fontWeight: 700,
+                    color: "white",
+                  }}
+                >
+                  Commit
+                </Button>
+
+                <Button
+                  size="large"
+                  style={{
+                    marginLeft: 10,
+                    backgroundColor: "orange",
+                    fontWeight: 700,
+                    color: "white",
+                  }}
+                >
+                  查看评价
+                </Button>
               </div>
-              <div style={{ marginBottom: 50 }}>
+
+              <div style={{ marginBottom: 50, marginTop: 50 }}>
                 <Button size="large" style={{ marginRight: 10 }} danger>
                   开始
                 </Button>

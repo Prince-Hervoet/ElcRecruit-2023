@@ -75,5 +75,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: left;
+  display: flex;
+  align-items: center;
 }

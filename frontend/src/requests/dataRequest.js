@@ -33,7 +33,7 @@ async function getAdjustInfos(depId) {}
 async function getDepSizeById(depId) {}
 
 // 按照学生id获取个人信息
-async function getStudentInfoById(stuId) {}
+async function getDetailedInfoById(stuId) {}
 
 // 获取当前部门的签到列表
 async function getCheckinInfos(depId) {}
@@ -48,10 +48,10 @@ async function updateStudentStatus(stuId, nStatus) {}
 async function updateCommentAndScore(stuId, content, score) {}
 
 const DataRequest = {
-  getInfosByDepId: getBriefInfosByDepId,
+  getBriefInfosByDepId,
   getAdjustInfos,
-  getDepartmentSizeById: getDepSizeById,
-  getStudentInfoById,
+  getDepSizeById,
+  getDetailedInfoById,
   getCheckinInfos,
   getCurrentProcess,
   updateStudentStatus,

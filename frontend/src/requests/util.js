@@ -11,6 +11,8 @@ export const ServiceUrls = {
   getBriefInfos: `${BASE_URL}/getBriefInfos`,
   // 获取报名者详细信息
   getDetailedInfo: `${BASE_URL}/getDetailedInfo`,
+  // 更改学生面试状态
+  updateStudentStatus: `${BASE_URL}/updateStudentStatus`,
 };
 
 export const httpCodeObj = {

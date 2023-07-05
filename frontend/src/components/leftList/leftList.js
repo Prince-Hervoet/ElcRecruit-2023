@@ -5,7 +5,7 @@ import rootStore from "../../store/rootStore";
 
 const { cardListStore } = rootStore;
 
-const leftListArray = [
+const depList = [
   { key: 0, value: "总览表", depId: 0 },
   { key: 1, value: "调剂区", depId: 10 },
   { key: 2, value: "维修部", depId: 1 },
@@ -17,14 +17,14 @@ const leftListArray = [
   { key: 8, value: "软件组", depId: 7 },
 ];
 
-async function updateCardList() {
+async function updateCardList(depId) {
   cardListStore.setIsLoading(true);
-  // const res = await DataRequest.getDepartmentSizeById();
-  // const nStudents = JSON.parse(res.data);
-  setTimeout(() => {
-    cardListStore.setIsLoading(false);
-  }, 3000);
-
+  // const res = await DataRequest.getBriefInfosByDepId(depId, 1, 6);
+  // setTimeout(() => {
+  //   cardListStore.setIsLoading(false);
+  // }, 3000);
+  cardListStore.setCardList();
+  cardListStore.setIsLoading(false);
   // studentStore.setStudents(nStudents);
 }
 
@@ -34,9 +34,12 @@ export default function LeftList() {
   // 选中
   const clickOnSelect = (event) => {
     // 更新当前视图
-    setSelect(event.target.id);
+    const id = event.target.id;
+    setSelect(id);
+    const dep = depList[id];
+    const depId = dep.depId;
     // 更新卡片列表
-    updateCardList();
+    updateCardList(depId);
   };
 
   return (
@@ -45,7 +48,7 @@ export default function LeftList() {
       className="left-list-body"
       onClick={clickOnSelect}
     >
-      {leftListArray.map((value, index) => {
+      {depList.map((value, index) => {
         if (select === index + "") {
           return (
             <li
