@@ -27,12 +27,17 @@ export default function Login() {
     console.log("asdfasdfasdfasdfasfd");
   }, []);
 
-  const clickOnLogin = () => {
+  const clickOnLogin = async () => {
     if (userName === "" || password === "") {
       updateDangling("登录信息", "用户名或密码不能为空");
       return;
     }
-    goto("/host");
+    console.log(userName + " " + password);
+    const res = await LoginRequest.login(userName, password);
+    if (res.code === 4000) {
+      goto("/host");
+    }
+    updateDangling("登录信息", "登录失败");
   };
 
   const clickOnKeyDown = (event) => {

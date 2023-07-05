@@ -15,6 +15,10 @@ export const ServiceUrls = {
   updateStudentStatus: `${BASE_URL}/updateStudentStatus`,
 };
 
+export const Defined = {
+  SUCCESS: "",
+};
+
 export const httpCodeObj = {
   200: "success",
   400: "请求有误",
