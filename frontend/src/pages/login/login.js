@@ -25,14 +25,12 @@ export default function Login() {
 
   useEffect(() => {
     // 判断是否已经登录，如果已经登录直接跳转到host页面
-    LoginRequest.judgeLoginStatus().then(
-      (result) => {
-        if (result.code === 4000) {
-          goto("/host");
-        }
-      },
-      (err) => {}
-    );
+    (async function judge() {
+      const res = await LoginRequest.judgeLoginStatus();
+      if (res.code === 4000) {
+        goto("/host");
+      }
+    })();
   }, []);
 
   // 点击登录

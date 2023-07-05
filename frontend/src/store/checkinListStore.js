@@ -17,6 +17,10 @@ class CheckinListStore {
   setIsLoading(nIsLoading) {
     this.isLoading = nIsLoading;
   }
+
+  clear() {
+    this.checkinList = [];
+  }
 }
 
 const checkinListStore = new CheckinListStore();

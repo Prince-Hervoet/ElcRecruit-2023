@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./host.css";
 import LeftList from "../../components/leftList/leftList";
-import Empty from "../../components/empty/empty";
 import CardList from "../../components/cardsList/cardList";
 import ColorFlag from "../../components/colorFlag/colorFlag";
 import DataRequest from "../../requests/dataRequest";
 import ModalChart from "../../components/modalChart/modalChart";
-import { clearToken } from "../../requests/util";
 import rootStore from "../../store/rootStore";
 import Checkin from "../../components/checkin/checkin";
 import useThrottle from "../../hooks/throttle";
 import { useNavigate } from "react-router-dom";
+import LoginRequest from "../../requests/loginRequest";
 
 const { cardListStore, checkinListStore } = rootStore;
 
@@ -84,13 +83,24 @@ async function updateCheckinList() {
   ]);
 }
 
+function clearData() {
+  cardListStore.clear();
+}
+
 export default function Host() {
   const [isShowModalChart, setIsShowModalChart] = useState(false);
 
   useEffect(() => {
-    return () => {
-      console.log("host被卸载了");
-    };
+    // 判断是否登录了
+    // (async function judge() {
+    //   const res = await LoginRequest.judgeLoginStatus();
+    //   if (res.code === 4000) {
+    //     // 发起请求获取数据
+    //   } else {
+    //     clearData();
+    //     goto("/login", { replace: true });
+    //   }
+    // })();
   }, []);
 
   const goto = useNavigate();
@@ -109,8 +119,8 @@ export default function Host() {
 
   // 点击注销用户
   const clickOnExitMe = () => {
-    clearToken();
-    // 跳转到登录页面
+    localStorage.removeItem("token");
+    clearData();
     goto("/login", { replace: true });
   };
 

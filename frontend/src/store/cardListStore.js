@@ -24,6 +24,11 @@ class CardListStore {
   setIsLoading(nIsLoading) {
     this.isLoading = nIsLoading;
   }
+
+  clear() {
+    this.cardList = [];
+    this.depSizeList = [];
+  }
 }
 
 const cardListStore = new CardListStore();

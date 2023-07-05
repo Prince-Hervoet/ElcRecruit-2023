@@ -5,6 +5,8 @@ const BASE_URL = "http://localhost:3000";
 export const ServiceUrls = {
   // 登录
   login: `${BASE_URL}/login`,
+  // 判断是否登录
+  judgeLogin: `${BASE_URL}/judgeLogin`,
   // 请求简历
   resume: `${BASE_URL}/#/resume?userId=`,
   // 分页获取人员简要信息
@@ -31,15 +33,3 @@ export const myCodeObj = {
   4002: "处理失败",
   4005: "处理异常",
 };
-
-export function getToken() {
-  return localStorage.getItem("token");
-}
-
-export function setToken(token) {
-  localStorage.setItem("token", token);
-}
-
-export function clearToken() {
-  localStorage.removeItem("token");
-}
