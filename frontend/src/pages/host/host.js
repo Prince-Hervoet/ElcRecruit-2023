@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./host.css";
 import LeftList from "../../components/leftList/leftList";
 import Empty from "../../components/empty/empty";
@@ -18,28 +18,58 @@ const { cardListStore, checkinListStore } = rootStore;
 async function updateCardList() {
   cardListStore.setCardList([
     {
-      userId: "1",
+      uid: "1",
+      name: "张三",
       depId: "1",
       stuId: "3120007543",
       college: "1",
-      grade: "2",
-      status: "1",
+      major: "2",
+      status: "10",
     },
     {
-      userId: "2",
+      uid: "1",
+      name: "张三",
       depId: "1",
       stuId: "3120007543",
       college: "1",
-      grade: "2",
-      status: "1",
+      major: "2",
+      status: "20",
     },
     {
-      userId: "3",
+      uid: "1",
+      name: "张三",
       depId: "1",
       stuId: "3120007543",
       college: "1",
-      grade: "2",
-      status: "1",
+      major: "2",
+      status: "30",
+    },
+    {
+      uid: "1",
+      name: "张三",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      major: "2",
+      status: "40",
+    },
+    {
+      uid: "1",
+      name: "张三",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      major: "2",
+      status: "50",
+    },
+    {
+      uid: "1",
+      name: "张三",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      major: "2",
+      status: "60",
     },
   ]);
 }
@@ -56,6 +86,12 @@ async function updateCheckinList() {
 
 export default function Host() {
   const [isShowModalChart, setIsShowModalChart] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      console.log("host被卸载了");
+    };
+  }, []);
 
   const goto = useNavigate();
   // 点击显示图表
@@ -135,7 +171,7 @@ export default function Host() {
         <div className="host-header-flesh" onClick={clickOnRefresh}>
           <svg
             t="1688568987852"
-            class="icon"
+            className="icon"
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -207,7 +243,7 @@ export default function Host() {
               <ColorFlag color={"green"} text={"已通过"}></ColorFlag>
             </div>
             <div>
-              <ColorFlag color={"yellow"} text={"已报名"}></ColorFlag>
+              <ColorFlag color={"orange"} text={"已报名"}></ColorFlag>
             </div>
             <div>
               <ColorFlag color={"blue"} text={"已签到"}></ColorFlag>

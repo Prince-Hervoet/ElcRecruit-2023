@@ -8,6 +8,8 @@
   display: flex;
   box-shadow: 0px 3px 6px rgba(136, 146, 157, 0.15);
   transition: all 0.2s;
+  animation-name: card-show;
+  animation-duration: 0.2s;
 }
 
 .card-body:hover {
@@ -22,7 +24,7 @@
 .card-title {
   width: 30%;
   height: 100%;
-  border-right: 1px solid #ccc;
+  /* border-right: 1px solid #ccc; */
 }
 
 .card-title-name {
@@ -77,4 +79,14 @@
   text-overflow: ellipsis;
   display: flex;
   align-items: center;
+}
+
+@keyframes card-show {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 70%;
+  }
 }

@@ -7,44 +7,23 @@ import Loading from "../loading/loading";
 import { observer } from "mobx-react-lite";
 import cardListStore from "../../store/cardListStore";
 
-const colorObj = {
-  10: "yellow",
-  20: "blue",
-  30: "purple",
-  40: "cyan",
-  50: "green",
-  60: "red",
-};
-
 function CardList() {
   // 获取学生信息
+  // {uid:"1Njskdfj"",name:"张三",depId:"1",stuId:"3120003333",college:"ddd",major:"光电信息",status:10}
   const { cardList, isLoading } = cardListStore;
-
-  let contents = [];
-  if (isLoading) {
-    contents.push(<Loading key={"loading"}></Loading>);
-  } else {
-    if (cardList.length > 0) {
-      contents = cardList.map((card) => {
-        const { userId, stuId, depId, college, grade, status } = card;
-        const baseInfo = { depId };
-        return (
-          <div key={userId}>
-            <Card baseInfo={baseInfo}></Card>
-          </div>
-        );
-      });
-    } else {
-      contents.push(<Empty key={"empty"}></Empty>);
-    }
-  }
 
   return (
     <div className="cards-list-body">
       <div className="cards-list-content">
-        {contents.map((ccontent) => {
-          return ccontent;
-        })}
+        {isLoading ? (
+          <Loading></Loading>
+        ) : cardList.length > 0 ? (
+          cardList.map((info) => {
+            return <Card info={info}></Card>;
+          })
+        ) : (
+          <Empty></Empty>
+        )}
       </div>
       <div className="cards-list-pagination">
         <div>

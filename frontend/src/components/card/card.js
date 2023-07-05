@@ -1,39 +1,44 @@
 import React from "react";
 import "./card.css";
 import { ServiceUrls } from "../../requests/util";
+import { ColorObj, DepObj } from "../../store/globalInfo";
 
-export default function Card({ baseInfo }) {
-  const { userId, name, stuId, depId } = baseInfo;
+export default function Card({ info }) {
+  const { uid, name, stuId, depId, college, major, status } = info;
+
+  const color = ColorObj[status + ""];
+  const dep = DepObj[depId + ""];
 
   const clickOnLinkTo = () => {
-    const userId = "123123";
-    window.open(ServiceUrls.resume + userId);
+    window.open(ServiceUrls.resume + uid);
   };
 
   return (
     <div
       className="card-body"
-      style={{ borderLeft: "5px solid " + "blue" }}
+      style={{
+        borderLeft: "8px solid " + color,
+      }}
       onClick={clickOnLinkTo}
     >
-      <input type="hidden" value={"123123"}></input>
+      <input type="hidden" value={uid}></input>
       <div className="card-title">
         <div className="card-title-dep">
-          <span>{baseInfo.department}123123</span>
+          <span>{dep}</span>
         </div>
         <div className="card-title-name">
-          <span>{baseInfo.name}asdf</span>
+          <span>{name}</span>
         </div>
       </div>
       <div className="card-content">
         <div>
-          <div className="card-content-text">学号: {baseInfo.stuId}</div>
+          <div className="card-content-text">学号: {stuId}</div>
         </div>
         <div>
-          <div className="card-content-text">学院: {baseInfo.college}</div>
+          <div className="card-content-text">学院: {college}</div>
         </div>
         <div>
-          <div className="card-content-text">班级: {baseInfo.grade}</div>
+          <div className="card-content-text">专业: {major}</div>
         </div>
       </div>
     </div>

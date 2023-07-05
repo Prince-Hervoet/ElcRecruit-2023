@@ -3,7 +3,7 @@
   height: 100%;
   background-color: rgba(131, 121, 202, 0.1);
   border-radius: 6px;
-  position: relative;
+  position: absolute;
 }
 
 .loading-content {
