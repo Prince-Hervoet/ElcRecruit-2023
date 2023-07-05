@@ -21,7 +21,15 @@ async function login(userName, password) {
 }
 
 // 获取当前登录状态
-async function judgeLoginStatus() {}
+async function judgeLoginStatus() {
+  const token = localStorage.getItem("token");
+  const res = {
+    code: 4002,
+    msg: "scuccess",
+    data: {},
+  };
+  return res;
+}
 
 const LoginRequest = {
   login,

@@ -2,7 +2,9 @@ import React from "react";
 import "./card.css";
 import { ServiceUrls } from "../../requests/util";
 
-export default function Card({ color, baseInfo }) {
+export default function Card({ baseInfo }) {
+  const { userId, name, stuId, depId } = baseInfo;
+
   const clickOnLinkTo = () => {
     const userId = "123123";
     window.open(ServiceUrls.resume + userId);

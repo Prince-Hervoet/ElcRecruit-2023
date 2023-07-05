@@ -18,34 +18,24 @@ const colorObj = {
 
 function CardList() {
   // 获取学生信息
-  const { cardList: students, isLoading } = cardListStore;
+  const { cardList, isLoading } = cardListStore;
 
   let contents = [];
   if (isLoading) {
-    contents.push(<Loading></Loading>);
+    contents.push(<Loading key={"loading"}></Loading>);
   } else {
-    if (students.length > 0) {
-      contents = students.map((student) => {
-        const color = colorObj[student.status];
-        const department = student.department;
-        const baseInfo = {
-          name: student.name,
-          stuId: student.stuId,
-          college: student.college,
-          grade: student.grade,
-        };
+    if (cardList.length > 0) {
+      contents = cardList.map((card) => {
+        const { userId, stuId, depId, college, grade, status } = card;
+        const baseInfo = { depId };
         return (
-          <div>
-            <Card
-              color={color}
-              department={department}
-              baseInfo={baseInfo}
-            ></Card>
+          <div key={userId}>
+            <Card baseInfo={baseInfo}></Card>
           </div>
         );
       });
     } else {
-      contents.push(<Empty></Empty>);
+      contents.push(<Empty key={"empty"}></Empty>);
     }
   }
 
@@ -64,7 +54,7 @@ function CardList() {
             current={1}
             pageSize={6}
             pageSizeOptions={[]}
-            total={students.length}
+            total={cardList.length}
           />
         </div>
       </div>

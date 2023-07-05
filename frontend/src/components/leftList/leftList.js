@@ -23,8 +23,11 @@ async function updateCardList(depId) {
   // setTimeout(() => {
   //   cardListStore.setIsLoading(false);
   // }, 3000);
-  cardListStore.setCardList();
-  cardListStore.setIsLoading(false);
+  cardListStore.setCardList([]);
+  setTimeout(() => {
+    cardListStore.setIsLoading(false);
+  }, 1500);
+
   // studentStore.setStudents(nStudents);
 }
 

@@ -15,12 +15,42 @@ const { cardListStore, checkinListStore } = rootStore;
 
 // 更新卡片列表的数据，响应式更新
 async function updateCardList() {
-  cardListStore.setCardList(["123", "123"]);
+  cardListStore.setCardList([
+    {
+      userId: "1",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      grade: "2",
+      status: "1",
+    },
+    {
+      userId: "2",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      grade: "2",
+      status: "1",
+    },
+    {
+      userId: "3",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      grade: "2",
+      status: "1",
+    },
+  ]);
 }
 
 // 更新签到列表的数据，响应式更新
 async function updateCheckinList() {
-  checkinListStore.setCheckinList(["123", "3434", "@34234234", "123", "123"]);
+  checkinListStore.setCheckinList([
+    { userId: "123", name: "asdf", stuId: "3120003434" },
+    { userId: "344", name: "asdf", stuId: "3120003434" },
+    { userId: "545", name: "asdf", stuId: "3120003434" },
+    { userId: "565", name: "asdf", stuId: "3120003434" },
+  ]);
 }
 
 export default function Host() {

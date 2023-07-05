@@ -15,24 +15,12 @@ function Checkin() {
   if (isLoading) {
     contents.push(<Loading></Loading>);
   } else {
-    if (checkinList.length === 0) {
-      contents.push(
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Empty></Empty>
-        </div>
-      );
-    } else {
+    if (contents.length > 0) {
       contents = checkinList.map((checkin, index) => {
         const { userId, name, stuId } = checkinList[index];
-        return <CheckinCard></CheckinCard>;
+        return (
+          <CheckinCard key={userId} name={name} stuId={stuId}></CheckinCard>
+        );
       });
     }
   }
@@ -41,9 +29,13 @@ function Checkin() {
     <div className="checkin-body">
       <div className="checkin-content-title">签到列表 (当前部门)</div>
       <div className="checkin-content-card-list">
-        {contents.map((content) => {
-          return content;
-        })}
+        {contents.length > 0 ? (
+          contents.map((content) => {
+            return content;
+          })
+        ) : (
+          <Empty></Empty>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import "./login.css";
 import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
@@ -18,26 +18,42 @@ async function updateDangling(title, message) {
 }
 
 export default function Login() {
-  let userName = "";
-  let password = "";
+  let userNameRef = useRef("");
+  let passwordRef = useRef("");
 
   const goto = useNavigate();
 
   useEffect(() => {
-    console.log("asdfasdfasdfasdfasfd");
+    // 判断是否已经登录，如果已经登录直接跳转到host页面
+    LoginRequest.judgeLoginStatus().then(
+      (result) => {
+        if (result.code === 4000) {
+          goto("/host");
+        }
+      },
+      (err) => {}
+    );
   }, []);
 
+  // 点击登录
   const clickOnLogin = async () => {
-    if (userName === "" || password === "") {
-      updateDangling("登录信息", "用户名或密码不能为空");
+    const userName = userNameRef.current;
+    const password = passwordRef.current;
+    if (!userName || !password) {
+      alert("用户名或密码不能为空！");
+      return;
+    } else if (userName.length >= 100 || password.length >= 100) {
+      alert("请输入有效长度的值！");
       return;
     }
-    console.log(userName + " " + password);
     const res = await LoginRequest.login(userName, password);
     if (res.code === 4000) {
+      // 存储token
+      localStorage.setItem("token", res.data.token);
       goto("/host");
+    } else {
+      alert("登录失败: " + res.msg);
     }
-    updateDangling("登录信息", "登录失败");
   };
 
   const clickOnKeyDown = (event) => {
@@ -76,7 +92,7 @@ export default function Login() {
                 placeholder="请输入用户名"
                 prefix={<UserOutlined />}
                 onChange={(event) => {
-                  userName = event.target.value;
+                  userNameRef.current = event.target.value;
                 }}
               />
             </div>
@@ -86,7 +102,7 @@ export default function Login() {
                 size="large"
                 placeholder="请输入密码"
                 onChange={(event) => {
-                  password = event.target.value;
+                  passwordRef.current = event.target.value;
                 }}
               />
             </div>
