@@ -20,6 +20,7 @@ function App() {
         <Route path="/host" element={<Host></Host>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/resume" element={<Resume></Resume>}></Route>
+        <Route path="/admin" element={<Admin></Admin>}></Route>
       </Routes>
       {
         <DanglingBox

@@ -50,7 +50,7 @@ export default function Login() {
     if (res.code === 4000) {
       // 存储token
       localStorage.setItem("token", res.data.token);
-      goto("/host");
+      goto("/host", { replace: true });
     } else {
       alert("登录失败: " + res.msg);
     }

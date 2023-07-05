@@ -15,9 +15,9 @@ function Checkin() {
   if (isLoading) {
     contents.push(<Loading></Loading>);
   } else {
-    if (contents.length > 0) {
-      contents = checkinList.map((checkin, index) => {
-        const { userId, name, stuId } = checkinList[index];
+    if (checkinList.length > 0) {
+      contents = checkinList.map((checkin) => {
+        const { userId, name, stuId } = checkin;
         return (
           <CheckinCard key={userId} name={name} stuId={stuId}></CheckinCard>
         );
