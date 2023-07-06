@@ -26,15 +26,11 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
   return res;
 }
 
-// 获取当前部门的调剂列表
-async function getAdjustInfos(depId) {}
-
 /**
  * 按照部门id获取部门的总人数
- * @param {string} depId
  * @returns "[{depId:"1",size:"42"},{},{}]"
  */
-async function getDepSizeById(depId) {}
+async function getDepSizeList() {}
 
 /**
  * 按照学生id获取个人信息
@@ -76,8 +72,7 @@ async function getCommentsByUid(uid) {}
 
 const DataRequest = {
   getBriefInfosByDepId,
-  getAdjustInfos,
-  getDepSizeById,
+  getDepSizeList,
   getDetailedInfoById,
   getCheckinInfos,
   getCurrentProcess,
