@@ -1,0 +1,24 @@
+.comment-body {
+  width: 100%;
+  height: 150px;
+  box-shadow: 0px 3px 6px rgba(136, 146, 157, 0.15);
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.comment-title {
+  font-size: larger;
+  font-weight: 700;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.comment-content {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 100px;
+  overflow: auto;
+}

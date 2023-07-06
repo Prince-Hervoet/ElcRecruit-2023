@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./admin.css";
 import { Steps } from "antd";
 import { Button } from "antd";
 import { Radio } from "antd";
 
 export default function Admin() {
+  useEffect(() => {}, []);
   return (
     <div className="admin-body">
       <div className="admin-content">

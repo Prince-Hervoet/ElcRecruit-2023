@@ -30,8 +30,11 @@ async function login(userName, password) {
   return res;
 }
 
-// 获取当前登录状态
-async function judgeLoginStatus() {
+/**
+ * 获取当前登录状态
+ * @returns "{}"
+ */
+async function judgeLogin() {
   const token = localStorage.getItem("token");
   const res = {
     code: 4002,
@@ -43,7 +46,7 @@ async function judgeLoginStatus() {
 
 const LoginRequest = {
   login,
-  judgeLoginStatus,
+  judgeLogin,
 };
 
 export default LoginRequest;

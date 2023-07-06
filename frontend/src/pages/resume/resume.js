@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Descriptions, Button } from "antd";
 import { Input, InputNumber } from "antd";
+import Comment from "../../components/comment/comment";
 import DataRequest from "../../requests/dataRequest";
 
 import "./resume.css";
@@ -238,28 +239,16 @@ export default function Resume({ userId }) {
                 >
                   Commit
                 </Button>
-
-                <Button
-                  size="large"
-                  style={{
-                    marginLeft: 10,
-                    backgroundColor: "orange",
-                    fontWeight: 700,
-                    color: "white",
-                  }}
-                >
-                  查看评价
-                </Button>
               </div>
 
-              <div style={{ marginBottom: 50, marginTop: 50 }}>
-                <Button size="large" style={{ marginRight: 10 }} danger>
+              <div style={{ marginBottom: 30, marginTop: 30 }}>
+                <Button size="large" style={{ marginRight: 6 }} danger>
                   开始
                 </Button>
                 <Button
                   size="large"
                   style={{
-                    marginRight: 10,
+                    marginRight: 6,
                     backgroundColor: "gray",
                     fontWeight: 700,
                     color: "white",
@@ -271,7 +260,7 @@ export default function Resume({ userId }) {
                   type="primary"
                   size="large"
                   style={{
-                    marginRight: 10,
+                    marginRight: 6,
                     backgroundColor: "green",
                     fontWeight: 700,
                   }}
@@ -289,6 +278,8 @@ export default function Resume({ userId }) {
               </div>
             </div>
           </div>
+
+          <Comment></Comment>
         </div>
       </div>
       <input type="hidden" id="userIdSave" value={userId} ref={hiddenInput} />
