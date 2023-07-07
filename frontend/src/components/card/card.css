@@ -2,18 +2,18 @@
   width: 70%;
   height: 100px;
   border: 1px solid black;
-  border-radius: 6px;
+  border-radius: var(--card-border-radius);
   margin: auto;
   margin-top: 5px;
   display: flex;
-  box-shadow: 0px 3px 6px rgba(136, 146, 157, 0.15);
+  box-shadow: var(--card-box-shadow);
   transition: all 0.2s;
   animation-name: card-show;
   animation-duration: 0.2s;
 }
 
 .card-body:hover {
-  background-color: rgb(173, 161, 255);
+  background-color: var(--card-hover-color);
   cursor: pointer;
 }
 
@@ -24,7 +24,6 @@
 .card-title {
   width: 30%;
   height: 100%;
-  /* border-right: 1px solid #ccc; */
 }
 
 .card-title-name {
@@ -89,4 +88,8 @@
   100% {
     width: 70%;
   }
+}
+
+.card-dark-theme {
+  --card-dark-background-color: #181818;
 }

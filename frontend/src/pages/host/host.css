@@ -1,7 +1,8 @@
 .host-page {
   width: 100%;
   height: 100%;
-  background-color: rgb(250, 250, 250);
+  background-color: var(--host-dark-background-color, rgb(250, 250, 250));
+  color: var(--host-dark-font-color, black);
 }
 
 .host-page * {
@@ -105,5 +106,8 @@
   z-index: 99;
 }
 
-.colorful-egg {
+.host-dark-theme {
+  --host-dark-font-color: white;
+  --host-dark-background-color: #333333;
+  --host-dark-card-color: #181818;
 }

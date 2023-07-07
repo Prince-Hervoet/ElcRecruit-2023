@@ -124,10 +124,19 @@ export default function Host() {
     goto("/login", { replace: true });
   };
 
+  const clickOnChangeTheme = () => {
+    const cl = document.getElementById("hostPage").classList;
+    if (cl.contains("host-dark-theme")) {
+      cl.remove("host-dark-theme");
+    } else {
+      cl.add("host-dark-theme");
+    }
+  };
+
   return (
-    <div className="host-page">
+    <div className="host-page" id="hostPage">
       <div className="host-header">
-        <div className="colorful-egg">
+        <div className="colorful-egg" onClick={clickOnChangeTheme}>
           <svg
             t="1687797384911"
             className="icon"
