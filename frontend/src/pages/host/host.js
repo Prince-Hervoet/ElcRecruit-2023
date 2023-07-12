@@ -10,6 +10,7 @@ import Checkin from "../../components/checkin/checkin";
 import useThrottle from "../../hooks/throttle";
 import { useNavigate } from "react-router-dom";
 import LoginRequest from "../../requests/loginRequest";
+import Bo from "./bo";
 
 const { cardListStore, checkinListStore } = rootStore;
 
@@ -135,6 +136,7 @@ export default function Host() {
 
   return (
     <div className="host-page" id="hostPage">
+      <Bo></Bo>
       <div className="host-header">
         <div className="colorful-egg" onClick={clickOnChangeTheme}>
           <svg
