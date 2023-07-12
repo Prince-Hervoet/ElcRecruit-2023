@@ -1,7 +1,7 @@
 .card-body {
   width: 70%;
   height: 100px;
-  border: 1px solid black;
+  border: var(--card-border, 1px solid black);
   border-radius: var(--card-border-radius);
   margin: auto;
   margin-top: 5px;
@@ -10,6 +10,7 @@
   transition: all 0.2s;
   animation-name: card-show;
   animation-duration: 0.2s;
+  background-color: var(--host-dark-card-color, "");
 }
 
 .card-body:hover {
