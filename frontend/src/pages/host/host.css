@@ -71,6 +71,7 @@
 .host-left-list-div {
   width: 90%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -107,8 +108,7 @@
 }
 
 .host-react-logo-body {
-  position: fixed;
-  top: 80px;
+  /* margin-bottom: 20px; */
 }
 
 .host-dark-theme {
