@@ -11,6 +11,7 @@ import useThrottle from "../../hooks/throttle";
 import { useNavigate } from "react-router-dom";
 import LoginRequest from "../../requests/loginRequest";
 import Bo from "./bo";
+import ReactLogo from "../../components/reactLogo/reactLogo";
 
 const { cardListStore, checkinListStore } = rootStore;
 
@@ -136,7 +137,6 @@ export default function Host() {
 
   return (
     <div className="host-page" id="hostPage">
-      <Bo></Bo>
       <div className="host-header">
         <div className="colorful-egg" onClick={clickOnChangeTheme}>
           <svg
@@ -249,6 +249,9 @@ export default function Host() {
       <div className="host-body">
         <div className="host-body-left">
           <div className="host-left-list-div">
+            <div className="host-react-logo-body">
+              <ReactLogo></ReactLogo>
+            </div>
             <LeftList></LeftList>
           </div>
         </div>

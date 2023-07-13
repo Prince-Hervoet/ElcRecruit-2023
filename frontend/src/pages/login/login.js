@@ -5,6 +5,7 @@ import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import rootStore from "../../store/rootStore";
+import Bo from "../host/bo";
 
 const { danglingStore } = rootStore;
 
@@ -63,6 +64,7 @@ export default function Login() {
   return (
     <>
       <div className="login-body" onKeyDown={clickOnKeyDown}>
+        <Bo></Bo>
         <div className="login-content">
           <div className="login-content-title">
             <svg
