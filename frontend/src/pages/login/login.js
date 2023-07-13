@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./login.css";
 import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import rootStore from "../../store/rootStore";
-import Bo from "../host/bo";
-
+import Bo from "../../components/bo/bo";
 const { danglingStore } = rootStore;
 
 async function updateDangling(title, message) {

@@ -10,7 +10,6 @@ import Checkin from "../../components/checkin/checkin";
 import useThrottle from "../../hooks/throttle";
 import { useNavigate } from "react-router-dom";
 import LoginRequest from "../../requests/loginRequest";
-import Bo from "./bo";
 import ReactLogo from "../../components/reactLogo/reactLogo";
 
 const { cardListStore, checkinListStore } = rootStore;
