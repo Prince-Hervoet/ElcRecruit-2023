@@ -107,10 +107,6 @@
   z-index: 99;
 }
 
-.host-react-logo-body {
-  /* margin-bottom: 20px; */
-}
-
 .host-dark-theme {
   --host-dark-font-color: white;
   --host-dark-background-color: #333333;
