@@ -19,7 +19,7 @@ function CardList() {
           <Loading></Loading>
         ) : cardList.length > 0 ? (
           cardList.map((info) => {
-            return <Card key={info.uid} info={info}></Card>;
+            return <Card key={info.uid} {...info}></Card>;
           })
         ) : (
           <Empty></Empty>
