@@ -14,3 +14,10 @@ export function joinRouterUrl(path, args) {
   });
   return getHostUrl() + "/#" + path + argsStr;
 }
+
+export function getUrlParam(name) {
+  let u = arguments[1] || window.location.href,
+    reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+    r = u.substr(u.indexOf("?") + 1).match(reg);
+  return r != null ? decodeURI(r[2]) : "";
+}
