@@ -16,4 +16,28 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Compile Remove="obj\Debug\**" />
+    <Compile Remove="obj\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Remove="obj\Debug\**" />
+    <EmbeddedResource Remove="obj\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Remove="obj\Debug\**" />
+    <Content Remove="obj\**" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="obj\Debug\**" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+
 </Project>
