@@ -12,7 +12,7 @@ export default function RouterView() {
           <Route
             key={name}
             path={path}
-            element={<RouterElement {...item}></RouterElement>}
+            element={<RouterElement {...item} key={name}></RouterElement>}
           ></Route>
         );
       })}

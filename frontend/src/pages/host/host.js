@@ -160,7 +160,7 @@ export default function Host() {
           <div className="host-header-flesh" onClick={clickOnExitMe}>
             <svg
               t="1689428918119"
-              class="icon"
+              className="icon"
               viewBox="0 0 1024 1024"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +188,7 @@ export default function Host() {
           <div className="host-header-flesh" onClick={clickOnRefresh}>
             <svg
               t="1689428968995"
-              class="icon"
+              className="icon"
               viewBox="0 0 1024 1024"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +211,7 @@ export default function Host() {
           <div className="host-header-flesh" onClick={clickOnShowModalChart}>
             <svg
               t="1689429095810"
-              class="icon"
+              className="icon"
               viewBox="0 0 1024 1024"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
