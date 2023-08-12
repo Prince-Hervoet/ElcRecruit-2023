@@ -1,11 +1,5 @@
 import React from "react";
 import "./App.css";
-import Host from "./pages/host/host";
-import Login from "./pages/login/login";
-import Resume from "./pages/resume/resume";
-import { Route, Routes } from "react-router-dom";
-import Admin from "./pages/admin/admin";
-import rootStore from "./store/rootStore";
 import { observer } from "mobx-react-lite";
 import RouterView from "./router/routerView";
 
