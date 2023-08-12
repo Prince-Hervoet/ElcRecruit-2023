@@ -7,12 +7,9 @@ import { Route, Routes } from "react-router-dom";
 import Admin from "./pages/admin/admin";
 import rootStore from "./store/rootStore";
 import { observer } from "mobx-react-lite";
-import DanglingBox from "./components/danglingBox/danglingBox";
-
-const { danglingStore } = rootStore;
 
 function App() {
-  const { title, textContent, isShow } = danglingStore;
+  // const { title, textContent, isShow } = danglingStore;
   return (
     <>
       <Routes>
@@ -22,13 +19,6 @@ function App() {
         <Route path="/resume" element={<Resume></Resume>}></Route>
         <Route path="/admin" element={<Admin></Admin>}></Route>
       </Routes>
-      {
-        <DanglingBox
-          title={title}
-          textContent={textContent}
-          isShow={isShow}
-        ></DanglingBox>
-      }
     </>
   );
 }
