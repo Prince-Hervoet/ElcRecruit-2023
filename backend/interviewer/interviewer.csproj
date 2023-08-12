@@ -1,44 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Compile Remove="obj\Debug\**" />
-    <Compile Remove="obj\**" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <EmbeddedResource Remove="obj\Debug\**" />
-    <EmbeddedResource Remove="obj\**" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Content Remove="obj\Debug\**" />
-    <Content Remove="obj\**" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <None Remove="obj\Debug\**" />
-    <None Remove="obj\**" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </ItemGroup>
 
 </Project>
