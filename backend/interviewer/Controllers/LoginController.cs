@@ -11,6 +11,10 @@ namespace interviewer.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-
+        [HttpGet("/LogOut")]
+        public IActionResult Logout()
+        {
+            return SignOut("Cookies", "oidc");
+        }
     }
 }
