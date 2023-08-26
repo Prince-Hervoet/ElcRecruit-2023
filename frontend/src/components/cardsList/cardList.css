@@ -1,22 +1,22 @@
 .cards-list-body {
   width: 100%;
   height: 100%;
-  background-color: aqua;
+  /* background-color: aqua; */
 }
 
 .cards-list-content {
   width: 100%;
-  height: 90%;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 .cards-list-pagination {
   width: 100%;
-  height: 56px;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,8 @@
 
 .cards-list-card-body {
   width: 70%;
-  height: 15%;
+  height: 100px;
+  margin-bottom: 5px;
 }
 
 /* 滚动条整体 */

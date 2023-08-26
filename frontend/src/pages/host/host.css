@@ -93,9 +93,10 @@
 
 .host-cards-body {
   width: 95%;
-  height: 94%;
+  height: 90%;
   min-width: 500px;
   margin: auto;
+  /* background-color: black; */
 }
 
 .host-color-flag {
@@ -104,6 +105,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* background-color: red; */
 }
 
 .host-color-flag > div {
