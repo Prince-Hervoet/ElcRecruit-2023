@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Descriptions, Button } from "antd";
 import { Input, InputNumber } from "antd";
-import Comment from "../../components/comment/comment";
+import Comment from "../../components/resumeComponents/comment/comment";
 import DataRequest from "../../requests/dataRequest";
 
 import "./resume.css";

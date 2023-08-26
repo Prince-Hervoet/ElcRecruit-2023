@@ -5,7 +5,7 @@ import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
 import { useLocation, useNavigate } from "react-router-dom";
 import rootStore from "../../store/rootStore";
-import Bo from "../../components/bo/bo";
+import Bo from "../../components/loginComponents/bo/bo";
 import { getHostUrl, joinRouterUrl } from "../../util";
 const { danglingStore } = rootStore;
 
@@ -22,14 +22,14 @@ export default function Login() {
   let userNameRef = useRef("");
   let passwordRef = useRef("");
   const location = useLocation();
-  const goto = useNavigate();
+  const nav = useNavigate();
 
   useEffect(() => {
     // 判断是否已经登录，如果已经登录直接跳转到host页面
     (async function judge() {
       const res = await LoginRequest.judgeLogin();
       if (res.code === 4000) {
-        goto("/host");
+        nav("/dataHost");
       }
     })();
   }, []);
@@ -49,7 +49,7 @@ export default function Login() {
     if (res.code === 4000) {
       // 存储token
       localStorage.setItem("token", res.data.token);
-      goto("/host", { replace: true });
+      nav("/dataHost", { replace: true });
     } else {
       alert("登录失败: " + res.msg);
     }

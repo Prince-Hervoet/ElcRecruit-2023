@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./modalChart.css";
 import * as echarts from "echarts";
 import { observer } from "mobx-react-lite";
-import rootStore from "../../store/rootStore";
+import rootStore from "../../../store/rootStore";
 
 const { cardListStore } = rootStore;
 
