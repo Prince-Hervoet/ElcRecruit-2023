@@ -19,7 +19,11 @@ function CardList() {
           <Loading></Loading>
         ) : cardList.length > 0 ? (
           cardList.map((info) => {
-            return <Card key={info.uid} {...info}></Card>;
+            return (
+              <div className="cards-list-card-body">
+                <Card key={info.uid} {...info}></Card>
+              </div>
+            );
           })
         ) : (
           <Empty></Empty>

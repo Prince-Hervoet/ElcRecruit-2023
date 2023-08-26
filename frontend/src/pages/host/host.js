@@ -52,7 +52,7 @@ async function updateCardList() {
       stuId: "3120007543",
       college: "1",
       major: "2",
-      status: "40",
+      status: "30",
     },
     {
       uid: "1",
@@ -61,7 +61,7 @@ async function updateCardList() {
       stuId: "3120007543",
       college: "1",
       major: "2",
-      status: "50",
+      status: "30",
     },
     {
       uid: "1",
@@ -70,7 +70,16 @@ async function updateCardList() {
       stuId: "3120007543",
       college: "1",
       major: "2",
-      status: "60",
+      status: "30",
+    },
+    {
+      uid: "1",
+      name: "张三",
+      depId: "1",
+      stuId: "3120007543",
+      college: "1",
+      major: "2",
+      status: "30",
     },
   ]);
 }
@@ -78,6 +87,14 @@ async function updateCardList() {
 // 更新签到列表的数据，响应式更新
 async function updateCheckinList() {
   checkinListStore.setCheckinList([
+    { userId: "123", name: "asdf", stuId: "3120003434" },
+    { userId: "344", name: "asdf", stuId: "3120003434" },
+    { userId: "545", name: "asdf", stuId: "3120003434" },
+    { userId: "565", name: "asdf", stuId: "3120003434" },
+    { userId: "123", name: "asdf", stuId: "3120003434" },
+    { userId: "344", name: "asdf", stuId: "3120003434" },
+    { userId: "545", name: "asdf", stuId: "3120003434" },
+    { userId: "565", name: "asdf", stuId: "3120003434" },
     { userId: "123", name: "asdf", stuId: "3120003434" },
     { userId: "344", name: "asdf", stuId: "3120003434" },
     { userId: "545", name: "asdf", stuId: "3120003434" },
