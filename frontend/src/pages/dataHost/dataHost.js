@@ -22,7 +22,6 @@ export default function DataHost() {
           </div>
         </div>
       </div>
-      {/* <div className="dataHost-right"></div> */}
     </div>
   );
 }
