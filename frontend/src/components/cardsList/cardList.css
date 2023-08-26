@@ -25,7 +25,11 @@
 .cards-list-card-body {
   width: 70%;
   height: 100px;
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 /* 滚动条整体 */

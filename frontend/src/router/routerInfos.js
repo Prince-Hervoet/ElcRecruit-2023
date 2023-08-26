@@ -1,4 +1,5 @@
 import Admin from "../pages/admin/admin";
+import DataHost from "../pages/dataHost/dataHost";
 import Host from "../pages/host/host";
 import Login from "../pages/login/login";
 import Resume from "../pages/resume/resume";
@@ -33,5 +34,10 @@ export const routerInfos = [
     path: "/admin",
     element: Admin,
     data: {},
+  },
+  {
+    name: "dataHost",
+    path: "/dataHost",
+    element: DataHost,
   },
 ];
