@@ -21,8 +21,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
-
 app.MapControllers();
+
+app.MapRazorPages();
 
 app.Run();
