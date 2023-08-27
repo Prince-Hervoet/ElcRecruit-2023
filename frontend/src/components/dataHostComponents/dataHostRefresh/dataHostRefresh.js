@@ -23,6 +23,46 @@ export default function DataHostRefresh() {
         clazz: "电子一班",
         status: "2",
       },
+      {
+        id: 12323,
+        name: "张三",
+        stuId: 3120003434,
+        college: "计算机学院",
+        clazz: "电子一班",
+        status: "2",
+      },
+      {
+        id: 12323,
+        name: "张三",
+        stuId: 3120003434,
+        college: "计算机学院",
+        clazz: "电子一班",
+        status: "2",
+      },
+      {
+        id: 12323,
+        name: "张三",
+        stuId: 3120003434,
+        college: "计算机学院",
+        clazz: "电子一班",
+        status: "2",
+      },
+      {
+        id: 12323,
+        name: "张三",
+        stuId: 3120003434,
+        college: "计算机学院",
+        clazz: "电子一班",
+        status: "2",
+      },
+      {
+        id: 12323,
+        name: "张三",
+        stuId: 3120003434,
+        college: "计算机学院",
+        clazz: "电子一班",
+        status: "2",
+      },
     ];
     dataHostCardListStore.setCardList(tempData);
   };

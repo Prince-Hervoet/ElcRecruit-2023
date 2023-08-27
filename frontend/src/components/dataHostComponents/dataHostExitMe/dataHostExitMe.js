@@ -1,9 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import rootStore from "../../../store/rootStore";
+
+const { dataHostCardListStore } = rootStore;
 
 export default function DataHostExitMe() {
   const nav = useNavigate();
   const clickExitMe = () => {
+    dataHostCardListStore.clear();
     nav("/login");
   };
 

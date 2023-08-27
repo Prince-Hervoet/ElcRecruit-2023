@@ -1,11 +1,10 @@
 .dataHost-left-list-body {
-  width: 200px;
+  width: var(--dataHost-left-list-width, 200px);
   height: 100vh;
   background-color: #001529;
-  box-shadow: 1px 0px 8px rgb(119, 119, 119);
   display: flex;
   flex-direction: column;
-  position: fixed;
+  /* position: fixed; */
   overflow: auto;
 }
 
@@ -46,4 +45,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 滚动条整体 */
+.dataHost-left-list-body::-webkit-scrollbar {
+  height: 10px;
+  width: 5px;
+}
+/* 两个滚动条交接处 -- x轴和y轴 */
+.dataHost-left-list-body::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+/* 滚动条滑块 */
+.dataHost-left-list-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(228, 228, 228, 0.2);
+  background: rgba(46, 46, 46, 0.6);
+}
+
+/* 滚动条轨道 */
+.dataHost-left-list-body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(228, 228, 228, 0.2);
+  border-radius: 10px;
+  background: #ededed;
 }

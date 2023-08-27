@@ -1,6 +1,6 @@
 import React from "react";
 import "./dataHost.css";
-import DataHostLeftList from "../../components/dataHostComponents/leftList/dataHostLeftList";
+import DataHostLeftList from "../../components/dataHostComponents/dataHostLeftList/dataHostLeftList";
 import DataHostCardList from "../../components/dataHostComponents/dataHostCardList/dataHostCardList";
 import DataHostRefresh from "../../components/dataHostComponents/dataHostRefresh/dataHostRefresh";
 import DataHostExitMe from "../../components/dataHostComponents/dataHostExitMe/dataHostExitMe";
