@@ -7,7 +7,7 @@ import { joinRouterUrl } from "../../../util";
 const { Meta } = Card;
 
 export default function DataHostCard({ info }) {
-  const { name, stuId, college, clazz } = info;
+  const { name, stuId, college, grade, dep } = info;
 
   const nav = useNavigate();
 
@@ -19,17 +19,17 @@ export default function DataHostCard({ info }) {
   };
 
   return (
-    <div className="dataHostCard-body">
+    <div className="dataHostCard-body" onClick={clickGotoResume}>
       <Card
+        title={name}
         style={{
           width: "100%",
         }}
-        actions={[<EditOutlined key="edit" onClick={clickGotoResume} />]}
       >
         <Meta
-          title={name}
-          description={`学院: ${college} | 学号: ${stuId} | 班级: ${clazz}`}
+          description={`学院: ${college} | 学号: ${stuId} | 班级: ${grade}`}
         />
+        <p>第一志愿部门: {dep}</p>
       </Card>
     </div>
   );
