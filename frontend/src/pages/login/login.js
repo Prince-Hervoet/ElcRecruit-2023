@@ -54,7 +54,6 @@ export default function Login() {
 
   return (
     <div className="login-body" onKeyDown={clickOnKeyDown}>
-      <Bo></Bo>
       <div className="login-content">
         <div className="login-content-title">
           <svg

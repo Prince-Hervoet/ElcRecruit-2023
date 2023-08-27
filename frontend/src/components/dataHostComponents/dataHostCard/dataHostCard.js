@@ -2,14 +2,21 @@ import React, { useEffect } from "react";
 import "./dataHostCard.css";
 import { EditOutlined } from "@ant-design/icons";
 import { Card } from "antd";
+import { useNavigate } from "react-router-dom";
+import { joinRouterUrl } from "../../../util";
 const { Meta } = Card;
 
+export default function DataHostCard({ info }) {
+  const { name, stuId, college, clazz } = info;
 
-export default function DataHostCard({info}) {
-  const {name,stuId,college,clazz} = info;
+  const nav = useNavigate();
 
-  useEffect(()=>{
-  })
+  useEffect(() => {});
+
+  const clickGotoResume = () => {
+    const targetUrl = joinRouterUrl("/resume");
+    window.open(targetUrl);
+  };
 
   return (
     <div className="dataHostCard-body">
@@ -17,7 +24,7 @@ export default function DataHostCard({info}) {
         style={{
           width: "100%",
         }}
-        actions={[<EditOutlined key="edit" />]}
+        actions={[<EditOutlined key="edit" onClick={clickGotoResume} />]}
       >
         <Meta
           title={name}
