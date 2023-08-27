@@ -1,9 +1,6 @@
 .dataHost-default-var {
   color: white;
   --dataHost-left-list-width: 200px;
-  @media screen and (max-width: 1024px) {
-    --dataHost-left-list-width: 120px;
-  }
   --dataHost-checkIn-width: 180px;
 }
 

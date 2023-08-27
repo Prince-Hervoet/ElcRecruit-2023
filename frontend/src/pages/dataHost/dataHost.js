@@ -11,7 +11,6 @@ export default function DataHost() {
   return (
     <div className="dataHost-body dataHost-default-var">
       <div className="dataHost-left">
-        <div style={{ width: 200 }}></div>
         <DataHostLeftList></DataHostLeftList>
       </div>
       <div className="dataHost-middle">
