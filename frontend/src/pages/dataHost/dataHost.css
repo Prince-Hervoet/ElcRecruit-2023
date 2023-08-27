@@ -24,7 +24,6 @@
   flex-direction: column;
   align-items: center;
   background-color: rgb(245, 245, 245);
-  min-width: 600px;
 }
 
 .dataHost-middle-header {
@@ -54,13 +53,10 @@
   width: 100%;
   height: calc(100% - 40px);
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 600px;
 }
 
 .dataHost-middle-content-body {
   width: 90%;
-  height: 90%;
-  overflow: auto;
+  margin-top: 20px;
 }

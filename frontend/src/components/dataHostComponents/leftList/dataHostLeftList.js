@@ -14,7 +14,8 @@ export default function DataHostLeftList() {
 
   const clickSelect = (event) => {
     const target = event.target;
-    setSelectId(parseInt(target.id));
+    const targetId = parseInt(target.id);
+    setSelectId(targetId);
   };
 
   return (
@@ -24,13 +25,9 @@ export default function DataHostLeftList() {
       </div>
 
       {leftListInfoArr.map((value) => {
-        let classNameStr = "dataHost-left-list-card-body";
-        if (selectId === value.id) {
-          classNameStr += " dataHost-left-list-card-select";
-        }
         return (
           <div
-            className={classNameStr}
+            className={selectId === value.id ? "dataHost-left-list-card-body dataHost-left-list-card-select" : "dataHost-left-list-card-body"}
             onClick={clickSelect}
             id={value.id}
             key={value.id}

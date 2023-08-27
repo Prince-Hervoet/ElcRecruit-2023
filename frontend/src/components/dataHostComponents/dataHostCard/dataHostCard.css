@@ -4,4 +4,16 @@
   border-right: 3px solid red;
   box-sizing: border-box;
   box-shadow: 0.2em 0.1em 1em rgba(140, 140, 140, 0.2);
+  animation: show 0.8s;
+}
+
+
+@keyframes show {
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
 }

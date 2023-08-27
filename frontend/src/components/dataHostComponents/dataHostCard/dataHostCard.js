@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./dataHostCard.css";
 import { EditOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 const { Meta } = Card;
 
-function getIntroStr(...items) {
-  let ans = "";
-  return items.map((value) => {});
-}
 
-export default function DataHostCard(props) {
-  const { name, stuId, college, clazz } = props;
+export default function DataHostCard({info}) {
+  const {name,stuId,college,clazz} = info;
+
+  useEffect(()=>{
+  })
+
   return (
     <div className="dataHostCard-body">
       <Card

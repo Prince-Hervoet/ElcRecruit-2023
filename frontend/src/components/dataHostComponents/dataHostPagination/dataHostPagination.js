@@ -1,12 +1,18 @@
 import React from "react";
 import { Pagination } from "antd";
 
-export default function DataHostPagination() {
+export default function DataHostPagination({ info }) {
+  const { total = 0, pageSize = 0 } = info;
+
   return (
     <div>
-      <Pagination simple defaultCurrent={2} total={50} />
       <br />
-      <Pagination disabled simple defaultCurrent={2} total={50} />
+      <Pagination
+        simple
+        disabled={pageSize === 0}
+        pageSize={pageSize}
+        total={total}
+      />
     </div>
   );
 }

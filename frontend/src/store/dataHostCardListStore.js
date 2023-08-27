@@ -8,12 +8,15 @@ class DataHostCardListStore {
 
   // 学生信息列表
   cardList = [];
+  // 总数量
+  total = 100;
   // 部门总人数列表
   depSizeList = [];
   // 是否进入loading状态
   isLoading = false;
 
   setCardList(nStudents) {
+    console.log(this);
     this.cardList = nStudents;
   }
 
@@ -31,5 +34,5 @@ class DataHostCardListStore {
   }
 }
 
-const dataHostcardListStore = new DataHostCardListStore();
-export default dataHostcardListStore;
+const dataHostCardListStore = new DataHostCardListStore();
+export default dataHostCardListStore;

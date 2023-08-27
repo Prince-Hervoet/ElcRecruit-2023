@@ -1,14 +1,14 @@
 import cardListStore from "./cardListStore";
 import checkinListStore from "./checkinListStore";
-import danglingStore from "./danglingStore";
+import dataHostCardListStore from "./dataHostCardListStore";
 
 class RootStore {
-  constructor(cardListStore, checkinListStore, danglingStore) {
+  constructor(cardListStore, checkinListStore, dataHostCardListStore) {
     this.cardListStore = cardListStore;
     this.checkinListStore = checkinListStore;
-    this.danglingStore = danglingStore;
+    this.dataHostCardListStore = dataHostCardListStore;
   }
 }
 
-const rootStore = new RootStore(cardListStore, checkinListStore, danglingStore);
+const rootStore = new RootStore(cardListStore, checkinListStore,dataHostCardListStore);
 export default rootStore;
