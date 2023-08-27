@@ -15,7 +15,7 @@ export default function DataHostCard({ info }) {
 
   const clickGotoResume = () => {
     const targetUrl = joinRouterUrl("/resume");
-    window.open(targetUrl);
+    window.open(targetUrl, "_blank");
   };
 
   return (

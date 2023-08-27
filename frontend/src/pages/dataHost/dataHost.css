@@ -65,6 +65,17 @@
   margin-top: 20px;
 }
 
+.dataHost-chart-body {
+  width: 600px;
+  height: 600px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+}
+
 /* 滚动条整体 */
 .dataHost-middle-body::-webkit-scrollbar {
   height: 10px;

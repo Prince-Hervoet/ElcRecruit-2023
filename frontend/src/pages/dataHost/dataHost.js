@@ -4,6 +4,8 @@ import DataHostLeftList from "../../components/dataHostComponents/dataHostLeftLi
 import DataHostCardList from "../../components/dataHostComponents/dataHostCardList/dataHostCardList";
 import DataHostRefresh from "../../components/dataHostComponents/dataHostRefresh/dataHostRefresh";
 import DataHostExitMe from "../../components/dataHostComponents/dataHostExitMe/dataHostExitMe";
+import DataHostChart from "../../components/dataHostComponents/dataHostChart/dataHostChart";
+import DataHostChartArea from "../../components/dataHostComponents/dataHostChartArea/dataHostChartArea";
 
 export default function DataHost() {
   return (
@@ -14,6 +16,7 @@ export default function DataHost() {
       </div>
       <div className="dataHost-middle">
         <div className="dataHost-middle-header">
+          <DataHostChart></DataHostChart>
           <DataHostRefresh></DataHostRefresh>
           <DataHostExitMe></DataHostExitMe>
         </div>
@@ -23,6 +26,8 @@ export default function DataHost() {
           </div>
         </div>
       </div>
+
+      <DataHostChartArea></DataHostChartArea>
     </div>
   );
 }
