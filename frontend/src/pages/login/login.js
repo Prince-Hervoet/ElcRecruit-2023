@@ -5,6 +5,7 @@ import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import { joinRouterUrl } from "../../util";
+import Bo from "../../components/loginComponents/bo/bo";
 
 export default function Login() {
   let userNameRef = useRef("");
@@ -52,6 +53,7 @@ export default function Login() {
 
   return (
     <div className="login-body" onKeyDown={clickOnKeyDown}>
+      <Bo></Bo>
       <div className="login-content">
         <div className="login-content-title">
           <svg
