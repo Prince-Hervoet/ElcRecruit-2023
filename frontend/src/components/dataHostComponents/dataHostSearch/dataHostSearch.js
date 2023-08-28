@@ -9,7 +9,7 @@ export default function DataHostSearch() {
       <Search
         placeholder="姓名或学号"
         allowClear
-        enterButton="Search"
+        enterButton="搜索"
         size="default"
       />
     </div>
