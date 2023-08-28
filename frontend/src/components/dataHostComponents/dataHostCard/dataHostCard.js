@@ -19,6 +19,7 @@ export default function DataHostCard({ info }) {
         title={name}
         style={{
           width: "100%",
+          backgroundColor: "#fafafa",
         }}
       >
         <Meta
