@@ -40,7 +40,7 @@
 
 .dataHost-middle-header > svg {
   transition: 0.2s all;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .dataHost-middle-header > svg:hover {
