@@ -6,6 +6,7 @@ import DataHostRefresh from "../../components/dataHostComponents/dataHostRefresh
 import DataHostExitMe from "../../components/dataHostComponents/dataHostExitMe/dataHostExitMe";
 import DataHostChart from "../../components/dataHostComponents/dataHostChart/dataHostChart";
 import DataHostChartArea from "../../components/dataHostComponents/dataHostChartArea/dataHostChartArea";
+import DataHostSearch from "../../components/dataHostComponents/dataHostSearch/dataHostSearch";
 
 export default function DataHost() {
   return (
@@ -15,6 +16,7 @@ export default function DataHost() {
       </div>
       <div className="dataHost-middle">
         <div className="dataHost-middle-header">
+          <DataHostSearch></DataHostSearch>
           <DataHostChart></DataHostChart>
           <DataHostRefresh></DataHostRefresh>
           <DataHostExitMe></DataHostExitMe>
