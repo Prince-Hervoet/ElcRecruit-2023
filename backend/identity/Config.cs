@@ -4,59 +4,47 @@
 
 using IdentityServer4.Models;
 using System.Collections.Generic;
-using IdentityServer4;
 
-namespace Identity
+namespace identity
 {
     public static class Config
     {
         public static IEnumerable<IdentityResource> IdentityResources =>
-            new List<IdentityResource>
+            new IdentityResource[]
             {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.OpenId()
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
-            new List<ApiScope>
-            {
-                new ApiScope("api1", "My API")
-            };
+            new ApiScope[]
+            { };
 
         public static IEnumerable<Client> Clients =>
-            new List<Client>
+            new Client[]
             {
-                // 机器对机器客户端
                 new Client
                 {
-                    ClientId = "client",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    ClientId = "client_b",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    //AccessToken过期时间(秒),默认为3600秒/1小时
+                    AccessTokenLifetime = 3600,
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    // 客户端有权访问的范围
-                    AllowedScopes = { "api1" }
-                },
+                    //RefreshToken的最长生命周期
+                    //AbsoluteRefreshTokenLifetime = 2592000,
 
-                // interactive ASP.NET Core MVC client
-                new Client
-                {
-                    ClientId = "mvc",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    //RefreshToken生命周期以秒为单位。默认为1296000秒
+                    SlidingRefreshTokenLifetime = 2592000, //以秒为单位滑动刷新令牌的生命周期。
 
-                    AllowedGrantTypes = GrantTypes.Code,
+                    //刷新令牌时，将刷新RefreshToken的生命周期。RefreshToken的总生命周期不会超过AbsoluteRefreshTokenLifetime。
+                    RefreshTokenExpiration = TokenExpiration.Sliding,
 
-                    // 登录后重定向到哪里
-                    RedirectUris = { "https://localhost:5002/signin-oidc" },
-
-                    // 注销后重定向到哪里
-                    PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
-
-                    AllowedScopes = new List<string>
+                    //AllowOfflineAccess 允许使用刷新令牌的方式来获取新的令牌
+                    AllowOfflineAccess = true,
+                    ClientSecrets =
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
-                    }
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedScopes = { "Api" }
                 }
             };
     }
