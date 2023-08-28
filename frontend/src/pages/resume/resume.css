@@ -1,7 +1,6 @@
 .resume-body {
   width: 100%;
   height: 100%;
-  /* background-color: aqua; */
 }
 
 .resume-content-body {
@@ -12,12 +11,10 @@
   padding-top: 40px;
   box-sizing: border-box;
   border-bottom: 1px solid #ccc;
-  /* background-color: aqua; */
 }
 
 .resume-content-header {
   font-size: larger;
-  /* border-bottom: 1px solid #ccc; */
 }
 
 .resume-content-comment-body {
