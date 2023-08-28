@@ -14,6 +14,8 @@ class DataHostCardListStore {
   depSizeList = [];
   // 是否进入loading状态
   isLoading = false;
+  // 当前所属部门 -1表示还没有初始化
+  currentDepId = -1;
 
   setCardList(nStudents) {
     console.log(this);
@@ -31,6 +33,9 @@ class DataHostCardListStore {
   clear() {
     this.cardList = [];
     this.depSizeList = [];
+    this.total = 0;
+    this.isLoading = false;
+    this.currentDepId = -1;
   }
 }
 

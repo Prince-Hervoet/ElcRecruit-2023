@@ -1,7 +1,5 @@
 import React from "react";
-import rootStore from "../../../store/rootStore";
-
-const { dataHostCardListStore } = rootStore;
+import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
 export default function DataHostRefresh() {
   const clickGetCardList = () => {

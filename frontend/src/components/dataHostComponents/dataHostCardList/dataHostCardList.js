@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import "./dataHostCardList.css";
 import DataHostCard from "../dataHostCard/dataHostCard";
-import rootStore from "../../../store/rootStore";
 import { Empty, Skeleton } from "antd";
 import { observer } from "mobx-react-lite";
 import DataHostPagination from "../dataHostPagination/dataHostPagination";
-
-const { dataHostCardListStore } = rootStore;
+import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
 const DataHostCardList = () => {
   const { cardList, total, isLoading } = dataHostCardListStore;

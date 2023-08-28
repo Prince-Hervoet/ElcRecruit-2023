@@ -3,15 +3,13 @@ import "./login.css";
 import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
-import { useLocation, useNavigate } from "react-router-dom";
-import rootStore from "../../store/rootStore";
-import Bo from "../../components/loginComponents/bo/bo";
-import { getHostUrl, joinRouterUrl } from "../../util";
+import { useNavigate } from "react-router-dom";
+import { joinRouterUrl } from "../../util";
 
 export default function Login() {
   let userNameRef = useRef("");
   let passwordRef = useRef("");
-  const location = useLocation();
+  // const location = useLocation();
   const nav = useNavigate();
 
   useEffect(() => {

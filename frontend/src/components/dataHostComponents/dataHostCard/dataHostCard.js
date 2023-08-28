@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
 import "./dataHostCard.css";
-import { EditOutlined } from "@ant-design/icons";
 import { Card } from "antd";
-import { useNavigate } from "react-router-dom";
 import { joinRouterUrl } from "../../../util";
 const { Meta } = Card;
 
 export default function DataHostCard({ info }) {
   const { name, stuId, college, grade, dep } = info;
-
-  const nav = useNavigate();
-
   useEffect(() => {});
 
   const clickGotoResume = () => {
