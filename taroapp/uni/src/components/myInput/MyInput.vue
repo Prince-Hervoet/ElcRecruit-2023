@@ -37,10 +37,14 @@ const props = defineProps(["name"]);
 .myInput-input {
   width: 100%;
   height: 100%;
-  border: 1px solid #dfdfdf;
   border-radius: 6px;
   background-color: rgb(244, 244, 244);
   box-sizing: border-box;
   padding-left: 10px;
+}
+
+.myInput-input:active {
+  border: 1px solid #dfdfdf;
+  background-color: #eee;
 }
 </style>
