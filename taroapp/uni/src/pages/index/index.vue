@@ -7,56 +7,115 @@
     </view>
     <view class="postInfo-table-container">
       <view class="postInfo-table">
-        <view><MyInput name="学院" @get-value="getValue"></MyInput></view>
-        <view><MyInput name="专业班级"></MyInput></view>
-        <view><MyInput name="姓名"></MyInput></view>
-        <view><MyInput name="学号"></MyInput></view>
-        <view><MyInput name="电话号码"></MyInput></view>
-        <view><MyInput name="微信号"></MyInput></view>
-        <view><MyInput name="qq号码"></MyInput></view>
-        <view><MyInput name="自我介绍"></MyInput></view>
-        <view><MyInput name="学的知识"></MyInput></view>
+        <view
+          ><MyInput header-name="学院" @getValue="getCollege"></MyInput
+        ></view>
+        <view
+          ><MyInput header-name="专业班级" @getValue="getMajor"></MyInput
+        ></view>
+        <view
+          ><MyInput header-name="姓名" @getValue="getStudentName"></MyInput
+        ></view>
+        <view><MyInput header-name="学号" @getValue="getStuId"></MyInput></view>
+        <view
+          ><MyInput header-name="电话号码" @getValue="getPhoneNum"></MyInput
+        ></view>
+        <view><MyInput header-name="qq号码" @getValue="getQq"></MyInput></view>
+        <view
+          ><MyInput header-name="自我介绍" @getValue="getIntro"></MyInput
+        ></view>
+        <view
+          ><MyInput header-name="学的知识" @getValue="getSkills"></MyInput
+        ></view>
         <view><MySelect></MySelect></view>
       </view>
     </view>
+    <view
+      style="color: red; text-align: center"
+      :style="showErrorMessage ? '' : 'display:none;'"
+      >请完整填写表格</view
+    >
     <button class="postInfo-button-container" @click="submitForm">
       <span style="font-size: 15px; font-weight: 700; line-height: 15px"
         >提交</span
       >
     </button>
-    <p v-if="ShowErrorMessage">请完整填写表格</p>
   </view>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import MyInput from "../../components/myInput/MyInput.vue";
 import MySelect from "../../components/mySelect/MySelect.vue";
-import MyButton from "../../components/myButton/MyButton.vue";
-import MyHello from "../../components/myHello/MyHello.vue";
-import { reactive, ref } from "vue";
 
-let studentName = ref("");
+let showErrorMessage = ref(false);
+
+let college = "";
+let studentName = "";
+let major = "";
+let stuId = "";
+let phoneNum = "";
+let qq = "";
+let intro = "";
+let skills = "";
+
+function hasNullFields(...fields) {
+  for (let i = 0; i < fields.length; i++) {
+    if (!fields[i]) return false;
+  }
+  return true;
+}
 
 const submitForm = () => {
-  if (this.InputEmpty === "") {
-    this.ShowErrorMessage = true;
+  if (
+    !hasNullFields(
+      college,
+      studentName,
+      stuId,
+      major,
+      phoneNum,
+      qq,
+      intro,
+      skills
+    )
+  ) {
+    showErrorMessage.value = true;
   } else {
-    this.ShowErrorMessage = false;
+    showErrorMessage.value = false;
   }
 };
 
-const getValue = (value) => {
-  console.log("hello world");
+const getCollege = (value) => {
+  college = value;
 };
 
-// methods: {
-//   SubmitForm();
-//   if (this.InputEmpty === "") {
-//     this.ShowErrorMessage = true;
-//   } else {
-//     this.ShowErrorMessage = false;
-//   }
-// }
+const getStudentName = (value) => {
+  studentName = value;
+};
+
+const getMajor = (value) => {
+  major = value;
+};
+
+const getStuId = (value) => {
+  stuId = value;
+};
+
+const getPhoneNum = (value) => {
+  phoneNum = value;
+};
+
+const getQq = (value) => {
+  qq = value;
+};
+
+const getIntro = (value) => {
+  intro = value;
+};
+
+const getSkills = (value) => {
+  skills = value;
+};
 </script>
 
 <style scoped>
@@ -90,7 +149,7 @@ const getValue = (value) => {
   justify-content: center;
 }
 
-/* .postInfo-button-container:active {
-  background-color: rgb(220, 220, 220);
-} */
+.hideErrMsg {
+  display: none;
+}
 </style>

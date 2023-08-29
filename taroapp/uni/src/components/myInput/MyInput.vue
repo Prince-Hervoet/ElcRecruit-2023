@@ -1,17 +1,16 @@
 <template>
   <view class="myInput-container">
     <view class="myInput-header">
-      <span>{{ name }}</span>
+      <span>{{ headerName }}</span>
     </view>
     <view class="myInput-input-container">
       <textarea
-        name=""
         id="myInput-input"
         cols="30"
         rows="10"
         class="myInput-input"
         v-model="inputValue"
-        @change="handler"
+        @input="handler"
       ></textarea>
     </view>
   </view>
@@ -20,12 +19,12 @@
 <script setup>
 import { reactive } from "vue";
 
-const props = defineProps(["name"]);
-const emit = defineEmits(["get-value"]);
-let inputValue = reactive();
+const props = defineProps(["headerName"]);
+const emit = defineEmits(["getValue"]);
+let inputValue = reactive("");
 
 const handler = () => {
-  getValue(inputValue);
+  emit("getValue", 123123);
 };
 </script>
 
