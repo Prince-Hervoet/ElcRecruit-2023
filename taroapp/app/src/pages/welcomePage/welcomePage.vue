@@ -1,5 +1,7 @@
 <template>
   <nut-button @click="switchTo">go</nut-button>
+  <button @click="form">aaa</button>
+  <div>鼠鼠我呀 菜的不行啦</div>
 </template>
 
 <script setup>
@@ -13,6 +15,8 @@ const switchTo = () => {
     url: "/pages/infoPage/infoPage",
   });
 };
+
+const form = () => {};
 </script>
 
 <style scoped></style>

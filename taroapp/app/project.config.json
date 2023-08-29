@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/",
   "projectname": "app",
   "description": "",
-  "appid": "touristappid",
+  "appid": "wxbc94749b3a05b712",
   "setting": {
     "urlCheck": true,
     "es6": false,
@@ -14,7 +14,8 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.30.0",
