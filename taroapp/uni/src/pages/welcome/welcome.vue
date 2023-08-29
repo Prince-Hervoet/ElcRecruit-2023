@@ -1,7 +1,7 @@
 <template>
   <view class="welcome-container">
     <view class="welcome-recruit-button-container"
-      ><button class="welcome-button">
+      ><button class="welcome-button" @click="clickGotoRecruit">
         <span style="font-size: medium; font-weight: 700">报名入口</span>
       </button></view
     >
@@ -13,6 +13,15 @@
     >
   </view>
 </template>
+
+<script setup>
+const clickGotoRecruit = () => {
+  uni.navigateTo({
+    url: "postInfo",
+  });
+};
+</script>
+
 <style scoped>
 .welcome-button {
   width: 240px;
