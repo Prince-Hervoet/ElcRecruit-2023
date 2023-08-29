@@ -8,24 +8,32 @@
     <view class="postInfo-table-container">
       <view class="postInfo-table">
         <view
-          ><MyInput header-name="学院" @getValue="getCollege"></MyInput
+          ><MyInput header-name="学院 *" @getValue="getCollege"></MyInput
         ></view>
         <view
-          ><MyInput header-name="专业班级" @getValue="getMajor"></MyInput
+          ><MyInput header-name="专业班级 *" @getValue="getMajor"></MyInput
         ></view>
         <view
-          ><MyInput header-name="姓名" @getValue="getStudentName"></MyInput
+          ><MyInput header-name="姓名 *" @getValue="getStudentName"></MyInput
         ></view>
-        <view><MyInput header-name="学号" @getValue="getStuId"></MyInput></view>
         <view
-          ><MyInput header-name="电话号码" @getValue="getPhoneNum"></MyInput
+          ><MyInput header-name="学号 *" @getValue="getStuId"></MyInput
+        ></view>
+        <view
+          ><MyInput header-name="电话号码 *" @getValue="getPhoneNum"></MyInput
         ></view>
         <view><MyInput header-name="qq号码" @getValue="getQq"></MyInput></view>
         <view
-          ><MyInput header-name="自我介绍" @getValue="getIntro"></MyInput
+          ><MyInput header-name="自我介绍 *" @getValue="getIntro"></MyInput
         ></view>
         <view
           ><MyInput header-name="学的知识" @getValue="getSkills"></MyInput
+        ></view>
+        <view
+          ><MyInput header-name="第一志愿 *" @getValue="getSkills"></MyInput
+        ></view>
+        <view
+          ><MyInput header-name="第二志愿" @getValue="getSkills"></MyInput
         ></view>
         <view><MySelect></MySelect></view>
       </view>
@@ -82,6 +90,7 @@ const submitForm = () => {
     showErrorMessage.value = true;
   } else {
     showErrorMessage.value = false;
+    console.log(studentName);
   }
 };
 
@@ -124,6 +133,7 @@ const getSkills = (value) => {
   margin: auto;
   padding: 10px;
 }
+
 .postInfo-header-container {
   margin-bottom: 20px;
 }

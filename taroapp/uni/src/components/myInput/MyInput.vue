@@ -4,27 +4,27 @@
       <span>{{ headerName }}</span>
     </view>
     <view class="myInput-input-container">
-      <textarea
+      <input
         id="myInput-input"
         cols="30"
         rows="10"
         class="myInput-input"
         v-model="inputValue"
         @input="handler"
-      ></textarea>
+      />
     </view>
   </view>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { ref } from "vue";
 
 const props = defineProps(["headerName"]);
 const emit = defineEmits(["getValue"]);
-let inputValue = reactive("");
+let inputValue = ref("");
 
 const handler = () => {
-  emit("getValue", 123123);
+  emit("getValue", inputValue.value);
 };
 </script>
 
