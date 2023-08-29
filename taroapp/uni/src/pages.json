@@ -3,7 +3,7 @@
     {
       "path": "pages/welcome/welcome",
       "style": {
-        "navigationBarTitleText": "报名申请"
+        "navigationBarTitleText": "欢迎"
       }
     },
     {
