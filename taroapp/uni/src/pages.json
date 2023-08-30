@@ -1,6 +1,12 @@
 {
   "pages": [
     {
+      "path": "pages/welcome/introwe",
+      "style": {
+        "navigationBarTitleText": "欢迎"
+      }
+    },
+    {
       "path": "pages/welcome/welcome",
       "style": {
         "navigationBarTitleText": "欢迎"

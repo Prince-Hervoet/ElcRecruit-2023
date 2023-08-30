@@ -54,7 +54,6 @@
 <script setup>
 import { ref } from "vue";
 import MyInput from "../../components/myInput/MyInput.vue";
-import MySelect from "../../components/mySelect/MySelect.vue";
 
 let showErrorMessage = ref(false);
 
