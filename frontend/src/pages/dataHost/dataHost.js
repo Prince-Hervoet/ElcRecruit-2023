@@ -7,7 +7,6 @@ import DataHostExitMe from "../../components/dataHostComponents/dataHostExitMe/d
 import DataHostChart from "../../components/dataHostComponents/dataHostChart/dataHostChart";
 import DataHostChartArea from "../../components/dataHostComponents/dataHostChartArea/dataHostChartArea";
 import DataHostSearch from "../../components/dataHostComponents/dataHostSearch/dataHostSearch";
-import DataHostSizeways from "../../components/dataHostComponents/dataHostSizeways/dataHostSizeways";
 import DataHostColorFlag from "../../components/dataHostComponents/dataHostColorFlag/dataHostColorFlag";
 
 export default function DataHost() {
@@ -19,7 +18,6 @@ export default function DataHost() {
       <div className="dataHost-middle">
         <div className="dataHost-middle-header">
           <DataHostSearch></DataHostSearch>
-          {/* <DataHostSizeways></DataHostSizeways> */}
           <DataHostChart></DataHostChart>
           <DataHostRefresh></DataHostRefresh>
           <DataHostExitMe></DataHostExitMe>
