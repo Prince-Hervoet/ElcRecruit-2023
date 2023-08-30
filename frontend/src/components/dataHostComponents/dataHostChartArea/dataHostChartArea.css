@@ -8,6 +8,10 @@
   animation: chartShow 0.1s;
 }
 
+.dataHostChartArea-chart-body {
+  height: 100%;
+}
+
 @keyframes chartShow {
   0% {
     width: 0;

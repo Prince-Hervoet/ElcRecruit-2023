@@ -3,13 +3,23 @@ import "./dataHostChartArea.css";
 import * as echarts from "echarts";
 import { observer } from "mobx-react-lite";
 import dataHostChartStore from "../../../store/dataHostChartStore";
+import { KeyToDepName } from "../../../store/globalInfo";
+
+function getChartDataList(depSumList) {
+  const ans = [];
+  depSumList.forEach((value) => {
+    ans.push({ value: value.size, name: KeyToDepName[value.depId] });
+  });
+  return ans;
+}
 
 function DataHostChartArea() {
-  const { isShow } = dataHostChartStore;
+  const { isShow, depSumList } = dataHostChartStore;
   const dom = useRef(null);
 
   useEffect(() => {
     if (isShow) {
+      const dataList = getChartDataList(depSumList);
       const mc = echarts.init(dom.current);
       const option = {
         tooltip: {
@@ -21,7 +31,7 @@ function DataHostChartArea() {
         },
         series: [
           {
-            name: "Access From",
+            name: "部门人数",
             type: "pie",
             radius: ["40%", "70%"],
             avoidLabelOverlap: false,
@@ -37,20 +47,14 @@ function DataHostChartArea() {
             emphasis: {
               label: {
                 show: true,
-                fontSize: 40,
+                fontSize: 45,
                 fontWeight: "bold",
               },
             },
             labelLine: {
               show: false,
             },
-            data: [
-              { value: 1048, name: "Search Engine" },
-              { value: 735, name: "Direct" },
-              { value: 580, name: "Email" },
-              { value: 484, name: "Union Ads" },
-              { value: 300, name: "Video Ads" },
-            ],
+            data: dataList,
           },
         ],
       };
@@ -63,7 +67,9 @@ function DataHostChartArea() {
       className="dataHostChartArea-body"
       style={isShow ? {} : { display: "none" }}
     >
-      <div ref={dom} style={{ width: "400px", height: "100%" }}></div>
+      <div className="dataHostChartArea-chart-body">
+        <div ref={dom} style={{ width: "400px", height: "100%" }}></div>
+      </div>
     </div>
   );
 }
