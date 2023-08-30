@@ -16,6 +16,8 @@ class DataHostCardListStore {
   isLoading = false;
   // 当前所属部门 -1表示还没有初始化
   currentDepId = -1;
+  // 递增请求id
+  requestId = 0;
 
   setCardList(nStudents) {
     console.log(this);
@@ -28,6 +30,22 @@ class DataHostCardListStore {
 
   setIsLoading(nIsLoading) {
     this.isLoading = nIsLoading;
+  }
+
+  incRequestId() {
+    this.requestId += 1;
+  }
+
+  getRequestId() {
+    return this.requestId;
+  }
+
+  getCurrentDepId() {
+    return this.currentDepId;
+  }
+
+  setCurrentDepId(nDepId) {
+    this.currentDepId = nDepId;
   }
 
   clear() {

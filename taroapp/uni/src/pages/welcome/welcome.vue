@@ -1,7 +1,7 @@
 <template>
   <view class="welcome-container">
     <view class="welcome-recruit-button-container"
-      ><button class="welcome-button" @click="ToInput">
+      ><button class="welcome-button">
         <span style="font-size: medium; font-weight: 700">报名入口</span>
       </button></view
     >
@@ -15,8 +15,8 @@
 </template>
 
 <script setup>
-import MyInput from "../../components/myInput/MyInput.vue";
-import index from "../../components/index/index.vue";
+// import MyInput from "../../components/myInput/MyInput.vue";
+// import index from "../../components/index/index.vue";
 </script>
 <style scoped>
 .welcome-button {

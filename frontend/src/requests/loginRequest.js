@@ -6,7 +6,6 @@ import { ServiceUrls } from "./util";
  */
 
 /**
- *
  * @param {string} userName 用户名
  * @param {string} password 密码
  * @returns {token:"AAAA",currentDepId:"1"}
