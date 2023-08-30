@@ -1,36 +1,10 @@
-using System.IdentityModel.Tokens.Jwt;
-using Identity;
-using IdentityModel.Client;
-using Microsoft.IdentityModel.Tokens;
-using Serilog;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.AuthorizePage("/IdentityServerTest");
-});
+builder.Services.AddRazorPages();
 
-// JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
-// builder.Services.AddAuthentication(options =>
-//     {
-//         options.DefaultScheme = "Cookies";
-//         options.DefaultChallengeScheme = "oidc";
-//     })
-//     .AddCookie("Cookies")
-//     .AddOpenIdConnect("oidc", options => 
-//     {
-//         options.Authority = "https://localhost:5001";
-//     
-//         options.ClientId = "mvc";
-//         options.ResponseType = "code";
-//     
-//         options.SaveTokens = true;
-//     });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
