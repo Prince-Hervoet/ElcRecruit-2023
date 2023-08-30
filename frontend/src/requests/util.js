@@ -16,16 +16,3 @@ export const ServiceUrls = {
   // 更改学生面试状态
   updateStudentStatus: `${BASE_URL}/updateStudentStatus`,
 };
-
-export const httpCodeObj = {
-  200: "success",
-  400: "请求有误",
-  403: "权限不足",
-  500: "服务器繁忙",
-};
-
-export const myCodeObj = {
-  4000: "处理成功",
-  4002: "处理失败",
-  4005: "处理异常",
-};
