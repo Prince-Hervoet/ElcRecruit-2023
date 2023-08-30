@@ -31,7 +31,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "1",
+      state: "10",
     },
     {
       id: 2,
@@ -39,7 +39,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "2",
+      state: "20",
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "2",
+      state: "30",
     },
     {
       id: 4,
@@ -55,7 +55,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "2",
+      state: "40",
     },
     {
       id: 5,
@@ -63,7 +63,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "2",
+      state: "50",
     },
     {
       id: 6,
@@ -71,7 +71,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "2",
+      state: "60",
     },
     {
       id: 7,
@@ -79,7 +79,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
       stuId: 3120003434,
       college: "计算机学院",
       clazz: "电子一班",
-      status: "2",
+      state: "20",
     },
   ];
   return tempData;

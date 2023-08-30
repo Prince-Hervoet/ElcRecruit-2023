@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import "./dataHostCard.css";
 import { Card } from "antd";
 import { joinRouterUrl } from "../../../util";
+import { ColorObj } from "../../../store/globalInfo";
 const { Meta } = Card;
 
 export default function DataHostCard({ info }) {
-  const { name, stuId, college, clazz, dep } = info;
+  const { name, stuId, college, clazz, dep, state } = info;
+  const stateColor = ColorObj[state];
   useEffect(() => {});
 
   const clickGotoResume = () => {
@@ -14,7 +16,11 @@ export default function DataHostCard({ info }) {
   };
 
   return (
-    <div className="dataHostCard-body" onClick={clickGotoResume}>
+    <div
+      className="dataHostCard-body"
+      onClick={clickGotoResume}
+      style={{ borderRight: `6px solid ${stateColor}` }}
+    >
       <Card
         title={name}
         style={{
