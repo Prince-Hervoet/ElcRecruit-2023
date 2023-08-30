@@ -40,6 +40,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       nav("/dataHost", { replace: true });
     } else {
+      040615;
       alert("登录失败: " + res.msg);
     }
   };
