@@ -5,7 +5,7 @@ import { joinRouterUrl } from "../../../util";
 const { Meta } = Card;
 
 export default function DataHostCard({ info }) {
-  const { name, stuId, college, grade, dep } = info;
+  const { name, stuId, college, clazz, dep } = info;
   useEffect(() => {});
 
   const clickGotoResume = () => {
@@ -24,7 +24,7 @@ export default function DataHostCard({ info }) {
         }}
       >
         <Meta
-          description={`学院: ${college} | 学号: ${stuId} | 班级: ${grade}`}
+          description={`学院: ${college} | 学号: ${stuId} | 班级: ${clazz}`}
         />
         <p>第一志愿部门: {dep}</p>
       </Card>

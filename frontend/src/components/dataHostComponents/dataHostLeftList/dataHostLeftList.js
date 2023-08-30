@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./dataHostLeftList.css";
 import ReactLogo from "../reactLogo/reactLogo";
 import { DepInfoArr } from "../../../store/globalInfo";
+import { fetchGetCards } from "../util/util";
+import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
 const leftListInfoArr = [
   { name: "总览表", id: 0 },
@@ -11,11 +13,14 @@ const leftListInfoArr = [
 
 export default function DataHostLeftList() {
   const [selectId, setSelectId] = useState(0);
-
   const clickSelect = (event) => {
     const target = event.target;
     const targetId = parseInt(target.id);
     setSelectId(targetId);
+    dataHostCardListStore.setCurrentDepId(targetId);
+
+    // todo: 发送网络请求
+    fetchGetCards();
   };
 
   return (
@@ -27,7 +32,11 @@ export default function DataHostLeftList() {
       {leftListInfoArr.map((value) => {
         return (
           <div
-            className={selectId === value.id ? "dataHost-left-list-card-body dataHost-left-list-card-select" : "dataHost-left-list-card-body"}
+            className={
+              selectId === value.id
+                ? "dataHost-left-list-card-body dataHost-left-list-card-select"
+                : "dataHost-left-list-card-body"
+            }
             onClick={clickSelect}
             id={value.id}
             key={value.id}
