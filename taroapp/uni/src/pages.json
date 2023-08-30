@@ -1,9 +1,10 @@
 {
   "pages": [
+
     {
-      "path": "pages/welcome/introwe",
+      "path": "pages/welcome/depIntro",
       "style": {
-        "navigationBarTitleText": "欢迎"
+        "navigationBarTitleText": "部门介绍"
       }
     },
     {
@@ -12,6 +13,13 @@
         "navigationBarTitleText": "欢迎"
       }
     },
+    {
+      "path": "pages/welcome/introwe",
+      "style": {
+        "navigationBarTitleText": "欢迎"
+      }
+    },
+
     {
       "path": "pages/welcome/postInfo",
       "style": {
