@@ -19,9 +19,17 @@
       <view class="DepBox">秘书部</view>
     </view>
 
-    <view class="DepZuBox">软件组</view>
+    <button class="DepZuBox" @click="GotoCoding">软件组</button>
   </view>
 </template>
+
+<script setup>
+const GotoCoding = () => {
+  uni.navigateTo({
+    url: "depIntro?depId=1",
+  });
+};
+</script>
 <style>
 .KnowDep {
   width: 90%;
