@@ -4,29 +4,29 @@
   <view class="KnowDep">
     <view class="DepBigBox">电协介绍</view>
     <view class="ali" id="First">
-      <view class="DepBox">外联部</view>
+      <view class="DepBox" @click="gotoCoding(5)">外联部</view>
       <br />
-      <view class="DepBox">维修部</view>
+      <view class="DepBox" @click="gotoCoding(1)">维修部</view>
       <br />
     </view>
     <br />
     <view class="ali" id="Second">
-      <view class="DepBox">网宣部</view>
-      <view class="DepBox">项目部</view>
+      <view class="DepBox" @click="gotoCoding(4)">网宣部</view>
+      <view class="DepBox" @click="gotoCoding(3)">项目部</view>
     </view>
     <view class="ali" id="Third">
-      <view class="DepBox">实践部</view>
-      <view class="DepBox">秘书部</view>
+      <view class="DepBox" @click="gotoCoding(6)">实践部</view>
+      <view class="DepBox" @click="gotoCoding(2)">秘书部</view>
     </view>
 
-    <button class="DepZuBox" @click="GotoCoding">软件组</button>
+    <button class="DepZuBox" @click="gotoCoding(7)">软件组</button>
   </view>
 </template>
 
 <script setup>
-const GotoCoding = () => {
+const gotoCoding = (depId) => {
   uni.navigateTo({
-    url: "depIntro?depId=1",
+    url: `test?depId=${depId}`,
   });
 };
 </script>

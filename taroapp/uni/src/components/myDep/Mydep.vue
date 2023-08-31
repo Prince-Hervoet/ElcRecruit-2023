@@ -1,7 +1,6 @@
 <template>
   <view>
     <view class="try">
-      elc
       <!-- <view class="depBigBox"> -->
       <view class="depName">{{ depName }}</view>
       <view class="divider" />
@@ -30,7 +29,6 @@ const props = defineProps(["depName", "smallIntro", "depText"]);
 .try {
   height: 100vh;
   background-image: url("https://s1.ax1x.com/2023/08/30/pPwK0Ff.jpg");
-
   background-size: cover;
   background-repeat: repeat;
 }
