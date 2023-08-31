@@ -3,7 +3,7 @@
     <view class="try">
       elc
       <!-- <view class="depBigBox"> -->
-      <view class="depName">ruann组</view>
+      <view class="depName">软件组</view>
       <view class="divider" />
       <view class="smallIntro">代码，代码，还是代码</view>
       <view class="depText">
@@ -55,7 +55,7 @@
   height: 100px;
   width: 100%;
   z-index: 2;
-  background-color: #2da6ca9d;
+  background-color: #4db6d669;
 }
 
 .water-c {

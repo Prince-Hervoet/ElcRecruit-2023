@@ -1,12 +1,12 @@
 <template>
   <view class="welcome-container">
     <view class="welcome-recruit-button-container">
-      <button class="welcome-button" @click="clickGotoRecruit">
+      <button class="welcome-button-recruit" @click="clickGotoRecruit">
         <span style="font-size: medium; font-weight: 700">报名入口</span>
       </button>
     </view>
     <view class="welcome-introwe-button-container">
-      <button class="welcome-button">
+      <button class="welcome-button-knowus" @click="clickGotoknow">
         <span style="font-size: medium; font-weight: 700">了解我们</span>
       </button>
     </view>
@@ -19,17 +19,33 @@ const clickGotoRecruit = () => {
     url: "postInfo",
   });
 };
+const clickGotoknow = () => {
+  uni.navigateTo({
+    url: "knowMore",
+  });
+};
 </script>
 
 <style scoped>
-.welcome-button {
+.welcome-button-recruit {
   width: 240px;
   height: 40px;
-  background-color: rgba(252, 252, 252, 0.9);
+  background-color: rgba(209 54 57);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
+  color: #ffffff;
+}
+.welcome-button-knowus {
+  width: 240px;
+  height: 40px;
+  background-color: rgba(221, 220, 220, 0.87);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #000000;
 }
 
 .welcome-recruit-button-container {
