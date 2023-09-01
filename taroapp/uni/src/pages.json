@@ -19,12 +19,6 @@
       }
     },
     {
-      "path": "pages/welcome/depIntro",
-      "style": {
-        "navigationBarTitleText": "部门介绍"
-      }
-    },
-    {
       "path": "pages/welcome/postInfo",
       "style": {
         "navigationBarTitleText": "报名申请"
