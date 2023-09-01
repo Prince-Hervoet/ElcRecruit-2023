@@ -26,7 +26,7 @@
 <script setup>
 const gotoCoding = (depId) => {
   uni.navigateTo({
-    url: `test?depId=${depId}`,
+    url: `depIntro?depId=${depId}`,
   });
 };
 </script>
