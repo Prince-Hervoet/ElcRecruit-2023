@@ -7,46 +7,44 @@
     </view>
     <view class="postInfo-table-container">
       <view class="postInfo-table">
-        <view
-          ><MyInput header-name="学院 *" @getValue="getCollege"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="专业班级 *" @getValue="getMajor"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="姓名 *" @getValue="getStudentName"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="学号 *" @getValue="getStuId"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="电话号码 *" @getValue="getPhoneNum"></MyInput
-        ></view>
-        <view><MyInput header-name="qq号码" @getValue="getQq"></MyInput></view>
-        <view
-          ><MyInput header-name="自我介绍 *" @getValue="getIntro"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="学的知识" @getValue="getSkills"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="第一志愿 *" @getValue="getSkills"></MyInput
-        ></view>
-        <view
-          ><MyInput header-name="第二志愿" @getValue="getSkills"></MyInput
-        ></view>
-        <view><MySelect></MySelect></view>
+        <view>
+          <MyInput header-name="您的姓名 *" @getValue="getStudentName"></MyInput>
+        </view>
+        <view>
+          <MyInput header-name="您的学号 *" @getValue="getStuId"></MyInput>
+        </view>
+        <view>
+          <MyInput header-name="所属学院 *" @getValue="getCollege"></MyInput>
+        </view>
+        <view>
+          <MyInput header-name="专业班级 *" @getValue="getMajor"></MyInput>
+        </view>
+        <view>
+          <MyInput header-name="电话号码 *" @getValue="getPhoneNum"></MyInput>
+        </view>
+        <view>
+          <MyPicker head-name="第一志愿 *" :arr="depArr" @getValue="getFirstDepId"></MyPicker>
+        </view>
+        <view>
+          <MyPicker head-name="第二志愿" :arr="depArr" @getValue="getSecondDepId"></MyPicker>
+        </view>
+        <view>
+          <MyTextarea headerName="自我介绍 *" @getValue="getIntro"></MyTextarea>
+        </view>
+        <view>
+          <MyInput header-name="QQ号码" @getValue="getQq"></MyInput>
+        </view>
+        <view>
+          <MyInput header-name="掌握技能" @getValue="getSkills"></MyInput>
+        </view>
+        <view>
+          <MySelect></MySelect>
+        </view>
       </view>
     </view>
-    <view
-      style="color: red; text-align: center"
-      :style="showErrorMessage ? '' : 'display:none;'"
-      >请完整填写表格</view
-    >
+    <view style="color: red; text-align: center" :style="showErrorMessage ? '' : 'display:none;'">请完整填写表格</view>
     <button class="postInfo-button-container" @click="submitForm">
-      <span style="font-size: 15px; font-weight: 700; line-height: 15px"
-        >提交</span
-      >
+      <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
     </button>
   </view>
 </template>
@@ -54,6 +52,8 @@
 <script setup>
 import { ref } from "vue";
 import MyInput from "../../components/myInput/MyInput.vue";
+import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
+import MyPicker from "../../components/myPicker/MyPicker.vue";
 
 let showErrorMessage = ref(false);
 
@@ -65,31 +65,39 @@ let phoneNum = "";
 let qq = "";
 let intro = "";
 let skills = "";
+let firstDepId = "";
+let secondDepId = "";
+
+const depArr = ["维修部", "秘书部", "项目部", "网宣部", "外联部", "实践部", "软件组"];
 
 function hasNullFields(...fields) {
   for (let i = 0; i < fields.length; i++) {
-    if (!fields[i]) return false;
+    if (!fields[i]) return true;
   }
-  return true;
+  return false;
+}
+
+function checkPhoneNumSize(value) {
+  return value.length === 11;
+}
+
+function checkStuId(value) {
+  return value.length === 10;
+}
+
+function checkCommonTextSize(value) {
+  return value.length === 100;
 }
 
 const submitForm = () => {
-  if (
-    !hasNullFields(
-      college,
-      studentName,
-      stuId,
-      major,
-      phoneNum,
-      qq,
-      intro,
-      skills
-    )
+  if (!hasNullFields(college, studentName, stuId, major, phoneNum, intro)
+    && (checkStuId(stuId))
+    && (checkPhoneNumSize(phoneNum))
   ) {
-    showErrorMessage.value = true;
-  } else {
     showErrorMessage.value = false;
-    console.log(studentName);
+    // todo: 发送请求
+  } else {
+    showErrorMessage.value = true;
   }
 };
 
@@ -124,6 +132,14 @@ const getIntro = (value) => {
 const getSkills = (value) => {
   skills = value;
 };
+
+const getFirstDepId = (value) => {
+  firstDepId = value;
+}
+
+const getSecondDepId = (value) => {
+  secondDepId = value;
+}
 </script>
 
 <style scoped>
@@ -137,14 +153,14 @@ const getSkills = (value) => {
   margin-bottom: 20px;
 }
 
-.postInfo-table-container {
-}
+.postInfo-table-container {}
+
 .postInfo-table {
   display: flex;
   flex-direction: column;
 }
 
-.postInfo-table > view {
+.postInfo-table>view {
   margin-bottom: 16px;
 }
 
