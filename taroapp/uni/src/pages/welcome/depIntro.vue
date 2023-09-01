@@ -109,7 +109,7 @@ export default {
 
 .gradient {
   height: 100vh;
-  background: linear-gradient(-45deg, #ee7752, #df6493, #31aad5, #23d5ab);
+  background: linear-gradient(-45deg, #d46c4c, #df6493, #2ba6d3, #23d5ab);
   background-size: 600% 600%;
   display: flex;
   flex-direction: column;
@@ -203,6 +203,7 @@ export default {
   font-size: 50px;
   text-align: center;
   font-family: 楷体;
+  font-weight: 700;
 }
 
 .smallIntro {
@@ -212,19 +213,20 @@ export default {
   text-align: center;
 }
 .depText {
-  width: 70%;
+  width: 80%;
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 10px;
   padding-bottom: 10px;
   margin: auto;
-  border: dotted 1px grey;
+  /* border: dotted 1px grey; */
   font-family: 楷体;
   font-weight: 600;
-  font-size: large;
-  background-color: rgba(245, 245, 245, 0.6);
+  font-size: 21px;
+  color: white;
+  /* background-color: rgba(245, 245, 245, 0.6); */
   border-radius: 6px;
-  line-height: normal;
+  line-height: 30px;
   margin-top: 10%;
 }
 </style>

@@ -1,27 +1,22 @@
 {
   "pages": [
     {
+      "path": "pages/welcome/depIntro",
+      "style": {
+        "navigationBarTitleText": "部门介绍"
+      }
+    },
+    {
       "path": "pages/welcome/welcome",
       "style": {
         "navigationBarTitleText": "欢迎"
       }
     },
-    {
-      "path": "pages/welcome/depIntro",
-      "style": {
-        "navigationBarTitleText": "部门介绍"
-      }
-    },
+
     {
       "path": "pages/welcome/knowMore",
       "style": {
         "navigationBarTitleText": "电协介绍"
-      }
-    },
-    {
-      "path": "pages/welcome/depIntro",
-      "style": {
-        "navigationBarTitleText": "部门介绍"
       }
     },
     {
