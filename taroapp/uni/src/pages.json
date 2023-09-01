@@ -7,15 +7,15 @@
       }
     },
     {
-      "path": "pages/welcome/knowMore",
+      "path": "pages/welcome/depIntro",
       "style": {
-        "navigationBarTitleText": "电协介绍"
+        "navigationBarTitleText": "部门介绍"
       }
     },
     {
-      "path": "pages/welcome/test",
+      "path": "pages/welcome/knowMore",
       "style": {
-        "navigationBarTitleText": "部门介绍"
+        "navigationBarTitleText": "电协介绍"
       }
     },
     {

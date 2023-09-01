@@ -29,7 +29,7 @@ const clickGotoknow = () => {
 <style scoped>
 .welcome-button-recruit {
   width: 240px;
-  height: 40px;
+  height: 45px;
   background-color: rgba(209 54 57);
   display: flex;
   align-items: center;
@@ -39,7 +39,7 @@ const clickGotoknow = () => {
 }
 .welcome-button-knowus {
   width: 240px;
-  height: 40px;
+  height: 45px;
   background-color: rgba(221, 220, 220, 0.87);
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@ const clickGotoknow = () => {
 
 .welcome-introwe-button-container {
   position: fixed;
-  bottom: 150px;
+  bottom: 155px;
   left: 50%;
   transform: translate(-50%, -50%);
 }

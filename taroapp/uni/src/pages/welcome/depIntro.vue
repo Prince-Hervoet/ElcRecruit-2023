@@ -1,12 +1,15 @@
 <template>
-  <view class="try">
-    <span>&nbsp;</span>
-    <view class="depName">{{ depName }}</view>
-    <view class="divider" />
-    <view class="smallIntro">{{ smallIntro }}</view>
-    <view class="depText">
-      {{ depText }}
+  <view class="gradient">
+    <!-- <span>&nbsp;</span> -->
+    <view>
+      <view class="depName">{{ depName }}</view>
+      <view class="divider" />
+      <view class="smallIntro">{{ smallIntro }}</view>
+      <view class="depText">
+        {{ depText }}
+      </view>
     </view>
+
     <!-- <view class="water">
       <view class="water-c">
         <view class="water-1"> </view>
@@ -30,13 +33,13 @@ export default {
   },
 
   methods: {
-    showText(depId) {
+    showText(depId = "1") {
       switch (depId) {
         case "1":
           this.setFields(
             "维修部",
             "代码，代码，还是代码",
-            "&nbsp&nbsp&nbsp 软件组衍生于贝尔组，致力于开发面向全校的项目和系统。软件组目前的方向有前端、后端、网络运维、小游戏开发，主要运用的语言有C/C++、javascript、java、go、C#、python等。已经开发的项目有gdutday、GDUTDays、电子科技协会论坛等。软件组始终坚持技术深耕，项目挖掘，致力于写出更优秀的代码以及实现更完美的业务。欢迎热爱coding的你加入我们！！！"
+            "·软件组衍生于贝尔组，致力于开发面向全校的项目和系统。软件组目前的方向有前端、后端、网络运维、小游戏开发，主要运用的语言有C/C++、javascript、java、go、C#、python等。已经开发的项目有gdutday、GDUTDays、电子科技协会论坛等。软件组始终坚持技术深耕，项目挖掘，致力于写出更优秀的代码以及实现更完美的业务。欢迎热爱coding的你加入我们！！！"
           );
           break;
         case "2":
@@ -99,7 +102,33 @@ export default {
   background-image: url("https://s1.ax1x.com/2023/08/30/pPwK0Ff.jpg");
   background-size: cover;
   background-repeat: repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+.gradient {
+  height: 100vh;
+  background: linear-gradient(-45deg, #ee7752, #df6493, #31aad5, #23d5ab);
+  background-size: 600% 600%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: gradientBG 6s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .water {
   position: absolute;
   margin-top: 100px;
@@ -169,16 +198,18 @@ export default {
 }
 
 .depName {
-  margin-top: 45%;
+  width: 70%;
+  /* margin-top: 45%; */
   font-size: 50px;
-  padding-left: 80px;
+  text-align: center;
   font-family: 楷体;
 }
 
 .smallIntro {
   color: rgba(83, 81, 78, 0.767);
+  width: 70%;
   margin-top: 5px;
-  margin-left: 10%;
+  text-align: center;
 }
 .depText {
   width: 70%;
@@ -189,7 +220,11 @@ export default {
   margin: auto;
   border: dotted 1px grey;
   font-family: 楷体;
-  background-color: #fff;
-  margin-top: 20%;
+  font-weight: 600;
+  font-size: large;
+  background-color: rgba(245, 245, 245, 0.6);
+  border-radius: 6px;
+  line-height: normal;
+  margin-top: 10%;
 }
 </style>
