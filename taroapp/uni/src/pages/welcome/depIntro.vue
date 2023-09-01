@@ -104,17 +104,16 @@ export default {
   background-repeat: repeat;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .gradient {
   height: 100vh;
-  background: linear-gradient(-45deg, #d46c4c, #df6493, #2ba6d3, #23d5ab);
+  background: linear-gradient(-45deg, #d4a197, #c8829d, #5e2cf5, #23d5ab);
   background-size: 600% 600%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   animation: gradientBG 6s ease infinite;
+  overflow: auto;
 }
 
 @keyframes gradientBG {
@@ -191,7 +190,7 @@ export default {
 }
 
 .divider {
-  background: #3838375b;
+  background: rgba(255, 255, 255, 0.663);
   width: 70%;
   height: 5rpx;
   margin-top: 2px;
@@ -199,11 +198,12 @@ export default {
 
 .depName {
   width: 70%;
-  /* margin-top: 45%; */
+  margin-top: 35%;
   font-size: 50px;
   text-align: center;
   font-family: 楷体;
   font-weight: 700;
+  color: wheat;
 }
 
 .smallIntro {
@@ -214,19 +214,16 @@ export default {
 }
 .depText {
   width: 80%;
-  padding-left: 5%;
-  padding-right: 5%;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
   margin: auto;
-  /* border: dotted 1px grey; */
-  font-family: 楷体;
-  font-weight: 600;
-  font-size: 21px;
+  font-weight: 500;
+  font-size: 18px;
   color: white;
-  /* background-color: rgba(245, 245, 245, 0.6); */
   border-radius: 6px;
   line-height: 30px;
   margin-top: 10%;
+  margin-bottom: 10%;
+  background-color: rgba(250, 250, 250, 0.4);
 }
 </style>

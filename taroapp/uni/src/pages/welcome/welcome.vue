@@ -57,7 +57,7 @@ const clickGotoknow = () => {
 
 .welcome-introwe-button-container {
   position: fixed;
-  bottom: 155px;
+  bottom: 160px;
   left: 50%;
   transform: translate(-50%, -50%);
 }

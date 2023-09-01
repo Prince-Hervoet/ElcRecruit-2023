@@ -149,13 +149,14 @@ const getSkills = (value) => {
 }
 
 .postInfo-button-container {
-  background-color: rgb(21, 21, 255);
+  background-color: rgba(209 54 57);
   border-radius: 6px;
   height: 40px;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10%;
 }
 
 .hideErrMsg {
