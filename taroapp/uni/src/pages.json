@@ -1,6 +1,12 @@
 {
   "pages": [
     {
+      "path": "pages/welcome/knowMore",
+      "style": {
+        "navigationBarTitleText": "了解我们"
+      }
+    },
+    {
       "path": "pages/welcome/welcome",
       "style": {
         "navigationBarTitleText": "欢迎"
@@ -12,12 +18,7 @@
         "navigationBarTitleText": "部门介绍"
       }
     },
-    {
-      "path": "pages/welcome/knowMore",
-      "style": {
-        "navigationBarTitleText": "电协介绍"
-      }
-    },
+
     {
       "path": "pages/welcome/postInfo",
       "style": {
