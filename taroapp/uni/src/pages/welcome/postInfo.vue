@@ -116,6 +116,10 @@ function checkStuId(value) {
   return value.length === 10;
 }
 
+function getOpenId() {
+
+}
+
 
 const clickSubmitForm = async () => {
   if (!hasNullFields(college, studentName, stuId, major, clazz, firstDepId, phoneNum, intro)
