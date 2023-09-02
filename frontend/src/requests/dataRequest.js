@@ -6,8 +6,8 @@ import { ServiceUrls } from "./util";
 /**
  * 按照部门id获取部门报名信息 分页
  * @param {string} depId 部门id 0表示全部 100表示调剂
- * @param {number} pageCount
- * @param {number} pageLimit
+ * @param {number} pageCount 页码
+ * @param {number} pageLimit 每页数量
  * @returns 简要信息 {uid:"1Njd12",name:"张三",depId:"1",stuId:"3120003333",college:"ddd",major:"光电",status:10}
  */
 async function getBriefInfosByDepId(depId, pageCount, pageLimit) {

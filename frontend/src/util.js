@@ -15,9 +15,14 @@ export function joinRouterUrl(path, args = {}) {
   return getHostUrl() + "/#" + path + argsStr;
 }
 
-export function getUrlParam(name) {
-  let u = arguments[1] || window.location.href,
-    reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
-    r = u.substr(u.indexOf("?") + 1).match(reg);
-  return r != null ? decodeURI(r[2]) : "";
+export function getUrlParam(variable) {
+  const query = window.location.href.split("?")[1];
+  const vars = query.split("&");
+  for (let i = 0; i < vars.length; i++) {
+    const pair = vars[i].split("=");
+    if (pair[0] === variable) {
+      return pair[1];
+    }
+  }
+  return null;
 }

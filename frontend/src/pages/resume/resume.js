@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Descriptions } from "antd";
-import { Input, Rate, Avatar, List } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { Descriptions, Input, Rate, Avatar, List } from "antd";
 import {
   CaretRightOutlined,
   LoginOutlined,
   CloseOutlined,
   PauseOutlined,
 } from "@ant-design/icons";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "antd";
 import "./resume.css";
+import { getUrlParam } from "../../util";
 
 const { TextArea } = Input;
 
@@ -30,6 +31,29 @@ const data = [
 export default function Resume() {
   const [items, setItems] = useState({});
   const [comments, setComments] = useState([]);
+  const userIdInputRef = useRef();
+  const nComment = useRef("");
+  const nScore = useRef("");
+
+  useEffect(() => {
+    const userId = getUrlParam("userId");
+    userIdInputRef.current.setAttribute("value", userId);
+  }, []);
+
+  const clickStartInterview = () => {};
+
+  const clickAccept = () => {};
+
+  const clickReject = () => {};
+
+  const clickPending = () => {};
+
+  const clickSubmitComment = () => {};
+
+  const onChangeComment = (value) => {
+    console.log(value);
+    nComment.current = value;
+  };
 
   return (
     <div className="resume-body">
@@ -68,6 +92,7 @@ export default function Resume() {
             size="small"
             placeholder="评价者"
             style={{ width: "10%", marginLeft: 10 }}
+            onChange={onChangeComment}
           />
           <Button style={{ marginLeft: 10 }} size={"large"}>
             提交评论和分数
@@ -101,6 +126,11 @@ export default function Resume() {
             </List.Item>
           )}
         />
+        <input
+          id="userIdInput"
+          ref={userIdInputRef}
+          style={{ display: "none" }}
+        ></input>
       </div>
     </div>
   );
