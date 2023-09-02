@@ -45,7 +45,6 @@
         </view>
       </view>
     </view>
-    <!-- <view style="color: red; text-align: center" :style="showErrorMessage ? '' : 'display:none;'">请完整填写表格</view> -->
     <button class="postInfo-button-container" @click="clickSubmitForm">
       <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
     </button>
