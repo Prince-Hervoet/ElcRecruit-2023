@@ -7,6 +7,7 @@ export async function sendSubmitForm(sendObj) {
 
 export async function sendGetInfo(openId) {
   const url = ServiceUrls.getInfo + `?openId=${openId}`;
+  //
   return {
     code: 4000,
     msg: "success",
