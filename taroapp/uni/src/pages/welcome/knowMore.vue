@@ -1,7 +1,7 @@
 <template>
   <view class="knowMore-container">
     <view class="IntroPic">
-      <img class="elcphoto" src="/static/ya.png" alt="" />
+      <img class="elcphoto" src="/static/cup.png" alt="" />
     </view>
     <br /><br /><br />
     <view class="KnowDep">
