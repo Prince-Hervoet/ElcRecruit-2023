@@ -5,7 +5,7 @@
     </view>
     <view class="myPicker-picker-container">
       <view class="myPicker-picker">
-        <picker :range="arr" style="font-size: large;" @change="handler">
+        <picker :range="arr" style="font-size: large;" @change="handler" :value="value">
           <img src="/static/select.png" style="width: 28px; height: 28px" />
         </picker>
       </view>

@@ -118,7 +118,7 @@ onMounted(() => {
     // 如果有openId则获取信息
     (async function () {
       const res = await sendGetInfo(openId);
-      studentInfo.studentName = "振炫哥哥";
+      studentInfo.firstDepId = "2"
     })()
   } else {
     wx.login({
