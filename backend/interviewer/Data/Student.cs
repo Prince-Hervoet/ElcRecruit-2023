@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace interviewer.Data;
 
 public class Student
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     public string StudentId { get; set; }
     public string Name { get; set; }
@@ -17,4 +19,6 @@ public class Student
     public string? WeChat { get; set; }
     public ElcDepartment FirstDepartment { get; set; }
     public ElcDepartment? SecondDepartment { get; set; }
+    public StudentState State { get; set; } = StudentState.Applied;
+
 }
