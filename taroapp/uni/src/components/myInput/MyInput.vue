@@ -4,27 +4,17 @@
       <span>{{ headerName }}</span>
     </view>
     <view class="myInput-input-container">
-      <input
-        id="myInput-input"
-        cols="30"
-        rows="10"
-        class="myInput-input"
-        v-model="inputValue"
-        @input="handler"
-      />
+      <input id="myInput-input" cols="30" rows="10" class="myInput-input" :value="value" @input="handler" />
     </view>
   </view>
 </template>
 
 <script setup>
-import { ref } from "vue";
+const props = defineProps(["headerName", "value"]);
+const emit = defineEmits(["onChange"]);
 
-const props = defineProps(["headerName"]);
-const emit = defineEmits(["getValue"]);
-let inputValue = ref("");
-
-const handler = () => {
-  emit("getValue", inputValue.value);
+const handler = (event) => {
+  emit("onChange", event.target.value);
 };
 </script>
 

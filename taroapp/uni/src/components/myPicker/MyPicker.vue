@@ -1,33 +1,37 @@
 <template>
   <view class="myPicker-container">
     <view class="myPicker-header">
-      <span>{{ headName }}</span>
+      <span>{{ headerName }}</span>
     </view>
     <view class="myPicker-picker-container">
       <view class="myPicker-picker">
-        <picker :range="arr" style="font-size: large;" @change="setValue">
+        <picker :range="arr" style="font-size: large;" @change="handler">
           <img src="/static/select.png" style="width: 28px; height: 28px" />
         </picker>
       </view>
       <view class="myPicker-select-container">
-        <span>{{ inputValue }}</span>
+        <span>{{ currentSelect }}</span>
       </view>
     </view>
   </view>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const props = defineProps(["headName", "arr"])
-const emit = defineEmits(["getValue"]);
-let inputValue = ref("");
+import { ref, onUpdated } from "vue";
+const props = defineProps(["headerName", "arr", "value"])
+const emit = defineEmits(["onChange"]);
+const currentSelect = ref(props.value ? props.arr[parseInt(props.value)] : "");
 
-const setValue = (event) => {
+const handler = (event) => {
   const index = parseInt(event.detail.value);
-  const nValue = props.arr[index];
-  inputValue.value = nValue;
-  emit("getValue", nValue);
+  currentSelect.value = props.arr[index];
+  emit("onChange", event.detail.value);
 };
+
+onUpdated(() => {
+  currentSelect.value = props.value ? props.arr[parseInt(props.value)] : "";
+})
+
 </script>
 
 <style scoped>

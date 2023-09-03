@@ -3,25 +3,17 @@
     <view class="myTextarea-header">
       <span>{{ headerName }}</span>
     </view>
-    <textarea
-      maxlength="1000"
-      placeholder-style="font-size:small"
-      class="myTextarea-textarea"
-      v-model="inputValue"
-      @input="setValue"
-    />
+    <textarea maxlength="1000" placeholder-style="font-size:small" class="myTextarea-textarea" :value="value"
+      @input="handler" />
   </view>
 </template>
 
 <script setup>
-import { ref } from "vue";
+const props = defineProps(["headerName", "value"]);
+const emit = defineEmits(["onChange"]);
 
-const props = defineProps(["headerName"]);
-const emit = defineEmits(["getValue"]);
-
-let inputValue = ref("");
-const setValue = () => {
-  emit("getValue", inputValue.value);
+const handler = (event) => {
+  emit("onChange", event.target.value);
 };
 </script>
 

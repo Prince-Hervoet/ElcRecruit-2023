@@ -8,40 +8,39 @@
     <view class="postInfo-table-container">
       <view class="postInfo-table">
         <view>
-          <MyInput header-name="您的姓名 *" @getValue="setStudentName"></MyInput>
+          <MyInput header-name="您的姓名 *" :value="studentInfo.studentName" @onChange="setStudentName"></MyInput>
         </view>
         <view>
-          <MyInput header-name="您的学号 *" @getValue="setStuId"></MyInput>
+          <MyInput header-name="您的学号 *" :value="studentInfo.studentId" @onChange="setStuId"></MyInput>
         </view>
         <view>
-          <MyInput header-name="所属学院 *" @getValue="setCollege"></MyInput>
+          <MyInput header-name="所属学院 *" :value="studentInfo.college" @onChange="setCollege"></MyInput>
         </view>
         <view>
-          <MyInput header-name="就读专业 *" @getValue="setMajor"></MyInput>
+          <MyInput header-name="就读专业 *" :value="studentInfo.major" @onChange="setMajor"></MyInput>
         </view>
         <view>
-          <MyInput header-name="所在班级 *" @getValue="setClazz"></MyInput>
+          <MyInput header-name="所在班级 *" :value="studentInfo.clazz" @onChange="setClazz"></MyInput>
         </view>
         <view>
-          <MyInput header-name="电话号码 *" @getValue="setPhoneNum"></MyInput>
+          <MyInput header-name="电话号码 *" :value="studentInfo.phoneNum" @onChange="setPhoneNum"></MyInput>
         </view>
         <view>
-          <MyPicker head-name="第一志愿 *" :arr="depArr" @getValue="setFirstDepId"></MyPicker>
+          <MyPicker header-name="第一志愿 *" :value="studentInfo.firstDepId" :arr="depArr" @onChange="setFirstDepId">
+          </MyPicker>
         </view>
         <view>
-          <MyPicker head-name="第二志愿" :arr="depArr" @getValue="setSecondDepId"></MyPicker>
+          <MyPicker header-name="第二志愿" :value="studentInfo.secondDepId" :arr="depArr" @onChange="setSecondDepId">
+          </MyPicker>
         </view>
         <view>
-          <MyTextarea headerName="自我介绍 *" @getValue="setIntro"></MyTextarea>
+          <MyTextarea headerName="自我介绍 *" :value="studentInfo.intro" @onChange="setIntro"></MyTextarea>
         </view>
         <view>
-          <MyInput header-name="QQ号码" @getValue="setQq"></MyInput>
+          <MyInput header-name="QQ 号码" :value="studentInfo.qq" @onChange="setQq"></MyInput>
         </view>
         <view>
-          <MyInput header-name="掌握技能" @getValue="setSkills"></MyInput>
-        </view>
-        <view>
-          <MySelect></MySelect>
+          <MyInput header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyInput>
         </view>
       </view>
     </view>
@@ -52,23 +51,14 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import { sendSubmitForm } from "../../requests/postInfo"
+import { onMounted, reactive } from "vue";
+import { sendSubmitForm, sendGetInfo } from "../../requests/postInfo"
 import MyInput from "../../components/myInput/MyInput.vue";
 import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
 import MyPicker from "../../components/myPicker/MyPicker.vue";
 
-let college = "";
-let studentName = "";
-let major = "";
-let clazz = "";
-let stuId = "";
-let phoneNum = "";
-let qq = "";
-let intro = "";
-let skills = "";
-let firstDepId = "";
-let secondDepId = "";
+const studentInfo = reactive({ studentName: "", studentId: "", college: "", major: "", clazz: "", phoneNum: "", firstDepId: "", secondDepId: "", intro: "", qq: "", skills: "" })
+const depArr = ["维修部", "秘书部", "项目部", "网宣部", "外联部", "实践部", "软件组"];
 
 const writeErrorTipData = {
   title: '请正确填写信息',
@@ -84,7 +74,6 @@ const submitSuccessTipData = {
   mask: true
 };
 
-
 const submitErrorTipData = {
   title: '报名失败',
   icon: 'error',
@@ -97,9 +86,96 @@ const submitLoadingTipData = {
   mask: true
 };
 
+const clickSubmitForm = async () => {
+  const { studentName, stuId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills } = studentInfo;
+  console.log(studentName);
+  if (!hasNullFields(college, studentName, stuId, major, clazz, firstDepId, phoneNum, intro)
+    && (checkStuId(stuId))
+    && (checkPhoneNumSize(phoneNum))
+  ) {
+    const sendObj = {
+      studentName, stuId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills
+    };
+    // todo: 发送请求
+    wx.showLoading(submitLoadingTipData);
+    const res = await sendSubmitForm(sendObj);
+    wx.hideLoading();
+    if (res.code === 4000) {
+      wx.showToast(submitSuccessTipData);
+    } else {
+      wx.showToast(submitErrorTipData);
+    }
+  } else {
+    wx.showToast(writeErrorTipData);
+  }
+};
 
 
-const depArr = ["维修部", "秘书部", "项目部", "网宣部", "外联部", "实践部", "软件组"];
+onMounted(() => {
+  // todo: 在进入表单页面后，尝试获取之前的报名信息，如果没有则是第一次登录并获取token存储在local
+  const openId = wx.getStorageSync("openId");
+  if (openId) {
+    // 如果有openId则获取信息
+    (async function () {
+      const res = await sendGetInfo(openId);
+      studentInfo.studentName = "振炫哥哥";
+    })()
+  } else {
+    wx.login({
+      success(res) {
+        if (res.code) {
+          console.log(res);
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
+  }
+})
+
+const setCollege = (value) => {
+  studentInfo.college = value;
+};
+
+const setStudentName = (value) => {
+  studentInfo.studentName = value;
+};
+
+const setMajor = (value) => {
+  studentInfo.major = value;
+};
+
+const setClazz = (value) => {
+  studentInfo.clazz = value;
+}
+
+const setStuId = (value) => {
+  studentInfo.studentId = value;
+};
+
+const setPhoneNum = (value) => {
+  studentInfo.phoneNum = value;
+};
+
+const setQq = (value) => {
+  studentInfo.qq = value;
+};
+
+const setIntro = (value) => {
+  studentInfo.intro = value;
+};
+
+const setSkills = (value) => {
+  studentInfo.skills = value;
+};
+
+const setFirstDepId = (value) => {
+  studentInfo.firstDepId = value;
+}
+
+const setSecondDepId = (value) => {
+  studentInfo.secondDepId = value;
+}
 
 function hasNullFields(...fields) {
   for (let i = 0; i < fields.length; i++) {
@@ -119,87 +195,6 @@ function checkStuId(value) {
 function getOpenId() {
 
 }
-
-
-const clickSubmitForm = async () => {
-  if (!hasNullFields(college, studentName, stuId, major, clazz, firstDepId, phoneNum, intro)
-    && (checkStuId(stuId))
-    && (checkPhoneNumSize(phoneNum))
-  ) {
-    const sendObj = {
-      studentName, stuId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills
-    };
-
-    // todo: 发送请求
-    wx.showLoading(submitLoadingTipData);
-    const res = await sendSubmitForm(sendObj);
-    wx.hideLoading();
-    if (res.code === 4000) {
-      wx.showToast(submitSuccessTipData);
-    } else {
-      wx.showToast(submitErrorTipData);
-    }
-  } else {
-    wx.showToast(writeErrorTipData);
-  }
-};
-
-const setCollege = (value) => {
-  college = value;
-};
-
-const setStudentName = (value) => {
-  studentName = value;
-};
-
-const setMajor = (value) => {
-  major = value;
-};
-
-const setClazz = (value) => {
-  clazz = value;
-}
-
-const setStuId = (value) => {
-  stuId = value;
-};
-
-const setPhoneNum = (value) => {
-  phoneNum = value;
-};
-
-const setQq = (value) => {
-  qq = value;
-};
-
-const setIntro = (value) => {
-  intro = value;
-};
-
-const setSkills = (value) => {
-  skills = value;
-};
-
-const setFirstDepId = (value) => {
-  firstDepId = value;
-}
-
-const setSecondDepId = (value) => {
-  secondDepId = value;
-}
-
-onMounted(() => {
-  wx.login({
-    success(res) {
-      if (res.code) {
-        //发起网络请求
-        console.log(res);
-      } else {
-        console.log('登录失败！' + res.errMsg)
-      }
-    }
-  })
-})
 </script>
 
 
