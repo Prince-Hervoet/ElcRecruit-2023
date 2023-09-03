@@ -1,67 +1,83 @@
-using System;
+using Serilog;
 using System.Text;
 using interviewer.Data;
 using interviewer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.WeChat;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AddRazorPages();
-
-builder.Services.AddDbContext<InterviewerDbContext>();
-builder.Services.AddIdentityCore<InterviewerUser>().AddRoles<IdentityRole<Guid>>().AddEntityFrameworkStores<InterviewerDbContext>();
-
-var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
-if(jwtSettings is null)
-    throw new Exception("JwtSettings is null");
-builder.Services.AddSingleton(jwtSettings);
-
-builder.Services.AddScoped<IUserService, UserService>();
-
-var tokenValidationParameters = new TokenValidationParameters
+try
 {
-    ValidateIssuer = false,
-    ValidateAudience = false,
-    ValidateIssuerSigningKey = true,
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecurityKey)),
-    ClockSkew = TimeSpan.Zero,
-};
+    Log.Information("Starting web application");
 
-builder.Services.AddAuthentication(options =>
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddHttpClient();
+
+    builder.Services.AddControllers();
+    builder.Services.AddRazorPages();
+
+    builder.Services.AddDbContext<InterviewerDbContext>();
+    builder.Services.AddIdentityCore<InterviewerUser>().AddRoles<IdentityRole<Guid>>().AddSignInManager().AddEntityFrameworkStores<InterviewerDbContext>();
+
+    var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
+    if (jwtSettings is null)
+        throw new Exception("JwtSettings is null");
+    builder.Services.AddSingleton(jwtSettings);
+
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+    builder.Services.AddScoped<IUserService<InterviewerUser>, UserService>();
+
+    var tokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecurityKey)),
+        ClockSkew = TimeSpan.Zero,
+    };
+
+    builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer(options => { options.TokenValidationParameters = tokenValidationParameters; });
+        .AddJwtBearer(options => { options.TokenValidationParameters = tokenValidationParameters; });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
+    builder.Services.AddAuthentication().AddWeChat(options =>
     {
-        Title = "Interviewer.Api",
-        Version = "v1",
-        Description = "Interviewer.Api Swagger Doc"
+        options.AppId = builder.Configuration["Authentication:WeChat:AppId"];
+        options.AppSecret = builder.Configuration["Authentication:WeChat:AppSecret"];
+        options.UseCachedStateDataFormat = true;
     });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen(c =>
     {
-        Description = "Input the JWT like: Bearer {your token}",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "Interviewer.Api",
+            Version = "v1",
+            Description = "Interviewer.Api Swagger Doc"
+        });
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "Input the JWT like: Bearer {your token}",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            BearerFormat = "JWT",
+            Scheme = "Bearer"
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
@@ -75,29 +91,44 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
-});
+    });
 
-var app = builder.Build();
+    builder.Host.UseSerilog();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interviewer.Api v1"));
+    var app = builder.Build();
+
+    app.UseSerilogRequestLogging();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interviewer.Api v1"));
+    }
+
+    app.UseHttpsRedirection();
+
+    app.MapControllers();
+
+    app.MapRazorPages();
+
+    app.UseRouting();
+
+    app.UseCors();
+
+    app.UseAuthentication();
+
+    app.UseAuthorization();
+
+    // app.MapDefaultControllerRoute().RequireAuthorization();
+
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.MapControllers();
-
-app.MapRazorPages();
-
-app.UseRouting();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-// app.MapDefaultControllerRoute().RequireAuthorization();
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

@@ -4,6 +4,7 @@ namespace interviewer.Data
 {
     public class Comment
     {
+        [Key]
         public Guid StudentId { get; set; }
         public required string InterviewerName { get; set; }
         public ElcDepartment? DepId { get; set; }
