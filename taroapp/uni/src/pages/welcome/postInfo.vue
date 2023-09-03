@@ -87,14 +87,14 @@ const submitLoadingTipData = {
 };
 
 const clickSubmitForm = async () => {
-  const { studentName, stuId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills } = studentInfo;
-  console.log(studentName);
-  if (!hasNullFields(college, studentName, stuId, major, clazz, firstDepId, phoneNum, intro)
-    && (checkStuId(stuId))
+  const { studentName, studentId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills } = studentInfo;
+  console.log({ studentName, studentId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills });
+  if (!hasNullFields(college, studentName, studentId, major, clazz, firstDepId, phoneNum, intro)
+    && (checkStuId(studentId))
     && (checkPhoneNumSize(phoneNum))
   ) {
     const sendObj = {
-      studentName, stuId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills
+      studentName, studentId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills
     };
     // todo: 发送请求
     wx.showLoading(submitLoadingTipData);
