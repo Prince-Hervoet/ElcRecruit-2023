@@ -5,17 +5,21 @@
     </view>
     <br /><br /><br />
     <view class="KnowDep">
-      <view class="DepBigBox">
+      <view class="DepBigBox" @click="clickNavDepInfo(0)">
         <img src="/static/pcb.png" alt="" />
         电协介绍
       </view>
+      <view class="DepBigBox" @click="clickNavDepInfo(10)">
+        <img src="/static/cup.png" alt="" />
+        电协荣誉
+      </view>
       <view class="ali" id="First">
-        <view class="DepBox" @click="gotoCoding(5)">
+        <view class="DepBox" @click="clickNavDepInfo(5)">
           <img src="/static/contact.png" alt="" />
           外联部
         </view>
         <br />
-        <view class="DepBox" @click="gotoCoding(1)">
+        <view class="DepBox" @click="clickNavDepInfo(1)">
           <img src="/static/repair.png" alt="" />
           维修部
         </view>
@@ -23,32 +27,32 @@
       </view>
       <br />
       <view class="ali" id="Second">
-        <view class="DepBox" @click="gotoCoding(4)">
+        <view class="DepBox" @click="clickNavDepInfo(4)">
           <img src="/static/publicize.png" alt="" />
-          网宣部</view
-        >
-        <view class="DepBox" @click="gotoCoding(3)">
+          网宣部
+        </view>
+        <view class="DepBox" @click="clickNavDepInfo(3)">
           <img src="/static/project.png" alt="" />
           项目部
         </view>
       </view>
       <view class="ali" id="Third">
-        <view class="DepBox" @click="gotoCoding(6)">
+        <view class="DepBox" @click="clickNavDepInfo(6)">
           <img src="/static/practice.png" alt="" />
           实践部
         </view>
-        <view class="DepBox" @click="gotoCoding(2)">
+        <view class="DepBox" @click="clickNavDepInfo(2)">
           <img src="/static/secretary.png" alt="" />
           秘书部
         </view>
       </view>
 
       <view class="ali" id="Third">
-        <view class="DepBox" @click="gotoCoding(6)">
+        <view class="DepBox" @click="clickNavDepInfo(7)">
           <img src="/static/coding.png" alt="" />
           软件组
         </view>
-        <view class="DepBox" @click="gotoCoding(2)" style="visibility: hidden">
+        <view class="DepBox" @click="clickNavDepInfo(2)" style="visibility: hidden">
           <img src="" alt="" />
           占位组
         </view>
@@ -58,7 +62,7 @@
 </template>
 
 <script setup>
-const gotoCoding = (depId) => {
+const clickNavDepInfo = (depId) => {
   uni.navigateTo({
     url: `depIntro?depId=${depId}`,
   });
@@ -78,10 +82,12 @@ image {
   width: 20px;
   height: 20px;
 }
+
 .KnowDep {
   width: 95%;
   margin: auto;
 }
+
 .DepBox {
   width: 45%;
   height: 70px;
@@ -99,6 +105,11 @@ image {
   font-weight: 700;
   color: rgb(31, 91, 194);
 }
+
+.DepBox:active {
+  transform: scale(1.2, 1.2);
+}
+
 .DepBigBox {
   width: 70%;
   height: 80px;
@@ -118,6 +129,7 @@ image {
   color: rgb(31, 91, 194);
   margin-bottom: 10%;
 }
+
 .DepZuBox {
   width: 45%;
   height: 70px;
@@ -134,6 +146,7 @@ image {
   color: rgb(31, 91, 194);
   margin-bottom: 50px;
 }
+
 .ali {
   display: flex;
   justify-content: center;

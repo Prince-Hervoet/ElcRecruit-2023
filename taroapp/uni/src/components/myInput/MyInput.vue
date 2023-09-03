@@ -32,7 +32,6 @@ const handler = (event) => {
   align-items: center;
   color: rgb(146, 146, 146);
   margin-bottom: 5px;
-  /* background-color: black; */
 }
 
 .myInput-input-container {
