@@ -3,7 +3,7 @@ import "./dataHostChartArea.css";
 import * as echarts from "echarts";
 import { observer } from "mobx-react-lite";
 import dataHostChartStore from "../../../store/dataHostChartStore";
-import { KeyToDepName } from "../../../store/globalInfo";
+import { KeyToDepName } from "../../../store/global";
 
 function getChartDataList(depSumList) {
   const ans = [];

@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Descriptions, Input, Rate, Avatar, List } from "antd";
+import { Descriptions, Input, Rate, List, Select } from "antd";
 import {
   CaretRightOutlined,
   LoginOutlined,
   CloseOutlined,
   PauseOutlined,
+  UpSquareOutlined,
 } from "@ant-design/icons";
-import { useSearchParams } from "react-router-dom";
 import { Button } from "antd";
 import "./resume.css";
 import { getUrlParam } from "../../util";
+import ResumeStatusShow from "../../components/resumeComponents/resumeStatusShow";
 
 const { TextArea } = Input;
 
@@ -114,6 +115,25 @@ export default function Resume() {
           </Button>
         </div>
         <p></p>
+        <div>
+          <Select
+            defaultValue="7"
+            style={{ width: 150, marginRight: "10px" }}
+            options={[
+              { value: "1", label: "维修部" },
+              { value: "2", label: "秘书部" },
+              { value: "3", label: "项目部" },
+              { value: "4", label: "网宣部" },
+              { value: "5", label: "外联部" },
+              { value: "6", label: "实践部" },
+              { value: "7", label: "软件组" },
+            ]}
+          />
+          <Button danger icon={<UpSquareOutlined />} size={"default"}>
+            调剂至
+          </Button>
+        </div>
+        <p></p>
         <List
           itemLayout="horizontal"
           dataSource={data}
@@ -132,6 +152,7 @@ export default function Resume() {
           style={{ display: "none" }}
         ></input>
       </div>
+      <ResumeStatusShow></ResumeStatusShow>
     </div>
   );
 }

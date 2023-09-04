@@ -1,3 +1,4 @@
+// 颜色对应表
 export const ColorObj = {
   10: "orange",
   20: "blue",

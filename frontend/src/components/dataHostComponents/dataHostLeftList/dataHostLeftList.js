@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./dataHostLeftList.css";
 import ReactLogo from "../reactLogo/reactLogo";
-import { DepInfoArr } from "../../../store/globalInfo";
+import { DepInfoArr } from "../../../store/global";
 import { fetchGetCards } from "../util/util";
 import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
