@@ -61,15 +61,29 @@ export default function Resume() {
       <div className="resume-content-body">
         <div className="resume-content-header">
           <Descriptions
-            title="User Info"
+            title="个人信息"
             column={4}
             labelStyle={{ fontWeight: 700, fontSize: "larger" }}
             contentStyle={{ fontSize: "larger" }}
           >
             <Descriptions.Item label="姓名">{items.name}</Descriptions.Item>
-            <Descriptions.Item label="电话">{items.phone}</Descriptions.Item>
+            <Descriptions.Item label="学号">{items.phone}</Descriptions.Item>
             <Descriptions.Item label="学院">{items.college}</Descriptions.Item>
+            <Descriptions.Item label="专业">{items.major}</Descriptions.Item>
             <Descriptions.Item label="班级">{items.clazz}</Descriptions.Item>
+            <Descriptions.Item label="掌握技能">
+              {items.skills}
+            </Descriptions.Item>
+            <Descriptions.Item label="手机号码">
+              {items.phoneNum}
+            </Descriptions.Item>
+            <Descriptions.Item label="qq号码">{items.qq}</Descriptions.Item>
+            <Descriptions.Item label="第一志愿">
+              {items.firstDepId}
+            </Descriptions.Item>
+            <Descriptions.Item label="第二志愿">
+              {items.secondDepId}
+            </Descriptions.Item>
             <Descriptions.Item label="自我介绍">
               {items.intro}
             </Descriptions.Item>
