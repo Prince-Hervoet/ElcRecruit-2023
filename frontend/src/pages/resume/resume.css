@@ -1,0 +1,36 @@
+.resume-body {
+  width: 100%;
+  height: 100%;
+}
+
+.resume-content-body {
+  width: 70%;
+  min-width: 672px;
+  margin: auto;
+  padding: 20px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
+}
+
+.resume-content-header {
+  font-size: larger;
+}
+
+.resume-content-comment-body {
+  margin-top: 20px;
+}
+
+.resume-content-comment-buttons-body {
+  margin-top: 20px;
+  display: flex;
+  /* background-color: aqua; */
+}
+
+.resume-content-buttons-body {
+  margin-top: 20px;
+}
+
+.resume-content-buttons-body > button {
+  margin-right: 10px;
+}

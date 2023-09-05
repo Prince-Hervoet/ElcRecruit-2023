@@ -1,0 +1,22 @@
+.dataHostColorFlag-body {
+  width: 80px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dataHostColorFlag-color-body {
+  width: 20px;
+  height: 20px;
+  background-color: purple;
+  margin-right: 5px;
+  border-radius: 6px;
+}
+
+.dataHostColorFlag-text-body {
+  color: black;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: 700;
+}
