@@ -10,7 +10,6 @@ import Bo from "../../components/loginComponents/bo/bo";
 export default function Login() {
   let userNameRef = useRef("");
   let passwordRef = useRef("");
-  // const location = useLocation();
   const nav = useNavigate();
 
   useEffect(() => {
@@ -36,18 +35,16 @@ export default function Login() {
     }
     const res = await LoginRequest.login(userName, password);
     if (res.code === 4000) {
-      // 存储token
       localStorage.setItem("token", res.data.token);
       nav("/dataHost", { replace: true });
     } else {
-      alert("登录失败: " + res.msg);
+      alert(res.msg);
     }
   };
 
   const clickOnKeyDown = (event) => {
     if (event.key === "Enter") {
-      // clickOnLogin();
-      console.log(joinRouterUrl("/resume", { uid: 2899 }));
+      clickOnLogin();
     }
   };
 

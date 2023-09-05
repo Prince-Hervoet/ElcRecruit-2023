@@ -12,21 +12,23 @@ import { ServiceUrls } from "./util";
  */
 async function login(userName, password) {
   const url = ServiceUrls.login;
-  // const res = await axios({
-  //   method: "POST",
-  //   data: { userName, password },
-  //   url,
-  // });
-  const res = {
+  const res = await axios({
+    method: "POST",
+    data: { userName, password },
+    url,
+  });
+  if (res.status !== 200) {
+    return { code: 4002, msg: "请求失败" };
+  }
+  const { access_token, token_type, errors } = res.data;
+  if (errors) {
+    return { code: 4002, msg: "账号或密码错误" };
+  }
+  return {
     code: 4000,
-    msg: "success",
-    data: {
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-      currentDepId: "12",
-    },
+    msg: "登录成功",
+    data: { token: token_type + " " + access_token },
   };
-  return res;
 }
 
 /**
