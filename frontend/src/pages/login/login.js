@@ -4,7 +4,6 @@ import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
-import { joinRouterUrl } from "../../util";
 import Bo from "../../components/loginComponents/bo/bo";
 
 export default function Login() {
