@@ -2,7 +2,6 @@ import React from "react";
 import "./card.css";
 import { ServiceUrls } from "../../requests/util";
 import { ColorObj, DepObj } from "../../store/globalInfo";
-import { joinRouterUrl } from "../../util";
 
 export default function Card({
   uid,
@@ -17,8 +16,10 @@ export default function Card({
   const dep = DepObj[depId + ""];
 
   const clickOnLinkTo = () => {
-    const url = joinRouterUrl("/resume", { uid });
-    window.open(url);
+    const hrefStr = window.location.href;
+    const flag = hrefStr.indexOf("#");
+    const source = hrefStr.substring(0, flag + 1);
+    window.open(`${source}/resume?uid=` + uid);
   };
 
   return (

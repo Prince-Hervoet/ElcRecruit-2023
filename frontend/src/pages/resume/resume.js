@@ -5,7 +5,13 @@ import Comment from "../../components/comment/comment";
 import DataRequest from "../../requests/dataRequest";
 
 import "./resume.css";
-import { getUrlParam } from "../../util";
+
+function getUrlParam(name) {
+  let u = arguments[1] || window.location.href,
+    reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+    r = u.substr(u.indexOf("?") + 1).match(reg);
+  return r != null ? decodeURI(r[2]) : "";
+}
 
 export default function Resume({ userId }) {
   const [flagType, setFlagType] = useState(1);
@@ -32,7 +38,7 @@ export default function Resume({ userId }) {
   };
   const clickOnReject = () => {};
 
-  let content = <React.StrictMode></React.StrictMode>;
+  let content = <></>;
   switch (flagType) {
     case 50:
       content = (
@@ -168,7 +174,7 @@ export default function Resume({ userId }) {
   }
 
   return (
-    <React.StrictMode>
+    <>
       <div className="resume-body">
         <div className="resume-content">
           <div className="resume-content-base-info">
@@ -278,6 +284,6 @@ export default function Resume({ userId }) {
       </div>
       <input type="hidden" id="userIdSave" value={userId} ref={hiddenInput} />
       <div className="resume-flag">{content}</div>
-    </React.StrictMode>
+    </>
   );
 }

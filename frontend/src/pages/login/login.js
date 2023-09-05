@@ -3,10 +3,9 @@ import "./login.css";
 import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
 import LoginRequest from "../../requests/loginRequest";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import rootStore from "../../store/rootStore";
 import Bo from "../../components/bo/bo";
-import { getHostUrl, joinRouterUrl } from "../../util";
 const { danglingStore } = rootStore;
 
 async function updateDangling(title, message) {
@@ -21,7 +20,7 @@ async function updateDangling(title, message) {
 export default function Login() {
   let userNameRef = useRef("");
   let passwordRef = useRef("");
-  const location = useLocation();
+
   const goto = useNavigate();
 
   useEffect(() => {
@@ -57,13 +56,12 @@ export default function Login() {
 
   const clickOnKeyDown = (event) => {
     if (event.key === "Enter") {
-      // clickOnLogin();
-      console.log(joinRouterUrl("/resume", { uid: 2899 }));
+      clickOnLogin();
     }
   };
 
   return (
-    <React.StrictMode>
+    <>
       <div className="login-body" onKeyDown={clickOnKeyDown}>
         <Bo></Bo>
         <div className="login-content">
@@ -115,6 +113,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </React.StrictMode>
+    </>
   );
 }
