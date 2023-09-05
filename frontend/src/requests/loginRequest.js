@@ -6,13 +6,12 @@ import { ServiceUrls } from "./util";
  */
 
 /**
- *
  * @param {string} userName 用户名
  * @param {string} password 密码
  * @returns {token:"AAAA",currentDepId:"1"}
  */
 async function login(userName, password) {
-  // const url = ServiceUrls.login;
+  const url = ServiceUrls.login;
   // const res = await axios({
   //   method: "POST",
   //   data: { userName, password },

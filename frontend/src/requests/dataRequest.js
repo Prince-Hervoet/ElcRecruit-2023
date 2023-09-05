@@ -6,24 +6,83 @@ import { ServiceUrls } from "./util";
 /**
  * 按照部门id获取部门报名信息 分页
  * @param {string} depId 部门id 0表示全部 100表示调剂
- * @param {number} pageCount
- * @param {number} pageLimit
+ * @param {number} pageCount 页码
+ * @param {number} pageLimit 每页数量
  * @returns 简要信息 {uid:"1Njd12",name:"张三",depId:"1",stuId:"3120003333",college:"ddd",major:"光电",status:10}
  */
 async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
-  const url = ServiceUrls.getBriefInfos;
-  const res = await axios({
-    method: "GET",
-    data: { depId, pageCount, pageLimit },
-    url,
-  });
-  try {
-    res.data = JSON.parse(res.data);
-  } catch (e) {
-    res.data = {};
-    console.log(e);
-  }
-  return res;
+  // const url = ServiceUrls.getBriefInfos;
+  // const res = await axios({
+  //   method: "GET",
+  //   data: { depId, pageCount, pageLimit },
+  //   url,
+  // });
+  // try {
+  //   res.data = JSON.parse(res.data);
+  // } catch (e) {
+  //   res.data = {};
+  //   console.log(e);
+  // }
+  // return res;
+  const tempData = [
+    {
+      id: 1,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "10",
+    },
+    {
+      id: 2,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "20",
+    },
+    {
+      id: 3,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "30",
+    },
+    {
+      id: 4,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "40",
+    },
+    {
+      id: 5,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "50",
+    },
+    {
+      id: 6,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "60",
+    },
+    {
+      id: 7,
+      name: "张三",
+      stuId: 3120003434,
+      college: "计算机学院",
+      clazz: "电子一班",
+      state: "20",
+    },
+  ];
+  return tempData;
 }
 
 /**

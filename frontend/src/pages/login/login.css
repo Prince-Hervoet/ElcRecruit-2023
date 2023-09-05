@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   min-height: 650px;
-  background-color: rgb(240, 240, 240);
+  background-color: rgba(240, 240, 240, 0.5);
 }
 
 .login-body * {
