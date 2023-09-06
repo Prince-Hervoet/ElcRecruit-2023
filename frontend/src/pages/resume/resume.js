@@ -11,6 +11,7 @@ import { Button } from "antd";
 import "./resume.css";
 import { getUrlParam } from "../../util";
 import ResumeStatusShow from "../../components/resumeComponents/resumeStatusShow";
+import { ResumeRequest } from "../../requests/resumeRequest";
 
 const { TextArea } = Input;
 
@@ -32,28 +33,45 @@ const data = [
 export default function Resume() {
   const [items, setItems] = useState({});
   const [comments, setComments] = useState([]);
-  const userIdInputRef = useRef();
-  const nComment = useRef("");
-  const nScore = useRef("");
+  const userIdRef = useRef("");
+  const commentRef = useRef("");
+  const scoreRef = useRef("");
 
   useEffect(() => {
     const userId = getUrlParam("userId");
-    userIdInputRef.current.setAttribute("value", userId);
+    userIdRef.current = userId;
+    (async function () {
+      const res = await ResumeRequest.sendGetStudentInfo(userId);
+    })();
   }, []);
 
-  const clickStartInterview = () => {};
+  const clickStartInterview = () => {
+    ResumeRequest.sendUpdateStudentStatus(30);
+  };
 
-  const clickAccept = () => {};
+  const clickAccept = () => {
+    ResumeRequest.sendUpdateStudentStatus(50);
+  };
 
-  const clickReject = () => {};
+  const clickReject = () => {
+    ResumeRequest.sendUpdateStudentStatus(60);
+  };
 
-  const clickPending = () => {};
+  const clickPending = () => {
+    ResumeRequest.sendUpdateStudentStatus(40);
+  };
 
-  const clickSubmitComment = () => {};
+  const clickSubmitComment = () => {
+    const comment = commentRef.current;
+    const score = scoreRef.current;
+    commentRef.current = "";
+    scoreRef.current = "";
+    ResumeRequest.sendCommentAndScore(comment, score);
+  };
 
   const onChangeComment = (value) => {
     console.log(value);
-    nComment.current = value;
+    commentRef.current = value;
   };
 
   return (
@@ -160,11 +178,6 @@ export default function Resume() {
             </List.Item>
           )}
         />
-        <input
-          id="userIdInput"
-          ref={userIdInputRef}
-          style={{ display: "none" }}
-        ></input>
       </div>
       <ResumeStatusShow></ResumeStatusShow>
     </div>

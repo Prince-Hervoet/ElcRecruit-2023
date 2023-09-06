@@ -30,5 +30,6 @@ export const ResumeRequest = {
   sendCommentAndScore,
   sendStartInterview,
   sendGetComments,
+  sendGetStudentInfo,
   sendUpdateStudentStatus,
 };
