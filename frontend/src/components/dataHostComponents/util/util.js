@@ -1,7 +1,7 @@
 import DataRequest from "../../../requests/dataRequest";
 import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
-export async function fetchGetCards(depId, pageCount, pageSize) {
+export async function sendGetCards(depId, pageCount, pageSize) {
   // 获取请求id
   dataHostCardListStore.incRequestId();
   const currentRequestId = dataHostCardListStore.getRequestId();

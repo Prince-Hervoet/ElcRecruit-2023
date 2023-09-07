@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./dataHostLeftList.css";
 import ReactLogo from "../reactLogo/reactLogo";
-import { DepInfoArr } from "../../../store/globalInfo";
-import { fetchGetCards } from "../util/util";
+import { DepInfoArr } from "../../../store/global";
+import { sendGetCards } from "../util/util";
 import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
 const leftListInfoArr = [
@@ -20,7 +20,7 @@ export default function DataHostLeftList() {
     dataHostCardListStore.setCurrentDepId(targetId);
 
     // todo: 发送网络请求
-    fetchGetCards();
+    sendGetCards();
   };
 
   return (

@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:3000";
 // 请求服务端的所有url集合
 export const ServiceUrls = {
   // 登录
-  login: `${BASE_URL}/login`,
+  login: `${BASE_URL}/elc_recruit/interviewer/Login`,
   // 判断是否登录
   judgeLogin: `${BASE_URL}/judgeLogin`,
   // 请求简历

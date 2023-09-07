@@ -24,6 +24,8 @@ class DataHostChartStore {
   setDepSumList(nList) {
     this.depSumList = nList;
   }
+
+  clear() {}
 }
 
 const dataHostChartStore = new DataHostChartStore();

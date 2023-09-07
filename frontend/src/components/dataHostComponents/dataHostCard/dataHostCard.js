@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./dataHostCard.css";
 import { Card } from "antd";
 import { joinRouterUrl } from "../../../util";
-import { ColorObj } from "../../../store/globalInfo";
+import { ColorObj } from "../../../store/global";
 const { Meta } = Card;
 
 export default function DataHostCard({ info }) {

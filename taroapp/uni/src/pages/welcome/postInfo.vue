@@ -22,12 +22,11 @@
           ></MyInput>
         </view>
         <view>
-          <MyPicker
+          <MyInput
             header-name="所属学院 *"
             :value="studentInfo.college"
-            :arr="depCollage"
             @onChange="setCollege"
-          ></MyPicker>
+          ></MyInput>
         </view>
         <view>
           <MyInput
@@ -127,18 +126,6 @@ const depArr = [
   "外联部",
   "实践部",
   "软件组",
-];
-const depCollage = [
-  "机电工程学院",
-  "自动化学院",
-  "轻工化工学院",
-  "信息工程学院",
-  "土木与交通工程学院",
-  "计算机学院",
-  "材料与能源学院",
-  "环境科学与工程学院",
-  "物理与光电工程学院",
-  "外国语学院",
 ];
 
 const writeErrorTipData = {
