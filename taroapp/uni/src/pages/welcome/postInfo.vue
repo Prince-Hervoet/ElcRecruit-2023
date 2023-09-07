@@ -8,93 +8,218 @@
     <view class="postInfo-table-container">
       <view class="postInfo-table">
         <view>
-          <MyInput header-name="您的姓名 *" :value="studentInfo.studentName" @onChange="setStudentName"></MyInput>
+          <MyInput
+            header-name="您的姓名 *"
+            :value="studentInfo.studentName"
+            @onChange="setStudentName"
+          ></MyInput>
         </view>
         <view>
-          <MyInput header-name="您的学号 *" :value="studentInfo.studentId" @onChange="setStuId"></MyInput>
+          <MyInput
+            header-name="您的学号 *"
+            :value="studentInfo.studentId"
+            @onChange="setStuId"
+          ></MyInput>
         </view>
         <view>
-          <MyInput header-name="所属学院 *" :value="studentInfo.college" @onChange="setCollege"></MyInput>
+          <MyPicker
+            header-name="所属学院 *"
+            :value="studentInfo.college"
+            :arr="depCollage"
+            @onChange="setCollege"
+          ></MyPicker>
         </view>
         <view>
-          <MyInput header-name="就读专业 *" :value="studentInfo.major" @onChange="setMajor"></MyInput>
+          <MyInput
+            header-name="就读专业 *"
+            :value="studentInfo.major"
+            @onChange="setMajor"
+          ></MyInput>
         </view>
         <view>
-          <MyInput header-name="所在班级 *" :value="studentInfo.clazz" @onChange="setClazz"></MyInput>
+          <MyInput
+            header-name="所在班级 *"
+            :value="studentInfo.clazz"
+            @onChange="setClazz"
+          ></MyInput>
         </view>
         <view>
-          <MyInput header-name="电话号码 *" :value="studentInfo.phoneNum" @onChange="setPhoneNum"></MyInput>
+          <MyInput
+            header-name="电话号码 *"
+            :value="studentInfo.phoneNum"
+            @onChange="setPhoneNum"
+          ></MyInput>
         </view>
         <view>
-          <MyPicker header-name="第一志愿 *" :value="studentInfo.firstDepId" :arr="depArr" @onChange="setFirstDepId">
+          <MyPicker
+            header-name="第一志愿 *"
+            :value="studentInfo.firstDepId"
+            :arr="depArr"
+            @onChange="setFirstDepId"
+          >
           </MyPicker>
         </view>
         <view>
-          <MyPicker header-name="第二志愿" :value="studentInfo.secondDepId" :arr="depArr" @onChange="setSecondDepId">
+          <MyPicker
+            header-name="第二志愿"
+            :value="studentInfo.secondDepId"
+            :arr="depArr"
+            @onChange="setSecondDepId"
+          >
           </MyPicker>
         </view>
         <view>
-          <MyTextarea headerName="自我介绍 *" :value="studentInfo.intro" @onChange="setIntro"></MyTextarea>
+          <MyTextarea
+            headerName="自我介绍 *"
+            :value="studentInfo.intro"
+            @onChange="setIntro"
+          ></MyTextarea>
         </view>
         <view>
-          <MyInput header-name="QQ 号码" :value="studentInfo.qq" @onChange="setQq"></MyInput>
+          <MyInput
+            header-name="QQ 号码"
+            :value="studentInfo.qq"
+            @onChange="setQq"
+          ></MyInput>
         </view>
         <view>
-          <MyInput header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyInput>
+          <MyInput
+            header-name="掌握技能"
+            :value="studentInfo.skills"
+            @onChange="setSkills"
+          ></MyInput>
         </view>
       </view>
     </view>
     <button class="postInfo-button-container" @click="clickSubmitForm">
-      <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
+      <span style="font-size: 15px; font-weight: 700; line-height: 15px"
+        >提交</span
+      >
     </button>
   </view>
 </template>
 
 <script setup>
 import { onMounted, reactive } from "vue";
-import { sendSubmitForm, sendGetInfo } from "../../requests/postInfo"
+import { sendSubmitForm, sendGetInfo } from "../../requests/postInfo";
 import MyInput from "../../components/myInput/MyInput.vue";
 import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
 import MyPicker from "../../components/myPicker/MyPicker.vue";
 
-const studentInfo = reactive({ studentName: "", studentId: "", college: "", major: "", clazz: "", phoneNum: "", firstDepId: "", secondDepId: "", intro: "", qq: "", skills: "" })
-const depArr = ["维修部", "秘书部", "项目部", "网宣部", "外联部", "实践部", "软件组"];
+const studentInfo = reactive({
+  studentName: "",
+  studentId: "",
+  college: "",
+  major: "",
+  clazz: "",
+  phoneNum: "",
+  firstDepId: "",
+  secondDepId: "",
+  intro: "",
+  qq: "",
+  skills: "",
+});
+const depArr = [
+  "维修部",
+  "秘书部",
+  "项目部",
+  "网宣部",
+  "外联部",
+  "实践部",
+  "软件组",
+];
+const depCollage = [
+  "机电工程学院",
+  "自动化学院",
+  "轻工化工学院",
+  "信息工程学院",
+  "土木与交通工程学院",
+  "计算机学院",
+  "材料与能源学院",
+  "环境科学与工程学院",
+  "物理与光电工程学院",
+  "外国语学院",
+];
 
 const writeErrorTipData = {
-  title: '请正确填写信息',
-  icon: 'error',
+  title: "请正确填写信息",
+  icon: "error",
   duration: 1500,
-  mask: true
+  mask: true,
 };
 
 const submitSuccessTipData = {
-  title: '报名成功',
-  icon: 'success',
+  title: "报名成功",
+  icon: "success",
   duration: 1500,
-  mask: true
+  mask: true,
 };
 
 const submitErrorTipData = {
-  title: '报名失败',
-  icon: 'error',
+  title: "报名失败",
+  icon: "error",
   duration: 1500,
-  mask: true
+  mask: true,
 };
 
 const submitLoadingTipData = {
-  title: '报名中...',
-  mask: true
+  title: "报名中...",
+  mask: true,
 };
 
 const clickSubmitForm = async () => {
-  const { studentName, studentId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills } = studentInfo;
-  console.log({ studentName, studentId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills });
-  if (!hasNullFields(college, studentName, studentId, major, clazz, firstDepId, phoneNum, intro)
-    && (checkStuId(studentId))
-    && (checkPhoneNumSize(phoneNum))
+  const {
+    studentName,
+    studentId,
+    college,
+    major,
+    clazz,
+    phoneNum,
+    firstDepId,
+    secondDepId,
+    intro,
+    qq,
+    skills,
+  } = studentInfo;
+  console.log({
+    studentName,
+    studentId,
+    college,
+    major,
+    clazz,
+    phoneNum,
+    firstDepId,
+    secondDepId,
+    intro,
+    qq,
+    skills,
+  });
+  if (
+    !hasNullFields(
+      college,
+      studentName,
+      studentId,
+      major,
+      clazz,
+      firstDepId,
+      phoneNum,
+      intro
+    ) &&
+    checkStuId(studentId) &&
+    checkPhoneNumSize(phoneNum)
   ) {
     const sendObj = {
-      studentName, studentId, college, major, clazz, phoneNum, firstDepId, secondDepId, intro, qq, skills
+      studentName,
+      studentId,
+      college,
+      major,
+      clazz,
+      phoneNum,
+      firstDepId,
+      secondDepId,
+      intro,
+      qq,
+      skills,
     };
     // todo: 发送请求
     wx.showLoading(submitLoadingTipData);
@@ -110,7 +235,6 @@ const clickSubmitForm = async () => {
   }
 };
 
-
 onMounted(() => {
   // todo: 在进入表单页面后，尝试获取之前的报名信息，如果没有则是第一次登录并获取token存储在local
   const openId = wx.getStorageSync("openId");
@@ -118,20 +242,20 @@ onMounted(() => {
     // 如果有openId则获取信息
     (async function () {
       const res = await sendGetInfo(openId);
-      studentInfo.firstDepId = "2"
-    })()
+      studentInfo.firstDepId = "2";
+    })();
   } else {
     wx.login({
       success(res) {
         if (res.code) {
           console.log(res);
         } else {
-          console.log('登录失败！' + res.errMsg)
+          console.log("登录失败！" + res.errMsg);
         }
-      }
-    })
+      },
+    });
   }
-})
+});
 
 const setCollege = (value) => {
   studentInfo.college = value;
@@ -147,7 +271,7 @@ const setMajor = (value) => {
 
 const setClazz = (value) => {
   studentInfo.clazz = value;
-}
+};
 
 const setStuId = (value) => {
   studentInfo.studentId = value;
@@ -171,11 +295,11 @@ const setSkills = (value) => {
 
 const setFirstDepId = (value) => {
   studentInfo.firstDepId = value;
-}
+};
 
 const setSecondDepId = (value) => {
   studentInfo.secondDepId = value;
-}
+};
 
 function hasNullFields(...fields) {
   for (let i = 0; i < fields.length; i++) {
@@ -192,12 +316,8 @@ function checkStuId(value) {
   return value.length === 10;
 }
 
-function getOpenId() {
-
-}
+function getOpenId() {}
 </script>
-
-
 
 <style scoped>
 .postInfo-container {
@@ -210,14 +330,15 @@ function getOpenId() {
   margin-bottom: 20px;
 }
 
-.postInfo-table-container {}
+.postInfo-table-container {
+}
 
 .postInfo-table {
   display: flex;
   flex-direction: column;
 }
 
-.postInfo-table>view {
+.postInfo-table > view {
   margin-bottom: 16px;
 }
 
