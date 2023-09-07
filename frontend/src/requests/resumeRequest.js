@@ -28,7 +28,6 @@ async function sendCommentAndScore(comment, score, userName) {}
 
 export const ResumeRequest = {
   sendCommentAndScore,
-  sendStartInterview,
   sendGetComments,
   sendGetStudentInfo,
   sendUpdateStudentStatus,

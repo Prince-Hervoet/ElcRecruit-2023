@@ -22,17 +22,17 @@ export default function DataHostCard({ info }) {
       style={{ borderRight: `6px solid ${stateColor}` }}
     >
       <Card
-        title={name}
+        title={name + " " + "第一志愿"}
         style={{
           width: "100%",
           backgroundColor: "#fafafa",
           fontWeight: 700,
+          whiteSpace: true,
         }}
       >
         <Meta
           description={`学院: ${college} | 学号: ${stuId} | 班级: ${clazz}`}
         />
-        <p>第一志愿部门: {dep}</p>
       </Card>
     </div>
   );

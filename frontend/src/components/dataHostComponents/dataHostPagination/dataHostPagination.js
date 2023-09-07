@@ -1,6 +1,6 @@
 import React from "react";
 import { Pagination } from "antd";
-import { fetchGetCards } from "../util/util";
+import { sendGetCards } from "../util/util";
 import dataHostCardListStore from "../../../store/dataHostCardListStore";
 
 export default function DataHostPagination({ info }) {
@@ -15,7 +15,7 @@ export default function DataHostPagination({ info }) {
         pageSize={pageSize}
         total={total}
         onChange={(pageCount, pageSize) => {
-          fetchGetCards(
+          sendGetCards(
             dataHostCardListStore.getCurrentDepId(),
             pageCount,
             pageSize
