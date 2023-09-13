@@ -3,7 +3,6 @@ using System.Text;
 using interviewer.Data;
 using interviewer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.WeChat;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -24,7 +23,7 @@ try
     builder.Services.AddRazorPages();
 
     builder.Services.AddDbContext<InterviewerDbContext>();
-    builder.Services.AddIdentityCore<InterviewerUser>().AddRoles<IdentityRole<Guid>>().AddSignInManager().AddEntityFrameworkStores<InterviewerDbContext>();
+    builder.Services.AddIdentityCore<InterviewerUser>().AddRoles<IdentityRole>().AddSignInManager().AddEntityFrameworkStores<InterviewerDbContext>();
 
     var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
     if (jwtSettings is null)
@@ -51,13 +50,6 @@ try
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
         .AddJwtBearer(options => { options.TokenValidationParameters = tokenValidationParameters; });
-
-    builder.Services.AddAuthentication().AddWeChat(options =>
-    {
-        options.AppId = builder.Configuration["Authentication:WeChat:AppId"];
-        options.AppSecret = builder.Configuration["Authentication:WeChat:AppSecret"];
-        options.UseCachedStateDataFormat = true;
-    });
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
@@ -100,11 +92,16 @@ try
     app.UseSerilogRequestLogging();
 
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interviewer.Api v1"));
-    }
+    // if (app.Environment.IsDevelopment())
+    // {
+    //     app.UseSwagger();
+    //     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interviewer.Api v1"));
+    // }
+
+    //TODO: 发布时移除！！
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Interviewer.Api v1"));
+    //TODO: 发布时移除！！
 
     app.UseHttpsRedirection();
 

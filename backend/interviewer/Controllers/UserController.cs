@@ -98,67 +98,18 @@ namespace interviewer.Controllers
             var httpClient = _httpClientFactory.CreateClient();
             var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
-            Code2SessionResponse? sessionResponse = null;
+            if (!httpResponseMessage.IsSuccessStatusCode) return Problem();
 
-            if (httpResponseMessage.IsSuccessStatusCode)
-            {
-                using var contentStream =
-                    await httpResponseMessage.Content.ReadAsStreamAsync();
+            using var contentStream =
+                await httpResponseMessage.Content.ReadAsStreamAsync();
 
-                sessionResponse = await JsonSerializer.DeserializeAsync
-                    <Code2SessionResponse>(contentStream);
-            }
+            var sessionResponse = await JsonSerializer.DeserializeAsync
+                <Code2SessionResponse>(contentStream);
 
-            if (sessionResponse?.ErrorCode != 0)
-                return BadRequest(sessionResponse);
+            var openId = sessionResponse.OpenId;
+            var tokenResult = await _userService.WeChatLoginAsync(openId);
 
-            return Ok(sessionResponse);
+            return Ok(tokenResult);
         }
-
-        // /// <summary>
-        // /// 微信登录
-        // /// </summary>
-        // /// <param name="redirectUrl">授权成功后的跳转地址</param>
-        // /// <returns></returns>
-        // [HttpGet("LoginByWeChat")]
-        // public IActionResult LoginByWeChat(string redirectUrl)
-        // {
-        //     var request = _contextAccessor.HttpContext.Request;
-        //     var url = $"{request.Scheme}://{request.Host}{request.PathBase}{request.Path}Callback?provider={Provider_WeChat}&redirectUrl={redirectUrl}";
-        //     var properties = new AuthenticationProperties { RedirectUri = url };
-        //     properties.Items[LoginProviderKey] = Provider_WeChat;
-        //     return Challenge(properties, Provider_WeChat);
-        // }
-        //
-        // /// <summary>
-        // /// 微信授权成功后自动回调的地址
-        // /// </summary>
-        // /// <param name="provider"></param>
-        // /// <param name="redirectUrl">授权成功后的跳转地址</param>
-        // /// <returns></returns>
-        // [HttpGet("LoginByWeChatCallback")]
-        // public async Task<IActionResult> LoginByWeChatCallbackAsync(string provider = null, string redirectUrl = "")
-        // {
-        //     var authenticateResult = await _contextAccessor.HttpContext.AuthenticateAsync(provider);
-        //     if (!authenticateResult.Succeeded) return Redirect(redirectUrl);
-        //     var openIdClaim = authenticateResult.Principal.FindFirst(ClaimTypes.NameIdentifier);
-        //     if (openIdClaim == null || string.IsNullOrWhiteSpace(openIdClaim.Value))
-        //         return Redirect(redirectUrl);
-        //     //TODO 记录授权成功后的微信信息
-        //     var city = authenticateResult.Principal.FindFirst("urn:wechat:city")?.Value;
-        //     var country = authenticateResult.Principal.FindFirst(ClaimTypes.Country)?.Value;
-        //     var headimgurl = authenticateResult.Principal.FindFirst(ClaimTypes.Uri)?.Value;
-        //     var nickName = authenticateResult.Principal.FindFirst(ClaimTypes.Name)?.Value;
-        //     var openId = authenticateResult.Principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        //     var privilege = authenticateResult.Principal.FindFirst("urn:wechat:privilege")?.Value;
-        //     var province = authenticateResult.Principal.FindFirst("urn:wechat:province")?.Value;
-        //     var sexClaim = authenticateResult.Principal.FindFirst(ClaimTypes.Gender);
-        //     int sex = 0;
-        //     if (sexClaim != null && !string.IsNullOrWhiteSpace(sexClaim.Value))
-        //         sex = int.Parse(sexClaim.Value);
-        //     var unionId = authenticateResult.Principal.FindFirst("urn:wechat:unionid")?.Value;
-        //     _logger.LogDebug($"WeChat Info=> openId: {openId},nickName: {nickName}");
-        //     return Redirect($"{redirectUrl}?openId={openIdClaim.Value}");
-        // }
     }
 }

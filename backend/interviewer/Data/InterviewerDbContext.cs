@@ -4,13 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace interviewer.Data;
 
-public class InterviewerDbContext : IdentityDbContext<InterviewerUser,IdentityRole<Guid>,Guid>
+public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
 {
     public DbSet<Student> Students { get; set; }
     public DbSet<Interviewer> Interviewers { get; set; }
     public DbSet<Comment> Comments { get; set; }
 
     private readonly string? _connectionString;
+
+    private readonly UserManager<InterviewerUser> _userManager;
 
     public InterviewerDbContext(IConfiguration configuration)
     {
@@ -28,16 +30,16 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser,IdentityRo
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<IdentityRole<Guid>>().HasData(new IdentityRole<Guid> { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid(), ConcurrencyStamp = Guid.NewGuid().ToString() });
-        modelBuilder.Entity<IdentityRole<Guid>>().HasData(new IdentityRole<Guid> { Name = "Interviewer", NormalizedName = "INTERVIEWER", Id = Guid.NewGuid(), ConcurrencyStamp = Guid.NewGuid().ToString() });
-        modelBuilder.Entity<IdentityRole<Guid>>().HasData(new IdentityRole<Guid> { Name = "Student", NormalizedName = "STUDENT", Id = Guid.NewGuid(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Interviewer", NormalizedName = "INTERVIEWER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Student", NormalizedName = "STUDENT", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
 
         List<Student> students= new();
         for (int i = 0; i < 50; i++)
         {
             students.Add(new Student
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 College = "计算机学院",
                 FirstDepartment = ElcDepartment.Software,
                 Grade = "22网络工程",
@@ -49,7 +51,7 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser,IdentityRo
             });
             students.Add(new Student
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 College = "计算机学院",
                 FirstDepartment = ElcDepartment.Project,
                 Grade = "22网络工程",

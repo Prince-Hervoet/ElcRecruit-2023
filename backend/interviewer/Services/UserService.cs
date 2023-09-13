@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -19,12 +20,14 @@ namespace interviewer.Services
         private readonly JwtSettings _jwtSettings;
         private readonly UserManager<InterviewerUser> _userManager;
         private readonly SignInManager<InterviewerUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
-        public UserService(JwtSettings jwtSettings, UserManager<InterviewerUser> userManager, SignInManager<InterviewerUser> signInManager)
+        public UserService(JwtSettings jwtSettings, UserManager<InterviewerUser> userManager, SignInManager<InterviewerUser> signInManager, IConfiguration configuration)
         {
             _jwtSettings = jwtSettings;
             _userManager = userManager;
             _signInManager = signInManager;
+            _configuration = configuration;
         }
 
         public async Task<TokenResult> RegisterAsync(string username, string password)
@@ -48,6 +51,44 @@ namespace interviewer.Services
             }
             return GenerateJwtToken(newUser);
         }
+
+        public async Task<TokenResult> WeChatLoginAsync(string id)
+        {
+            var username = id;
+            var password = id + _configuration["Authentication:WeChat:PasswordSecret"];
+            var existingUser = await _userManager.FindByIdAsync(id);
+            if (existingUser != null)
+            {
+                var isCorrect = await _userManager.CheckPasswordAsync(existingUser, password);
+                if (!isCorrect)
+                {
+                    return new TokenResult
+                    {
+                        Errors = new[] { "wrong user name or password!" }, //用户名或密码错误
+                    };
+                }
+                return GenerateJwtToken(existingUser);
+            }
+            var newUser = new InterviewerUser() { UserName = username,Id = id};
+            var isCreated = await _userManager.CreateAsync(newUser, password);
+            if (!isCreated.Succeeded)
+            {
+                return new TokenResult
+                {
+                    Errors = isCreated.Errors.Select(p => p.Description)
+                };
+            }
+            var isAdded = await _userManager.AddToRoleAsync(newUser, "Student");
+            if (!isAdded.Succeeded)
+            {
+                return new TokenResult()
+                {
+                    Errors = isAdded.Errors.Select(p => p.Description)
+                };
+            }
+            return GenerateJwtToken(newUser);
+        }
+
         public async Task<TokenResult> LoginAsync(string username, string password)
         {
             var existingUser = await _userManager.FindByNameAsync(username);
@@ -72,13 +113,6 @@ namespace interviewer.Services
         public Task<TokenResult> WeChatRegisterAsync()
         {
             throw new NotImplementedException();
-        }
-
-        public IActionResult WeChatLoginAsync(string? redirectUrl)
-        {
-            var properties = _signInManager
-                .ConfigureExternalAuthenticationProperties("WeChat", redirectUrl);
-            return new ChallengeResult("WeChat", properties);
         }
 
         public async Task<ExternalLoginInfo?> GetExternalLoginInfoAsync()

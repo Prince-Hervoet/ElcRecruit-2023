@@ -7,7 +7,7 @@ namespace interviewer.Data
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public required string Name { get; set; }
         public ElcDepartment Department { get; set; }
     }
