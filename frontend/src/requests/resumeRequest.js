@@ -3,7 +3,7 @@ import { ServiceUrls, TestToken } from "./util";
 
 /**
  * 获取学生个人信息
- * @param {*} userId
+ * @param {string} userId
  */
 async function sendGetStudentInfo(userId) {
   const url = ServiceUrls.getDetailedInfo + `?userId=${userId}`;
