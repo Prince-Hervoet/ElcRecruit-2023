@@ -2,7 +2,7 @@
 
 namespace interviewer.Data
 {
-    public class InterviewerUser : IdentityUser<Guid>
+    public class InterviewerUser : IdentityUser
     {
     }
 }
