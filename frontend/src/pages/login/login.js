@@ -13,12 +13,12 @@ export default function Login() {
 
   useEffect(() => {
     // 判断是否已经登录，如果已经登录直接跳转到host页面
-    (async function judge() {
-      const res = await LoginRequest.judgeLogin();
-      if (res.code === 4000) {
-        nav("/dataHost");
-      }
-    })();
+    // (async function judge() {
+    //   const res = await LoginRequest.judgeLogin();
+    //   if (res.code === 4000) {
+    //     nav("/dataHost");
+    //   }
+    // })();
   }, []);
 
   // 点击登录
@@ -33,11 +33,14 @@ export default function Login() {
       return;
     }
     const res = await LoginRequest.login(userName, password);
-    if (res.code === 4000) {
-      localStorage.setItem("token", res.data.token);
+    if (res.success) {
+      localStorage.setItem(
+        "token",
+        res.data.token_type + " " + res.data.access_token
+      );
       nav("/dataHost", { replace: true });
     } else {
-      alert(res.msg);
+      alert(res.data.message);
     }
   };
 

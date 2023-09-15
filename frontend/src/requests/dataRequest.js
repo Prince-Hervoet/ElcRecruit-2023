@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ServiceUrls } from "./util";
+import { ServiceUrls, TestToken } from "./util";
 
 // 分页 pageCount：页码  pageLimit：每页显示的数量
 
@@ -11,85 +11,44 @@ import { ServiceUrls } from "./util";
  * @returns 简要信息 {uid:"1Njd12",name:"张三",depId:"1",stuId:"3120003333",college:"ddd",major:"光电",status:10}
  */
 async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
-  // const url = ServiceUrls.getBriefInfos;
-  // const res = await axios({
-  //   method: "GET",
-  //   data: { depId, pageCount, pageLimit },
-  //   url,
-  // });
-  // try {
-  //   res.data = JSON.parse(res.data);
-  // } catch (e) {
-  //   res.data = {};
-  //   console.log(e);
-  // }
-  // return res;
-  const tempData = [
-    {
-      id: 1,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "10",
-    },
-    {
-      id: 2,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "20",
-    },
-    {
-      id: 3,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "30",
-    },
-    {
-      id: 4,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "40",
-    },
-    {
-      id: 5,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "50",
-    },
-    {
-      id: 6,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "60",
-    },
-    {
-      id: 7,
-      name: "张三",
-      stuId: 3120003434,
-      college: "计算机学院",
-      clazz: "电子一班",
-      state: "20",
-    },
-  ];
-  return tempData;
+  const url =
+    ServiceUrls.getBriefInfos +
+    `?depId=${depId}&pageCount=${pageCount}&pageLimit=${pageLimit}`;
+  let ans = {};
+  try {
+    const res = await axios({
+      method: "GET",
+      url,
+    });
+    ans.success = true;
+    ans.data = res.data;
+  } catch (e) {
+    ans.success = false;
+    ans.data = e;
+  }
+  return ans;
 }
 
 /**
  * 按照部门id获取部门的总人数
  * @returns "[{depId:"1",size:"42"},{},{}]"
  */
-async function getDepSizeList() {}
+async function getDepSizeList() {
+  const url = ServiceUrls.getDepSizeList;
+  let ans = {};
+  try {
+    const res = await axios({
+      method: "GET",
+      url,
+    });
+    ans.success = true;
+    ans.data = res.data;
+  } catch (e) {
+    ans.success = false;
+    ans.data = e;
+  }
+  return ans;
+}
 
 /**
  * 按照学生id获取个人信息

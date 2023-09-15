@@ -12,23 +12,20 @@ import { ServiceUrls } from "./util";
  */
 async function login(userName, password) {
   const url = ServiceUrls.login;
-  const res = await axios({
-    method: "POST",
-    data: { userName, password },
-    url,
-  });
-  if (res.status !== 200) {
-    return { code: 4002, msg: "请求失败" };
+  const ans = {};
+  try {
+    const res = await axios({
+      method: "POST",
+      data: { userName, password },
+      url,
+    });
+    ans.success = true;
+    ans.data = res.data;
+  } catch (e) {
+    ans.success = false;
+    ans.data = e;
   }
-  const { access_token, token_type, errors } = res.data;
-  if (errors) {
-    return { code: 4002, msg: "账号或密码错误" };
-  }
-  return {
-    code: 4000,
-    msg: "登录成功",
-    data: { token: token_type + " " + access_token },
-  };
+  return ans;
 }
 
 /**

@@ -3,6 +3,7 @@ export function getHostUrl() {
 }
 
 export function joinRouterUrl(path, args = {}) {
+  console.log(args);
   const keys = Object.keys(args);
   let argsStr = keys.length === 0 ? "" : "?";
   keys.forEach((key, index) => {
@@ -12,6 +13,7 @@ export function joinRouterUrl(path, args = {}) {
       argsStr += "&";
     }
   });
+  console.log(argsStr);
   return getHostUrl() + "/#" + path + argsStr;
 }
 
