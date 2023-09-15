@@ -40,7 +40,7 @@ namespace interviewer.Controllers
             var students = _dbContext.Students?.Where(s => depId == ElcDepartment.All || s.FirstDepartment == depId);
             var count = students?.Count() ?? 0;
             var pageStudents = students
-                ?.Skip(pageCount * pageLimit).Take(pageLimit)
+                ?.Skip((pageCount-1) * pageLimit).Take(pageLimit)
                 .ToArray();
             return new
             {
@@ -78,7 +78,7 @@ namespace interviewer.Controllers
                     .ToArray()
             };
 
-        [HttpGet("/elc_recruit/interviewer/get_comment_score")]
+        [HttpGet("get_comment_score")]
         [Authorize(Roles = "Interviewer")]
         public IActionResult GetCommentScore([Required] string studentId)
         {
@@ -116,7 +116,7 @@ namespace interviewer.Controllers
             };
         }
 
-        [HttpPost("/elc_recruit/interviewer/update_comment")]
+        [HttpPost("update_comment")]
         [Authorize(Roles = "Interviewer")]
         public IActionResult UpdateComment([Required] Comment comment)
         {
@@ -131,7 +131,7 @@ namespace interviewer.Controllers
             return Ok();
         }
 
-        [HttpPost("/elc_recruit/interviewer/transfer_student")]
+        [HttpPost("transfer_student")]
         public IActionResult TransferStudent([Required] string studentId, [Required] ElcDepartment sourceDepId, [Required] ElcDepartment targetDepId)
         {
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == studentId);
