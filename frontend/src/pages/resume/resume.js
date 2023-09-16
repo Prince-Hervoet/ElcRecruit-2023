@@ -141,6 +141,9 @@ export default function Resume() {
     const interviewerName = interviewerNameRef.current;
     const comment = commentRef.current;
     const score = scoreRef.current;
+    if (!interviewerName || !comment || !score) {
+      alert("请输入完整的评论信息 -- 评论、评分、名字");
+    }
     interviewerNameRef.current = "";
     commentRef.current = "";
     scoreRef.current = "";
