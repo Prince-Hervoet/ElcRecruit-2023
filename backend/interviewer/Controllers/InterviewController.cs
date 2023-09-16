@@ -40,7 +40,7 @@ namespace interviewer.Controllers
             var students = _dbContext.Students?.Where(s => depId == ElcDepartment.All || s.FirstDepartment == depId);
             var count = students?.Count() ?? 0;
             var pageStudents = students
-                ?.Skip((pageCount-1) * pageLimit).Take(pageLimit)
+                ?.Skip((pageCount - 1) * pageLimit).Take(pageLimit)
                 .ToArray();
             return new
             {
@@ -116,9 +116,9 @@ namespace interviewer.Controllers
             };
         }
 
-        [HttpPost("update_comment")]
+        [HttpPost("commit_comment")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult UpdateComment([Required] Comment comment)
+        public IActionResult CommitComment([Required] Comment comment)
         {
             comment.Id = Guid.NewGuid().ToString();
             var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
@@ -137,6 +137,6 @@ namespace interviewer.Controllers
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == studentId);
             //TODO
             throw new NotImplementedException();
-        }   
+        }
     }
 }
