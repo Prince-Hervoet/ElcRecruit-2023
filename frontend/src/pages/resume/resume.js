@@ -90,10 +90,11 @@ export default function Resume() {
       userIdRef.current,
       30
     );
+    console.log(res);
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
+      alert(res.data.response.data?.errors[0]);
     }
   };
 
@@ -106,7 +107,7 @@ export default function Resume() {
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
+      alert(res.data.response.data?.errors[0]);
     }
   };
 
@@ -119,7 +120,7 @@ export default function Resume() {
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
+      alert(res.data.response.data?.errors[0]);
     }
   };
 
@@ -132,7 +133,7 @@ export default function Resume() {
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
+      alert(res.data.response.data?.errors[0]);
     }
   };
 

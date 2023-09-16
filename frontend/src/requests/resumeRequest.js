@@ -33,12 +33,15 @@ async function sendGetComments(userId) {}
  * @param {*} nStatus
  */
 async function sendUpdateStudentStatus(userId, nStatus) {
-  const url =
-    ServiceUrls.updateStudentStatus + `?userId=${userId}&state=${nStatus}`;
+  const url = ServiceUrls.updateStudentStatus;
   const ans = { success: true };
   try {
     const res = await axios({
-      method: "GET",
+      method: "POST",
+      data: {
+        userId,
+        state: nStatus,
+      },
       url,
     });
     ans.data = res.data;
