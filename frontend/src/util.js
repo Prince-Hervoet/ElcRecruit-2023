@@ -13,7 +13,6 @@ export function joinRouterUrl(path, args = {}) {
       argsStr += "&";
     }
   });
-  console.log(argsStr);
   return getHostUrl() + "/#" + path + argsStr;
 }
 

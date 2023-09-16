@@ -15,34 +15,19 @@ import { ResumeRequest } from "../../requests/resumeRequest";
 import { CollegeObj, KeyToDepName } from "../../store/global";
 const { TextArea } = Input;
 
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
-
 export default function Resume() {
   const [items, setItems] = useState({});
-  const [comments, setComments] = useState([]);
+  const [commentAndScores, setCommentAndScores] = useState([]);
+  const [comment, setComment] = useState("");
+  const [score, setScore] = useState("");
+  const [interviewerName, setInterviewerName] = useState("");
 
-  let userId = "";
-  const commentRef = useRef("");
-  const scoreRef = useRef("");
-  const interviewerNameRef = useRef("");
+  const userIdRef = useRef("");
 
   useEffect(() => {
-    userId = getUrlParam("userId");
+    userIdRef.current = getUrlParam("userId");
     (async function () {
-      const res = await ResumeRequest.sendGetStudentInfo(userId);
+      const res = await ResumeRequest.sendGetStudentInfo(userIdRef.current);
       if (res.success) {
         const {
           college,
@@ -82,12 +67,20 @@ export default function Resume() {
         alert(res.data.message);
       }
     })();
+
+    (async function () {
+      const res = await ResumeRequest.sendGetComments(userIdRef.current);
+      const commentList = res.data.data;
+      setCommentAndScores(commentList);
+    })();
   }, []);
 
   // 开始面试按钮
   const clickStartInterview = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 30);
-    console.log(res);
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      30
+    );
     if (res.success) {
       alert("修改成功");
     } else {
@@ -97,7 +90,10 @@ export default function Resume() {
 
   // 通过按钮
   const clickAccept = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 50);
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      50
+    );
     if (res.success) {
       alert("修改成功");
     } else {
@@ -107,7 +103,10 @@ export default function Resume() {
 
   // 拒绝按钮
   const clickReject = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 60);
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      60
+    );
     if (res.success) {
       alert("修改成功");
     } else {
@@ -117,7 +116,10 @@ export default function Resume() {
 
   // 待定按钮
   const clickPending = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 40);
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      40
+    );
     if (res.success) {
       alert("修改成功");
     } else {
@@ -127,35 +129,43 @@ export default function Resume() {
 
   // 提交评论
   const clickSubmitComment = async () => {
-    const interviewerName = interviewerNameRef.current;
-    const comment = commentRef.current;
-    const score = scoreRef.current;
     if (!interviewerName || !comment || !score) {
       alert("请输入完整的评论信息 -- 评论、评分、名字");
       return;
     }
     const res = await ResumeRequest.sendCommentAndScore(
-      userId,
+      userIdRef.current,
       interviewerName,
       comment,
       score
     );
-    console.log(res);
+    if (res.success) {
+      alert("提交成功");
+      setCommentAndScores([
+        ...commentAndScores,
+        { interviewerName, content: comment, score },
+      ]);
+      setComment("");
+      setInterviewerName("");
+      setScore("");
+    } else {
+      alert("提交失败，请检查权限和网络");
+    }
   };
 
   // 评论change触发
   const onChangeComment = (event) => {
-    commentRef.current = event.target.value;
+    setComment(event.target.value);
   };
 
   // 评论者change触发
   const onChangeInterviewerName = (event) => {
-    interviewerNameRef.current = event.target.value;
+    setInterviewerName(event.target.value);
   };
 
   // 评分change触发
   const onChangeScore = (value) => {
-    scoreRef.current = value;
+    setScore(value);
   };
 
   return (
@@ -207,20 +217,27 @@ export default function Resume() {
               fontSize: "larger",
             }}
             onChange={onChangeComment}
+            value={comment}
+            showCount={true}
+            allowClear={true}
           />
         </div>
         <div className="resume-content-comment-buttons-body">
-          <Rate count={10} onChange={onChangeScore} />
+          <Rate count={10} onChange={onChangeScore} value={score} />
           <Input
             size="small"
             placeholder="评价者"
             style={{ width: "10%", marginLeft: 10 }}
             onChange={onChangeInterviewerName}
+            value={interviewerName}
           />
           <Button
             style={{ marginLeft: 10 }}
             size={"large"}
             onClick={clickSubmitComment}
+            value={score}
+            allowClear={true}
+            defaultChecked={0}
           >
             提交评论和分数
           </Button>
@@ -271,12 +288,12 @@ export default function Resume() {
         <p></p>
         <List
           itemLayout="horizontal"
-          dataSource={data}
-          renderItem={(item, index) => (
+          dataSource={commentAndScores}
+          renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                title={item.title}
-                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                title={`${item.interviewerName} | 评分: ${item.score}`}
+                description={`评论: ${item.content}`}
               />
             </List.Item>
           )}
