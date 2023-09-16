@@ -39,9 +39,9 @@ export default function DataHostLeftList() {
                 ? "dataHost-left-list-card-body dataHost-left-list-card-select"
                 : "dataHost-left-list-card-body"
             }
-            onClick={clickSelect}
             id={value.id}
             key={value.id}
+            onClick={clickSelect}
           >
             <div>{value.name}</div>
           </div>

@@ -36,6 +36,7 @@ export default function Resume() {
   const userIdRef = useRef("");
   const commentRef = useRef("");
   const scoreRef = useRef("");
+  const interviewerNameRef = useRef("");
 
   useEffect(() => {
     const userId = getUrlParam("userId");
@@ -83,6 +84,7 @@ export default function Resume() {
     })();
   }, []);
 
+  // 开始面试按钮
   const clickStartInterview = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
@@ -95,6 +97,7 @@ export default function Resume() {
     }
   };
 
+  // 通过按钮
   const clickAccept = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
@@ -107,6 +110,7 @@ export default function Resume() {
     }
   };
 
+  // 拒绝按钮
   const clickReject = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
@@ -119,6 +123,7 @@ export default function Resume() {
     }
   };
 
+  // 待定按钮
   const clickPending = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
@@ -131,17 +136,29 @@ export default function Resume() {
     }
   };
 
+  // 提交评论
   const clickSubmitComment = () => {
+    const interviewerName = interviewerNameRef.current;
     const comment = commentRef.current;
     const score = scoreRef.current;
+    interviewerNameRef.current = "";
     commentRef.current = "";
     scoreRef.current = "";
-    ResumeRequest.sendCommentAndScore(comment, score);
   };
 
-  const onChangeComment = (value) => {
-    console.log(value);
-    commentRef.current = value;
+  // 评论change触发
+  const onChangeComment = (event) => {
+    commentRef.current = event.target.value;
+  };
+
+  // 评论者change触发
+  const onChangeInterviewerName = (event) => {
+    interviewerNameRef.current = event.target.value;
+  };
+
+  // 评分change触发
+  const onChangeScore = (value) => {
+    scoreRef.current = value;
   };
 
   return (
@@ -192,15 +209,16 @@ export default function Resume() {
             styles={{
               fontSize: "larger",
             }}
+            onChange={onChangeComment}
           />
         </div>
         <div className="resume-content-comment-buttons-body">
-          <Rate count={10} />
+          <Rate count={10} onChange={onChangeScore} />
           <Input
             size="small"
             placeholder="评价者"
             style={{ width: "10%", marginLeft: 10 }}
-            onChange={onChangeComment}
+            onChange={onChangeInterviewerName}
           />
           <Button style={{ marginLeft: 10 }} size={"large"}>
             提交评论和分数

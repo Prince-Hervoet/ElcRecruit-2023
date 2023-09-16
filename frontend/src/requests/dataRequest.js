@@ -70,17 +70,6 @@ async function getCheckinInfos(depId) {}
  */
 async function getCurrentProcess() {}
 
-// 更新学生的面试状态
-async function updateStudentStatus(uid, nStatus) {}
-
-/**
- * 更新评价和评分
- * @param {string} uid
- * @param {string} content
- * @param {number} score
- */
-async function updateCommentAndScore(uid, content, score) {}
-
 /**
  * 获取指定学生的评论
  * @param {string} uid
@@ -94,8 +83,6 @@ const DataRequest = {
   getDetailedInfoById,
   getCheckinInfos,
   getCurrentProcess,
-  updateStudentStatus,
-  updateCommentAndScore,
 };
 
 export default DataRequest;

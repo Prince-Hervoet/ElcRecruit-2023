@@ -34,11 +34,15 @@ export default function Login() {
     }
     const res = await LoginRequest.login(userName, password);
     if (res.success) {
-      localStorage.setItem(
-        "token",
-        res.data.token_type + " " + res.data.access_token
-      );
-      nav("/dataHost", { replace: true });
+      if (res.data.errors) {
+        alert(res.data.errors[0]);
+      } else {
+        localStorage.setItem(
+          "token",
+          res.data.token_type + " " + res.data.access_token
+        );
+        nav("/dataHost", { replace: true });
+      }
     } else {
       alert(res.data.message);
     }
