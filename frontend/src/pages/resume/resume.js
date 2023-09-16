@@ -12,7 +12,7 @@ import "./resume.css";
 import { getUrlParam } from "../../util";
 import ResumeStatusShow from "../../components/resumeComponents/resumeStatusShow";
 import { ResumeRequest } from "../../requests/resumeRequest";
-
+import { CollegeObj, KeyToDepName } from "../../store/global";
 const { TextArea } = Input;
 
 const data = [
@@ -36,42 +36,129 @@ export default function Resume() {
   const userIdRef = useRef("");
   const commentRef = useRef("");
   const scoreRef = useRef("");
+  const interviewerNameRef = useRef("");
 
   useEffect(() => {
     const userId = getUrlParam("userId");
     userIdRef.current = userId;
     (async function () {
       const res = await ResumeRequest.sendGetStudentInfo(userId);
+      if (res.success) {
+        const {
+          college,
+          firstDepartment,
+          grade,
+          id,
+          introduction,
+          name,
+          phone,
+          qq,
+          secondDepartment,
+          skills,
+          state,
+          studentId,
+          weChat,
+        } = res.data.data;
+        const firstDepName = KeyToDepName[firstDepartment];
+        const secondDepName = KeyToDepName[secondDepartment];
+        const collegeName = CollegeObj[college];
+        const nItems = {
+          collegeName,
+          firstDepName,
+          grade,
+          id,
+          introduction,
+          name,
+          phone,
+          qq,
+          secondDepName,
+          skills,
+          state,
+          studentId,
+          weChat,
+        };
+        setItems(nItems);
+      } else {
+        alert(res.data.message);
+      }
     })();
   }, []);
 
-  const clickStartInterview = () => {
-    ResumeRequest.sendUpdateStudentStatus(30);
+  // 开始面试按钮
+  const clickStartInterview = async () => {
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      30
+    );
+    if (res.success) {
+      alert("修改成功");
+    } else {
+      alert("修改失败");
+    }
   };
 
-  const clickAccept = () => {
-    ResumeRequest.sendUpdateStudentStatus(50);
+  // 通过按钮
+  const clickAccept = async () => {
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      50
+    );
+    if (res.success) {
+      alert("修改成功");
+    } else {
+      alert("修改失败");
+    }
   };
 
-  const clickReject = () => {
-    ResumeRequest.sendUpdateStudentStatus(60);
+  // 拒绝按钮
+  const clickReject = async () => {
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      60
+    );
+    if (res.success) {
+      alert("修改成功");
+    } else {
+      alert("修改失败");
+    }
   };
 
-  const clickPending = () => {
-    ResumeRequest.sendUpdateStudentStatus(40);
+  // 待定按钮
+  const clickPending = async () => {
+    const res = await ResumeRequest.sendUpdateStudentStatus(
+      userIdRef.current,
+      40
+    );
+    if (res.success) {
+      alert("修改成功");
+    } else {
+      alert("修改失败");
+    }
   };
 
+  // 提交评论
   const clickSubmitComment = () => {
+    const interviewerName = interviewerNameRef.current;
     const comment = commentRef.current;
     const score = scoreRef.current;
+    interviewerNameRef.current = "";
     commentRef.current = "";
     scoreRef.current = "";
-    ResumeRequest.sendCommentAndScore(comment, score);
   };
 
-  const onChangeComment = (value) => {
-    console.log(value);
-    commentRef.current = value;
+  // 评论change触发
+  const onChangeComment = (event) => {
+    commentRef.current = event.target.value;
+  };
+
+  // 评论者change触发
+  const onChangeInterviewerName = (event) => {
+    interviewerNameRef.current = event.target.value;
+  };
+
+  // 评分change触发
+  const onChangeScore = (value) => {
+    scoreRef.current = value;
   };
 
   return (
@@ -85,25 +172,30 @@ export default function Resume() {
             contentStyle={{ fontSize: "larger" }}
           >
             <Descriptions.Item label="姓名">{items.name}</Descriptions.Item>
-            <Descriptions.Item label="学号">{items.phone}</Descriptions.Item>
-            <Descriptions.Item label="学院">{items.college}</Descriptions.Item>
-            <Descriptions.Item label="专业">{items.major}</Descriptions.Item>
-            <Descriptions.Item label="班级">{items.clazz}</Descriptions.Item>
+            <Descriptions.Item label="学号">
+              {items.studentId}
+            </Descriptions.Item>
+            <Descriptions.Item label="学院">
+              {items.collegeName}
+            </Descriptions.Item>
+            <Descriptions.Item label="专业班级">
+              {items.grade}
+            </Descriptions.Item>
             <Descriptions.Item label="掌握技能">
               {items.skills}
             </Descriptions.Item>
             <Descriptions.Item label="手机号码">
-              {items.phoneNum}
+              {items.phone}
             </Descriptions.Item>
             <Descriptions.Item label="qq号码">{items.qq}</Descriptions.Item>
             <Descriptions.Item label="第一志愿">
-              {items.firstDepId}
+              {items.firstDepName}
             </Descriptions.Item>
             <Descriptions.Item label="第二志愿">
-              {items.secondDepId}
+              {items.secondDepName}
             </Descriptions.Item>
             <Descriptions.Item label="自我介绍">
-              {items.intro}
+              {items.introduction}
             </Descriptions.Item>
           </Descriptions>
         </div>
@@ -117,15 +209,16 @@ export default function Resume() {
             styles={{
               fontSize: "larger",
             }}
+            onChange={onChangeComment}
           />
         </div>
         <div className="resume-content-comment-buttons-body">
-          <Rate count={10} />
+          <Rate count={10} onChange={onChangeScore} />
           <Input
             size="small"
             placeholder="评价者"
             style={{ width: "10%", marginLeft: 10 }}
-            onChange={onChangeComment}
+            onChange={onChangeInterviewerName}
           />
           <Button style={{ marginLeft: 10 }} size={"large"}>
             提交评论和分数
@@ -133,16 +226,25 @@ export default function Resume() {
         </div>
 
         <div className="resume-content-buttons-body">
-          <Button type="primary" icon={<CaretRightOutlined />} size={"large"}>
+          <Button
+            type="primary"
+            icon={<CaretRightOutlined />}
+            size={"large"}
+            onClick={clickStartInterview}
+          >
             开始面试
           </Button>
-          <Button icon={<LoginOutlined />} size={"large"}>
+          <Button icon={<LoginOutlined />} size={"large"} onClick={clickAccept}>
             通过
           </Button>
-          <Button icon={<CloseOutlined />} size={"large"}>
+          <Button icon={<CloseOutlined />} size={"large"} onClick={clickReject}>
             淘汰
           </Button>
-          <Button icon={<PauseOutlined />} size={"large"}>
+          <Button
+            icon={<PauseOutlined />}
+            size={"large"}
+            onClick={clickPending}
+          >
             待定
           </Button>
         </div>

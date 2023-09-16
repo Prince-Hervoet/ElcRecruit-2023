@@ -1,10 +1,10 @@
 import React from "react";
 import { Pagination } from "antd";
-import { sendGetCards } from "../util/util";
-import dataHostCardListStore from "../../../store/dataHostCardListStore";
+import { clickSendGetCards } from "../utilClick/util";
+import GdataHostCardListStore from "../../../store/dataHostCardListStore";
 
 export default function DataHostPagination({ info }) {
-  const { total = 0, pageSize = 0 } = info;
+  const { total = 0, pageSize = 0, current = 0 } = info;
 
   return (
     <div>
@@ -14,9 +14,10 @@ export default function DataHostPagination({ info }) {
         disabled={pageSize === 0}
         pageSize={pageSize}
         total={total}
+        current={current}
         onChange={(pageCount, pageSize) => {
-          sendGetCards(
-            dataHostCardListStore.getCurrentDepId(),
+          clickSendGetCards(
+            GdataHostCardListStore.getCurrentDepId(),
             pageCount,
             pageSize
           );

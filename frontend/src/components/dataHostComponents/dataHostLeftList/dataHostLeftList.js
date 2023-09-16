@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./dataHostLeftList.css";
 import ReactLogo from "../reactLogo/reactLogo";
 import { DepInfoArr } from "../../../store/global";
-import { sendGetCards } from "../util/util";
-import dataHostCardListStore from "../../../store/dataHostCardListStore";
+import { clickSendGetCards } from "../utilClick/util";
+import GdataHostCardListStore from "../../../store/dataHostCardListStore";
+import { DEFAULT_PAGE_LIMIT } from "../../../requests/util";
 
 const leftListInfoArr = [
   { name: "总览表", id: 0 },
@@ -14,14 +15,15 @@ const leftListInfoArr = [
 export default function DataHostLeftList() {
   const [selectId, setSelectId] = useState(0);
   const clickSelect = (event) => {
-    const target = event.target;
-    const targetId = parseInt(target.id);
+    if (!event.target.id) return;
+    const targetId = parseInt(event.target.id);
+    GdataHostCardListStore.setCurrentDepId(targetId);
     setSelectId(targetId);
-    dataHostCardListStore.setCurrentDepId(targetId);
-
-    // todo: 发送网络请求
-    sendGetCards();
   };
+
+  useEffect(() => {
+    clickSendGetCards(selectId, 1, DEFAULT_PAGE_LIMIT);
+  }, [selectId]);
 
   return (
     <div className="dataHost-left-list-body">
@@ -37,9 +39,9 @@ export default function DataHostLeftList() {
                 ? "dataHost-left-list-card-body dataHost-left-list-card-select"
                 : "dataHost-left-list-card-body"
             }
-            onClick={clickSelect}
             id={value.id}
             key={value.id}
+            onClick={clickSelect}
           >
             <div>{value.name}</div>
           </div>

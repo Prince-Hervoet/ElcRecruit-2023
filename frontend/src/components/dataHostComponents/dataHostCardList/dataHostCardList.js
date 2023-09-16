@@ -4,22 +4,22 @@ import DataHostCard from "../dataHostCard/dataHostCard";
 import { Empty, Skeleton } from "antd";
 import { observer } from "mobx-react-lite";
 import DataHostPagination from "../dataHostPagination/dataHostPagination";
-import dataHostCardListStore from "../../../store/dataHostCardListStore";
+import GdataHostCardListStore from "../../../store/dataHostCardListStore";
+import { DEFAULT_PAGE_LIMIT } from "../../../requests/util";
 
 const DataHostCardList = () => {
-  const { cardList, total, isLoading } = dataHostCardListStore;
-
-  useEffect(() => {}, []);
+  const { cardList, total, pageCount, isLoading } = GdataHostCardListStore;
 
   let showContent = <></>;
   if (isLoading) {
     showContent = <Skeleton></Skeleton>;
   } else {
+    const cardListSlice = cardList.slice();
     showContent =
-      cardList.length === 0 ? (
+      cardListSlice.length === 0 ? (
         <Empty></Empty>
       ) : (
-        cardList.map((value) => {
+        cardListSlice.map((value) => {
           const info = { ...value };
           return (
             <div key={value.id}>
@@ -34,7 +34,7 @@ const DataHostCardList = () => {
     <div className="dataHostCardList-body">
       {showContent}
       <DataHostPagination
-        info={{ total, pageSize: cardList.length }}
+        info={{ total, pageSize: DEFAULT_PAGE_LIMIT, current: pageCount }}
       ></DataHostPagination>
     </div>
   );
