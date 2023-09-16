@@ -10,7 +10,7 @@ public class Student
     public string Id { get; set; }
     public string StudentId { get; set; }
     public string Name { get; set; }
-    public string College { get; set; }
+    public College College { get; set; }
     public string Grade { get; set; }
     public string? Skills { get; set; }
     public string Introduction { get; set; }
