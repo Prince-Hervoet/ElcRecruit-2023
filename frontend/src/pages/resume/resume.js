@@ -33,14 +33,14 @@ const data = [
 export default function Resume() {
   const [items, setItems] = useState({});
   const [comments, setComments] = useState([]);
-  const userIdRef = useRef("");
+
+  let userId = "";
   const commentRef = useRef("");
   const scoreRef = useRef("");
   const interviewerNameRef = useRef("");
 
   useEffect(() => {
-    const userId = getUrlParam("userId");
-    userIdRef.current = userId;
+    userId = getUrlParam("userId");
     (async function () {
       const res = await ResumeRequest.sendGetStudentInfo(userId);
       if (res.success) {
@@ -86,24 +86,18 @@ export default function Resume() {
 
   // 开始面试按钮
   const clickStartInterview = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(
-      userIdRef.current,
-      30
-    );
+    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 30);
     console.log(res);
     if (res.success) {
       alert("修改成功");
     } else {
-      alert(res.data.response.data?.errors[0]);
+      alert("修改失败，请检查角色权限和网络情况");
     }
   };
 
   // 通过按钮
   const clickAccept = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(
-      userIdRef.current,
-      50
-    );
+    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 50);
     if (res.success) {
       alert("修改成功");
     } else {
@@ -113,10 +107,7 @@ export default function Resume() {
 
   // 拒绝按钮
   const clickReject = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(
-      userIdRef.current,
-      60
-    );
+    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 60);
     if (res.success) {
       alert("修改成功");
     } else {
@@ -126,10 +117,7 @@ export default function Resume() {
 
   // 待定按钮
   const clickPending = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(
-      userIdRef.current,
-      40
-    );
+    const res = await ResumeRequest.sendUpdateStudentStatus(userId, 40);
     if (res.success) {
       alert("修改成功");
     } else {
@@ -138,16 +126,21 @@ export default function Resume() {
   };
 
   // 提交评论
-  const clickSubmitComment = () => {
+  const clickSubmitComment = async () => {
     const interviewerName = interviewerNameRef.current;
     const comment = commentRef.current;
     const score = scoreRef.current;
     if (!interviewerName || !comment || !score) {
       alert("请输入完整的评论信息 -- 评论、评分、名字");
+      return;
     }
-    interviewerNameRef.current = "";
-    commentRef.current = "";
-    scoreRef.current = "";
+    const res = await ResumeRequest.sendCommentAndScore(
+      userId,
+      interviewerName,
+      comment,
+      score
+    );
+    console.log(res);
   };
 
   // 评论change触发
@@ -224,7 +217,11 @@ export default function Resume() {
             style={{ width: "10%", marginLeft: 10 }}
             onChange={onChangeInterviewerName}
           />
-          <Button style={{ marginLeft: 10 }} size={"large"}>
+          <Button
+            style={{ marginLeft: 10 }}
+            size={"large"}
+            onClick={clickSubmitComment}
+          >
             提交评论和分数
           </Button>
         </div>

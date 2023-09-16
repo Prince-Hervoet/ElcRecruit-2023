@@ -58,7 +58,27 @@ async function sendUpdateStudentStatus(userId, nStatus) {
  * @param {*} score
  * @param {*} userName
  */
-async function sendCommentAndScore(comment, score, userName) {}
+async function sendCommentAndScore(userId, interviewerName, content, score) {
+  const url = ServiceUrls.commitComment;
+  const ans = { success: true };
+  try {
+    const res = await axios({
+      method: "POST",
+      data: {
+        userId,
+        interviewerName,
+        score,
+        content,
+      },
+      url,
+    });
+    ans.data = res.data;
+  } catch (e) {
+    ans.success = false;
+    ans.data = e;
+  }
+  return ans;
+}
 
 export const ResumeRequest = {
   sendCommentAndScore,

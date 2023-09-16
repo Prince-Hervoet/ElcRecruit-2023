@@ -21,6 +21,8 @@ export const ServiceUrls = {
   getDepSizeList: `${BASE_URL}/elc_recruit/interviewer/get_deps_size`,
   // 更改学生面试状态
   updateStudentStatus: `${BASE_URL}/elc_recruit/interviewer/update_student_status`,
+  // 提交评论
+  commitComment: `${BASE_URL}/elc_recruit/interviewer/commit_comment`,
 };
 
 export const TestToken =
