@@ -223,7 +223,7 @@ namespace interviewer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Students",
-                columns: new[] { "Id", "College", "FirstDepartment", "Grade", "Introduction", "Name", "Phone", "Qq", "SecondDepartment", "Skills", "State", "StudentId", "WeChat" },
+                columns: new[] { "Id", "College", "FirstDepartment", "Grade", "Introduction", "Name", "Phone", "Qq", "SecondDepartment", "Skills", "State", "StudentNumber", "WeChat" },
                 values: new object[,]
                 {
                     { "020a32a1-a0f2-47f0-8c3c-9f1195c79524", 9, 5, "RAKRTC", "818874298532276974618296", "BEBJGD", "14865109915", "0190772823", null, null, 10, "3596818598", null },

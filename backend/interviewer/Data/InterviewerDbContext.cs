@@ -49,7 +49,7 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
                 Name = RandomString(6),
                 Phone = RandomNumber(11),
                 Qq = RandomNumber(10),
-                StudentId = RandomNumber(10)
+                StudentNumber = RandomNumber(10)
             });
         }
         modelBuilder.Entity<Student>().HasData(students);

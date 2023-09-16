@@ -40,7 +40,7 @@ namespace interviewer.Controllers
             var students = _dbContext.Students?.Where(s => depId == ElcDepartment.All || s.FirstDepartment == depId);
             var count = students?.Count() ?? 0;
             var pageStudents = students
-                ?.Skip((pageCount-1) * pageLimit).Take(pageLimit)
+                ?.Skip((pageCount - 1) * pageLimit).Take(pageLimit)
                 .ToArray();
             return new
             {
@@ -80,24 +80,30 @@ namespace interviewer.Controllers
 
         [HttpGet("get_comment_score")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult GetCommentScore([Required] string studentId)
+        public IActionResult GetCommentScore([Required] string studentUserId)
         {
             return Ok(new
             {
-                data = _dbContext.Comments?.Where(comment => studentId == comment.StudentId).Select(comment => comment)
+                data = _dbContext.Comments?.Where(comment => studentUserId == comment.StudentUserId).Select(comment => comment)
             });
         }
 
+        public record UpdateStudentStatusParms([Required] string userId, [Required] StudentState state);
+
         [HttpPost("update_student_status")]
         [Authorize(Roles = "Interviewer")]
-        public object UpdateStudentStatus([Required] string userId, [Required] StudentState state)
+        public object UpdateStudentStatus([Required] UpdateStudentStatusParms p)
         {
             var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
-            var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == userId)?.FirstDepartment;
+            var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId)?.FirstDepartment;
             if (interviewerDepartment != studentDepartment)
-                return Unauthorized("不能更新其他部门的面试者状态");
-            _dbContext.Students?.FirstOrDefault(s => s.Id == userId);
-            var student = _dbContext.Students?.FirstOrDefault(s => s.Id == userId);
+                return Unauthorized(new
+                {
+                    success = false,
+                    errors = new string[] { "不能更新其他部门的面试者状态" }
+                });
+            _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId);
+            var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId);
             if (student == null)
             {
                 return new
@@ -107,7 +113,7 @@ namespace interviewer.Controllers
                 };
             }
 
-            student.State = state;
+            student.State = p.state;
             _dbContext.SaveChanges();
             return new
             {
@@ -116,27 +122,34 @@ namespace interviewer.Controllers
             };
         }
 
-        [HttpPost("update_comment")]
+        [HttpPost("commit_comment")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult UpdateComment([Required] Comment comment)
+        public IActionResult CommitComment([Required] Comment comment)
         {
             comment.Id = Guid.NewGuid().ToString();
             var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
-            var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentId)?.FirstDepartment;
+            var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentUserId)?.FirstDepartment;
             if (interviewerDepartment != studentDepartment)
-                return Unauthorized("不能对其他部门的面试者提交评价");
+                return Unauthorized(new
+                {
+                    success = false,
+                    errors = new string[]{ "不能对其他部门的面试者提交评价" }
+                });
             comment.DepId = studentDepartment;
             _dbContext.Comments?.Add(comment);
             _dbContext.SaveChanges();
             return Ok();
         }
 
+        public record TransferStudentParms([Required] string studentId, [Required] ElcDepartment sourceDepId,
+            [Required] ElcDepartment targetDepId);
+
         [HttpPost("transfer_student")]
-        public IActionResult TransferStudent([Required] string studentId, [Required] ElcDepartment sourceDepId, [Required] ElcDepartment targetDepId)
+        public IActionResult TransferStudent([Required] TransferStudentParms p)
         {
-            var student = _dbContext.Students?.FirstOrDefault(s => s.Id == studentId);
+            var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.studentId);
             //TODO
             throw new NotImplementedException();
-        }   
+        }
     }
 }
