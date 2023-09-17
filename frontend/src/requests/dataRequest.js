@@ -5,7 +5,7 @@ import { ServiceUrls } from "./util";
 
 /**
  * 按照部门id获取部门报名信息 分页
- * @param {string} depId 部门id 0表示全部 100表示调剂
+ * @param {number} depId 部门id 0表示全部 100表示调剂
  * @param {number} pageCount 页码
  * @param {number} pageLimit 每页数量
  * @returns {uid:"1Njd12",name:"张三",depId:"1",stuId:"3120003333",college:"ddd",major:"光电",status:10}
@@ -31,7 +31,7 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
 
 /**
  * 按照部门id获取部门的总人数
- * @returns {[{depId:"1",size:"42"},{},{}]}
+ * @returns {[{depId:1,size:"42"},{},{}]}
  */
 async function getDepSizeList() {
   const url = ServiceUrls.getDepSizeList;
@@ -58,16 +58,33 @@ async function getDepSizeList() {
 async function getCheckinInfos(depId) {}
 
 /**
- * 获取当前总进度
- * @returns {currentProcess:"10"}
+ *
+ * @param {string} keyword
+ * @param {number} depId
  */
-async function getCurrentProcess() {}
+async function getSearchBriefInfo(keyword, depId) {
+  const url =
+    ServiceUrls.getSearchBriefInfo + `?keyword=${keyword}&depId=${depId}`;
+  let ans = {};
+  try {
+    const res = await axios({
+      method: "GET",
+      url,
+    });
+    ans.success = true;
+    ans.data = res.data;
+  } catch (e) {
+    ans.success = false;
+    ans.data = e;
+  }
+  return ans;
+}
 
 const DataRequest = {
   getBriefInfosByDepId,
   getDepSizeList,
   getCheckinInfos,
-  getCurrentProcess,
+  getSearchBriefInfo,
 };
 
 export default DataRequest;

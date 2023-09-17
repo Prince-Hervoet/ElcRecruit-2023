@@ -26,6 +26,8 @@ export const ServiceUrls = {
   commitComment: `${BASE_URL}/elc_recruit/interviewer/commit_comment`,
   // 获取所有评论
   getCommentAndScore: `${BASE_URL}/elc_recruit/interviewer/get_comment_score`,
+  // 搜索
+  getSearchBriefInfo: `${BASE_URL}`,
 };
 
 // 请求头加上token
