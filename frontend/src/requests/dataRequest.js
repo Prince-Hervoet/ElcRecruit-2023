@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ServiceUrls, TestToken } from "./util";
+import { ServiceUrls } from "./util";
 
 // 分页 pageCount：页码  pageLimit：每页显示的数量
 
@@ -51,13 +51,6 @@ async function getDepSizeList() {
 }
 
 /**
- * 按照学生id获取个人信息
- * @param {string} uid
- * @returns {stuId:"3120003333",name:"张三",phoneNum:"1903129394",college:"1",grade:"光电4班",skills:"adf",intro:"adjflk1"}
- */
-async function getDetailedInfoById(uid) {}
-
-/**
  * 获取当前部门的签到列表
  * @param {string} depId
  * @returns {uid:"123123",name:"张三",stuId:"3120007433"}
@@ -70,17 +63,9 @@ async function getCheckinInfos(depId) {}
  */
 async function getCurrentProcess() {}
 
-/**
- * 获取指定学生的评论
- * @param {string} uid
- * @returns {[{interviewerName:"年少",content:"123123",score:12},{},{}]}
- */
-async function getCommentsByUid(uid) {}
-
 const DataRequest = {
   getBriefInfosByDepId,
   getDepSizeList,
-  getDetailedInfoById,
   getCheckinInfos,
   getCurrentProcess,
 };

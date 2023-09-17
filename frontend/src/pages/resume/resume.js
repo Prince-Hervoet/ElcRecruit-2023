@@ -24,6 +24,7 @@ export default function Resume() {
 
   const userIdRef = useRef("");
 
+  // 进入页面完成挂载时，请求数据和评论
   useEffect(() => {
     userIdRef.current = getUrlParam("userId");
     (async function () {
