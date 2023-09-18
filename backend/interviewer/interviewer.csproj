@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <Configurations>Debug;Release;RomoteSQLDebug</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
@@ -30,10 +31,6 @@
 
     <ItemGroup>
       <Folder Include="Identity\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Microsoft.AspNetCore.Authentication.WeChat\AspNetCore.Authentication.WeChat.csproj" />
     </ItemGroup>
 
 

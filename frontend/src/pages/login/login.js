@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./login.css";
 import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
-import LoginRequest from "../../requests/loginRequest";
+import { LoginRequest } from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import Bo from "../../components/loginComponents/bo/bo";
 
@@ -11,15 +11,7 @@ export default function Login() {
   let passwordRef = useRef("");
   const nav = useNavigate();
 
-  useEffect(() => {
-    // 判断是否已经登录，如果已经登录直接跳转到host页面
-    (async function judge() {
-      const res = await LoginRequest.judgeLogin();
-      if (res.code === 4000) {
-        nav("/dataHost");
-      }
-    })();
-  }, []);
+  useEffect(() => {}, []);
 
   // 点击登录
   const clickOnLogin = async () => {
@@ -33,11 +25,18 @@ export default function Login() {
       return;
     }
     const res = await LoginRequest.login(userName, password);
-    if (res.code === 4000) {
-      localStorage.setItem("token", res.data.token);
-      nav("/dataHost", { replace: true });
+    if (res.success) {
+      if (res.data.errors) {
+        alert(res.data.errors[0]);
+      } else {
+        localStorage.setItem(
+          "token",
+          res.data.token_type + " " + res.data.access_token
+        );
+        nav("/dataHost", { replace: true });
+      }
     } else {
-      alert(res.msg);
+      alert(res.data.message);
     }
   };
 

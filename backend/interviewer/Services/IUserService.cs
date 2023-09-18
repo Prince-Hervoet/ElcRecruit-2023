@@ -9,9 +9,9 @@ namespace interviewer.Services;
 public interface IUserService<in TUser> where TUser : class
 {
     Task<TokenResult> RegisterAsync(string username, string password);
+    Task<TokenResult> WeChatLoginAsync(string id);
     Task<TokenResult> LoginAsync(string username, string password);
     Task<TokenResult> WeChatRegisterAsync();
-    IActionResult WeChatLoginAsync(string returnUrl);
     Task<ExternalLoginInfo?> GetExternalLoginInfoAsync();
     Task<SignInResult> ExternalLoginSignInAsync(ExternalLoginInfo info);
     Task<IdentityResult> CreateUser(TUser user);

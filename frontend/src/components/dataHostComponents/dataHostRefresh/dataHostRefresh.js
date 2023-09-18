@@ -1,68 +1,14 @@
 import React from "react";
-import dataHostCardListStore from "../../../store/dataHostCardListStore";
+import GdataHostCardListStore from "../../../store/dataHostCardListStore";
+import { clickSendGetCards } from "../utilClick/util";
+import { DEFAULT_PAGE_LIMIT } from "../../../requests/util";
 
 export default function DataHostRefresh() {
   const clickGetCardList = () => {
     // todd: 发送网络请求，获取数据
-    const tempData = [
-      {
-        id: 123123,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "1",
-      },
-      {
-        id: 12323,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "2",
-      },
-      {
-        id: 12323,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "2",
-      },
-      {
-        id: 12323,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "2",
-      },
-      {
-        id: 12323,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "2",
-      },
-      {
-        id: 12323,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "2",
-      },
-      {
-        id: 12323,
-        name: "张三",
-        stuId: 3120003434,
-        college: "计算机学院",
-        clazz: "电子一班",
-        status: "2",
-      },
-    ];
-    dataHostCardListStore.setCardList(tempData);
+    const depId = GdataHostCardListStore.getCurrentDepId();
+    const pageCount = GdataHostCardListStore.pageCount;
+    clickSendGetCards(depId, pageCount, DEFAULT_PAGE_LIMIT);
   };
 
   return (

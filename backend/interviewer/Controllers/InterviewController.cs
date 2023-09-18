@@ -40,7 +40,7 @@ namespace interviewer.Controllers
             var students = _dbContext.Students?.Where(s => depId == ElcDepartment.All || s.FirstDepartment == depId);
             var count = students?.Count() ?? 0;
             var pageStudents = students
-                ?.Skip(pageCount * pageLimit).Take(pageLimit)
+                ?.Skip((pageCount - 1) * pageLimit).Take(pageLimit)
                 .ToArray();
             return new
             {
@@ -51,7 +51,7 @@ namespace interviewer.Controllers
 
         [HttpGet("get_detailed_info")]
         [Authorize(Roles = "Interviewer")]
-        public object? GetDetailedInfo(Guid userId) =>
+        public object? GetDetailedInfo(string userId) =>
             new { data = _dbContext.Students?.FirstOrDefault(s => s.Id == userId) };
 
         [HttpGet("get_deps_size")]
@@ -78,9 +78,9 @@ namespace interviewer.Controllers
                     .ToArray()
             };
 
-        [HttpGet("/elc_recruit/interviewer/get_comment_score")]
+        [HttpGet("get_comment_score")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult GetCommentScore([Required] Guid studentId)
+        public IActionResult GetCommentScore([Required] string studentId)
         {
             return Ok(new
             {
@@ -90,7 +90,7 @@ namespace interviewer.Controllers
 
         [HttpPost("update_student_status")]
         [Authorize(Roles = "Interviewer")]
-        public object UpdateStudentStatus([Required] Guid userId, [Required] StudentState state)
+        public object UpdateStudentStatus([Required] string userId, [Required] StudentState state)
         {
             var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == userId)?.FirstDepartment;
@@ -116,10 +116,11 @@ namespace interviewer.Controllers
             };
         }
 
-        [HttpPost("/elc_recruit/interviewer/update_comment")]
+        [HttpPost("commit_comment")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult UpdateComment([Required] Comment comment)
+        public IActionResult CommitComment([Required] Comment comment)
         {
+            comment.Id = Guid.NewGuid().ToString();
             var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentId)?.FirstDepartment;
             if (interviewerDepartment != studentDepartment)
@@ -130,12 +131,12 @@ namespace interviewer.Controllers
             return Ok();
         }
 
-        [HttpPost("/elc_recruit/interviewer/transfer_student")]
-        public IActionResult TransferStudent([Required] Guid studentId, [Required] ElcDepartment sourceDepId, [Required] ElcDepartment targetDepId)
+        [HttpPost("transfer_student")]
+        public IActionResult TransferStudent([Required] string studentId, [Required] ElcDepartment sourceDepId, [Required] ElcDepartment targetDepId)
         {
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == studentId);
             //TODO
             throw new NotImplementedException();
-        }   
+        }
     }
 }
