@@ -8,103 +8,57 @@
     <view class="postInfo-table-container">
       <view class="postInfo-table">
         <view>
-          <MyInput
-            header-name="您的姓名 *"
-            :value="studentInfo.studentName"
-            @onChange="setStudentName"
-          ></MyInput>
+          <MyInput header-name="您的姓名 *" :value="studentInfo.studentName" @onChange="setStudentName"></MyInput>
         </view>
         <view>
-          <MyInput
-            header-name="您的学号 *"
-            :value="studentInfo.studentId"
-            @onChange="setStuId"
-          ></MyInput>
+          <MyInput header-name="您的学号 *" :value="studentInfo.studentId" @onChange="setStuId"></MyInput>
         </view>
         <view>
-          <MyPicker
-            header-name="所属学院 *"
-            :value="studentInfo.college"
-            :arr="depA"
-            @onChange="setCollege"
-          ></MyPicker>
+          <MyPicker header-name="所属学院 *" :value="studentInfo.college" :arr="depA" @onChange="setCollege"></MyPicker>
         </view>
         <view>
-          <MyInput
-            header-name="就读专业 *"
-            :value="studentInfo.major"
-            @onChange="setMajor"
-          ></MyInput>
+          <MyInput header-name="就读专业 *" :value="studentInfo.major" @onChange="setMajor"></MyInput>
         </view>
         <view>
-          <MyInput
-            header-name="所在班级 *"
-            :value="studentInfo.clazz"
-            @onChange="setClazz"
-          ></MyInput>
+          <MyInput header-name="所在班级 *" :value="studentInfo.clazz" @onChange="setClazz"></MyInput>
         </view>
         <view>
-          <MyInput
-            header-name="电话号码 *"
-            :value="studentInfo.phoneNum"
-            @onChange="setPhoneNum"
-          ></MyInput>
+          <MyInput header-name="电话号码 *" :value="studentInfo.phoneNum" @onChange="setPhoneNum"></MyInput>
         </view>
         <view>
-          <MyPicker
-            header-name="第一志愿 *"
-            :value="studentInfo.firstDepId"
-            :arr="depArr"
-            @onChange="setFirstDepId"
-          >
+          <MyPicker header-name="第一志愿 *" :value="studentInfo.firstDepId" :arr="depArr" @onChange="setFirstDepId">
           </MyPicker>
         </view>
         <view>
-          <MyPicker
-            header-name="第二志愿"
-            :value="studentInfo.secondDepId"
-            :arr="depArr"
-            @onChange="setSecondDepId"
-          >
+          <MyPicker header-name="第二志愿" :value="studentInfo.secondDepId" :arr="depArr" @onChange="setSecondDepId">
           </MyPicker>
         </view>
         <view>
-          <MyTextarea
-            headerName="自我介绍 *"
-            :value="studentInfo.intro"
-            @onChange="setIntro"
-          ></MyTextarea>
+          <MyTextarea headerName="自我介绍 *" :value="studentInfo.intro" @onChange="setIntro"></MyTextarea>
         </view>
         <view>
-          <MyInput
-            header-name="QQ 号码"
-            :value="studentInfo.qq"
-            @onChange="setQq"
-          ></MyInput>
+          <MyInput header-name="QQ 号码" :value="studentInfo.qq" @onChange="setQq"></MyInput>
         </view>
         <view>
-          <MyInput
-            header-name="掌握技能"
-            :value="studentInfo.skills"
-            @onChange="setSkills"
-          ></MyInput>
+          <MyInput header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyInput>
         </view>
       </view>
     </view>
     <button class="postInfo-button-container" @click="clickSubmitForm">
-      <span style="font-size: 15px; font-weight: 700; line-height: 15px"
-        >提交</span
-      >
+      <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
     </button>
   </view>
 </template>
 
 <script setup>
 import { onMounted, reactive } from "vue";
+import axios from "axios";
+import mpAdapter from 'axios-miniprogram-adapter'
 import { sendSubmitForm, sendGetInfo } from "../../requests/postInfo";
 import MyInput from "../../components/myInput/MyInput.vue";
 import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
 import MyPicker from "../../components/myPicker/MyPicker.vue";
+axios.defaults.adapter = mpAdapter
 
 const studentInfo = reactive({
   studentName: "",
@@ -184,19 +138,6 @@ const clickSubmitForm = async () => {
     qq,
     skills,
   } = studentInfo;
-  console.log({
-    studentName,
-    studentId,
-    college,
-    major,
-    clazz,
-    phoneNum,
-    firstDepId,
-    secondDepId,
-    intro,
-    qq,
-    skills,
-  });
   if (
     !hasNullFields(
       college,
@@ -251,7 +192,13 @@ onMounted(() => {
     wx.login({
       success(res) {
         if (res.code) {
-          console.log(res);
+          (async function () {
+            const res = await axios({
+              method: "GET",
+              url: "123123",
+            });
+            console.log(res);
+          })()
         } else {
           console.log("登录失败！" + res.errMsg);
         }
@@ -319,7 +266,7 @@ function checkStuId(value) {
   return value.length === 10;
 }
 
-function getOpenId() {}
+function getOpenId() { }
 </script>
 
 <style scoped>
@@ -333,15 +280,12 @@ function getOpenId() {}
   margin-bottom: 20px;
 }
 
-.postInfo-table-container {
-}
-
 .postInfo-table {
   display: flex;
   flex-direction: column;
 }
 
-.postInfo-table > view {
+.postInfo-table>view {
   margin-bottom: 16px;
 }
 

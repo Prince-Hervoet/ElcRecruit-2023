@@ -1,5 +1,4 @@
 import { ServiceUrls } from "./util";
-import axios from "axios";
 
 export async function sendSubmitForm(sendObj) {
   const url = ServiceUrls.submit;
