@@ -52,13 +52,10 @@
 
 <script setup>
 import { onMounted, reactive } from "vue";
-import axios from "axios";
-import mpAdapter from 'axios-miniprogram-adapter'
 import { sendSubmitForm, sendGetInfo } from "../../requests/postInfo";
 import MyInput from "../../components/myInput/MyInput.vue";
 import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
 import MyPicker from "../../components/myPicker/MyPicker.vue";
-axios.defaults.adapter = mpAdapter
 
 const studentInfo = reactive({
   studentName: "",
@@ -191,17 +188,18 @@ onMounted(() => {
   } else {
     wx.login({
       success(res) {
-        if (res.code) {
-          (async function () {
-            const res = await axios({
-              method: "GET",
-              url: "123123",
-            });
-            console.log(res);
-          })()
-        } else {
-          console.log("登录失败！" + res.errMsg);
-        }
+        // if (res.code) {
+        //   (async function () {
+        //     const res = await axios({
+        //       method: "GET",
+        //       url: "123123",
+        //     });
+        //     console.log(res);
+        //   })()
+        // } else {
+        //   console.log("登录失败！" + res.errMsg);
+        // }
+        console.log(res);
       },
     });
   }
