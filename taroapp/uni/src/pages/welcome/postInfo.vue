@@ -188,18 +188,27 @@ onMounted(() => {
   } else {
     wx.login({
       success(res) {
-        // if (res.code) {
-        //   (async function () {
-        //     const res = await axios({
-        //       method: "GET",
-        //       url: "123123",
-        //     });
-        //     console.log(res);
-        //   })()
-        // } else {
-        //   console.log("登录失败！" + res.errMsg);
-        // }
-        console.log(res);
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: "http://192.168.123.86:8081/elc_recruit/interviewer/WeChatLogin",
+            data: {
+              js_code: res.code,
+            },
+            method: "POST",
+
+            header: {
+              "content-type": "application/json", // 默认值
+            },
+            success(res) {
+              console.log(res);
+            },
+          });
+          //一次性code发送
+          // console.log('code:'+ res.code);
+        } else {
+          console.log("登录失败！" + res.errMsg);
+        }
       },
     });
   }
