@@ -106,6 +106,8 @@ namespace interviewer.Controllers
             var sessionResponse = await JsonSerializer.DeserializeAsync
                 <Code2SessionResponse>(contentStream);
 
+            //TODO: sessionResponse.ErrorMessage
+
             var openId = sessionResponse.OpenId;
             var tokenResult = await _userService.WeChatLoginAsync(openId);
 
