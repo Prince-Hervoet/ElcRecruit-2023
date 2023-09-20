@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import dataHostCardListStore from "../../../store/dataHostCardListStore";
-import dataHostChartStore from "./../../../store/dataHostChartStore";
+import dataHostChartStore from "../../../store/dataHostChartStore";
 
 export default function DataHostExitMe() {
   const nav = useNavigate();
