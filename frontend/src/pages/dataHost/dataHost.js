@@ -27,12 +27,12 @@ export default function DataHost() {
             color={"orange"}
             text={"已报名"}
           ></DataHostColorFlag>
-          <DataHostColorFlag color={"blue"} text={"已签到"}></DataHostColorFlag>
+          {/* <DataHostColorFlag color={"blue"} text={"已签到"}></DataHostColorFlag> */}
           <DataHostColorFlag
             color={"purple"}
             text={"面试中"}
           ></DataHostColorFlag>
-          <DataHostColorFlag color={"cyan"} text={"待定中"}></DataHostColorFlag>
+          {/* <DataHostColorFlag color={"cyan"} text={"待定中"}></DataHostColorFlag> */}
           <DataHostColorFlag
             color={"green"}
             text={"已通过"}

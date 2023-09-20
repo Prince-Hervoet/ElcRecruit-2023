@@ -30,3 +30,15 @@ export function getUrlParam(variable) {
   }
   return null;
 }
+
+export function getTokenDataToObj(token) {
+  const strs = token.split(".");
+  if (!Array.isArray(strs)) return {};
+  if (strs.length < 3) return {};
+  const dataStr = strs[1];
+  try {
+    return JSON.parse(window.atob(dataStr));
+  } catch (e) {
+    return {};
+  }
+}

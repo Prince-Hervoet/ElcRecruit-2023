@@ -4,7 +4,6 @@ import {
   CaretRightOutlined,
   LoginOutlined,
   CloseOutlined,
-  PauseOutlined,
   UpSquareOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
@@ -17,6 +16,7 @@ const { TextArea } = Input;
 
 export default function Resume() {
   const [items, setItems] = useState({});
+  const [showUpdateFirstDep, setShowUpdateFirstDep] = useState(false);
   const [commentAndScores, setCommentAndScores] = useState([]);
   const [comment, setComment] = useState("");
   const [score, setScore] = useState("");
@@ -74,6 +74,13 @@ export default function Resume() {
       const commentList = res.data.data;
       setCommentAndScores(commentList);
     })();
+
+    try {
+      const roleData = JSON.parse(localStorage.getItem("roleJson"));
+      if (roleData.role.includes("Admin")) {
+        setShowUpdateFirstDep(true);
+      }
+    } catch (e) {}
   }, []);
 
   // 开始面试按钮
@@ -107,19 +114,6 @@ export default function Resume() {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
       60
-    );
-    if (res.success) {
-      alert("修改成功");
-    } else {
-      alert(res.data.response.data?.errors[0]);
-    }
-  };
-
-  // 待定按钮
-  const clickPending = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(
-      userIdRef.current,
-      40
     );
     if (res.success) {
       alert("修改成功");
@@ -259,16 +253,9 @@ export default function Resume() {
           <Button icon={<CloseOutlined />} size={"large"} onClick={clickReject}>
             淘汰
           </Button>
-          <Button
-            icon={<PauseOutlined />}
-            size={"large"}
-            onClick={clickPending}
-          >
-            待定
-          </Button>
         </div>
         <p></p>
-        <div>
+        <div style={showUpdateFirstDep ? {} : { display: "none" }}>
           <Select
             defaultValue="7"
             style={{ width: 150, marginRight: "10px" }}
@@ -283,7 +270,7 @@ export default function Resume() {
             ]}
           />
           <Button danger icon={<UpSquareOutlined />} size={"default"}>
-            调剂至
+            修改第一志愿
           </Button>
         </div>
         <p></p>
