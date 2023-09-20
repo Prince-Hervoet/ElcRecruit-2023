@@ -31,6 +31,12 @@ export default function Admin() {
     }
   };
 
+  const clickExportAll = ()=>{}
+
+  const clickExportAccess = ()=>{}
+
+  const clickExportReject = ()=>{}
+
   return (
     <div className="admin-body">
       <div className="admin-content">
@@ -54,13 +60,13 @@ export default function Admin() {
 
         <hr></hr>
         <p style={{ textAlign: "center" }}>
-          <Button type="primary" size="large" style={{ marginRight: 20 }}>
+          <Button type="primary" size="large" style={{ marginRight: 20 }} onClick={clickExportAll}>
             导出当前所有名单
           </Button>
-          <Button type="primary" size="large" style={{ marginRight: 20 }}>
+          <Button type="primary" size="large" style={{ marginRight: 20 }} onClick={clickExportAccess}>
             导出当前通过名单
           </Button>
-          <Button type="primary" size="large" style={{ marginRight: 20 }}>
+          <Button type="primary" size="large" style={{ marginRight: 20 }} onClick={clickExportReject}>
             导出当前淘汰名单
           </Button>
           <Button danger size="large" onClick={clickPushProcess}>
