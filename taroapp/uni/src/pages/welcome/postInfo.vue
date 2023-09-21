@@ -164,7 +164,7 @@ const clickSubmitForm = async () => {
     if (res.code === 4000) {
       //发送报名成功
       wx.request({
-        url: "http://192.168.123.86:8081/elc_recruit/student/commit",
+        url: "http://192.168.123.184:8081/elc_recruit/student/commit",
         data: {
           //   id: "drdrdrd",
           //   state: "",
@@ -227,7 +227,7 @@ onMounted(() => {
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: "http://192.168.123.86:8081/elc_recruit/interviewer/WeChatLogin",
+            url: "http://192.168.123.184:8081/elc_recruit/interviewer/WeChatLogin",
             data: {
               js_code: res.code,
             },
