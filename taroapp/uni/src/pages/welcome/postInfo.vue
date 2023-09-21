@@ -33,13 +33,13 @@
           </MyPicker>
         </view>
         <view>
-          <MyTextarea headername="自我介绍 *" :value="studentInfo.introductionn" @onChange="setintroductionn"></MyTextarea>
+          <MyTextarea header-name="自我介绍 *" :value="studentInfo.introductionn" @onChange="setintroductionn"></MyTextarea>
         </view>
         <view>
           <MyInput header-name="QQ 号码" :value="studentInfo.qq" @onChange="setQq"></MyInput>
         </view>
         <view>
-          <MyInput header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyInput>
+          <MyTextarea header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyTextarea>
         </view>
       </view>
     </view>
