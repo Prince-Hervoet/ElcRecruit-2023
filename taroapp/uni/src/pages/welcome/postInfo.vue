@@ -166,19 +166,6 @@ const clickSubmitForm = async () => {
       wx.request({
         url: "http://192.168.123.184:8081/elc_recruit/student/commit",
         data: {
-          //   id: "drdrdrd",
-          //   state: "",
-          //   name: "string",
-          //   studentNumber: "string",
-          //   college: "string",
-          //   grade: "string",
-          //   phone: "string",
-          //   firstDepartment: "string",
-          //   secondDepartment: "string",
-          //   introductionn: "string",
-          //   qq: "string",
-          //   weChat: "string",
-          //   skills: "string",
           "id": "string",
           "studentNumber": "string",
           "name": "string",
@@ -237,7 +224,6 @@ onMounted(() => {
             },
             success(res) {
               console.log(res);
-              // TODO: if(!res.data.success) ...
               loginToken = res.data.accessToken;
             },
           });

@@ -1,10 +1,4 @@
 <template>
-	<u-steps current="0">
-		<u-steps-item title="已下单" desc="10:30">
-		</u-steps-item>
-		<u-steps-item title="已出库" desc="10:35" ></u-steps-item>
-		<u-steps-item title="运输中" desc="11:40"></u-steps-item>
-	</u-steps>
   <view class="welcome-container">
     <view class="welcome-button-container">
       <view style="margin-right: 20px;">
@@ -24,10 +18,10 @@
 </template>
 
 <script setup>
-console.log(uni.$u.config.v);
 const clickGotoRecruit = () => {
   uni.navigateTo({
     url: "postInfo",
+    // url: "progress",
   });
 };
 const clickGotoknow = () => {
