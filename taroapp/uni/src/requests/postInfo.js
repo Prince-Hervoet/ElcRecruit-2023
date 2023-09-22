@@ -5,9 +5,20 @@ export async function sendSubmitForm(sendObj) {
   return { code: 4000, msg: "success" };
 }
 
+//提交表单的请求
+// clickSubmitForm.onclick = function () {
+//   axios
+//     .post("elc_recruit/student/commit")
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// };
+
 export async function sendGetInfo(openId) {
   const url = ServiceUrls.getInfo + `?openId=${openId}`;
-  //
   return {
     code: 4000,
     msg: "success",

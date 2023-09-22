@@ -4,7 +4,6 @@ import {
   CaretRightOutlined,
   LoginOutlined,
   CloseOutlined,
-  PauseOutlined,
   UpSquareOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
@@ -15,34 +14,21 @@ import { ResumeRequest } from "../../requests/resumeRequest";
 import { CollegeObj, KeyToDepName } from "../../store/global";
 const { TextArea } = Input;
 
-const data = [
-  {
-    title: "Ant Design Title 1",
-  },
-  {
-    title: "Ant Design Title 2",
-  },
-  {
-    title: "Ant Design Title 3",
-  },
-  {
-    title: "Ant Design Title 4",
-  },
-];
-
 export default function Resume() {
   const [items, setItems] = useState({});
-  const [comments, setComments] = useState([]);
-  const userIdRef = useRef("");
-  const commentRef = useRef("");
-  const scoreRef = useRef("");
-  const interviewerNameRef = useRef("");
+  const [showUpdateFirstDep, setShowUpdateFirstDep] = useState(false);
+  const [commentAndScores, setCommentAndScores] = useState([]);
+  const [comment, setComment] = useState("");
+  const [score, setScore] = useState("");
+  const [interviewerName, setInterviewerName] = useState("");
 
+  const userIdRef = useRef("");
+
+  // 进入页面完成挂载时，请求数据和评论
   useEffect(() => {
-    const userId = getUrlParam("userId");
-    userIdRef.current = userId;
+    userIdRef.current = getUrlParam("userId");
     (async function () {
-      const res = await ResumeRequest.sendGetStudentInfo(userId);
+      const res = await ResumeRequest.sendGetStudentInfo(userIdRef.current);
       if (res.success) {
         const {
           college,
@@ -82,6 +68,19 @@ export default function Resume() {
         alert(res.data.message);
       }
     })();
+
+    (async function () {
+      const res = await ResumeRequest.sendGetComments(userIdRef.current);
+      const commentList = res.data.data;
+      setCommentAndScores(commentList);
+    })();
+
+    try {
+      const roleData = JSON.parse(localStorage.getItem("roleJson"));
+      if (roleData.role.includes("Admin")) {
+        setShowUpdateFirstDep(true);
+      }
+    } catch (e) {}
   }, []);
 
   // 开始面试按钮
@@ -93,7 +92,7 @@ export default function Resume() {
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
+      alert("修改失败，请检查角色权限和网络情况");
     }
   };
 
@@ -106,7 +105,7 @@ export default function Resume() {
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
+      alert(res.data.response.data?.errors[0]);
     }
   };
 
@@ -119,46 +118,49 @@ export default function Resume() {
     if (res.success) {
       alert("修改成功");
     } else {
-      alert("修改失败");
-    }
-  };
-
-  // 待定按钮
-  const clickPending = async () => {
-    const res = await ResumeRequest.sendUpdateStudentStatus(
-      userIdRef.current,
-      40
-    );
-    if (res.success) {
-      alert("修改成功");
-    } else {
-      alert("修改失败");
+      alert(res.data.response.data?.errors[0]);
     }
   };
 
   // 提交评论
-  const clickSubmitComment = () => {
-    const interviewerName = interviewerNameRef.current;
-    const comment = commentRef.current;
-    const score = scoreRef.current;
-    interviewerNameRef.current = "";
-    commentRef.current = "";
-    scoreRef.current = "";
+  const clickSubmitComment = async () => {
+    if (!interviewerName || !comment || !score) {
+      alert("请输入完整的评论信息 -- 评论、评分、名字");
+      return;
+    }
+    const res = await ResumeRequest.sendCommentAndScore(
+      userIdRef.current,
+      interviewerName,
+      comment,
+      score
+    );
+    if (res.success) {
+      alert("提交成功");
+      setCommentAndScores([
+        ...commentAndScores,
+        { interviewerName, content: comment, score },
+      ]);
+      setComment("");
+      setInterviewerName("");
+      setScore("");
+    } else {
+      alert("提交失败，请检查权限和网络");
+    }
   };
 
   // 评论change触发
   const onChangeComment = (event) => {
-    commentRef.current = event.target.value;
+    setComment(event.target.value);
   };
 
   // 评论者change触发
   const onChangeInterviewerName = (event) => {
-    interviewerNameRef.current = event.target.value;
+    setInterviewerName(event.target.value);
   };
 
   // 评分change触发
   const onChangeScore = (value) => {
-    scoreRef.current = value;
+    setScore(value);
   };
 
   return (
@@ -210,17 +212,28 @@ export default function Resume() {
               fontSize: "larger",
             }}
             onChange={onChangeComment}
+            value={comment}
+            showCount={true}
+            allowClear={true}
           />
         </div>
         <div className="resume-content-comment-buttons-body">
-          <Rate count={10} onChange={onChangeScore} />
+          <Rate count={10} onChange={onChangeScore} value={score} />
           <Input
             size="small"
             placeholder="评价者"
             style={{ width: "10%", marginLeft: 10 }}
             onChange={onChangeInterviewerName}
+            value={interviewerName}
           />
-          <Button style={{ marginLeft: 10 }} size={"large"}>
+          <Button
+            style={{ marginLeft: 10 }}
+            size={"large"}
+            onClick={clickSubmitComment}
+            value={score}
+            allowClear={true}
+            defaultChecked={0}
+          >
             提交评论和分数
           </Button>
         </div>
@@ -240,16 +253,9 @@ export default function Resume() {
           <Button icon={<CloseOutlined />} size={"large"} onClick={clickReject}>
             淘汰
           </Button>
-          <Button
-            icon={<PauseOutlined />}
-            size={"large"}
-            onClick={clickPending}
-          >
-            待定
-          </Button>
         </div>
         <p></p>
-        <div>
+        <div style={showUpdateFirstDep ? {} : { display: "none" }}>
           <Select
             defaultValue="7"
             style={{ width: 150, marginRight: "10px" }}
@@ -264,18 +270,18 @@ export default function Resume() {
             ]}
           />
           <Button danger icon={<UpSquareOutlined />} size={"default"}>
-            调剂至
+            修改第一志愿
           </Button>
         </div>
         <p></p>
         <List
           itemLayout="horizontal"
-          dataSource={data}
-          renderItem={(item, index) => (
+          dataSource={commentAndScores}
+          renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                title={item.title}
-                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                title={`${item.interviewerName} | 评分: ${item.score}`}
+                description={`评论: ${item.content}`}
               />
             </List.Item>
           )}

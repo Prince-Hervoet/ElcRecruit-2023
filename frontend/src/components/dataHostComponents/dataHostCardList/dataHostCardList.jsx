@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./dataHostCardList.css";
 import DataHostCard from "../dataHostCard/dataHostCard";
 import { Empty, Skeleton } from "antd";
@@ -12,6 +12,7 @@ const DataHostCardList = () => {
 
   let showContent = <></>;
   if (isLoading) {
+    // 如果是在loading态则插入loading组件
     showContent = <Skeleton></Skeleton>;
   } else {
     const cardListSlice = cardList.slice();

@@ -1,11 +1,13 @@
 {
   "pages": [
+
     {
       "path": "pages/welcome/welcome",
       "style": {
         "navigationBarTitleText": "欢迎"
       }
     },
+    
     {
       "path": "pages/welcome/depIntro",
       "style": {

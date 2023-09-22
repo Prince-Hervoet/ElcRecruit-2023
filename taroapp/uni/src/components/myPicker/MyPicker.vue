@@ -35,7 +35,7 @@ onUpdated(() => {
 </script>
 
 <style scoped>
-.myPicker-container {}
+/* .myPicker-container {} */
 
 .myPicker-header {
   padding: 2px;
