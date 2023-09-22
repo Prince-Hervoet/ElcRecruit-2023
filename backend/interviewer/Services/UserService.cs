@@ -3,6 +3,7 @@ using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using interviewer.Data;
 using Microsoft.AspNetCore.Authentication;
@@ -54,8 +55,19 @@ namespace interviewer.Services
 
         public async Task<TokenResult> WeChatLoginAsync(string id)
         {
-            var username = id;
-            var password = id + _configuration["Authentication:WeChat:PasswordSecret"];
+            using SHA256 sha256 = SHA256.Create();
+
+            string username = "";
+
+            // 计算给定字符串的哈希值
+            byte[] hashValue = sha256.ComputeHash(Encoding.UTF8.GetBytes(id));
+            // 将字节数组转换为字符串格式
+            foreach (byte b in hashValue)
+            {
+                username += $"{b:X2}";
+            }
+
+            var password = id + _configuration["Authentication:WeChat:PasswordSecret"] + '@';
             var existingUser = await _userManager.FindByIdAsync(id);
             if (existingUser != null)
             {
