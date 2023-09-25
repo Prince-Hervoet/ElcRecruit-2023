@@ -14,5 +14,5 @@ class DataHostChartStore {
   clear() {}
 }
 
-const dataHostChartStore = new DataHostChartStore();
-export default dataHostChartStore;
+const GdataHostChartStore = new DataHostChartStore();
+export default GdataHostChartStore;

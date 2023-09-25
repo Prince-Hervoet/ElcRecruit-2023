@@ -2,24 +2,17 @@ import React, { useEffect, useRef } from "react";
 import "./login.css";
 import { UserOutlined } from "@ant-design/icons";
 import { Input, Button } from "antd";
-import LoginRequest from "../../requests/loginRequest";
+import { LoginRequest } from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import Bo from "../../components/loginComponents/bo/bo";
+import { base64StrToData, getTokenDataToObj } from "../../util";
 
 export default function Login() {
   let userNameRef = useRef("");
   let passwordRef = useRef("");
   const nav = useNavigate();
 
-  useEffect(() => {
-    // 判断是否已经登录，如果已经登录直接跳转到host页面
-    // (async function judge() {
-    //   const res = await LoginRequest.judgeLogin();
-    //   if (res.code === 4000) {
-    //     nav("/dataHost");
-    //   }
-    // })();
-  }, []);
+  useEffect(() => {}, []);
 
   // 点击登录
   const clickOnLogin = async () => {
@@ -37,10 +30,11 @@ export default function Login() {
       if (res.data.errors) {
         alert(res.data.errors[0]);
       } else {
-        localStorage.setItem(
-          "token",
-          res.data.token_type + " " + res.data.access_token
-        );
+        const { token_type, access_token } = res.data;
+        const tokenDataObj = getTokenDataToObj(access_token);
+        const token = `${token_type} ${access_token}`;
+        localStorage.setItem("roleJson", JSON.stringify(tokenDataObj));
+        localStorage.setItem("token", token);
         nav("/dataHost", { replace: true });
       }
     } else {
