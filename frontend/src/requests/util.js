@@ -28,6 +28,10 @@ export const ServiceUrls = {
   getCommentAndScore: `${BASE_URL}/elc_recruit/interviewer/get_comment_score`,
   // 搜索
   getSearchBriefInfo: `${BASE_URL}`,
+  // 获取当前进度
+  getCurrentProcess: `${BASE_URL}/elc_recruit/root/get_current_process`,
+  // 推进进度
+  pushCurrentProcess: `${BASE_URL}/elc_recruit/root/push_status`,
 };
 
 // 请求头加上token

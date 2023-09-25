@@ -9,7 +9,6 @@ import {
 import { Button } from "antd";
 import "./resume.css";
 import { getUrlParam } from "../../util";
-import ResumeStatusShow from "../../components/resumeComponents/resumeStatusShow";
 import { ResumeRequest } from "../../requests/resumeRequest";
 import { CollegeObj, KeyToDepName } from "../../store/global";
 const { TextArea } = Input;
@@ -21,7 +20,7 @@ export default function Resume() {
   const [comment, setComment] = useState("");
   const [score, setScore] = useState("");
   const [interviewerName, setInterviewerName] = useState("");
-
+  const targetDepIdRef = useRef("7");
   const userIdRef = useRef("");
 
   // 进入页面完成挂载时，请求数据和评论
@@ -51,6 +50,7 @@ export default function Resume() {
         const nItems = {
           collegeName,
           firstDepName,
+          firstDepId: firstDepartment,
           grade,
           id,
           introduction,
@@ -163,6 +163,18 @@ export default function Resume() {
     setScore(value);
   };
 
+  const selectSetDepId = (value) => {
+    targetDepIdRef.current = value;
+  };
+
+  // 修改学生的第一志愿
+  const clickTransferStudent = () => {
+    const userId = userIdRef.current;
+    const sourceDepId = items.firstDepId;
+    const targetDepId = targetDepIdRef.current;
+    console.log(userId + " " + sourceDepId + " " + targetDepId);
+  };
+
   return (
     <div className="resume-body">
       <div className="resume-content-body">
@@ -268,8 +280,14 @@ export default function Resume() {
               { value: "6", label: "实践部" },
               { value: "7", label: "软件组" },
             ]}
+            onSelect={selectSetDepId}
           />
-          <Button danger icon={<UpSquareOutlined />} size={"default"}>
+          <Button
+            onClick={clickTransferStudent}
+            danger
+            icon={<UpSquareOutlined />}
+            size={"default"}
+          >
             修改第一志愿
           </Button>
         </div>
@@ -287,7 +305,6 @@ export default function Resume() {
           )}
         />
       </div>
-      <ResumeStatusShow></ResumeStatusShow>
     </div>
   );
 }

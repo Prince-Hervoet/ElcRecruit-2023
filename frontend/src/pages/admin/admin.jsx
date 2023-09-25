@@ -3,6 +3,7 @@ import "./admin.css";
 import { Steps } from "antd";
 import { Button } from "antd";
 import { Radio } from "antd";
+import { AdminRequest } from "../../requests/adminRequest";
 
 const processNameList = [
   {
@@ -22,20 +23,30 @@ const processNameList = [
 export default function Admin() {
   const [process, setProcess] = useState(0);
 
-  const clickPushProcess = () => {
+  useEffect(() => {
+    (async function () {
+      const res = await AdminRequest.getCurrentProcess();
+      if (res.success) {
+        setProcess(res.data?.data);
+      }
+    })();
+  }, []);
+
+  const clickPushProcess = async () => {
     if (
       window.confirm("确定要推进进度吗?") &&
       process < processNameList.length
     ) {
+      const res = await AdminRequest.pushProcess();
       setProcess(process + 1);
     }
   };
 
-  const clickExportAll = ()=>{}
+  const clickExportAll = () => {};
 
-  const clickExportAccess = ()=>{}
+  const clickExportAccess = () => {};
 
-  const clickExportReject = ()=>{}
+  const clickExportReject = () => {};
 
   return (
     <div className="admin-body">
@@ -60,13 +71,28 @@ export default function Admin() {
 
         <hr></hr>
         <p style={{ textAlign: "center" }}>
-          <Button type="primary" size="large" style={{ marginRight: 20 }} onClick={clickExportAll}>
+          <Button
+            type="primary"
+            size="large"
+            style={{ marginRight: 20 }}
+            onClick={clickExportAll}
+          >
             导出当前所有名单
           </Button>
-          <Button type="primary" size="large" style={{ marginRight: 20 }} onClick={clickExportAccess}>
+          <Button
+            type="primary"
+            size="large"
+            style={{ marginRight: 20 }}
+            onClick={clickExportAccess}
+          >
             导出当前通过名单
           </Button>
-          <Button type="primary" size="large" style={{ marginRight: 20 }} onClick={clickExportReject}>
+          <Button
+            type="primary"
+            size="large"
+            style={{ marginRight: 20 }}
+            onClick={clickExportReject}
+          >
             导出当前淘汰名单
           </Button>
           <Button danger size="large" onClick={clickPushProcess}>
