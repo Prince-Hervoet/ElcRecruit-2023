@@ -9,6 +9,8 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
     public DbSet<Student> Students { get; set; }
     public DbSet<Interviewer> Interviewers { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<IntegerProperty> IntegerProperties { get; set; }
+    public DbSet<StudentHistory> StudentHistories { get; set; }
 
     private readonly string? _connectionString;
 
@@ -30,20 +32,32 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Interviewer", NormalizedName = "INTERVIEWER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Student", NormalizedName = "STUDENT", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+        {
+            Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid().ToString(),
+            ConcurrencyStamp = Guid.NewGuid().ToString()
+        });
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+        {
+            Name = "Interviewer", NormalizedName = "INTERVIEWER", Id = Guid.NewGuid().ToString(),
+            ConcurrencyStamp = Guid.NewGuid().ToString()
+        });
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+        {
+            Name = "Student", NormalizedName = "STUDENT", Id = Guid.NewGuid().ToString(),
+            ConcurrencyStamp = Guid.NewGuid().ToString()
+        });
 
         Random random = new();
 
-        List<Student> students= new();
+        List<Student> students = new();
         for (int i = 0; i < 100; i++)
         {
             students.Add(new Student
             {
                 Id = Guid.NewGuid().ToString(),
                 College = (College)random.Next(27),
-                FirstDepartment = (ElcDepartment)random.Next(1,7),
+                FirstDepartment = (ElcDepartment)random.Next(1, 7),
                 Grade = RandomString(6),
                 Introduction = RandomNumber(24),
                 Name = RandomString(6),
@@ -52,6 +66,7 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
                 StudentNumber = RandomNumber(10)
             });
         }
+
         modelBuilder.Entity<Student>().HasData(students);
 
         string RandomString(int length)
@@ -67,5 +82,8 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        modelBuilder.Entity<IntegerProperty>().HasData(new IntegerProperty()
+            { Name = "ProcessState", Value = (int)ProcessState.FirstRoundInterview });
     }
 }

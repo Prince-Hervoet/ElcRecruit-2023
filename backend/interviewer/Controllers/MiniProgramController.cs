@@ -26,6 +26,10 @@ public class MiniProgramController : ControllerBase
     public async Task<MiniProgramControllerResponse> Commit([FromBody] Student student)
     {
         var user = await _userManager.GetUserAsync(User);
+        if(user is null)
+        {
+            return new MiniProgramControllerResponse() { Data = null, ErrorMessages = new[] { "用户不存在" } };
+        }
         student.Id = user.Id;
         var existingStudent = _dbContext.Students.FirstOrDefault(s => s.Id == student.Id);
         
@@ -70,7 +74,8 @@ public class MiniProgramController : ControllerBase
     {
         var user = await _userManager.GetUserAsync(User);
         var student = _dbContext.Students.FirstOrDefault(s => s.Id == user.Id);
-        return new MiniProgramControllerResponse() { Data = student?.State };
+        var studentHistories = _dbContext.StudentHistories.Where(history => history.StudentId==student.Id);
+        return new MiniProgramControllerResponse() { Data = studentHistories.ToArray() };
     }
 
     [HttpGet("checkin")]
@@ -78,7 +83,9 @@ public class MiniProgramController : ControllerBase
     public async Task<MiniProgramControllerResponse> CheckIn()
     {
         var user = await _userManager.GetUserAsync(User);
+        if(user is null) return new MiniProgramControllerResponse() { Data = null, ErrorMessages = new[] { "用户不存在" } };
         var student = _dbContext.Students.FirstOrDefault(s => s.Id == user.Id);
+        if(student is null) return new MiniProgramControllerResponse() { Data = null, ErrorMessages = new[] { "用户不存在" } };
         student.State = StudentState.CheckedIn;
         _dbContext.Students.Update(student);
         await _dbContext.SaveChangesAsync();

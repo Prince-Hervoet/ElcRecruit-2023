@@ -31,7 +31,14 @@ namespace interviewer.Controllers
             {
                 return Ok("Hello Guest!");
             }
-            return Ok($"Hello {(await _userManager.GetRolesAsync(user)).Aggregate((prev, current) => prev + "|" + current)} {user.UserName}!");
+
+            var roles = (await _userManager.GetRolesAsync(user));
+            if (roles.Any())
+            {
+                return Ok($"Hello {roles.Aggregate((prev, current) => prev + "|" + current)} {user.UserName}!");
+            }
+            
+            return Ok($"Hello {user.UserName}!");
         }
     }
 }

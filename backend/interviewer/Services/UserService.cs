@@ -22,6 +22,7 @@ namespace interviewer.Services
         private readonly UserManager<InterviewerUser> _userManager;
         private readonly SignInManager<InterviewerUser> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly InterviewerDbContext _dbContext;
 
         public UserService(JwtSettings jwtSettings, UserManager<InterviewerUser> userManager, SignInManager<InterviewerUser> signInManager, IConfiguration configuration)
         {
@@ -29,6 +30,7 @@ namespace interviewer.Services
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _dbContext = new InterviewerDbContext(_configuration);
         }
 
         public async Task<TokenResult> RegisterAsync(string username, string password)
@@ -57,7 +59,7 @@ namespace interviewer.Services
         {
             using SHA256 sha256 = SHA256.Create();
 
-            string username = "";
+            string username = "wx_";
 
             // 计算给定字符串的哈希值
             byte[] hashValue = sha256.ComputeHash(Encoding.UTF8.GetBytes(id));
@@ -67,7 +69,13 @@ namespace interviewer.Services
                 username += $"{b:X2}";
             }
 
-            var password = id + _configuration["Authentication:WeChat:PasswordSecret"] + '@';
+            hashValue = sha256.ComputeHash(
+                Encoding.UTF8.GetBytes(id + _configuration["Authentication:WeChat:PasswordSecret"]));
+            var password = "wx@";
+            foreach (byte b in hashValue)
+            {
+                password += $"{b:X2}";
+            }
             var existingUser = await _userManager.FindByIdAsync(id);
             if (existingUser != null)
             {
@@ -165,8 +173,7 @@ namespace interviewer.Services
                 {
                     Errors = new[] { "wrong user name or password!" }, //用户名或密码错误
                 };
-            }
-
+            } 
             var isAdded = await _userManager.AddToRoleAsync(existingUser, role);
             if (!isAdded.Succeeded)
             {
@@ -174,6 +181,16 @@ namespace interviewer.Services
                 {
                     Errors = isAdded.Errors.Select(p => p.Description)
                 };
+            }
+            if (role == "Interviewer")
+            {
+                _dbContext.Interviewers.Add(new Interviewer
+                {
+                    Name = username,
+                    Department = ElcDepartment.All,
+                    Id = existingUser.Id
+                });
+                await _dbContext.SaveChangesAsync();
             }
             return new EditResult();
         }

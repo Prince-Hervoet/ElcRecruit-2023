@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using interviewer.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -74,7 +69,7 @@ namespace interviewer.Controllers
             new
             {
                 data = _dbContext.Students?.Where(s =>
-                        (depId == ElcDepartment.All || s.FirstDepartment == depId) && s.State == StudentState.CheckedIn)
+                        (depId == ElcDepartment.All && s.FirstDepartment == depId) && s.State == StudentState.CheckedIn)
                     .ToArray()
             };
 
@@ -84,7 +79,8 @@ namespace interviewer.Controllers
         {
             return Ok(new
             {
-                data = _dbContext.Comments?.Where(comment => studentUserId == comment.StudentUserId).Select(comment => comment)
+                data = _dbContext.Comments?.Where(comment => studentUserId == comment.StudentUserId)
+                    .Select(comment => comment)
             });
         }
 
@@ -94,13 +90,14 @@ namespace interviewer.Controllers
         [Authorize(Roles = "Interviewer")]
         public object UpdateStudentStatus([Required] UpdateStudentStatusParms p)
         {
-            var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
+            var interviewerDepartment = _dbContext.Interviewers
+                ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId)?.FirstDepartment;
-            if (interviewerDepartment != studentDepartment)
+            if (interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
                 return Unauthorized(new
                 {
                     success = false,
-                    errors = new string[] { "²»ÄÜ¸üĞÂÆäËû²¿ÃÅµÄÃæÊÔÕß×´Ì¬" }
+                    errors = new string[] { "ä¸èƒ½æ›´æ–°å…¶ä»–éƒ¨é—¨çš„é¢è¯•è€…çŠ¶æ€" }
                 });
             _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId);
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId);
@@ -109,7 +106,7 @@ namespace interviewer.Controllers
                 return new
                 {
                     success = false,
-                    message = "ÕÒ²»µ½´ËÑ§Éú"
+                    message = "æ‰¾ä¸åˆ°æ­¤å­¦ç”Ÿ"
                 };
             }
 
@@ -127,13 +124,15 @@ namespace interviewer.Controllers
         public IActionResult CommitComment([Required] Comment comment)
         {
             comment.Id = Guid.NewGuid().ToString();
-            var interviewerDepartment = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
-            var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentUserId)?.FirstDepartment;
-            if (interviewerDepartment != studentDepartment)
+            var interviewerDepartment = _dbContext.Interviewers
+                ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
+            var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentUserId)
+                ?.FirstDepartment;
+            if (interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
                 return Unauthorized(new
                 {
                     success = false,
-                    errors = new string[]{ "²»ÄÜ¶ÔÆäËû²¿ÃÅµÄÃæÊÔÕßÌá½»ÆÀ¼Û" }
+                    errors = new string[] { "ä¸èƒ½å¯¹å…¶ä»–éƒ¨é—¨çš„é¢è¯•è€…æäº¤è¯„ä»·" }
                 });
             comment.DepId = studentDepartment;
             _dbContext.Comments?.Add(comment);
