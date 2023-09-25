@@ -8,39 +8,38 @@
     <view class="postInfo-table-container">
       <view class="postInfo-table">
         <view>
-          <MyInput header-name="您的姓名 *" :value="studentInfo.studentName" @onChange="setStudentName"></MyInput>
+          <MyInput header-name="您的姓名 *" :value="studentInfo.name" @onChange="setname"></MyInput>
         </view>
         <view>
-          <MyInput header-name="您的学号 *" :value="studentInfo.studentId" @onChange="setStuId"></MyInput>
+          <MyInput header-name="您的学号 *" :value="studentInfo.studentNumber" @onChange="setStuId"></MyInput>
         </view>
         <view>
           <MyPicker header-name="所属学院 *" :value="studentInfo.college" :arr="depA" @onChange="setCollege"></MyPicker>
         </view>
         <view>
-          <MyInput header-name="就读专业 *" :value="studentInfo.major" @onChange="setMajor"></MyInput>
+          <MyInput header-name="就读专业和班级 *" :value="studentInfo.grade" @onChange="setgrade"></MyInput>
         </view>
         <view>
-          <MyInput header-name="所在班级 *" :value="studentInfo.clazz" @onChange="setClazz"></MyInput>
+          <MyInput header-name="电话号码 *" :value="studentInfo.phone" @onChange="setphone"></MyInput>
         </view>
         <view>
-          <MyInput header-name="电话号码 *" :value="studentInfo.phoneNum" @onChange="setPhoneNum"></MyInput>
-        </view>
-        <view>
-          <MyPicker header-name="第一志愿 *" :value="studentInfo.firstDepId" :arr="depArr" @onChange="setFirstDepId">
+          <MyPicker header-name="第一志愿 *" :value="studentInfo.firstDepartment" :arr="depArr"
+            @onChange="setfirstDepartment">
           </MyPicker>
         </view>
         <view>
-          <MyPicker header-name="第二志愿" :value="studentInfo.secondDepId" :arr="depArr" @onChange="setSecondDepId">
+          <MyPicker header-name="第二志愿" :value="studentInfo.secondDepartment" :arr="depArr"
+            @onChange="setsecondDepartment">
           </MyPicker>
         </view>
         <view>
-          <MyTextarea headerName="自我介绍 *" :value="studentInfo.intro" @onChange="setIntro"></MyTextarea>
+          <MyTextarea header-name="自我介绍 *" :value="studentInfo.introductionn" @onChange="setintroductionn"></MyTextarea>
         </view>
         <view>
           <MyInput header-name="QQ 号码" :value="studentInfo.qq" @onChange="setQq"></MyInput>
         </view>
         <view>
-          <MyInput header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyInput>
+          <MyTextarea header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyTextarea>
         </view>
       </view>
     </view>
@@ -56,17 +55,16 @@ import { sendSubmitForm, sendGetInfo } from "../../requests/postInfo";
 import MyInput from "../../components/myInput/MyInput.vue";
 import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
 import MyPicker from "../../components/myPicker/MyPicker.vue";
-
+let loginToken = "";
 const studentInfo = reactive({
-  studentName: "",
-  studentId: "",
+  name: "",
+  studentNumber: "",
   college: "",
-  major: "",
-  clazz: "",
-  phoneNum: "",
-  firstDepId: "",
-  secondDepId: "",
-  intro: "",
+  grade: "",
+  phone: "",
+  firstDepartment: "",
+  secondDepartment: "",
+  introductionn: "",
   qq: "",
   skills: "",
 });
@@ -123,42 +121,39 @@ const submitLoadingTipData = {
 
 const clickSubmitForm = async () => {
   const {
-    studentName,
-    studentId,
+    name,
+    studentNumber,
     college,
-    major,
-    clazz,
-    phoneNum,
-    firstDepId,
-    secondDepId,
-    intro,
+    grade,
+    phone,
+    firstDepartment,
+    secondDepartment,
+    introductionn,
     qq,
     skills,
   } = studentInfo;
   if (
     !hasNullFields(
       college,
-      studentName,
-      studentId,
-      major,
-      clazz,
-      firstDepId,
-      phoneNum,
-      intro
+      name,
+      studentNumber,
+      grade,
+      firstDepartment,
+      phone,
+      introductionn
     ) &&
-    checkStuId(studentId) &&
-    checkPhoneNumSize(phoneNum)
+    checkStuId(studentNumber) &&
+    checkphoneSize(phone)
   ) {
     const sendObj = {
-      studentName,
-      studentId,
+      name,
+      studentNumber,
       college,
-      major,
-      clazz,
-      phoneNum,
-      firstDepId,
-      secondDepId,
-      intro,
+      grade,
+      phone,
+      firstDepartment,
+      secondDepartment,
+      introductionn,
       qq,
       skills,
     };
@@ -167,6 +162,34 @@ const clickSubmitForm = async () => {
     const res = await sendSubmitForm(sendObj);
     wx.hideLoading();
     if (res.code === 4000) {
+      //发送报名成功
+      wx.request({
+        url: "http://192.168.123.184:8081/elc_recruit/student/commit",
+        data: {
+          "id": "string",
+          "studentNumber": "string",
+          "name": "string",
+          "college": 0,
+          "grade": "string",
+          "skills": "string",
+          "introduction": "string",
+          "phone": "string",
+          "qq": "string",
+          "weChat": "string",
+          "firstDepartment": 0,
+          "secondDepartment": 0,
+          "state": 10
+        },
+        method: "POST",
+        header: {
+          "content-type": "application/json", // 默认值
+          "Authorization": "Bearer " + loginToken
+        },
+        success(res) {
+          console.log(res);
+        },
+      });
+
       wx.showToast(submitSuccessTipData);
     } else {
       wx.showToast(submitErrorTipData);
@@ -183,7 +206,7 @@ onMounted(() => {
     // 如果有openId则获取信息
     (async function () {
       const res = await sendGetInfo(openId);
-      studentInfo.firstDepId = "2";
+      studentInfo.firstDepartment = "2";
     })();
   } else {
     wx.login({
@@ -191,17 +214,17 @@ onMounted(() => {
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: "http://192.168.123.86:8081/elc_recruit/interviewer/WeChatLogin",
+            url: "http://192.168.123.184:8081/elc_recruit/interviewer/WeChatLogin",
             data: {
               js_code: res.code,
             },
             method: "POST",
-
             header: {
               "content-type": "application/json", // 默认值
             },
             success(res) {
               console.log(res);
+              loginToken = res.data.accessToken;
             },
           });
           //一次性code发送
@@ -218,44 +241,41 @@ const setCollege = (value) => {
   studentInfo.college = value;
 };
 
-const setStudentName = (value) => {
-  studentInfo.studentName = value;
+const setname = (value) => {
+  studentInfo.name = value;
 };
 
-const setMajor = (value) => {
-  studentInfo.major = value;
+const setgrade = (value) => {
+  studentInfo.grade = value;
 };
 
-const setClazz = (value) => {
-  studentInfo.clazz = value;
-};
 
 const setStuId = (value) => {
-  studentInfo.studentId = value;
+  studentInfo.studentNumber = value;
 };
 
-const setPhoneNum = (value) => {
-  studentInfo.phoneNum = value;
+const setphone = (value) => {
+  studentInfo.phone = value;
 };
 
 const setQq = (value) => {
   studentInfo.qq = value;
 };
 
-const setIntro = (value) => {
-  studentInfo.intro = value;
+const setintroductionn = (value) => {
+  studentInfo.introductionn = value;
 };
 
 const setSkills = (value) => {
   studentInfo.skills = value;
 };
 
-const setFirstDepId = (value) => {
-  studentInfo.firstDepId = value;
+const setfirstDepartment = (value) => {
+  studentInfo.firstDepartment = value;
 };
 
-const setSecondDepId = (value) => {
-  studentInfo.secondDepId = value;
+const setsecondDepartment = (value) => {
+  studentInfo.secondDepartment = value;
 };
 
 function hasNullFields(...fields) {
@@ -265,7 +285,7 @@ function hasNullFields(...fields) {
   return false;
 }
 
-function checkPhoneNumSize(value) {
+function checkphoneSize(value) {
   return value.length === 11;
 }
 

@@ -21,6 +21,7 @@
 const clickGotoRecruit = () => {
   uni.navigateTo({
     url: "postInfo",
+    // url: "progress",
   });
 };
 const clickGotoknow = () => {

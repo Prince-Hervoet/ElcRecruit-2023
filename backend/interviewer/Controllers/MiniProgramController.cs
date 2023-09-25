@@ -41,7 +41,7 @@ public class MiniProgramController : ControllerBase
             existingStudent.Qq=student.Qq;
             existingStudent.Skills=student.Skills;
             //existingStudent.State=student.State;
-            existingStudent.StudentId=student.StudentId;
+            existingStudent.StudentNumber=student.StudentNumber;
             existingStudent.WeChat=student.WeChat;
             _dbContext.Students.Update(existingStudent);
         }
