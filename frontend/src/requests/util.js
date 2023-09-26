@@ -32,6 +32,8 @@ export const ServiceUrls = {
   getCurrentProcess: `${BASE_URL}/elc_recruit/root/get_current_process`,
   // 推进进度
   pushCurrentProcess: `${BASE_URL}/elc_recruit/root/push_status`,
+  // 导出名单
+  exportMenu: `${BASE_URL}/elc_recruit/root/ex_access`,
 };
 
 // 请求头加上token

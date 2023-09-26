@@ -22,6 +22,7 @@ const processNameList = [
 
 export default function Admin() {
   const [process, setProcess] = useState(0);
+  const [select, setSelect] = useState("0");
 
   useEffect(() => {
     (async function () {
@@ -37,16 +38,39 @@ export default function Admin() {
       window.confirm("确定要推进进度吗?") &&
       process < processNameList.length
     ) {
-      const res = await AdminRequest.pushProcess();
-      setProcess(process + 1);
+      const res = await AdminRequest.pushProcess(true);
+      if (res.success) {
+        if (res.data.success) {
+          setProcess(process + 1);
+        } else {
+          alert(res.data.errorMessages[0]);
+        }
+      } else {
+        alert("请检查网络或权限");
+      }
     }
   };
 
-  const clickExportAll = () => {};
+  const clickExportAll = async () => {
+    await AdminRequest.exportMenu();
+  };
 
-  const clickExportAccess = () => {};
+  const clickExportDepAll = async () => {
+    await AdminRequest.exportMenu(undefined, select);
+  };
 
-  const clickExportReject = () => {};
+  const clickExportDepAccess = async () => {
+    await AdminRequest.exportMenu(50, select);
+  };
+
+  const clickExportDepReject = async () => {
+    await AdminRequest.exportMenu(60, select);
+  };
+
+  const onChangeSetDepId = (event) => {
+    const value = event.target.value;
+    setSelect(value);
+  };
 
   return (
     <div className="admin-body">
@@ -55,9 +79,10 @@ export default function Admin() {
         <hr></hr>
         <div style={{ textAlign: "center", marginTop: 20 }}>
           <Radio.Group
-            onChange={() => {}}
             defaultValue="a"
             style={{ fontWeight: 700 }}
+            onChange={onChangeSetDepId}
+            value={select}
           >
             <Radio.Button value="1">维修部</Radio.Button>
             <Radio.Button value="2">秘书部</Radio.Button>
@@ -83,17 +108,25 @@ export default function Admin() {
             type="primary"
             size="large"
             style={{ marginRight: 20 }}
-            onClick={clickExportAccess}
+            onClick={clickExportDepAll}
           >
-            导出当前通过名单
+            导出当前部门所有名单
           </Button>
           <Button
             type="primary"
             size="large"
             style={{ marginRight: 20 }}
-            onClick={clickExportReject}
+            onClick={clickExportDepAccess}
           >
-            导出当前淘汰名单
+            导出当前部门通过名单
+          </Button>
+          <Button
+            type="primary"
+            size="large"
+            style={{ marginRight: 20 }}
+            onClick={clickExportDepReject}
+          >
+            导出当前部门淘汰名单
           </Button>
           <Button danger size="large" onClick={clickPushProcess}>
             推进进度
