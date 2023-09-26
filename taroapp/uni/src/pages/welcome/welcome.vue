@@ -18,6 +18,7 @@
 </template>
 
 <script setup>
+let loginToken = "";
 const clickGotoRecruit = () => {
   uni.navigateTo({
     url: "postInfo",
@@ -29,6 +30,32 @@ const clickGotoknow = () => {
     url: "knowMore",
   });
 };
+
+wx.login({
+  success(res) {
+    if (res.code) {
+      //发起网络请求
+      wx.request({
+        url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
+        data: {
+          js_code: res.code,
+        },
+        method: "POST",
+        header: {
+          "content-type": "application/json", // 默认值
+        },
+        success(res) {
+          console.log(res);
+          loginToken = res.data.accessToken;
+        },
+      });
+      //一次性code发送
+      // console.log('code:'+ res.code);
+    } else {
+      console.log("登录失败！" + res.errMsg);
+    }
+  },
+});
 </script>
 
 <style scoped>
