@@ -46,6 +46,7 @@
     <button class="postInfo-button-container" @click="clickSubmitForm">
       <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
     </button>
+    <!-- <button @click="goAhead">zc</button> -->
   </view>
 </template>
 
@@ -56,6 +57,7 @@ import MyInput from "../../components/myInput/MyInput.vue";
 import MyTextarea from "../../components/myTextarea/MyTextarea.vue";
 import MyPicker from "../../components/myPicker/MyPicker.vue";
 let loginToken = "";
+
 const studentInfo = reactive({
   name: "",
   studentNumber: "",
@@ -164,7 +166,7 @@ const clickSubmitForm = async () => {
     if (res.code === 4000) {
       //发送报名成功
       wx.request({
-        url: "http://192.168.123.184:8081/elc_recruit/student/commit",
+        url: "http://139.159.220.241:8081/elc_recruit/student/commit",
         data: {
           "id": "string",
           "studentNumber": "string",
@@ -214,7 +216,7 @@ onMounted(() => {
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: "http://192.168.123.184:8081/elc_recruit/interviewer/WeChatLogin",
+            url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
             data: {
               js_code: res.code,
             },
