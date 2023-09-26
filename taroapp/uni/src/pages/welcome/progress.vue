@@ -1,10 +1,10 @@
 <template>
     <u-steps class="progressBigBox" direction="column">
-        <u-steps-item :title="mainprogress.partOne" :desc="time.firstTime" current="1">safad
+        <u-steps-item :title="mainprogress.partOne" :desc="time.firstTime" current="0">safad
         </u-steps-item>
-        <u-steps-item :title="mainprogress.partTwo" :desc="time.secondTime" current="2"></u-steps-item>
-        <u-steps-item :title="mainprogress.partThree" :desc="time.thirdTime" current="3"></u-steps-item>
-        <!-- <u-steps-item :title="mainprogress[3]" :desc="forthTime"></u-steps-item> -->
+        <u-steps-item :title="mainprogress.partTwo" :desc="time.secondTime" current="1"></u-steps-item>
+        <u-steps-item :title="mainprogress.partThree" :desc="time.thirdTime" current="2"></u-steps-item>
+        <u-steps-item :title="mainprogress.partFour" :desc="time.forthTime" current="3"></u-steps-item>
     </u-steps>
     <button @click="goAhead">点击我查看进度
     </button>
@@ -12,6 +12,7 @@
 
 <script setup>
 import { ref, onMounted, withCtx, reactive, } from 'vue';
+let current = 0;
 //获取登录信息
 let loginToken = "";
 wx.login({
@@ -45,6 +46,7 @@ let mainprogress = reactive({
     partOne: "一面",
     partTwo: "笔试",
     partThree: "二面",
+    partFour: "通过",
 })
 
 let time = reactive({
@@ -59,14 +61,6 @@ const goAhead = () => {
     //点击按钮请求查询后台面试进度
     wx.request({
         url: "http://139.159.220.241:8081/elc_recruit/student/get_process",
-        data: {
-            "id": "84bfc94e-4c7e-415d-a5fa-5006e71d0852",
-            "studentId": "ouruE65ro3EtvfsXRzkUWVnV1lIY",
-            "state": 10,
-            "processState": 0,
-            "time": "2023-09-26T05:46:49.0581495Z"
-
-        },
         method: "GET",
         header: {
             "content-type": "application/json", // 默认值
@@ -74,22 +68,21 @@ const goAhead = () => {
         },
         success(res) {
             console.log(res);
+            //如果请求通过了，推进下一步
+            if (res.data.success) {
+                const processState = res.data.data[res.data.data.length - 1].processState;
+                console.log(processState);
+                current = processState;
+            }
         },
     });
-    //如果请求通过了，推进下一步
-    // if (true) {
-    //     current.value++;
-    //     console.log("sd");
-
-    // }
 }
-
 
 </script>
 
-<!-- <style lang="scss">
+<style lang="scss">
 .progressBigBox {
     width: 80%;
 
 }
-</style> -->
+</style>
