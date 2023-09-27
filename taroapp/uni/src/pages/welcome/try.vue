@@ -1,5 +1,5 @@
 <template>
-    <view :class="{ active: isActive }">aa</view>
+    <view :class="[isActive ? 'css1' : 'css2']">aa</view>
     <button @click="goAhead">点击我查看进度
     </button>
 </template>
@@ -16,9 +16,11 @@
 
 <script setup>
 import { ref } from 'vue';
+
 let isActive = ref(false);
+
 const goAhead = () => {
-    isActive.value = true;
+    isActive.value = !isActive.value;
 }
 
 </script>
