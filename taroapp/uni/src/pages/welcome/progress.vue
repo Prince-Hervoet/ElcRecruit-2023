@@ -7,26 +7,26 @@
         <u-steps-item :title="mainprogress.partThree" :desc="time.thirdTime" current="2"></u-steps-item>
         <u-steps-item :title="mainprogress.partFour" :desc="time.forthTime" current="3"></u-steps-item>
     </u-steps>
-    <button @click="goAhead">点击我查看进度
+    <button @click="goAhead">上面是没用的组件库，点击我查看进度
     </button>
     <view class="progressBigBox">
         <view class="progressSmallBox">
-            <view class="progresssRound1"></view>
+            <view class="progresssRound1" :class="changeColor">1</view>
             <view class="progressSmallPart1">{{ mainprogress.partOne }}</view>
         </view>
         <view class="divider"></view>
         <view class="progressSmallBox">
-            <view class="progresssRound2"></view>
+            <view class="progresssRound2">2</view>
             <view class="progressSmallPart2">{{ mainprogress.partTwo }}</view>
         </view>
         <view class="divider"></view>
         <view class="progressSmallBox">
-            <view class="progresssRound3"></view>
+            <view class="progresssRound3">3</view>
             <view class="progressSmallPart3">{{ mainprogress.partThree }}</view>
         </view>
         <view class="divider"></view>
         <view class="progressSmallBox">
-            <view class="progresssRound4"></view>
+            <view class="progresssRound4">4</view>
             <view class="progressSmallPart4">{{ mainprogress.partFour }}</view>
         </view>
     </view>
@@ -35,6 +35,7 @@
 <script setup>
 import { ref, onMounted, withCtx, reactive, } from 'vue';
 let current = 0;
+// let progresssRound1 = ref('qw');
 //获取登录信息
 let loginToken = "";
 wx.login({
@@ -81,7 +82,6 @@ let time = reactive({
 
 const goAhead = () => {
     //点击按钮请求查询后台面试进度
-    mainprogress.partOne = "qweqwe";
     wx.request({
         url: "http://139.159.220.241:8081/elc_recruit/student/get_process",
         method: "GET",
@@ -93,9 +93,15 @@ const goAhead = () => {
             console.log(res);
             //如果请求通过了，推进下一步
             if (res.data.success) {
-                const processState = res.data.data[res.data.data.length - 1].processState;
-                console.log(processState);
-                current = processState;
+                // const processState = res.data.data[res.data.data.length - 1].processState;
+                //循环遍历process（流程），state(新生通过与否的值)
+                for (let i = 0; i < res.data.data.length; i++) {
+                    const e = res.data.data[i];
+                    let process = e.processState;
+                    let state = e.state;
+                    console.log("process: " + process + ", state: " + state);
+                }
+
             }
         },
     });
@@ -108,7 +114,7 @@ const goAhead = () => {
     width: 80%;
     margin: auto;
     text-align: center;
-    background-color: rgb(195, 235, 235);
+    background-color: #ffffff;
 }
 
 .progressSmallBox {
@@ -121,10 +127,8 @@ const goAhead = () => {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background-color: brown;
-    background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\taroapp\uni\dist\dev\mp-weixin\static\partone.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px gray;
     border-radius: 100em;
 }
 
@@ -132,10 +136,8 @@ const goAhead = () => {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background-color: brown;
-    background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\taroapp\uni\dist\dev\mp-weixin\static\parttwo.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px gray;
     border-radius: 100em;
 }
 
@@ -143,10 +145,8 @@ const goAhead = () => {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background-color: brown;
-    background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\taroapp\uni\dist\dev\mp-weixin\static\partthree.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px gray;
     border-radius: 100em;
 }
 
@@ -154,10 +154,8 @@ const goAhead = () => {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background-color: brown;
-    background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\taroapp\uni\dist\dev\mp-weixin\static\partfour.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px gray;
     border-radius: 100em;
 }
 
@@ -167,5 +165,15 @@ const goAhead = () => {
     margin-left: 44%;
     height: 50px;
     margin-bottom: 2px;
+}
+
+.changeProgressRound1 {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-color: rgb(8, 247, 40);
+    border: solid 1px gray;
+    border-radius: 100em;
+
 }
 </style>

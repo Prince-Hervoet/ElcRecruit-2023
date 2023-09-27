@@ -9,6 +9,12 @@
 
   "pages": [
     {
+      "path": "pages/welcome/try",
+      "style": {
+        "navigationBarTitleText": "进度条"
+      }
+    },
+    {
       "path": "pages/welcome/progress",
       "style": {
         "navigationBarTitleText": "进度条"
