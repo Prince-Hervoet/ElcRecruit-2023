@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Welcome from "./views/Welcome.vue";
-import Process from "./views/Progress.vue";
+import Stepper from "./views/Stepper.vue";
 
 // 注册路由
 const routes = [
   { path: "/", component: Welcome },
-  { path: "/progress", component: Process },
+  { path: "/progress", component: Stepper },
 ];
 
 const router = new createRouter({
