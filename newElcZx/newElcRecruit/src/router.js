@@ -1,21 +1,21 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Welcome from "./views/Welcome.vue";
 import Stepper from "./views/Stepper.vue";
-import Login from "./views/Login.vue"
-// import PostInfo from "./views/PostInfo.vue"
+import Login from "./views/Login.vue";
+import UserInfoForm from "./views/UserInfoForm.vue";
 const routes = [
-  { 
+  {
     path: "/",
-    component: Login
+    component: Login,
   },
   {
-    path:"/Stepper",
-    component:Stepper
+    path: "/stepper",
+    component: Stepper,
   },
-  // {
-  //   path:"/postInfo",
-  //   component:PostInfo
-  // }
+  {
+    path: "/userInfoForm",
+    component: UserInfoForm,
+  },
 ];
 
 const router = new createRouter({

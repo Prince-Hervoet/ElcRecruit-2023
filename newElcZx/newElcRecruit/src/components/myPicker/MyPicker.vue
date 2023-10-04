@@ -1,19 +1,19 @@
 <template>
-  <view class="myPicker-container">
-    <view class="myPicker-header">
+  <div class="myPicker-container">
+    <div class="myPicker-header">
       <span>{{ headerName }}</span>
-    </view>
-    <view class="myPicker-picker-container">
-      <view class="myPicker-picker">
-        <picker :range="arr" style="font-size: large;" @change="handler" :value="value">
-          <img src="/static/select.png" style="width: 28px; height: 28px" />
-        </picker>
-      </view>
-      <view class="myPicker-select-container">
+    </div>
+    <div class="myPicker-picker-container">
+      <div class="myPicker-picker">
+        <Select v-model="model" style="width:100%;">
+          <Option v-for="item in arr" :value="item.id" :key="item.id">{{ item.name }}</Option>
+        </Select>
+      </div>
+      <div class="myPicker-select-container">
         <span>{{ currentSelect }}</span>
-      </view>
-    </view>
-  </view>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -60,7 +60,7 @@ onUpdated(() => {
 }
 
 .myPicker-picker {
-  width: 15%;
+  width: 30%;
   height: 100%;
   display: flex;
   justify-content: center;

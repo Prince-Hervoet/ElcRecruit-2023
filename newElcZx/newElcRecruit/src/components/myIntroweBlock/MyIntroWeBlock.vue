@@ -1,35 +1,29 @@
 <template>
-  <view>
-    <view class="myIntroWeBlock-container">
-      <view class="myIntroWeBlock-image-container">
-        <image
-          src="https://s1.ax1x.com/2023/08/30/pPdXern.jpg"
-          style="width: 100%; height: 100%; border-radius: 50%"
-        ></image>
-      </view>
-      <view class="myIntroWeBlock-text-container">asdfasdfasdfasdfasdfdsf</view>
-    </view>
+  <div>
+    <div class="myIntroWeBlock-container">
+      <div class="myIntroWeBlock-image-container">
+        <image src="https://s1.ax1x.com/2023/08/30/pPdXern.jpg" style="width: 100%; height: 100%; border-radius: 50%">
+        </image>
+      </div>
+      <div class="myIntroWeBlock-text-container">asdfasdfasdfasdfasdfdsf</div>
+    </div>
 
-    <view class="myIntroWeBlock-container">
-      <view class="myIntroWeBlock-image-container">
-        <image
-          src="https://s1.ax1x.com/2023/08/30/pPdXlPU.jpg"
-          style="width: 100%; height: 100%; border-radius: 50%"
-        ></image>
-      </view>
+    <div class="myIntroWeBlock-container">
+      <div class="myIntroWeBlock-image-container">
+        <image src="https://s1.ax1x.com/2023/08/30/pPdXlPU.jpg" style="width: 100%; height: 100%; border-radius: 50%">
+        </image>
+      </div>
       <view></view>
-    </view>
+    </div>
 
-    <view class="myIntroWeBlock-container">
-      <view class="myIntroWeBlock-image-container">
-        <image
-          src="https://s1.ax1x.com/2023/08/30/pPdXUVx.jpg"
-          style="width: 100%; height: 100%; border-radius: 50%"
-        ></image>
-      </view>
-      <view></view>
-    </view>
-  </view>
+    <div class="myIntroWeBlock-container">
+      <div class="myIntroWeBlock-image-container">
+        <image src="https://s1.ax1x.com/2023/08/30/pPdXUVx.jpg" style="width: 100%; height: 100%; border-radius: 50%">
+        </image>
+      </div>
+      <div></div>
+    </div>
+  </div>
 </template>
 
 <script setup></script>

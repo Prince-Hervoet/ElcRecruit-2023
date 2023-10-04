@@ -1,11 +1,11 @@
 <template>
-  <view>
-    <view class="myTextarea-header">
+  <div class="myTextarea-container">
+    <div class="myTextarea-header">
       <span>{{ headerName }}</span>
-    </view>
+    </div>
     <textarea maxlength="1000" placeholder-style="font-size:small" class="myTextarea-textarea" :value="value"
       @input="handler" />
-  </view>
+  </div>
 </template>
 
 <script setup>
@@ -19,7 +19,7 @@ const handler = (event) => {
 
 <style scoped>
 .myTextarea-container {
-  background-color: red;
+  height: 100%;
 }
 
 .myTextarea-header {
@@ -35,8 +35,11 @@ const handler = (event) => {
 
 .myTextarea-textarea {
   width: 100%;
+  height: 95%;
   background-color: rgb(244, 244, 244);
   padding: 5px;
   box-sizing: border-box;
+  outline: 0;
+  border: 0;
 }
 </style>

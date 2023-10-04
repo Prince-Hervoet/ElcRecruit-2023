@@ -1,12 +1,12 @@
 <template>
-  <view class="myInput-container">
-    <view class="myInput-header">
+  <div class="myInput-container">
+    <div class="myInput-header">
       <span>{{ headerName }}</span>
-    </view>
-    <view class="myInput-input-container">
-      <input id="myInput-input" cols="30" rows="10" class="myInput-input" :value="value" @input="handler" />
-    </view>
-  </view>
+    </div>
+    <div class="myInput-input-container">
+      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" />
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -21,6 +21,7 @@ const handler = (event) => {
 <style scoped>
 .myInput-container {
   /* background-color: red; */
+  height: 100%;
 }
 
 .myInput-header {
@@ -35,15 +36,18 @@ const handler = (event) => {
 }
 
 .myInput-input-container {
-  height: 40px;
+  height: calc(100% - 20px);
+  /* box-shadow: 1px 1px 1px 1px #e2e2e2; */
 }
 
 .myInput-input {
   width: 100%;
   height: 100%;
-  border-radius: 6px;
   background-color: rgb(244, 244, 244);
   box-sizing: border-box;
+  outline: 0;
+  border: 1px solid rgb(227, 227, 227);
+  border-radius: 6px;
   padding-left: 10px;
 }
 
