@@ -2,23 +2,28 @@
     <div class="progress-body">
         <div class="progress-title-body"><span>查看进度</span> </div>
         <div class="progress-content-body">
-            <div style="margin-bottom: 10px;">
-                <Card>
-                    <template #title>您的申请 -- 简要信息</template>
-                    <p>当前所处状态: </p>
-                    <p>第一志愿部门: </p>
-                    <p>第二志愿部门: </p>
-                </Card>
+            <div class="progress-content-group-body">
+                <div class="progress-content-card-body">
+                    <Card :shadow="false" :padding="20">
+                        <template #title>您的申请</template>
+                        <p>当前所处状态: </p>
+                        <p>&nbsp;</p>
+                        <p>第一志愿部门: </p>
+                        <p>&nbsp;</p>
+                        <p>第二志愿部门: </p>
+                    </Card>
+                </div>
+                <div class="progress-main-body">
+                    <Steps :current="current" direction="vertical">
+                        <Step :title="titles.partZero" content="请在报名界面填写个人信息进行报名"></Step>
+                        <Step :title="titles.partOne" content="一面阶段中，请留意我们的通知"></Step>
+                        <Step :title="titles.partTwo" content="笔试阶段中，请留意我们的通知"></Step>
+                        <Step :title="titles.partThree" content="二面阶段中，请留意我们的通知"></Step>
+                        <Step :title="titles.partFour" content="最终结果出炉，请做好准备"></Step>
+                    </Steps>
+                </div>
             </div>
-            <div class="progress-main-body">
-                <Steps :current="current" direction="vertical">
-                    <Step :title="titles.partZero" content="请在报名界面填写个人信息进行报名"></Step>
-                    <Step :title="titles.partOne" content="一面阶段中，请留意我们的通知"></Step>
-                    <Step :title="titles.partTwo" content="笔试阶段中，请留意我们的通知"></Step>
-                    <Step :title="titles.partThree" content="二面阶段中，请留意我们的通知"></Step>
-                    <Step :title="titles.partFour" content="最终结果出炉，请做好准备"></Step>
-                </Steps>
-            </div>
+
         </div>
 
 
@@ -79,8 +84,26 @@ const getUserInfo = () => {
     justify-content: center;
 }
 
+.progress-content-card-body {
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 3px 1px #e6e6e6;
+    font-weight: bold;
+}
+
 .progress-main-body {
+    border-radius: 8px;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-shadow: 1px 1px 3px 1px #e6e6e6;
     background-color: rgba(255, 255, 255, 0.9);
+}
+
+.progress-content-group-body {}
+
+@media screen and (min-width:800px) {
+    .progress-content-group-body {
+        max-width: 650px;
+    }
 }
 
 .progress-content-body>div {
