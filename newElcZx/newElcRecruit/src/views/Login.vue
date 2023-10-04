@@ -29,7 +29,7 @@
 .login-contain-box {
     height: 100vh;
     background-size: cover;
-    background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\newElcZx\newElcRecruit\public\bg1.jpg");
+    background-image: url("../public/bg1.jpg");
 }
 
 #login-box {

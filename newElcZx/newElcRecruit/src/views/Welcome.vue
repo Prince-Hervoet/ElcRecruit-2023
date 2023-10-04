@@ -107,6 +107,6 @@ const clickGotoknow = () => {
 .welcome-container {
   height: 100vh;
   background-size: cover;
-  background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\newElcZx\newElcRecruit\public\welcome.png")
+  background-image: url("../public/welcome.png")
 }
 </style>
