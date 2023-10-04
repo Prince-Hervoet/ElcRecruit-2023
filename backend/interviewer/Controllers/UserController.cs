@@ -25,7 +25,8 @@ namespace interviewer.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
 
-        public UserController(IUserService<InterviewerUser> userService, IHttpContextAccessor contextAccessor, ILogger<UserController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public UserController(IUserService<InterviewerUser> userService, IHttpContextAccessor contextAccessor,
+            ILogger<UserController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _userService = userService;
             _contextAccessor = contextAccessor;
@@ -45,6 +46,7 @@ namespace interviewer.Controllers
                     Errors = result.Errors
                 });
             }
+
             return Ok(new TokenResponse
             {
                 AccessToken = result.AccessToken,
@@ -63,6 +65,7 @@ namespace interviewer.Controllers
                     Errors = result.Errors
                 });
             }
+
             return Ok(new TokenResponse
             {
                 AccessToken = result.AccessToken,
@@ -89,8 +92,9 @@ namespace interviewer.Controllers
         public async Task<IActionResult> WeChatLogin(WeChatRequest request)
         {
             var builder = new UriBuilder("https://api.weixin.qq.com/sns/jscode2session");
-            builder.Query = $"appid={_configuration["Authentication:WeChat:AppId"]}&secret={_configuration["Authentication:WeChat:AppSecret"]}" +
-                            $"&js_code={request.JsCode}&grant_type=authorization_code";
+            builder.Query =
+                $"appid={_configuration["Authentication:WeChat:AppId"]}&secret={_configuration["Authentication:WeChat:AppSecret"]}" +
+                $"&js_code={request.JsCode}&grant_type=authorization_code";
             var httpRequestMessage = new HttpRequestMessage(
                 HttpMethod.Get,
                 builder.Uri);
@@ -107,6 +111,20 @@ namespace interviewer.Controllers
                 <Code2SessionResponse>(contentStream);
 
             //TODO: sessionResponse.ErrorMessage
+            if (sessionResponse is null || sessionResponse.ErrorCode != 0)
+            {
+                var failResult = new TokenResult();
+                if (sessionResponse is not null)
+                {
+                    failResult.Errors = new[] { sessionResponse.ErrorMessage };
+                }
+                else
+                {
+                    failResult.Errors = new[] { "WeChat session response is empty." };
+                }
+
+                return Ok(failResult);
+            }
 
             var openId = sessionResponse.OpenId;
             var tokenResult = await _userService.WeChatLoginAsync(openId);
