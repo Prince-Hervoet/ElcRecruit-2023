@@ -29,7 +29,7 @@
 .login-contain-box {
     height: 100vh;
     background-size: cover;
-    background-image: url("../public/bg1.jpg");
+    background-image: url("../assets/bg1.jpg");
 }
 
 #login-box {

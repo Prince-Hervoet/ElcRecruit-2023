@@ -107,6 +107,6 @@ const clickGotoknow = () => {
 .welcome-container {
   height: 100vh;
   background-size: cover;
-  background-image: url("../public/welcome.png")
+  background-image: url("../assets/welcome.png")
 }
 </style>
