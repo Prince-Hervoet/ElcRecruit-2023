@@ -1,20 +1,20 @@
 <template>
-  <view class="welcome-container">
-    <view class="welcome-button-container">
-      <view style="margin-right: 20px;">
+  <div class="welcome-container">
+    <div class="welcome-button-container">
+      <div style="margin-right: 20px;">
         <button class="welcome-button-knowus" @click="clickGotoknow">
           <img src="/static/knowUs.png" style="width: 20px;height:20px;margin-right:5px">
           <span style="font-size: medium; font-weight: 700">了解我们</span>
         </button>
-      </view>
-      <view>
+      </div>
+      <div>
         <button class="welcome-button-recruit" @click="clickGotoRecruit">
           <img src="/static/recruit.png" style="width: 22px;height:22px;margin-right:5px">
           <span style="font-size: medium; font-weight: 700">报名入口</span>
         </button>
-      </view>
-    </view>
-  </view>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -33,31 +33,31 @@ const clickGotoknow = () => {
   });
 };
 
-wx.login({
-  success(res) {
-    if (res.code) {
-      //发起网络请求
-      wx.request({
-        url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
-        data: {
-          js_code: res.code,
-        },
-        method: "POST",
-        header: {
-          "content-type": "application/json", // 默认值
-        },
-        success(res) {
-          console.log(res);
-          loginToken = res.data.accessToken;
-        },
-      });
-      //一次性code发送
-      // console.log('code:'+ res.code);
-    } else {
-      console.log("登录失败！" + res.errMsg);
-    }
-  },
-});
+// wx.login({
+//   success(res) {
+//     if (res.code) {
+//       //发起网络请求
+//       wx.request({
+//         url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
+//         data: {
+//           js_code: res.code,
+//         },
+//         method: "POST",
+//         header: {
+//           "content-type": "application/json", // 默认值
+//         },
+//         success(res) {
+//           console.log(res);
+//           loginToken = res.data.accessToken;
+//         },
+//       });
+//       //一次性code发送
+//       // console.log('code:'+ res.code);
+//     } else {
+//       console.log("登录失败！" + res.errMsg);
+//     }
+//   },
+// });
 </script>
 
 <style scoped>
