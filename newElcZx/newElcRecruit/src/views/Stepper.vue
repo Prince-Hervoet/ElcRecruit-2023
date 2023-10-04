@@ -1,11 +1,11 @@
 <template>
     <div class="progress-body">
-        <div class="progress-title-body"><span>查看进度</span> </div>
+        <div class="progress-title-body"><span>我的进度</span> </div>
         <div class="progress-content-body">
             <div class="progress-content-group-body">
                 <div class="progress-content-card-body">
                     <Card :shadow="false" :padding="20">
-                        <template #title>您的申请</template>
+                        <template #title>我的申请</template>
                         <p>当前所处状态: </p>
                         <p>&nbsp;</p>
                         <p>第一志愿部门: </p>
@@ -66,9 +66,10 @@ const getUserInfo = () => {
 .progress-title-body {
     width: 100%;
     height: 40px;
-    background-color: rgb(209, 54, 57);
+    background-color: rgba(209, 54, 57, 0.7);
     color: white;
-    font-size: 1.6em;
+    font-size: 1.8em;
+    font-weight: bold;
     font-family: "楷体";
     display: flex;
     align-items: center;

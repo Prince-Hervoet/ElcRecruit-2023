@@ -311,6 +311,8 @@ function getOpenId() { }
     justify-content: center;
     margin-top: 1.5em;
     margin-bottom: 10%;
+    outline: 0;
+    border: 0;
 }
 
 .postInfo-button-container:active {

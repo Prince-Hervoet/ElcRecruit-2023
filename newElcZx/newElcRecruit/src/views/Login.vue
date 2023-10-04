@@ -1,52 +1,38 @@
+
 <template>
-    <div class="perch">elc的logo</div>
-    <div class="login-topic">
-        <h1>登录</h1>
-    </div>
-
-    <div class="myInput-header">
-        <span>用户名</span>
-    </div>
-    <div class="myInput-input-container">
-        <input id="myInput-input" cols="30" rows="10" class="myInput-input" />
-    </div>
-    <div class="myInput-header">
-        <span>密码</span>
-    </div>
-    <div class="myInput-input-container">
-        <input id="myInput-input" cols="30" rows="10" class="myInput-input" />
-    </div>
-    <button class="login-button">登录</button>
-
-    <div class="small-explain">了解更多</div>
-    <div class="divider"></div>
-    <div class="small-intro">ELC & 2023</div>
-    <!-- <h1>Login</h1>
-    <div class="login-contain-box">
-
-        <div id="login-box">
-            
-            <div class="form">
-                <div class="input-head">
-                    <span>用户名 :</span>
-                </div>
-                <div class="input-content">
-                    <input type="text" name="" id="">
-                </div>
-
-
-                <div class="input-head">
-                    <span>密码 :</span>
-                </div>
-                <input type="text" name="" id="">
-
-            </div>
-            <button>登录</button><br>
+    <div class="login-body">
+        <div class="perch">elc的logo</div>
+        <div class="login-topic">
+            <h1>ELC Recruit</h1>
         </div>
-    </div> -->
+
+        <div class="login-content-body">
+            <div>
+                <MyInput header-name="手机号码"></MyInput>
+            </div>
+            <div>
+                <MyInput header-name="验证码"></MyInput>
+            </div>
+        </div>
+        <button class="login-button">登录</button>
+
+        <div class="small-explain">了解更多</div>
+        <!-- <div class="divider"></div>
+        <div class="small-intro">ELC & 2023</div> -->
+    </div>
 </template>
 
+<script setup>
+import MyInput from '../components/myInput/MyInput.vue';
+</script>
+
 <style scoped>
+.login-body {
+    width: 75%;
+    height: 100%;
+    margin: auto;
+}
+
 .perch {
     height: 100px;
 
@@ -57,6 +43,17 @@
     font-family: "楷体";
     position: relative;
     bottom: 20px;
+}
+
+.login-content-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.login-content-body>div {
+    height: 55px;
+    margin-bottom: 20px;
 }
 
 .myInput-header {
@@ -93,18 +90,23 @@
 }
 
 .login-button {
-    margin-top: 20px;
-    display: block;
-    margin: auto;
-    margin-top: 20px;
-    width: 80%;
-    height: 30px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #fff;
-    background-color: rgb(209, 54, 57);
+    background-color: rgba(209 54 57);
+    border-radius: 6px;
+    width: 100%;
+    height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5em;
+    margin-bottom: 10%;
+    outline: 0;
     border: 0;
-    border-radius: 15px;
+    transition: all 0.2s;
+}
+
+.login-button:active {
+    background-color: rgb(227, 227, 227);
 }
 
 .small-explain {
