@@ -18,12 +18,12 @@
 </template>
 
 <script setup>
-
+import router from '../router.js';
 
 let loginToken = "";
 const clickGotoRecruit = () => {
   console.log("asdsda");
-  this.$router.push('/PostInfo');
+  this.$router.push('/Stepper');
 };
 const clickGotoknow = () => {
   uni.navigateTo({
@@ -107,6 +107,6 @@ const clickGotoknow = () => {
 .welcome-container {
   height: 100vh;
   background-size: cover;
-  background-image: url("https://pic.imgdb.cn/item/64f44559661c6c8e540ac00f.png")
+  background-image: url("C:\Users\yinyan\Desktop\ToElcRecruit-2023\ElcRecruit-2023\newElcZx\newElcRecruit\public\welcome.png")
 }
 </style>
