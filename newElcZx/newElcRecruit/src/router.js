@@ -1,7 +1,16 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Welcome from "./views/Welcome.vue";
-
-const routes = [{ path: "/", component: Welcome }];
+// import PostInfo from "./views/PostInfo.vue"
+const routes = [
+  { 
+    path: "/",
+    component: Welcome
+  },
+  // {
+  //   path:"/postInfo",
+  //   component:PostInfo
+  // }
+];
 
 const router = new createRouter({
   history: createWebHashHistory(),

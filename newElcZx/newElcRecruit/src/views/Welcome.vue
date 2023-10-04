@@ -22,10 +22,8 @@
 
 let loginToken = "";
 const clickGotoRecruit = () => {
-  uni.navigateTo({
-    url: "postInfo",
-    // url: "progress",
-  });
+  console.log("asdsda");
+  this.$router.push('/PostInfo');
 };
 const clickGotoknow = () => {
   uni.navigateTo({

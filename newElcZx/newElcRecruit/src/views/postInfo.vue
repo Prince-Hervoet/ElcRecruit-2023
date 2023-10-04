@@ -95,31 +95,31 @@ const depA = [
   "外国语学院",
 ];
 
-const writeErrorTipData = {
-  title: "请正确填写信息",
-  icon: "error",
-  duration: 1500,
-  mask: true,
-};
+// const writeErrorTipData = {
+//   title: "请正确填写信息",
+//   icon: "error",
+//   duration: 1500,
+//   mask: true,
+// };
 
-const submitSuccessTipData = {
-  title: "报名成功",
-  icon: "success",
-  duration: 1500,
-  mask: true,
-};
+// const submitSuccessTipData = {
+//   title: "报名成功",
+//   icon: "success",
+//   duration: 1500,
+//   mask: true,
+// };
 
-const submitErrorTipData = {
-  title: "报名失败",
-  icon: "error",
-  duration: 1500,
-  mask: true,
-};
+// const submitErrorTipData = {
+//   title: "报名失败",
+//   icon: "error",
+//   duration: 1500,
+//   mask: true,
+// };
 
-const submitLoadingTipData = {
-  title: "报名中...",
-  mask: true,
-};
+// const submitLoadingTipData = {
+//   title: "报名中...",
+//   mask: true,
+// };
 
 const clickSubmitForm = async () => {
   const {
@@ -165,32 +165,32 @@ const clickSubmitForm = async () => {
     wx.hideLoading();
     if (res.code === 4000) {
       //发送报名成功
-      wx.request({
-        url: "http://139.159.220.241:8081/elc_recruit/student/commit",
-        data: {
-          "id": "string",
-          "studentNumber": "string",
-          "name": "string",
-          "college": 0,
-          "grade": "string",
-          "skills": "string",
-          "introduction": "string",
-          "phone": "string",
-          "qq": "string",
-          "weChat": "string",
-          "firstDepartment": 0,
-          "secondDepartment": 0,
-          "state": 10
-        },
-        method: "POST",
-        header: {
-          "content-type": "application/json", // 默认值
-          "Authorization": "Bearer " + loginToken
-        },
-        success(res) {
-          console.log(res);
-        },
-      });
+      // wx.request({
+      //   url: "http://139.159.220.241:8081/elc_recruit/student/commit",
+      //   data: {
+      //     "id": "string",
+      //     "studentNumber": "string",
+      //     "name": "string",
+      //     "college": 0,
+      //     "grade": "string",
+      //     "skills": "string",
+      //     "introduction": "string",
+      //     "phone": "string",
+      //     "qq": "string",
+      //     "weChat": "string",
+      //     "firstDepartment": 0,
+      //     "secondDepartment": 0,
+      //     "state": 10
+      //   },
+      //   method: "POST",
+      //   header: {
+      //     "content-type": "application/json", // 默认值
+      //     "Authorization": "Bearer " + loginToken
+      //   },
+      //   success(res) {
+      //     console.log(res);
+      //   },
+      // });
 
       wx.showToast(submitSuccessTipData);
     } else {
@@ -211,31 +211,31 @@ onMounted(() => {
       studentInfo.firstDepartment = "2";
     })();
   } else {
-    wx.login({
-      success(res) {
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
-            data: {
-              js_code: res.code,
-            },
-            method: "POST",
-            header: {
-              "content-type": "application/json", // 默认值
-            },
-            success(res) {
-              console.log(res);
-              loginToken = res.data.accessToken;
-            },
-          });
-          //一次性code发送
-          // console.log('code:'+ res.code);
-        } else {
-          console.log("登录失败！" + res.errMsg);
-        }
-      },
-    });
+    // wx.login({
+    //   success(res) {
+    //     if (res.code) {
+    //       //发起网络请求
+    //       wx.request({
+    //         url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
+    //         data: {
+    //           js_code: res.code,
+    //         },
+    //         method: "POST",
+    //         header: {
+    //           "content-type": "application/json", // 默认值
+    //         },
+    //         success(res) {
+    //           console.log(res);
+    //           loginToken = res.data.accessToken;
+    //         },
+    //       });
+    //       //一次性code发送
+    //       // console.log('code:'+ res.code);
+    //     } else {
+    //       console.log("登录失败！" + res.errMsg);
+    //     }
+    //   },
+    // });
   }
 });
 
