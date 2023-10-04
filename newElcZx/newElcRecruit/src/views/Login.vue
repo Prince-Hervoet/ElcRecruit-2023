@@ -18,9 +18,7 @@
                     密码：<input type="text" placeholder="Password">
                 </div> -->
             </div>
-            <a href="nav.html">
-                <button>登录</button><br>
-            </a>
+            <button>登录</button><br>
         </div>
     </div>
 </template>
@@ -28,12 +26,13 @@
 <style scoped>
 .login-contain-box {
     height: 100vh;
+    background-position: center;
     background-size: cover;
     background-image: url("../assets/bg1.jpg");
 }
 
 #login-box {
-    width: 300px;
+    width: 280px;
     height: 300px;
     position: relative;
     top: 30%;
@@ -59,8 +58,8 @@ h1 {
 .input-head {
     margin-top: 20px;
     font-size: 20px;
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
     color: rgb(15, 14, 14);
     margin-bottom: 5px;
     font-family: "楷体";
@@ -86,13 +85,13 @@ input {
     width: 40%;
 }
 
-#login-box .form .item i {
+/* #login-box .form .item i {
     font-size: 18px;
     color: #060606;
     font-family: "楷体";
-}
+} */
 
-#login-box .form .item input {
+/* #login-box .form .item input {
     width: 180px;
     font-size: 18px;
     border: 0;
@@ -100,7 +99,7 @@ input {
     padding: 5px 10px;
     background: #ffffff00;
     color: #0c0c0c;
-}
+} */
 
 #login-box button {
     margin-top: 20px;
