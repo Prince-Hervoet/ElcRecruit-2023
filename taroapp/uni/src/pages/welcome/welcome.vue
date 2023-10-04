@@ -18,6 +18,8 @@
 </template>
 
 <script setup>
+
+
 let loginToken = "";
 const clickGotoRecruit = () => {
   uni.navigateTo({

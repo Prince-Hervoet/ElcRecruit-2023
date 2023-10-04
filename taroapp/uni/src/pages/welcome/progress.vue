@@ -9,9 +9,11 @@
     </u-steps>
     <button @click="goAhead">上面是没用的组件库，点击我查看进度
     </button>
+
+
     <view class="progressBigBox">
         <view class="progressSmallBox">
-            <view class="progresssRound1" :class="changeColor">1</view>
+            <view class="progresssRound1" :class="[isActive ? 'eliminateProgressRound1' : 'newProgressRound1']">1</view>
             <view class="progressSmallPart1">{{ mainprogress.partOne }}</view>
         </view>
         <view class="divider"></view>
@@ -34,35 +36,35 @@
 
 <script setup>
 import { ref, onMounted, withCtx, reactive, } from 'vue';
-let current = 0;
-// let progresssRound1 = ref('qw');
-//获取登录信息
-let loginToken = "";
-wx.login({
-    success(res) {
-        if (res.code) {
-            //发起网络请求
-            wx.request({
-                url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
-                data: {
-                    js_code: res.code,
-                },
-                method: "POST",
-                header: {
-                    "content-type": "application/json", // 默认值
-                },
-                success(res) {
-                    console.log(res);
-                    loginToken = res.data.accessToken;
-                },
-            });
-            //一次性code发送
-            // console.log('code:'+ res.code);
-        } else {
-            console.log("登录失败！" + res.errMsg);
-        }
-    },
-});
+// let current = 0;
+
+// //获取登录信息
+// let loginToken = "";
+// wx.login({
+//     success(res) {
+//         if (res.code) {
+//             //发起网络请求
+//             wx.request({
+//                 url: "http://139.159.220.241:8081/elc_recruit/interviewer/WeChatLogin",
+//                 data: {
+//                     js_code: res.code,
+//                 },
+//                 method: "POST",
+//                 header: {
+//                     "content-type": "application/json", // 默认值
+//                 },
+//                 success(res) {
+//                     console.log(res);
+//                     loginToken = res.data.accessToken;
+//                 },
+//             });
+//             //一次性code发送
+//             // console.log('code:'+ res.code);
+//         } else {
+//             console.log("登录失败！" + res.errMsg);
+//         }
+//     },
+// });
 
 //正常通过面试进度条的名称
 let mainprogress = reactive({
@@ -78,33 +80,35 @@ let time = reactive({
     thirdTime: "10:40",
     forthTime: "11:00",
 });
-
+let isActive = ref(false);
 
 const goAhead = () => {
-    //点击按钮请求查询后台面试进度
-    wx.request({
-        url: "http://139.159.220.241:8081/elc_recruit/student/get_process",
-        method: "GET",
-        header: {
-            "content-type": "application/json", // 默认值
-            "Authorization": "Bearer " + loginToken
-        },
-        success(res) {
-            console.log(res);
-            //如果请求通过了，推进下一步
-            if (res.data.success) {
-                // const processState = res.data.data[res.data.data.length - 1].processState;
-                //循环遍历process（流程），state(新生通过与否的值)
-                for (let i = 0; i < res.data.data.length; i++) {
-                    const e = res.data.data[i];
-                    let process = e.processState;
-                    let state = e.state;
-                    console.log("process: " + process + ", state: " + state);
-                }
+    isActive.value = !isActive.value;
+    console.log("csc");
+    // //点击按钮请求查询后台面试进度
+    // wx.request({
+    //     url: "http://139.159.220.241:8081/elc_recruit/student/get_process",
+    //     method: "GET",
+    //     header: {
+    //         "content-type": "application/json", // 默认值
+    //         "Authorization": "Bearer " + loginToken
+    //     },
+    //     success(res) {
+    //         console.log(res);
+    //         //如果请求通过了，推进下一步
+    //         if (res.data.success) {
+    //             // const processState = res.data.data[res.data.data.length - 1].processState;
+    //             //循环遍历process（流程），state(新生通过与否的值)
+    //             for (let i = 0; i < res.data.data.length; i++) {
+    //                 const e = res.data.data[i];
+    //                 let process = e.processState;
+    //                 let state = e.state;
+    //                 console.log("process: " + process + ", state: " + state);
+    //             }
 
-            }
-        },
-    });
+    //         }
+    //     },
+    // });
 }
 
 </script>
@@ -128,6 +132,24 @@ const goAhead = () => {
     height: 20px;
     margin-right: 5px;
     background-color: rgb(255, 255, 255);
+    border: solid 1px gray;
+    border-radius: 100em;
+}
+
+.passProgressRound1 {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-color: rgb(7, 253, 23);
+    border: solid 1px gray;
+    border-radius: 100em;
+}
+
+.eliminateProgressRound1 {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-color: rgb(253, 7, 7);
     border: solid 1px gray;
     border-radius: 100em;
 }
