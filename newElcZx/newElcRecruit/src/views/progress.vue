@@ -14,7 +14,7 @@
                 <Steps :current="current" direction="vertical">
                     <Step :title="titles.partZero" content="请在报名界面填写个人信息进行报名"></Step>
                     <Step :title="titles.partOne" content="一面阶段中，请留意我们的通知"></Step>
-                    <Step :title="titles.partTwo" content="笔试面阶段中，请留意我们的通知"></Step>
+                    <Step :title="titles.partTwo" content="笔试阶段中，请留意我们的通知"></Step>
                     <Step :title="titles.partThree" content="二面阶段中，请留意我们的通知"></Step>
                     <Step :title="titles.partFour" content="最终结果出炉，请做好准备"></Step>
                 </Steps>
