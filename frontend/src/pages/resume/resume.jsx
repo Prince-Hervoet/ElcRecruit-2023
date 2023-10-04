@@ -168,11 +168,16 @@ export default function Resume() {
   };
 
   // 修改学生的第一志愿
-  const clickTransferStudent = () => {
+  const clickTransferStudent = async () => {
     const userId = userIdRef.current;
     const sourceDepId = items.firstDepId;
     const targetDepId = targetDepIdRef.current;
-    console.log(userId + " " + sourceDepId + " " + targetDepId);
+    const res = await ResumeRequest.transferStudent(
+      userId,
+      sourceDepId,
+      targetDepId
+    );
+    console.log(res);
   };
 
   return (

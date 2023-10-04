@@ -99,9 +99,31 @@ async function sendCommentAndScore(userId, interviewerName, content, score) {
   return ans;
 }
 
+async function transferStudent(userId, sourceDepId, targetDepId) {
+  const url = ServiceUrls.transferStudent;
+  const ans = { success: true };
+  try {
+    const res = await axios({
+      method: "POST",
+      data: {
+        studentId: userId,
+        sourceDepId,
+        targetDepId,
+      },
+      url,
+    });
+    ans.data = res.data;
+  } catch (e) {
+    ans.success = false;
+    ans.data = e;
+  }
+  return ans;
+}
+
 export const ResumeRequest = {
   sendCommentAndScore,
   sendGetComments,
   sendGetStudentInfo,
   sendUpdateStudentStatus,
+  transferStudent,
 };
