@@ -65,9 +65,11 @@ const clickGotoknow = () => {
   width: 120px;
   height: 100px;
   background-color: rgba(209 54 57);
-  display: flex;
+  display: block;
+  /* margin-top: 80%; */
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   border-radius: 12px;
   color: #ffffff;
   transition: 0.1s all;
@@ -99,8 +101,8 @@ const clickGotoknow = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  bottom: 150px;
+  position: relative;
+  top: 70%;
 }
 
 
