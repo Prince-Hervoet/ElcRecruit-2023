@@ -8,41 +8,46 @@
         <div class="postInfo-table-container">
             <div class="postInfo-table">
                 <div>
-                    <MyInput header-name="您的姓名 *" :value="studentInfo.name" @onChange="setname"></MyInput>
+                    <MyInput id="name" header-name="您的姓名 *" :value="studentInfo.name" @onChange="setUserInfo"></MyInput>
                 </div>
                 <div>
-                    <MyInput header-name="您的学号 *" :value="studentInfo.studentNumber" @onChange="setStuId"></MyInput>
+                    <MyInput id="studentId" header-name="您的学号 *" :value="studentInfo.studentNumber" @onChange="setUserInfo">
+                    </MyInput>
                 </div>
 
                 <div>
-                    <MyInput header-name="就读专业和班级 *" :value="studentInfo.grade" @onChange="setgrade"></MyInput>
+                    <MyInput id="grade" header-name="就读专业和班级 *" :value="studentInfo.grade" @onChange="setUserInfo">
+                    </MyInput>
                 </div>
                 <div>
-                    <MyInput header-name="电话号码 *" :value="studentInfo.phone" @onChange="setphone"></MyInput>
+                    <MyInput id="phone" header-name="电话号码 *" :value="studentInfo.phone" @onChange="setUserInfo"></MyInput>
                 </div>
                 <div>
-                    <MyInput header-name="QQ 号码" :value="studentInfo.qq" @onChange="setQq"></MyInput>
+                    <MyInput id="qq" header-name="QQ 号码" :value="studentInfo.qq" @onChange="setUserInfo"></MyInput>
                 </div>
                 <div>
-                    <MyPicker header-name="所属学院 *" :value="studentInfo.college" :arr="depA" @onChange="setCollege">
+                    <MyPicker id="college" header-name="所属学院 *" :value="studentInfo.college" :arr="collegeList"
+                        @onChange="setUserInfo">
                     </MyPicker>
                 </div>
                 <div>
-                    <MyPicker header-name="第一志愿 *" :value="studentInfo.firstDepartment" :arr="depInfoArr"
-                        @onChange="setfirstDepartment">
+                    <MyPicker id="firstDepartment" header-name="第一志愿 *" :value="studentInfo.firstDepartment"
+                        :arr="depInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
                 <div>
-                    <MyPicker header-name="第二志愿" :value="studentInfo.secondDepartment" :arr="depInfoArr"
-                        @onChange="setsecondDepartment">
+                    <MyPicker id="secondDepartment" header-name="第二志愿" :value="studentInfo.secondDepartment"
+                        :arr="depInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
                 <div>
-                    <MyTextarea header-name="自我介绍 *" :value="studentInfo.introductionn" @onChange="setintroductionn">
+                    <MyTextarea id="introduction" header-name="自我介绍 *" :value="studentInfo.introduction"
+                        @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
                 <div>
-                    <MyTextarea header-name="掌握技能" :value="studentInfo.skills" @onChange="setSkills"></MyTextarea>
+                    <MyTextarea id="skills" header-name="掌握技能" :value="studentInfo.skills" @onChange="setUserInfo">
+                    </MyTextarea>
                 </div>
             </div>
         </div>
@@ -56,9 +61,8 @@
 <script setup>
 import { onMounted, reactive } from "vue";
 import MyInput from "../components/myInput/MyInput.vue";
+import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/MyTextarea.vue";
-import MyPicker from "../components/myPicker/MyPicker.vue";
-let loginToken = "";
 
 const studentInfo = reactive({
     name: "",
@@ -68,12 +72,12 @@ const studentInfo = reactive({
     phone: "",
     firstDepartment: "",
     secondDepartment: "",
-    introductionn: "",
+    introduction: "",
     qq: "",
     skills: "",
 });
 
-const depInfoArr = [
+const depInfoList = [
     { id: 1, name: "维修部" },
     { id: 2, name: "秘书部" },
     { id: 3, name: "项目部" },
@@ -83,7 +87,7 @@ const depInfoArr = [
     { id: 7, name: "软件组" },
 ];
 
-const depA = [
+const collegeList = [
     { id: 0, name: "机电工程学院" },
     { id: 1, name: "自动化学院" },
     { id: 2, name: "轻工化工学院" },
@@ -98,45 +102,11 @@ const depA = [
     { id: 9, name: "外国语学院" },
 ];
 
-const setCollege = (value) => {
-    studentInfo.college = value;
-};
-
-const setname = (value) => {
-    studentInfo.name = value;
-};
-
-const setgrade = (value) => {
-    studentInfo.grade = value;
-};
-
-const setStuId = (value) => {
-    studentInfo.studentNumber = value;
-};
-
-const setphone = (value) => {
-    studentInfo.phone = value;
-};
-
-const setQq = (value) => {
-    studentInfo.qq = value;
-};
-
-const setintroductionn = (value) => {
-    studentInfo.introductionn = value;
-};
-
-const setSkills = (value) => {
-    studentInfo.skills = value;
-};
-
-const setfirstDepartment = (value) => {
-    studentInfo.firstDepartment = value;
-};
-
-const setsecondDepartment = (value) => {
-    studentInfo.secondDepartment = value;
-};
+const setUserInfo = (data) => {
+    if (data && data.id) {
+        studentInfo[data.id] = data.data;
+    }
+}
 
 function hasNullContent(...fields) {
     for (let i = 0; i < fields.length; i++) {
@@ -172,7 +142,6 @@ const clickSubmitForm = async () => {
     }
 }
 
-function getOpenId() { }
 </script>
 
 <style scoped>
@@ -222,9 +191,5 @@ function getOpenId() { }
 
 .postInfo-button-container:active {
     background-color: rgb(227, 227, 227);
-}
-
-.hideErrMsg {
-    display: none;
 }
 </style>
