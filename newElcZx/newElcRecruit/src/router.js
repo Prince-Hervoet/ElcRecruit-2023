@@ -3,7 +3,7 @@ import Welcome from "./views/Welcome.vue";
 import Stepper from "./views/Stepper.vue";
 import Login from "./views/Login.vue";
 import UserInfoForm from "./views/UserInfoForm.vue";
-import DepIntro from "./views/DepIntro.vue";
+import DepIntros from "./views/DepIntros.vue";
 import KnowMore from "./views/KnowMore.vue";
 
 const routes = [
@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: "/depIntro",
-    component: DepIntro,
+    component: DepIntros,
   },
   {
     path: "/knowMore",
