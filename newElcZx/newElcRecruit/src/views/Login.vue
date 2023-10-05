@@ -19,7 +19,7 @@
         <button class="vcode-button">发送验证码</button>
         <router-link to="/NewWelcome"><button class="login-button">登录</button></router-link>
         <div class="login-content-bottom-body">
-            <div class="small-explain"> <router-link to="/knowMore">了解更多</router-link>
+            <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
             </div>
             <div class="divider"></div>
             <div class="small-intro">ELC &2023</div>
