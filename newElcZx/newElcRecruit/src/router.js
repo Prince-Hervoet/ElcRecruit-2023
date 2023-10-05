@@ -5,11 +5,11 @@ import Login from "./views/Login.vue";
 import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntro from "./views/DepIntro.vue";
 import KnowMore from "./views/KnowMore.vue";
-
+import NewWelcome from "./views/NewWelcome.vue"
 const routes = [
   {
     path: "/",
-    component: KnowMore,
+    component: NewWelcome,
   },
   {
     path: "/login",
