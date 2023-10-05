@@ -138,7 +138,7 @@ const setsecondDepartment = (value) => {
     studentInfo.secondDepartment = value;
 };
 
-function hasNullFields(...fields) {
+function hasNullContent(...fields) {
     for (let i = 0; i < fields.length; i++) {
         if (!fields[i]) return true;
     }
@@ -157,7 +157,7 @@ const clickSubmitForm = async () => {
     console.log(studentInfo.name);
     console.log(studentInfo.college);
     if (
-        !hasNullFields(
+        !hasNullContent(
             studentInfo.name,
             studentInfo.grade,
             studentInfo.college,
