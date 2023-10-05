@@ -9,7 +9,7 @@ import NewWelcome from "./views/NewWelcome.vue"
 const routes = [
   {
     path: "/",
-    component: Login,
+    component: UserInfoForm,
   },
   {
     path: "/login",
