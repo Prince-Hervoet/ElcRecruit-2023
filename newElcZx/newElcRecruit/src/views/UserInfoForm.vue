@@ -78,23 +78,23 @@ const depInfoArr = [
     { id: 3, name: "项目部" },
     { id: 4, name: "网宣部" },
     { id: 5, name: "外联部" },
-    { id: 5, name: "实践部" },
-    { id: 5, name: "软件组" },
+    { id: 6, name: "实践部" },
+    { id: 7, name: "软件组" },
 ];
 
 const depA = [
-    { name: "机电工程学院" },
-    { name: "自动化学院" },
-    { name: "轻工化工学院" },
-    { name: "信息工程学院" },
-    { name: "计算机学院" },
-    { name: "土木与交通工程学院" },
-    { name: "材料与能源学院" },
-    { name: "物理与光电工程学院" },
-    { name: "环境科学与工程学院" },
-    { name: "集成电路学院" },
-    { name: "生物医药学院" },
-    { name: "外国语学院" },
+    { id: 0, name: "机电工程学院" },
+    { id: 1, name: "自动化学院" },
+    { id: 2, name: "轻工化工学院" },
+    { id: 3, name: "信息工程学院" },
+    { id: 6, name: "计算机学院" },
+    { id: 4, name: "土木与交通工程学院" },
+    { id: 7, name: "材料与能源学院" },
+    { id: 11, name: "物理与光电工程学院" },
+    { id: 8, name: "环境科学与工程学院" },
+    { id: 21, name: "集成电路学院" },
+    { id: 18, name: "生物医药学院" },
+    { id: 9, name: "外国语学院" },
 ];
 
 // const writeErrorTipData = {

@@ -5,7 +5,7 @@
     </div>
     <div class="myPicker-picker-container">
       <div class="myPicker-picker">
-        <Select v-model="model" style="width:100%;">
+        <Select v-model="model" style="width:100%;" :on-change="handler">
           <Option v-for="item in arr" :value="item.id" :key="item.id">{{ item.name }}</Option>
         </Select>
       </div>
