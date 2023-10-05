@@ -1,7 +1,5 @@
-import axios from "axios";
-
 // 基础url
-const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "http://localhost:3000";
 
 // 默认每页显示的数量
 export const DEFAULT_PAGE_LIMIT = 7;
@@ -37,16 +35,3 @@ export const ServiceUrls = {
   // 导出名单
   exportMenu: `/elc_recruit/root/ex_access`,
 };
-
-// 请求头加上token
-axios.interceptors.request.use(function (config) {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers = {
-      Authorization: token,
-    };
-  }
-  return config;
-});
-
-axios.defaults.baseURL = BASE_URL;
