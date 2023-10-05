@@ -54,7 +54,6 @@
             <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
         </button>
     </div>
-    <Alert type="error">An error prompt</Alert>
 </template>
 
 <script setup>
@@ -62,7 +61,7 @@ import { onMounted, reactive } from "vue";
 import MyInput from "../components/myInput/Input.vue";
 import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
-
+import axios from "axios";
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -123,15 +122,32 @@ function checkStuId(value) {
 }
 
 const clickSubmitForm = async () => {
-    console.log(studentInfo.name);
-    console.log(studentInfo.college);
+    axios.post('/user', {
+        name: "",
+        studentNumber: "",
+        college: "",
+        grade: "",
+        phone: "",
+        firstDepartment: "",
+        secondDepartment: "",
+        introduction: "",
+        qq: "",
+        skills: "",
+
+    })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     if (
         !hasNullContent(
             studentInfo.name,
             studentInfo.grade,
             studentInfo.college,
             studentInfo.firstDepartment,
-            studentInfo.introductionn
+            studentInfo.introduction
         ) &&
         checkStuId(studentInfo.studentNumber) &&
         checkphoneSize(studentInfo.phone)

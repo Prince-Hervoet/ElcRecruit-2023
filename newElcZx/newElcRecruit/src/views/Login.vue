@@ -16,7 +16,7 @@
                 <MyInput header-name="验证码"></MyInput>
             </div>
         </div>
-        <button class="vcode-button">发送验证码</button>
+        <button class="vcode-button" @click="CheckLoginButton">发送验证码</button>
         <router-link to="/NewWelcome"><button class="login-button">登录</button></router-link>
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
@@ -30,6 +30,34 @@
 
 <script setup>
 import MyInput from '../components/myInput/Input.vue';
+import axios from "axios";
+
+let loginToken = "";
+// const studentLogin = reactive({
+//     phone: "",
+//     check: "",
+// });
+const CheckLoginButton = () => {
+    // axios({
+    //     method: 'post',
+    //     url: 'url',
+    //     data: {
+    //         phone: "string",
+    //         check: "string",
+    //     }
+    // }).then;
+    axios.post('/user', {
+        phone: "string",
+        check: "string",
+    })
+        .then(function (response) {
+            console.log(response);
+            loginToken = response.data.accessToken;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 </script>
 
 <style scoped>
