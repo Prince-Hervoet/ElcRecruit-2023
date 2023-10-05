@@ -154,8 +154,7 @@ const CheckLoginButton = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1.5em;
-    margin-bottom: 10%;
+    margin-top: 30px;
     outline: 0;
     border: 0;
     transition: all 0.2s;
@@ -173,7 +172,6 @@ const CheckLoginButton = () => {
     align-items: center;
     justify-content: center;
     margin-top: 1.5em;
-    margin-bottom: 10%;
     outline: 0;
     border: 0;
     transition: all 0.2s;

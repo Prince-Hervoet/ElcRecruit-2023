@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./dataHostCard.css";
 import { Card } from "antd";
-import { joinRouterUrl } from "../../../util";
+import { joinRouterUrl } from "../../../toolFuncs";
 import { CollegeObj, ColorObj, KeyToDepName } from "../../../store/global";
 const { Meta } = Card;
 
