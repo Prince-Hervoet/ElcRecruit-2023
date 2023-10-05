@@ -6,7 +6,7 @@ import UserInfoForm from "./views/UserInfoForm.vue";
 const routes = [
   {
     path: "/",
-    component: Login,
+    component: UserInfoForm,
   },
   {
     path: "/stepper",
@@ -16,6 +16,10 @@ const routes = [
     path: "/userInfoForm",
     component: UserInfoForm,
   },
+  {
+    path:"/Welcome",
+    component:Welcome,
+  }
 ];
 
 const router = new createRouter({
