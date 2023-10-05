@@ -1,63 +1,86 @@
 <template>
     <div class="knowMore-container">
-        <div class="IntroPic">
-            <img class="elcphoto" src="../assets/cup.png" alt="" />
-        </div>
-        <br /><br /><br />
-        <div class="KnowDep">
-            <div class="DepBigBox" @click="clickNavDepInfo(0)">
-                <img src="../assets/pcb.png" alt="" />
-                电协介绍
-            </div>
-            <div class="DepBigBox" @click="clickNavDepInfo(10)">
-                <img src="../assets/medal.png" alt="" />
-                电协荣誉
-            </div>
-            <div class="ali" id="First">
-                <div class="DepBox" @click="clickNavDepInfo(5)">
-                    <img src="../assets/contact.png" alt="" />
-                    外联部
+        <div class="IntroPic"></div>
+        <div class="knowMore-content-body">
+            <div class="KnowDep">
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/pcb.png">
+                            <h3>电协介绍</h3>
+                        </div>
+                    </Card>
                 </div>
-                <br />
-                <div class="DepBox" @click="clickNavDepInfo(1)">
-                    <img src="../assets/repair.png" alt="" />
-                    维修部
-                </div>
-                <br />
-            </div>
-            <br />
-            <div class="ali" id="Second">
-                <div class="DepBox" @click="clickNavDepInfo(4)">
-                    <img src="../assets/publicize.png" alt="" />
-                    网宣部
-                </div>
-                <div class="DepBox" @click="clickNavDepInfo(3)">
-                    <img src="../assets/project.png" alt="" />
-                    项目部
-                </div>
-            </div>
-            <div class="ali" id="Third">
-                <div class="DepBox" @click="clickNavDepInfo(6)">
-                    <img src="../assets/practice.png" alt="" />
-                    实践部
-                </div>
-                <div class="DepBox" @click="clickNavDepInfo(2)">
-                    <img src="../assets/secretary.png" alt="" />
-                    秘书部
-                </div>
-            </div>
 
-            <div class="ali" id="Third">
-                <div class="DepBox" @click="clickNavDepInfo(7)">
-                    <img src="../assets/coding.png" alt="" />
-                    软件组
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/medal.png">
+                            <h3>电协荣誉</h3>
+                        </div>
+                    </Card>
                 </div>
-                <div class="DepBox" @click="clickNavDepInfo(2)" style="visibility: hidden">
-                    <img src="" alt="" />
-                    占位组
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/contact.png">
+                            <h3>外联部</h3>
+                        </div>
+                    </Card>
+                </div>
+
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/repair.png">
+                            <h3>维修部</h3>
+                        </div>
+                    </Card>
+                </div>
+
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/publicize.png">
+                            <h3>网宣部</h3>
+                        </div>
+                    </Card>
+                </div>
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/project.png">
+                            <h3>项目部</h3>
+                        </div>
+                    </Card>
+                </div>
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/practice.png">
+                            <h3>实践部</h3>
+                        </div>
+                    </Card>
+                </div>
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/secretary.png">
+                            <h3>秘书部</h3>
+                        </div>
+                    </Card>
+                </div>
+                <div>
+                    <Card style="width:320px">
+                        <div style="text-align:center">
+                            <img src="../assets/coding.png">
+                            <h3>软件组</h3>
+                        </div>
+                    </Card>
                 </div>
             </div>
         </div>
+
     </div>
 </template>
   
@@ -69,8 +92,18 @@ const clickNavDepInfo = (depId) => {
 };
 </script>
 <style scoped>
+.IntroPic {
+    background-image: url("../assets/cup.png");
+    height: 300px;
+    background-size: cover;
+}
+
 .knowMore-container {
     padding-bottom: 20px;
+    background-image: url("../assets/knowElcBackground.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: auto
 }
 
 .elcphoto {
@@ -78,80 +111,34 @@ const clickNavDepInfo = (depId) => {
     height: 350px;
 }
 
-image {
-    width: 20px;
-    height: 20px;
+.knowMore-content-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .KnowDep {
-    width: 95%;
-    margin: auto;
-}
-
-.DepBox {
-    width: 45%;
-    height: 70px;
-    text-align: center;
-    margin: auto;
-    background-color: rgb(255, 255, 255);
-    border-radius: 1em;
-    box-shadow: 1px 1px 13px 2px rgba(221, 221, 221, 0.329);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.5s;
-    font-size: 25px;
-    font-family: 楷体;
-    font-weight: 700;
-    color: rgb(31, 91, 194);
+    margin-top: 20px;
 }
 
-.DepBox:active {
-    transform: scale(1.2, 1.2);
+.KnowDep>div {
+    margin-bottom: 10px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
-.DepBigBox {
-    width: 70%;
-    height: 80px;
-    text-align: center;
-    margin: auto;
-    background-color: rgb(255, 255, 255);
-    border-radius: 1em;
-    box-shadow: 1px 1px 13px 2px rgba(221, 221, 221, 0.329);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: box-shadow 0.5s;
-    transition: font-size 0.5s;
-    font-size: 25px;
-    font-family: 楷体;
-    font-weight: 700;
-    color: rgb(31, 91, 194);
-    margin-bottom: 10%;
-}
-
-.DepZuBox {
-    width: 45%;
-    height: 70px;
-    margin-left: 2%;
-    background-color: rgb(255, 255, 255);
-    border-radius: 1em;
-    box-shadow: 1px 1px 13px 2px rgba(221, 221, 221, 0.329);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-    font-family: 楷体;
-    font-weight: 700;
-    color: rgb(31, 91, 194);
-    margin-bottom: 50px;
-}
-
-.ali {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10%;
+@media screen and (min-width: 800px) {
+    .KnowDep {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        max-width: 650px;
+        margin-top: 20px;
+    }
 }
 </style>
   
