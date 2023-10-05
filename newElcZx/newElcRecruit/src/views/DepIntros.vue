@@ -1,10 +1,20 @@
 <template>
     <div class="gradient">
+<<<<<<< HEAD
+        <div>
+            <div class="depName">{{ depName }}</div>
+            <div class="divider"></div>
+            <div class="smallIntro">{{ smallIntro }}</div>
+            <div class="depText">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                {{ depText }}
+            </div>
+=======
         <div class="depName">{{ depName }}</div>
         <div class="divider"></div>
         <div class="smallIntro">{{ smallIntro }}</div>
         <div class="depText">ss&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             {{ depText }}
+>>>>>>> 50e0fded3c5255061abe52536b4dc8634f8db6ad
         </div>
     </div>
 </template>
