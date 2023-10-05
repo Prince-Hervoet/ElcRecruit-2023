@@ -50,6 +50,7 @@
             <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
         </button>
     </div>
+    <Alert type="error">An error prompt</Alert>
 </template>
 
 <script setup>
@@ -97,112 +98,6 @@ const depA = [
     { id: 9, name: "外国语学院" },
 ];
 
-// const writeErrorTipData = {
-//   title: "请正确填写信息",
-//   icon: "error",
-//   duration: 1500,
-//   mask: true,
-// };
-
-// const submitSuccessTipData = {
-//   title: "报名成功",
-//   icon: "success",
-//   duration: 1500,
-//   mask: true,
-// };
-
-// const submitErrorTipData = {
-//   title: "报名失败",
-//   icon: "error",
-//   duration: 1500,
-//   mask: true,
-// };
-
-// const submitLoadingTipData = {
-//   title: "报名中...",
-//   mask: true,
-// };
-
-// const clickSubmitForm = async () => {
-//     const {
-//         name,
-//         studentNumber,
-//         college,
-//         grade,
-//         phone,
-//         firstDepartment,
-//         secondDepartment,
-//         introductionn,
-//         qq,
-//         skills,
-//     } = studentInfo;
-//     if (
-//         !hasNullFields(
-//             college,
-//             name,
-//             studentNumber,
-//             grade,
-//             firstDepartment,
-//             phone,
-//             introductionn
-//         ) &&
-//         checkStuId(studentNumber) &&
-//         checkphoneSize(phone)
-//     ) {
-//         const sendObj = {
-//             name,
-//             studentNumber,
-//             college,
-//             grade,
-//             phone,
-//             firstDepartment,
-//             secondDepartment,
-//             introductionn,
-//             qq,
-//             skills,
-//         };
-//         // todo: 发送请求
-//         wx.showLoading(submitLoadingTipData);
-//         const res = await sendSubmitForm(sendObj);
-//         wx.hideLoading();
-//         if (res.code === 4000) {
-//             //发送报名成功
-//             // wx.request({
-//             //   url: "http://139.159.220.241:8081/elc_recruit/student/commit",
-//             //   data: {
-//             //     "id": "string",
-//             //     "studentNumber": "string",
-//             //     "name": "string",
-//             //     "college": 0,
-//             //     "grade": "string",
-//             //     "skills": "string",
-//             //     "introduction": "string",
-//             //     "phone": "string",
-//             //     "qq": "string",
-//             //     "weChat": "string",
-//             //     "firstDepartment": 0,
-//             //     "secondDepartment": 0,
-//             //     "state": 10
-//             //   },
-//             //   method: "POST",
-//             //   header: {
-//             //     "content-type": "application/json", // 默认值
-//             //     "Authorization": "Bearer " + loginToken
-//             //   },
-//             //   success(res) {
-//             //     console.log(res);
-//             //   },
-//             // });
-
-//             wx.showToast(submitSuccessTipData);
-//         } else {
-//             wx.showToast(submitErrorTipData);
-//         }
-//     } else {
-//         wx.showToast(writeErrorTipData);
-//     }
-// };
-
 const setCollege = (value) => {
     studentInfo.college = value;
 };
@@ -243,7 +138,7 @@ const setsecondDepartment = (value) => {
     studentInfo.secondDepartment = value;
 };
 
-function hasNullFields(...fields) {
+function hasNullContent(...fields) {
     for (let i = 0; i < fields.length; i++) {
         if (!fields[i]) return true;
     }
@@ -256,6 +151,25 @@ function checkphoneSize(value) {
 
 function checkStuId(value) {
     return value.length === 10;
+}
+
+const clickSubmitForm = async () => {
+    console.log(studentInfo.name);
+    console.log(studentInfo.college);
+    if (
+        !hasNullContent(
+            studentInfo.name,
+            studentInfo.grade,
+            studentInfo.college,
+            studentInfo.firstDepartment,
+            studentInfo.introductionn
+        ) && checkStuId(studentInfo.studentNumber) &&
+        checkphoneSize(studentInfo.phone)
+    ) {
+        console.log("成功");
+    } else {
+        console.log("出错啦");
+    }
 }
 
 function getOpenId() { }
