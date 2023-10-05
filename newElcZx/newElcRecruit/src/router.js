@@ -3,13 +3,13 @@ import Welcome from "./views/Welcome.vue";
 import Stepper from "./views/Stepper.vue";
 import Login from "./views/Login.vue";
 import UserInfoForm from "./views/UserInfoForm.vue";
-import DepIntro from "./views/DepIntro.vue";
-import KnowMore from "./views/KnowMore.vue";
-import NewWelcome from "./views/NewWelcome.vue"
+import DepIntros from "./views/DepIntros.vue";
+import KnowElc from "./views/KnowElc.vue";
+
 const routes = [
   {
     path: "/",
-    component: NewWelcome,
+    component: KnowElc,
   },
   {
     path: "/login",
@@ -28,12 +28,12 @@ const routes = [
     component: Welcome,
   },
   {
-    path: "/depIntro",
-    component: DepIntro,
+    path: "/depIntros",
+    component: DepIntros,
   },
   {
-    path: "/knowMore",
-    component: KnowMore,
+    path: "/knowElc",
+    component: KnowElc,
   },
 ];
 
