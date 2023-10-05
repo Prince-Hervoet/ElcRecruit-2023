@@ -14,7 +14,6 @@
                     <MyInput id="studentId" header-name="您的学号 *" :value="studentInfo.studentNumber" @onChange="setUserInfo">
                     </MyInput>
                 </div>
-
                 <div>
                     <MyInput id="grade" header-name="就读专业和班级 *" :value="studentInfo.grade" @onChange="setUserInfo">
                     </MyInput>
@@ -60,9 +59,9 @@
 
 <script setup>
 import { onMounted, reactive } from "vue";
-import MyInput from "../components/myInput/MyInput.vue";
+import MyInput from "../components/myInput/Input.vue";
 import MyPicker from "../components/myPicker/SelectInput.vue";
-import MyTextarea from "../components/myTextarea/MyTextarea.vue";
+import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 
 const studentInfo = reactive({
     name: "",
@@ -106,7 +105,7 @@ const setUserInfo = (data) => {
     if (data && data.id) {
         studentInfo[data.id] = data.data;
     }
-}
+};
 
 function hasNullContent(...fields) {
     for (let i = 0; i < fields.length; i++) {
@@ -133,15 +132,15 @@ const clickSubmitForm = async () => {
             studentInfo.college,
             studentInfo.firstDepartment,
             studentInfo.introductionn
-        ) && checkStuId(studentInfo.studentNumber) &&
+        ) &&
+        checkStuId(studentInfo.studentNumber) &&
         checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
     } else {
         console.log("出错啦");
     }
-}
-
+};
 </script>
 
 <style scoped>
