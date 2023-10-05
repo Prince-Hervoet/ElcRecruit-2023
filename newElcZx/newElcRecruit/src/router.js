@@ -28,7 +28,7 @@ const routes = [
     component: Welcome,
   },
   {
-    path: "/depIntros",
+    path: "/depIntros/:depId",
     component: DepIntros,
   },
   {
