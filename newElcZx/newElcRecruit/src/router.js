@@ -9,7 +9,7 @@ import KnowElc from "./views/KnowElc.vue";
 const routes = [
   {
     path: "/",
-    component: KnowMore,
+    component: KnowElc,
   },
   {
     path: "/login",
