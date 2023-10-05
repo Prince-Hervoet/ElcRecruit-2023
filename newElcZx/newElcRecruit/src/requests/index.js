@@ -1,7 +1,9 @@
 import { axios } from "axios";
+import { ServiceUrls } from "./util";
 
 async function getUserInfo(userId) {
-  const res = await axios();
+  const url = ServiceUrls.login;
+  // todo: 写axios
 }
 
 export const IndexRequest = {
