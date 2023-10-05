@@ -1,6 +1,6 @@
 <template>
     <div class="progress-body">
-        <div class="progress-title-body"><span>我的进度</span> </div>
+        <div class="progress-title-body"><span style="font-style: italic;">Progress</span> </div>
         <div class="progress-content-body">
             <div class="progress-content-group-body">
                 <div class="progress-content-card-body">
@@ -66,14 +66,14 @@ const getUserInfo = () => {
 .progress-title-body {
     width: 100%;
     height: 40px;
-    background-color: rgba(209, 54, 57, 0.7);
-    color: white;
+    color: black;
     font-size: 1.8em;
     font-weight: bold;
     font-family: "楷体";
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 1px 1px 3px 1px #e6e6e6;
 }
 
 .progress-content-body {

@@ -48,6 +48,7 @@
     top: 20%;
     background-color: rgba(239, 239, 240, 0.617);
     border-radius: 3em;
+    border: 1px solid #ccc;
 }
 
 .joinIcon {
@@ -67,6 +68,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* border: 1px solid black; */
 }
 
 .smallWord {
@@ -81,6 +83,7 @@
     display: flex;
     position: relative;
     top: 55%;
+
     /* position: absolute; */
 
 }
@@ -93,5 +96,6 @@
     /* top: 20px; */
     background-color: rgba(239, 239, 240, 0.617);
     border-radius: 1em;
+    border: 1px solid #ccc;
 }
 </style>
