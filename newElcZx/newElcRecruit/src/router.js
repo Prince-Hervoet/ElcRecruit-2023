@@ -24,15 +24,15 @@ const routes = [
     component: UserInfoForm,
   },
   {
-    path: "/Welcome",
+    path: "/welcome",
     component: Welcome,
   },
   {
-    path: "/DepIntro",
+    path: "/depIntro",
     component: DepIntro,
   },
   {
-    path: "/KnowMore",
+    path: "/knowMore",
     component: KnowMore,
   },
 ];
