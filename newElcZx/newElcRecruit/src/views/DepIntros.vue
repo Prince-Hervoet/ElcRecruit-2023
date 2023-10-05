@@ -3,7 +3,7 @@
         <div class="depName">{{ depName }}</div>
         <div class="divider"></div>
         <div class="smallIntro">{{ smallIntro }}</div>
-        <div class="depText">ss&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <div class="depText">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             {{ depText }}
         </div>
     </div>
@@ -19,14 +19,14 @@ const smallIntro = ref("");
 const depText = ref("");
 function showText(depId = "1") {
     switch (depId) {
-        case "10":
+        case "200":
             setFields(
                 "协会荣誉",
                 "一堆奖",
                 "广工电协在各类学科竞赛，项目开发上均有不错的成绩。在全国大学生电子设计大赛，挑战杯，全美大学生数学建模竞赛，飞思卡尔等大赛中，广工电协取得瞩目的成绩，而在各类电子竞赛中电协成员更是独领风骚，省级奖项校级奖项不可胜数。在项目开发上，电协拥有3个国家级大创项目，省级项目若干个，其中拥有自主专利6项。电协的毕业生更是深入到华为、联发科、大疆、CVTE、bigo等著名企业中成为佼佼者。在学术领域，我们的毕业生考研或保研进入清华大学、中山大学、华南理工大学、电子科技大学、哈尔滨工业大学等大学继续深造学业。"
             );
             break;
-        case "0":
+        case "100":
             setFields(
                 "协会介绍",
                 "早晨的图书馆,凌晨的实验室",

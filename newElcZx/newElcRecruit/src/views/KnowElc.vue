@@ -3,7 +3,7 @@
         <div class="IntroPic"></div>
         <div class="knowMore-content-body">
             <div class="KnowDep">
-                <div>
+                <div @click="clickNavDepInfo(100)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/pcb.png">
@@ -12,7 +12,7 @@
                     </Card>
                 </div>
 
-                <div>
+                <div @click="clickNavDepInfo(200)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/medal.png">
@@ -20,7 +20,7 @@
                         </div>
                     </Card>
                 </div>
-                <div>
+                <div @click="clickNavDepInfo(5)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/contact.png">
@@ -29,7 +29,7 @@
                     </Card>
                 </div>
 
-                <div>
+                <div @click="clickNavDepInfo(1)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/repair.png">
@@ -38,7 +38,7 @@
                     </Card>
                 </div>
 
-                <div>
+                <div @click="clickNavDepInfo(4)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/publicize.png">
@@ -46,7 +46,7 @@
                         </div>
                     </Card>
                 </div>
-                <div>
+                <div @click="clickNavDepInfo(3)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/project.png">
@@ -54,7 +54,7 @@
                         </div>
                     </Card>
                 </div>
-                <div>
+                <div @click="clickNavDepInfo(6)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/practice.png">
@@ -62,7 +62,7 @@
                         </div>
                     </Card>
                 </div>
-                <div>
+                <div @click="clickNavDepInfo(2)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/secretary.png">
@@ -70,7 +70,7 @@
                         </div>
                     </Card>
                 </div>
-                <div>
+                <div @click="clickNavDepInfo(7)">
                     <Card style="width:320px">
                         <div style="text-align:center">
                             <img src="../assets/coding.png">
@@ -85,36 +85,31 @@
 </template>
   
 <script setup>
+import router from '../router';
+
 const clickNavDepInfo = (depId) => {
-    uni.navigateTo({
-        url: `depIntro?depId=${depId}`,
-    });
+    router.push({ name: "depIntros", params: { depId } });
 };
 </script>
 <style scoped>
 .IntroPic {
     background-image: url("../assets/cup.png");
     height: 300px;
-    background-size: cover;
+    background-size: contain;
 }
 
 .knowMore-container {
-    padding-bottom: 20px;
-    background-image: url("../assets/knowElcBackground.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    overflow: auto
-}
-
-.elcphoto {
-    width: 100%;
-    height: 350px;
+    height: 100%;
+    user-select: none;
 }
 
 .knowMore-content-body {
+    /* background-color: red; */
     display: flex;
-    align-items: center;
     justify-content: center;
+    background-image: url("../assets/knowElcBackground.png");
+    background-size: cover;
+    overflow: auto
 }
 
 .KnowDep {
@@ -128,6 +123,7 @@ const clickNavDepInfo = (depId) => {
     margin-bottom: 10px;
     padding: 5px;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 800px) {
