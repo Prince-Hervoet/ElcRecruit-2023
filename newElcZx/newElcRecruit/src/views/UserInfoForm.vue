@@ -71,15 +71,6 @@ const studentInfo = reactive({
     qq: "",
     skills: "",
 });
-const depArr = [
-    "维修部",
-    "秘书部",
-    "项目部",
-    "网宣部",
-    "外联部",
-    "实践部",
-    "软件组",
-];
 
 const depInfoArr = [
     { id: 1, name: "维修部" },
