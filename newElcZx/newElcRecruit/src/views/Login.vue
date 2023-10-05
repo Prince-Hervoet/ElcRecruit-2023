@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import MyInput from '../components/myInput/MyInput.vue';
+import MyInput from '../components/myInput/Input.vue';
 </script>
 
 <style scoped>
