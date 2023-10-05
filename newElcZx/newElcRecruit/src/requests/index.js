@@ -6,6 +6,9 @@ async function getUserInfo(userId) {
   // todo: 写axios
 }
 
+/**
+ * 暴露出去，让页面js代码引用
+ */
 export const IndexRequest = {
   getUserInfo,
 };
