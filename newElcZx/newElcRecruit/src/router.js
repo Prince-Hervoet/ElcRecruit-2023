@@ -4,7 +4,7 @@ import Stepper from "./views/Stepper.vue";
 import Login from "./views/Login.vue";
 import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntros from "./views/DepIntros.vue";
-import KnowMore from "./views/KnowMore.vue";
+import KnowElc from "./views/KnowElc.vue";
 
 const routes = [
   {
@@ -32,8 +32,8 @@ const routes = [
     component: DepIntros,
   },
   {
-    path: "/knowMore",
-    component: KnowMore,
+    path: "/knowElc",
+    component: KnowElc,
   },
 ];
 
