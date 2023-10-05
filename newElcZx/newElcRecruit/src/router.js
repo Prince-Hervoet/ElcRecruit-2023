@@ -32,7 +32,11 @@ const routes = [
     component: NewWelcome,
   },
   {
-    path: "/depIntros",
+    path: "/Newwelcome",
+    component: NewWelcome,
+  },
+  {
+    path: "/depIntros/:depId",
     component: DepIntros,
   },
   {
