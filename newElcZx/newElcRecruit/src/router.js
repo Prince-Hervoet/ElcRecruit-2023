@@ -3,10 +3,13 @@ import Welcome from "./views/Welcome.vue";
 import Stepper from "./views/Stepper.vue";
 import Login from "./views/Login.vue";
 import UserInfoForm from "./views/UserInfoForm.vue";
+import DepIntro from "./views/DepIntro.vue";
+import KnowMore from "./views/KnowMore.vue";
+
 const routes = [
   {
     path: "/",
-    component: UserInfoForm,
+    component: KnowMore,
   },
   {
     path: "/stepper",
@@ -19,7 +22,15 @@ const routes = [
   {
     path:"/Welcome",
     component:Welcome,
-  }
+  },
+  {
+    path:"/DepIntro",
+    component:DepIntro,
+  },
+  {
+    path:"/KnowMore",
+    component:KnowMore,
+  },
 ];
 
 const router = new createRouter({

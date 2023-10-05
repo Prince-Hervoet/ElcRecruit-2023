@@ -1,64 +1,64 @@
 <template>
-  <view class="knowMore-container">
-    <view class="IntroPic">
-      <img class="elcphoto" src="/static/cup.png" alt="" />
-    </view>
+  <div class="knowMore-container">
+    <div class="IntroPic">
+      <img class="elcphoto" src="../assets/cup.png" alt="" />
+    </div>
     <br /><br /><br />
-    <view class="KnowDep">
-      <view class="DepBigBox" @click="clickNavDepInfo(0)">
-        <img src="/static/pcb.png" alt="" />
+    <div class="KnowDep">
+      <div class="DepBigBox" @click="clickNavDepInfo(0)">
+        <img src="../assets/pcb.png" alt="" />
         电协介绍
-      </view>
-      <view class="DepBigBox" @click="clickNavDepInfo(10)">
-        <img src="/static/cup.png" alt="" />
+      </div>
+      <div class="DepBigBox" @click="clickNavDepInfo(10)">
+        <img src="../assets/medal.png" alt="" />
         电协荣誉
-      </view>
-      <view class="ali" id="First">
-        <view class="DepBox" @click="clickNavDepInfo(5)">
-          <img src="/static/contact.png" alt="" />
+      </div>
+      <div class="ali" id="First">
+        <div class="DepBox" @click="clickNavDepInfo(5)">
+          <img src="../assets/contact.png" alt="" />
           外联部
-        </view>
+        </div>
         <br />
-        <view class="DepBox" @click="clickNavDepInfo(1)">
-          <img src="/static/repair.png" alt="" />
+        <div class="DepBox" @click="clickNavDepInfo(1)">
+          <img src="../assets/repair.png" alt="" />
           维修部
-        </view>
+        </div>
         <br />
-      </view>
+      </div>
       <br />
-      <view class="ali" id="Second">
-        <view class="DepBox" @click="clickNavDepInfo(4)">
-          <img src="/static/publicize.png" alt="" />
+      <div class="ali" id="Second">
+        <div class="DepBox" @click="clickNavDepInfo(4)">
+          <img src="../assets/publicize.png" alt="" />
           网宣部
-        </view>
-        <view class="DepBox" @click="clickNavDepInfo(3)">
-          <img src="/static/project.png" alt="" />
+        </div>
+        <div class="DepBox" @click="clickNavDepInfo(3)">
+          <img src="../assets/project.png" alt="" />
           项目部
-        </view>
-      </view>
-      <view class="ali" id="Third">
-        <view class="DepBox" @click="clickNavDepInfo(6)">
-          <img src="/static/practice.png" alt="" />
+        </div>
+      </div>
+      <div class="ali" id="Third">
+        <div class="DepBox" @click="clickNavDepInfo(6)">
+          <img src="../assets/practice.png" alt="" />
           实践部
-        </view>
-        <view class="DepBox" @click="clickNavDepInfo(2)">
-          <img src="/static/secretary.png" alt="" />
+        </div>
+        <div class="DepBox" @click="clickNavDepInfo(2)">
+          <img src="../assets/secretary.png" alt="" />
           秘书部
-        </view>
-      </view>
+        </div>
+      </div>
 
-      <view class="ali" id="Third">
-        <view class="DepBox" @click="clickNavDepInfo(7)">
-          <img src="/static/coding.png" alt="" />
+      <div class="ali" id="Third">
+        <div class="DepBox" @click="clickNavDepInfo(7)">
+          <img src="../assets/coding.png" alt="" />
           软件组
-        </view>
-        <view class="DepBox" @click="clickNavDepInfo(2)" style="visibility: hidden">
+        </div>
+        <div class="DepBox" @click="clickNavDepInfo(2)" style="visibility: hidden">
           <img src="" alt="" />
           占位组
-        </view>
-      </view>
-    </view>
-  </view>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
