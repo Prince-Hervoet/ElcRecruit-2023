@@ -17,7 +17,7 @@
             </div>
         </div>
         <button class="vcode-button">发送验证码</button>
-        <router-link to="/Welcome"><button class="login-button">登录</button></router-link>
+        <router-link to="/NewWelcome"><button class="login-button">登录</button></router-link>
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/knowMore">了解更多</router-link>
             </div>

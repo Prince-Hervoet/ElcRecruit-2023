@@ -1,22 +1,34 @@
 <template>
     <div class="welcomeBigBox">
-
-        <div class="joinIn">
-            <div class="joinIcon"></div>
-            <p class="word">我要报名</p>
-            <p class="smallWord">我也要和师兄师姐们</p>
-            <p class="smallWord">一起敲代码！焊板子！</p>
-
-        </div>
+        <router-link to="/UserInfoForm">
+            <div class="joinIn">
+                <div class="joinIcon"></div>
+                <p class="word">我要报名</p>
+                <p class="smallWord">我也要和师兄师姐们</p>
+                <p class="smallWord">一起敲代码！焊板子！</p>
+            </div>
+        </router-link>
         <div class="bottomBox">
+
             <div class="bottomBoxSmall">
-                <p class="word">了解更多</p>
-                <p class="smallWord">KnowMore</p>
+                <router-link to="/KnowElc">
+                    <div>
+                        <p class="word">了解更多</p>
+                        <p class="smallWord">KnowMore</p>
+                    </div>
+                </router-link>
             </div>
             <div class="bottomBoxSmall">
-                <p class="word">查询进度</p>
-                <p class="smallWord">Progress</p>
+                <router-link to="/Stepper">
+                    <div>
+                        <p class="word">查询进度</p>
+                        <p class="smallWord">Progress</p>
+                    </div>
+                </router-link>
+
             </div>
+
+
         </div>
     </div>
 </template>
@@ -29,7 +41,7 @@
 }
 
 .joinIn {
-    width: 220px;
+    width: 40%;
     height: 150px;
     margin: auto;
     position: relative;
@@ -74,7 +86,7 @@
 }
 
 .bottomBoxSmall {
-    width: 220px;
+    width: 40%;
     height: 60px;
     margin: auto;
     /* margin-bottom: 20%; */
