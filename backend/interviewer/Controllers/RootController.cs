@@ -27,9 +27,7 @@ public class RootController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<object> GetCurrentProcess()
     {
-        IntegerProperty? processState =
-            _dbContext.IntegerProperties.FirstOrDefault(property => "ProcessState" == property.Name, null);
-        if (processState is null) throw new Exception("数据库中没有 ProcessState 属性！");
+        int processState = GetProcessState();
 
         return new
         {
@@ -74,10 +72,9 @@ public class RootController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<object> PushStatus(bool force = false)
     {
-        IntegerProperty? processState =
-            _dbContext.IntegerProperties.FirstOrDefault(property => property.Name == "ProcessState");
-        if (processState is null) throw new Exception("数据库中没有 ProcessState 属性！");
-        if (processState.Value == (int)ProcessState.Finish)
+        int processState = GetProcessState();
+
+        if (processState == (int)ProcessState.Finish)
             return new
             {
                 Success = false,
@@ -112,22 +109,80 @@ public class RootController : ControllerBase
             }
         }
 
-        await _dbContext.Students.ForEachAsync(student =>
+        List<StudentHistory> histories = new();
+        foreach (Student student in _dbContext.Students)
         {
-            _dbContext.StudentHistories.Add(new StudentHistory
+            histories.Add(new StudentHistory
             {
+                Id = Guid.NewGuid().ToString(),
                 StudentId = student.Id,
                 State = student.State,
-                ProcessState = (ProcessState)processState.Value
+                ProcessState = (ProcessState)processState
             });
             student.State = student.State == StudentState.Pass ? StudentState.Applied : StudentState.Failed;
-            _dbContext.IntegerProperties.First(property => property.Name == "ProcessState").Value =
-                processState.Value + 1;
-            _dbContext.SaveChanges();
-        });
+        }
+        histories.ForEach(history => _dbContext.StudentHistories.Add(history));
+        SetProcessState(processState + 1);
+        await _dbContext.SaveChangesAsync();
+
         return new
         {
             Success = true
         };
+    }
+
+    [HttpPost("rollback_status")]
+    [Authorize(Roles = "Admin")]
+    public async Task<object> RollbackStatus()
+    {
+        int processState = GetProcessState();
+
+        if (processState == (int)ProcessState.FirstRoundInterview)
+            return new
+            {
+                Success = false,
+                ErrorMessages = new string[] { "已到达最初阶段！" }
+            };
+
+        foreach (StudentHistory history in _dbContext.StudentHistories.ToList()
+                     .Where(history => (int)history.ProcessState == processState - 1))
+        {
+            Student? student = _dbContext.Students.FirstOrDefault(student => student.Id == history.StudentId);
+            if (student is not null)
+                student.State = history.State;
+        }
+
+        SetProcessState(processState - 1);
+
+        await _dbContext.SaveChangesAsync();
+
+        return new
+        {
+            Success = true
+        };
+    }
+
+    private void SetProcessState(int processState)
+    {
+        _dbContext.IntegerProperties.First(property => property.Name == "ProcessState").Value =
+            processState;
+    }
+
+    private int GetProcessState()
+    {
+        IntegerProperty processStateProperty;
+        try
+        {
+            processStateProperty =
+                _dbContext.IntegerProperties.Single(property => property.Name == "ProcessState");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("数据库中没有 ProcessState 属性！");
+        }
+
+        var processState = processStateProperty.Value;
+        return processState;
     }
 }
