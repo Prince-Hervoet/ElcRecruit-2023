@@ -22,7 +22,7 @@
             <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
             </div>
             <div class="divider"></div>
-            <div class="small-intro">ELC &2023</div>
+            <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
 
     </div>
