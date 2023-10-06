@@ -7,12 +7,14 @@ import GdataHostCardListStore from "../../../store/dataHostCardListStore";
 const { Search } = Input;
 export default function DataHostSearch() {
   const clickSearch = async (value) => {
-    const res = await DataRequest.getSearchBriefInfo(
-      value,
-      GdataHostCardListStore.getCurrentDepId()
-    );
+    const depId = GdataHostCardListStore.getCurrentDepId();
+    if (!value || !depId) return;
+    const res = await DataRequest.getSearchBriefInfo(value, depId);
     if (res.success) {
+      const searchResList = res.data.data;
+      GdataHostCardListStore.setCardList(searchResList);
     } else {
+      alert(res.data);
     }
   };
 

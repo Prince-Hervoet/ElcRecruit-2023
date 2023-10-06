@@ -10,8 +10,6 @@ export const ServiceUrls = {
   login: `/elc_recruit/interviewer/Login`,
   // 判断是否登录
   judgeLogin: `/judgeLogin`,
-  // 请求简历
-  resume: `/#/resume?userId=`,
   // 分页获取人员简要信息
   getBriefInfos: `/elc_recruit/interviewer/get_brief_infos`,
   // 获取报名者详细信息
@@ -27,7 +25,7 @@ export const ServiceUrls = {
   // 修改学生第一志愿
   transferStudent: `/elc_recruit/interviewer/transfer_student`,
   // 搜索
-  getSearchBriefInfo: `${BASE_URL}`,
+  getSearchBriefInfo: `/elc_recruit/interviewer/get_search_brief_info`,
   // 获取当前进度
   getCurrentProcess: `/elc_recruit/root/get_current_process`,
   // 推进进度

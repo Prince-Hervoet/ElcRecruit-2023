@@ -58,7 +58,7 @@ async function getDepSizeList() {
 async function getCheckinInfos(depId) {}
 
 /**
- *
+ * 搜索
  * @param {string} keyword
  * @param {number} depId
  */
