@@ -5,7 +5,7 @@ import { Input, Button } from "antd";
 import { LoginRequest } from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import Bo from "../../components/loginComponents/bo/bo";
-import { base64StrToData, getTokenDataToObj } from "../../util";
+import { getTokenDataToObj } from "../../toolFuncs";
 
 export default function Login() {
   let userNameRef = useRef("");
