@@ -91,4 +91,6 @@ public class MiniProgramController : ControllerBase
         await _dbContext.SaveChangesAsync();
         return new MiniProgramControllerResponse() { Data = student?.State };
     }
+    
+    
 }

@@ -144,11 +144,24 @@ namespace interviewer.Controllers
             [Required] ElcDepartment targetDepId);
 
         [HttpPost("transfer_student")]
+        [Authorize(Roles = "Interviewer")]
         public IActionResult TransferStudent([Required] TransferStudentParms p)
         {
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.studentId);
             //TODO
             throw new NotImplementedException();
+        }
+        
+        [HttpGet("get_search_brief_info")]
+        [Authorize(Roles = "Interviewer")]
+        public IActionResult GetSearchBriefInfo([Required] string keyword,ElcDepartment depId = ElcDepartment.All)
+        {
+            var students = _dbContext.Students?.Where(s => (depId == ElcDepartment.All || s.FirstDepartment == depId) && (s.Name.StartsWith(keyword) || s.StudentNumber.StartsWith(keyword)));
+            return Ok(new
+            {
+                success = true,
+                data = students
+            });
         }
     }
 }
