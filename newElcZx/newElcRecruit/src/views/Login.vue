@@ -57,6 +57,10 @@ const setLoginInfo = (data) => {
     }
 };
 
+// const getLogin = () =>{
+
+// }
+
 const getCode = () => {
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
@@ -83,18 +87,6 @@ function checkphoneNumberSize(value) {
         return false;
     }
 }
-//获取短信验证码
-// async getCode() {
-//     console.log(loginContent.phoneNumber);
-//     let res = await http.$axios({
-//         url: "/api/code",
-//         method: "POST",
-//         data: {
-//             phoneNumber: this.phoneNumber,
-//         },
-//     });
-// }
-
 </script>
 
 <style scoped>
