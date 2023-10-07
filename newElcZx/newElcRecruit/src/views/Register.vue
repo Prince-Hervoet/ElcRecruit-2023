@@ -42,7 +42,7 @@
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
-let loginToken = "";
+let token = "";
 const second = 60;
 const alreadyLogin = ref(true);
 
@@ -106,9 +106,11 @@ const getRegister = () => {
     } else if (!checkpassword(loginContent.password)) {
         console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符），请及时修改密码！");
     } else {
-        axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`)
-            .then(function (response) {
-                console.log(response);
+        axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
+            { headers: { Authorization: ` ${token}` } },)
+            .then((res) => {
+                console.log(res);
+                console.log(token);
             })
             .catch(function (error) {
                 console.log(error);
