@@ -34,11 +34,7 @@ const handler = (event) => {
 
 .myTextarea-textarea {
   width: 100%;
-<<<<<<< HEAD
   height: 100%;
-=======
-  height: calc(100% - 20px);
->>>>>>> 114241a35732926f751ee5cc1fe99271ab9d10dc
   background-color: rgb(244, 244, 244);
   padding: 5px;
   box-sizing: border-box;

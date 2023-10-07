@@ -39,22 +39,13 @@
                         :arr="depInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
-<<<<<<< HEAD
                 <div class="myTextareaBox">
-=======
-                <div style="height: 150px;">
->>>>>>> 114241a35732926f751ee5cc1fe99271ab9d10dc
                     <MyTextarea id="introduction" header-name="自我介绍 *" :value="studentInfo.introduction"
                         @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
-<<<<<<< HEAD
                 <div class="myTextareaBox">
-                    <MyTextarea id="skills" header-name="掌握技能" :value="studentInfo.skills" @onChange="setUserInfo">
-=======
-                <div style="height: 150px;">
                     <MyTextarea id="skills" header-name="掌握技能(概述)" :value="studentInfo.skills" @onChange="setUserInfo">
->>>>>>> 114241a35732926f751ee5cc1fe99271ab9d10dc
                     </MyTextarea>
                 </div>
             </div>
@@ -175,13 +166,11 @@ const clickSubmitForm = async () => {
     padding: 10px;
 }
 
-@media screen and (min-width: 800px) {
-    .postInfo-container {
-        width: 75%;
-        margin: auto;
-        padding: 10px;
-        max-width: 650px;
-    }
+.postInfo-container {
+    width: 75%;
+    margin: auto;
+    padding: 10px;
+    max-width: 650px;
 }
 
 .postInfo-header-container {
@@ -199,7 +188,7 @@ const clickSubmitForm = async () => {
 }
 
 .postInfo-table>.myTextareaBox {
-    margin-bottom: 90px;
+    margin-bottom: 100px;
 }
 
 .postInfo-button-container {
