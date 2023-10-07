@@ -39,12 +39,12 @@
                         :arr="depInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
-                <div style="height: 150px;">
+                <div class="myTextareaBox">
                     <MyTextarea id="introduction" header-name="自我介绍 *" :value="studentInfo.introduction"
                         @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
-                <div style="height: 150px;">
+                <div class="myTextareaBox">
                     <MyTextarea id="skills" header-name="掌握技能(概述)" :value="studentInfo.skills" @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
@@ -133,13 +133,12 @@ const clickSubmitForm = async () => {
         introduction: "",
         qq: "",
         skills: "",
-
     })
         .then(function (response) {
             console.log(response);
         })
         .catch(function (error) {
-            console.log(error);
+            console.log("搞错了" + error);
         });
     if (
         !hasNullContent(
@@ -166,13 +165,11 @@ const clickSubmitForm = async () => {
     padding: 10px;
 }
 
-@media screen and (min-width: 800px) {
-    .postInfo-container {
-        width: 75%;
-        margin: auto;
-        padding: 10px;
-        max-width: 650px;
-    }
+.postInfo-container {
+    width: 75%;
+    margin: auto;
+    padding: 10px;
+    max-width: 650px;
 }
 
 .postInfo-header-container {
@@ -187,6 +184,10 @@ const clickSubmitForm = async () => {
 .postInfo-table>div {
     margin-bottom: 30px;
     height: 55px;
+}
+
+.postInfo-table>.myTextareaBox {
+    margin-bottom: 100px;
 }
 
 .postInfo-button-container {

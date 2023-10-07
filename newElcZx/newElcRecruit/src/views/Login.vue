@@ -10,10 +10,10 @@
 
         <div class="login-content-body">
             <div>
-                <MyInput header-name="手机号码"></MyInput>
+                <MyInput header-name="手机号码" id="phone" :value="loginContent.phone" @on-change="setLoginInfo"></MyInput>
             </div>
             <div>
-                <MyInput header-name="验证码"></MyInput>
+                <MyInput header-name="验证码" id="check" :value="loginContent.check" @on-change="setLoginInfo"></MyInput>
             </div>
         </div>
         <button class="vcode-button" @click="CheckLoginButton">发送验证码</button>
@@ -31,32 +31,55 @@
 <script setup>
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
-
+import { reactive } from "vue";
 let loginToken = "";
-// const studentLogin = reactive({
-//     phone: "",
-//     check: "",
-// });
+
+const loginContent = reactive({
+    phone: "",
+    check: "",
+});
+
+const setLoginInfo = (data) => {
+    if (data && data.id) {
+        loginContent[data.id] = data.data;
+    }
+};
+
+//检查手机号是否合适规范
+function checkphoneSize(value) {
+    return value.length === 11;
+};
+
+//获取短信验证码
+// async getCode() {
+//     console.log(loginContent.phone);
+//     let res = await http.$axios({
+//         url: "/api/code",
+//         method: "POST",
+//         data: {
+//             phone: this.phone,
+//         },
+//     });
+// }
 const CheckLoginButton = () => {
-    // axios({
-    //     method: 'post',
-    //     url: 'url',
-    //     data: {
-    //         phone: "string",
-    //         check: "string",
-    //     }
-    // }).then;
-    axios.post('/user', {
-        phone: "string",
-        check: "string",
-    })
-        .then(function (response) {
-            console.log(response);
-            loginToken = response.data.accessToken;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    if (!checkphoneSize(loginContent.phone)) {
+        console.log("电话号码输入不规范");
+        // getCode(loginContent.phone)
+    } else {
+        //todo发送验证码审核
+        //     axios.post('/user', {
+        //         phone: "string",
+        //         check: "string",
+        //     })
+        //         .then(function (response) {
+        //             console.log(response);
+        //             loginToken = response.data.accessToken;
+        //             console.log(loginToken);
+        //         })
+        //         .catch(function (error) {
+        //             console.log(error);
+        //         });
+    }
 }
 </script>
 
