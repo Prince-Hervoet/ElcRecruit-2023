@@ -8,6 +8,7 @@ export const ColorObj = {
 
 // 部门对应表
 export const DepInfoArr = [
+  { name: "总览表", id: 0 },
   {
     name: "维修部",
     id: 1,

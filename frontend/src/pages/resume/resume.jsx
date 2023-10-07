@@ -226,7 +226,7 @@ export default function Resume() {
               maxRows: 10,
             }}
             styles={{
-              fontSize: "larger",
+              fontSize: "16px",
             }}
             onChange={onChangeComment}
             value={comment}
