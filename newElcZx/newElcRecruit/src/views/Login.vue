@@ -14,7 +14,8 @@
                 </MyInput>
             </div>
             <div>
-                <MyInput header-name="密码" id="secret" :value="loginContent.secret" @on-change="setLoginInfo"></MyInput>
+                <MyInput header-name="密码" id="secretNumber" :value="loginContent.secret" @on-change="setLoginInfo">
+                </MyInput>
             </div>
             <div>
                 <MyInput header-name="验证码" id="check" v-if="alreadyLogin" :value="loginContent.check"
@@ -23,7 +24,9 @@
 
         </div>
         <button class="vcode-button" @click="getCode">获取验证码</button>
-        <router-link to="/NewWelcome"><button class="login-button" @click="getLogin">登录</button></router-link>
+        <button class="vcode-button" @click="getRegister">注册</button>
+        <button class="login-button" @click="getLogin">登录</button>
+
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
             </div>
@@ -63,6 +66,17 @@ function checkphoneNumberSize(value) {
         return false;
     }
 }
+
+//检查密码是否符合规范
+function checkSecretNumber(value) {
+    let secretNumberReg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{8,}/
+    if (secretNumberReg.test(value)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 const getCode = () => {
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
@@ -82,11 +96,16 @@ const getCode = () => {
     }
 }
 
-const getLogin = () => {
-    if (!loginToken) {
-        console.log("先发送二维码认证吧");
-    }
-}
+// const getRegister = () => {
+//     //手机号验证码密码符合要求
+
+//     //电话
+//     if (!checkphoneNumberSize(loginContent.phoneNumber)) {
+//         console.log("电话号码不合规");
+
+//         //密码
+//     } else if ()
+// }
 
 //获取短信验证码
 // async getCode() {
