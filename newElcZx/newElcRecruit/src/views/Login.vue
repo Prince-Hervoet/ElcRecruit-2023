@@ -47,7 +47,7 @@ const alreadyLogin = true;
 
 const loginContent = reactive({
     phoneNumber: "",
-    secret: "",
+    secretNumber: "",
     check: "",
 });
 
@@ -69,7 +69,7 @@ function checkphoneNumberSize(value) {
 
 //检查密码是否符合规范
 function checkSecretNumber(value) {
-    let secretNumberReg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{8,}/
+    let secretNumberReg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{6,}/
     if (secretNumberReg.test(value)) {
         return true;
     } else {
@@ -94,16 +94,18 @@ const getCode = () => {
     }
 }
 
-// const getRegister = () => {
-//     //手机号验证码密码符合要求
+const getRegister = () => {
+    //手机号验证码密码符合要求
 
-//     //电话
-//     if (!checkphoneNumberSize(loginContent.phoneNumber)) {
-//         console.log("电话号码不合规");
+    //电话
+    if (!checkphoneNumberSize(loginContent.phoneNumber)) {
+        console.log("电话号码不合规");
 
-//         //密码
-//     } else if ()
-// }
+        //密码
+    } else if (!checkSecretNumber(loginContent.secretNumber)) {
+        console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符），请及时修改密码！");
+    }
+}
 
 //获取短信验证码
 // async getCode() {
