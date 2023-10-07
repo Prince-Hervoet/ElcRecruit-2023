@@ -8,9 +8,8 @@ import { DEFAULT_PAGE_LIMIT } from "../../../requests/util";
 
 export default function DataHostLeftList() {
   const [selectId, setSelectId] = useState(0);
-  const clickSelect = (event) => {
-    if (!event.target.id) return;
-    const targetId = parseInt(event.target.id);
+  const clickSelect = (id) => {
+    const targetId = parseInt(id);
     GdataHostCardListStore.setCurrentDepId(targetId);
     setSelectId(targetId);
   };
@@ -29,7 +28,7 @@ export default function DataHostLeftList() {
         className={selectId === value.id ? selectClassName : defaultClassName}
         id={value.id}
         key={value.id}
-        onClick={clickSelect}
+        onClick={() => clickSelect(value.id)}
       >
         <div>{value.name}</div>
       </div>
