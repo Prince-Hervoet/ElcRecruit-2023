@@ -39,12 +39,12 @@
                         :arr="depInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
-                <div>
+                <div class="myTextareaBox">
                     <MyTextarea id="introduction" header-name="自我介绍 *" :value="studentInfo.introduction"
                         @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
-                <div>
+                <div class="myTextareaBox">
                     <MyTextarea id="skills" header-name="掌握技能" :value="studentInfo.skills" @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
@@ -187,6 +187,10 @@ const clickSubmitForm = async () => {
 .postInfo-table>div {
     margin-bottom: 30px;
     height: 50px;
+}
+
+.postInfo-table>.myTextareaBox {
+    margin-bottom: 90px;
 }
 
 .postInfo-button-container {

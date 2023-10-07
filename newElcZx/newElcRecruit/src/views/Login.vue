@@ -53,6 +53,7 @@ const CheckLoginButton = () => {
         .then(function (response) {
             console.log(response);
             loginToken = response.data.accessToken;
+            console.log(loginToken);
         })
         .catch(function (error) {
             console.log(error);
