@@ -1,4 +1,3 @@
-
 <template>
     <div class="login-body">
         <div class="perch">
@@ -24,10 +23,10 @@
 
         </div>
         <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button>
+        <button class="vcode-button" @click="getRegister">注册</button>
         <button class="login-button" @click="getLogin">登录</button>
 
         <div class="login-content-bottom-body">
-            <div class="small-explain"> 忘记密码 | 重新发送验证码</div>
             <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
             </div>
             <div class="divider"></div>
@@ -132,6 +131,7 @@ const getRegister = () => {
 // }
 
 </script>
+
 
 <style scoped>
 .login-body {
