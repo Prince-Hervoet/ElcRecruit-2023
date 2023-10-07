@@ -8,10 +8,11 @@
         </div>
 
         <div class="login-content-body">
-            <div>
+            <div class="pho">
                 <MyInput header-name="手机号码" id="phoneNumber" :value="loginContent.phoneNumber" @on-change="setLoginInfo">
                 </MyInput>
             </div>
+
             <div>
                 <MyInput header-name="密码" id="password" :value="loginContent.password" @on-change="setLoginInfo">
                 </MyInput>
@@ -20,13 +21,13 @@
                 <MyInput header-name="验证码" id="code" v-if="alreadyLogin" :value="loginContent.code"
                     @on-change="setLoginInfo"></MyInput>
             </div>
-
+            <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button>
         </div>
-        <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button>
-        <button class="vcode-button" @click="getRegister">注册</button>
-        <button class="login-button" @click="getLogin">登录</button>
+        <!-- <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button> -->
+        <button class="login-button" @click="getRegister">注册</button>
 
         <div class="login-content-bottom-body">
+            <div class="small-explain"> 我已经注册 | 前往登录 </div>
             <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
             </div>
             <div class="divider"></div>
@@ -107,8 +108,6 @@ const getRegister = () => {
         axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`)
             .then(function (response) {
                 console.log(response);
-                alreadyLogin = !alreadyLogin;
-                console.log(alreadyLogin);
             })
             .catch(function (error) {
                 console.log(error);
@@ -182,6 +181,10 @@ const getRegister = () => {
     margin-bottom: 20px;
 }
 
+/* .login-content-body>.pho {
+    margin-bottom: 100px;
+} */
+
 .myInput-header {
     height: 20px;
     padding: 2px;
@@ -233,20 +236,23 @@ const getRegister = () => {
 }
 
 .vcode-button {
-    background-color: rgb(54, 62, 209);
-    border-radius: 6px;
-    width: 100%;
-    height: 40px;
-    font-weight: bold;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.5em;
+    display: block;
+    margin-bottom: 10px;
+    background-color: rgb(255, 255, 255);
+    width: 100px;
     outline: 0;
     border: 0;
     transition: all 0.2s;
     cursor: pointer;
+    font-family: "楷体";
+    text-align: center;
+    font-size: 1.3em;
+    color: rgb(45, 140, 240);
+    margin: auto;
+}
+
+.vcode-button:hover {
+    color: rgba(209 54 57);
 }
 
 .login-button:active {
