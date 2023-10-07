@@ -17,19 +17,12 @@
                 <MyInput header-name="密码" id="password" :value="loginContent.password" @on-change="setLoginInfo">
                 </MyInput>
             </div>
-            <div>
-                <MyInput header-name="验证码" id="code" v-if="alreadyLogin" :value="loginContent.code"
-                    @on-change="setLoginInfo"></MyInput>
-            </div>
 
+            <button class="login-button" @click="getLogin">登录</button>
         </div>
-        <!-- <button class="vcode-button" @click="getCode">获取验证码</button> -->
-        <button class="login-button" @click="getLogin">登录</button>
 
         <div class="login-content-bottom-body">
             <div class="small-explain"> <button @click="getCode" class="toCode">忘记密码 | 重新发送验证码</button></div>
-            <!-- <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
-            </div> -->
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
@@ -119,7 +112,6 @@ function checkphoneNumberSize(value) {
     }
 }
 
-
 .login-topic {
     color: rgb(70, 69, 69);
     font-family: "楷体";
@@ -182,23 +174,7 @@ function checkphoneNumberSize(value) {
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-    outline: 0;
-    border: 0;
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-.vcode-button {
-    background-color: rgb(54, 62, 209);
-    border-radius: 6px;
-    width: 100%;
-    height: 40px;
-    font-weight: bold;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.5em;
+    margin-bottom: 50px;
     outline: 0;
     border: 0;
     transition: all 0.2s;
@@ -209,9 +185,6 @@ function checkphoneNumberSize(value) {
     background-color: rgb(227, 227, 227);
 }
 
-.vcode-button:active {
-    background-color: rgb(227, 227, 227);
-}
 
 .login-content-bottom-body {
     position: fixed;
