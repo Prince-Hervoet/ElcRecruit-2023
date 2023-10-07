@@ -27,9 +27,10 @@
         <button class="login-button" @click="getRegister">注册</button>
 
         <div class="login-content-bottom-body">
-            <div class="small-explain"> 我已经注册 | 前往登录 </div>
-            <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
-            </div>
+            <div class="small-explain"> <router-link to="/Login">我已经注册 , 前往登录</router-link> </div>
+            <!-- <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
+
+            </div> -->
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>

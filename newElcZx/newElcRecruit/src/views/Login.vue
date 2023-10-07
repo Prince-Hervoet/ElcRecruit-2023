@@ -23,13 +23,13 @@
             </div>
 
         </div>
-        <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button>
+        <!-- <button class="vcode-button" @click="getCode">获取验证码</button> -->
         <button class="login-button" @click="getLogin">登录</button>
 
         <div class="login-content-bottom-body">
-            <div class="small-explain"> 忘记密码 | 重新发送验证码</div>
-            <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
-            </div>
+            <div class="small-explain"> <button @click="getCode" class="toCode">忘记密码 | 重新发送验证码</button></div>
+            <!-- <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
+            </div> -->
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
@@ -43,7 +43,7 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 let loginToken = "";
 const second = 60;
-const alreadyLogin = ref(true);
+const alreadyLogin = ref(false);
 
 const loginContent = reactive({
     phoneNumber: "",
@@ -57,26 +57,6 @@ const setLoginInfo = (data) => {
     }
 };
 
-//检查手机号是否合适规范
-function checkphoneNumberSize(value) {
-    let phoneNumberReg = /^[1][3458][0-9]{9}$/;
-    if (phoneNumberReg.test(value)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//检查密码是否符合规范
-function checkpassword(value) {
-    let passwordReg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{6,}/
-    if (passwordReg.test(value)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 const getCode = () => {
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
@@ -84,6 +64,7 @@ const getCode = () => {
         axios.get(`http://139.159.220.241:8081/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`)
             .then(function (response) {
                 console.log(response);
+                alreadyLogin.value = !alreadyLogin.value;
             })
             .catch(function (error) {
                 console.log(error);
@@ -93,32 +74,15 @@ const getCode = () => {
         console.log("错");
     }
 }
-
-const getRegister = () => {
-    //手机号验证码密码符合要求
-
-    //电话错误
-    if (!checkphoneNumberSize(loginContent.phoneNumber)) {
-        console.log("电话号码不合规");
-
-        //密码错误
-    } else if (!checkpassword(loginContent.password)) {
-        console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符），请及时修改密码！");
+//检查手机号是否合适规范
+function checkphoneNumberSize(value) {
+    let phoneNumberReg = /^[1][3458][0-9]{9}$/;
+    if (phoneNumberReg.test(value)) {
+        return true;
     } else {
-        axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`)
-            .then(function (response) {
-                console.log(response);
-                alreadyLogin = !alreadyLogin;
-                console.log(alreadyLogin);
-            })
-            .catch(function (error) {
-                console.log(error);
-                // console.log(loginContent.phoneNumber);
-            });
-
+        return false;
     }
 }
-
 //获取短信验证码
 // async getCode() {
 //     console.log(loginContent.phoneNumber);
@@ -280,5 +244,17 @@ const getRegister = () => {
 .small-intro {
     font-family: "楷体";
     text-align: center;
+}
+
+.toCode {
+    border: none;
+    outline: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    color: rgb(45, 140, 240);
+}
+
+.toCode:hover {
+    color: rgba(209 54 57);
 }
 </style>
