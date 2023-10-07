@@ -10,14 +10,20 @@
 
         <div class="login-content-body">
             <div>
-                <MyInput header-name="手机号码" id="phone" :value="loginContent.phone" @on-change="setLoginInfo"></MyInput>
+                <MyInput header-name="手机号码" id="phoneNumber" :value="loginContent.phoneNumber" @on-change="setLoginInfo">
+                </MyInput>
             </div>
             <div>
-                <MyInput header-name="验证码" id="check" :value="loginContent.check" @on-change="setLoginInfo"></MyInput>
+                <MyInput header-name="密码" id="secret" :value="loginContent.secret" @on-change="setLoginInfo"></MyInput>
             </div>
+            <div>
+                <MyInput header-name="验证码" id="check" v-if="alreadyLogin" :value="loginContent.check"
+                    @on-change="setLoginInfo"></MyInput>
+            </div>
+
         </div>
-        <button class="vcode-button" @click="CheckLoginButton">发送验证码</button>
-        <router-link to="/NewWelcome"><button class="login-button">登录</button></router-link>
+        <button class="vcode-button" @click="getCode">获取验证码</button>
+        <router-link to="/NewWelcome"><button class="login-button" @click="getLogin">登录</button></router-link>
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
             </div>
@@ -33,9 +39,12 @@ import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { reactive } from "vue";
 let loginToken = "";
+const second = 60;
+const alreadyLogin = true;
 
 const loginContent = reactive({
-    phone: "",
+    phoneNumber: "",
+    secret: "",
     check: "",
 });
 
@@ -46,41 +55,51 @@ const setLoginInfo = (data) => {
 };
 
 //检查手机号是否合适规范
-function checkphoneSize(value) {
-    return value.length === 11;
-};
+function checkphoneNumberSize(value) {
+    let phoneNumberReg = /^[1][3458][0-9]{9}$/;
+    if (phoneNumberReg.test(value)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+const getCode = () => {
+    if (checkphoneNumberSize(loginContent.phoneNumber)) {
+        console.log("正确");
+        //todo发送验证码审核
+        axios.post('http://139.159.220.241:8081/elc_recruit/student/send_verification_code', {
+            phoneNumber: loginContent.phoneNumber,
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+                // console.log(loginContent.phoneNumber);
+            });
+    } else {
+        console.log("错");
+    }
+}
+
+const getLogin = () => {
+    if (!loginToken) {
+        console.log("先发送二维码认证吧");
+    }
+}
 
 //获取短信验证码
 // async getCode() {
-//     console.log(loginContent.phone);
+//     console.log(loginContent.phoneNumber);
 //     let res = await http.$axios({
 //         url: "/api/code",
 //         method: "POST",
 //         data: {
-//             phone: this.phone,
+//             phoneNumber: this.phoneNumber,
 //         },
 //     });
 // }
-const CheckLoginButton = () => {
-    if (!checkphoneSize(loginContent.phone)) {
-        console.log("电话号码输入不规范");
-        // getCode(loginContent.phone)
-    } else {
-        //todo发送验证码审核
-        //     axios.post('/user', {
-        //         phone: "string",
-        //         check: "string",
-        //     })
-        //         .then(function (response) {
-        //             console.log(response);
-        //             loginToken = response.data.accessToken;
-        //             console.log(loginToken);
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-    }
-}
+
 </script>
 
 <style scoped>
@@ -90,8 +109,6 @@ const CheckLoginButton = () => {
     margin: auto;
     user-select: none;
 }
-
-
 
 .perch {
     height: 130px;
