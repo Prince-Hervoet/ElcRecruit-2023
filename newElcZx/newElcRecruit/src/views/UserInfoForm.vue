@@ -11,7 +11,8 @@
                     <MyInput id="name" header-name="您的姓名 *" :value="studentInfo.name" @onChange="setUserInfo"></MyInput>
                 </div>
                 <div>
-                    <MyInput id="studentId" header-name="您的学号 *" :value="studentInfo.studentNumber" @onChange="setUserInfo">
+                    <MyInput id="studentNumber" header-name="您的学号 *" :value="studentInfo.studentNumber"
+                        @onChange="setUserInfo">
                     </MyInput>
                 </div>
                 <div>
@@ -122,38 +123,41 @@ function checkStuId(value) {
 }
 
 const clickSubmitForm = async () => {
-    axios.post('/user', {
-        name: "",
-        studentNumber: "",
-        college: "",
-        grade: "",
-        phone: "",
-        firstDepartment: "",
-        secondDepartment: "",
-        introduction: "",
-        qq: "",
-        skills: "",
-    })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log("搞错了" + error);
-        });
-    if (
-        !hasNullContent(
-            studentInfo.name,
-            studentInfo.grade,
-            studentInfo.college,
-            studentInfo.firstDepartment,
-            studentInfo.introduction
-        ) &&
-        checkStuId(studentInfo.studentNumber) &&
-        checkphoneSize(studentInfo.phone)
+    if (true
+        // !hasNullContent(
+        //     studentInfo.name,
+        //     studentInfo.grade,
+        //     studentInfo.college,
+        //     studentInfo.firstDepartment,
+        //     studentInfo.introduction
+        // ) &&
+        // checkStuId(studentInfo.studentNumber) &&
+        // checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
+        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit', {
+            id: '',
+            name: studentInfo.name,
+            studentNumber: studentInfo.studentNumber,
+            college: studentInfo.college,
+            grade: studentInfo.grade,
+            phone: studentInfo.phone,
+            firstDepartment: studentInfo.firstDepartment,
+            secondDepartment: studentInfo.secondDepartment,
+            introduction: studentInfo.introduction,
+            qq: studentInfo.qq,
+            skills: studentInfo.skills,
+            state: 10
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     } else {
         console.log("出错啦");
+        console.log(studentInfo.studentNumber);
     }
 };
 </script>
