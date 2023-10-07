@@ -81,9 +81,7 @@ const getCode = () => {
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
         //todo发送验证码审核
-        axios.post('http://139.159.220.241:8081/elc_recruit/student/send_verification_code', {
-            phoneNumber: loginContent.phoneNumber,
-        })
+        axios.get(`http://139.159.220.241:8081/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`)
             .then(function (response) {
                 console.log(response);
             })
