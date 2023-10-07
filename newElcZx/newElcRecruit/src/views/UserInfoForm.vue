@@ -133,13 +133,12 @@ const clickSubmitForm = async () => {
         introduction: "",
         qq: "",
         skills: "",
-
     })
         .then(function (response) {
             console.log(response);
         })
         .catch(function (error) {
-            console.log(error);
+            console.log("搞错了" + error);
         });
     if (
         !hasNullContent(
