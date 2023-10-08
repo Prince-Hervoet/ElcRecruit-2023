@@ -7,14 +7,23 @@ import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntros from "./views/DepIntros.vue";
 import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
+import ForgetPassword from "./views/ForgetPassword.vue";
 const routes = [
   {
     path: "/",
-    component: Stepper,
+    component: Login,
   },
   {
     path: "/login",
     component: Login,
+  },
+  {
+    path: "/register",
+    component: Register,
+  },
+  {
+    path: "/forgetPassword",
+    component: ForgetPassword,
   },
   {
     path: "/stepper",
