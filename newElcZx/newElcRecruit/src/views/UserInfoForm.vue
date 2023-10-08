@@ -126,16 +126,16 @@ function checkStuId(value) {
 }
 // axios.defaults.headers['token'] = localStorage.getItem("token");
 const clickSubmitForm = async () => {
-    if (true
-        // !hasNullContent(
-        //     studentInfo.name,
-        //     studentInfo.grade,
-        //     studentInfo.college,
-        //     studentInfo.firstDepartment,
-        //     studentInfo.introduction
-        // ) &&
-        // checkStuId(studentInfo.studentNumber) &&
-        // checkphoneSize(studentInfo.phone)
+    if (
+        !hasNullContent(
+            studentInfo.name,
+            studentInfo.grade,
+            studentInfo.college,
+            studentInfo.firstDepartment,
+            studentInfo.introduction
+        ) &&
+        checkStuId(studentInfo.studentNumber) &&
+        checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
         axios.post('http://139.159.220.241:8081/elc_recruit/student/commit', {

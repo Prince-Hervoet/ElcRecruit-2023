@@ -26,7 +26,7 @@
 
         </div>
 
-
+        <button @click="queryStep">点我查询进度</button>
     </div>
 </template>
 
@@ -48,6 +48,9 @@ const userStatusList = [
 const current = ref(0);
 const userStatus = ref("无");
 
+const queryStep = () => {
+
+}
 const getUserInfo = () => {
 
 }

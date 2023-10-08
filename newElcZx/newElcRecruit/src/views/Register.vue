@@ -21,13 +21,13 @@
                 <MyInput header-name="验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
             </div>
             <button class="vcode-button" v-if="requestCode" @click="getCode">{{ code }}</button>
-            <p style="text-align: center; width: 200px;" v-if="timing">
+            <div class="time" v-if="timing">
                 <Row>
                     <Col span="12">
                     <CountDown :target="loginContent.targetTime2" @on-end="handleEnd" v-font="20" />
                     </Col>
                 </Row>
-            </p>
+            </div>
         </div>
         <!-- <button class="vcode-button" v-if="requestCode" @click="getCode">获取验证码</button> -->
         <button class="login-button" @click="getRegister">注册</button>
@@ -46,6 +46,18 @@
 </template>
 
 <script setup>
+//如果请求通过了，推进下一步
+// if (res.data.success) {
+//     // const processState = res.data.data[res.data.data.length - 1].processState;
+//     //循环遍历process（流程），state(新生通过与否的值)
+//     for (let i = 0; i < res.data.data.length; i++) {
+//         const e = res.data.data[i];
+//         let process = e.processState;
+//         let state = e.state;
+//         console.log("process: " + process + ", state: " + state);
+//     }
+
+// }
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
@@ -127,7 +139,7 @@ const getRegister = () => {
 
         //密码错误
     } else if (!checkpassword(loginContent.password)) {
-        console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符），请及时修改密码！");
+        console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
         axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
             { headers: { Authorization: ` ${token}` } },)
