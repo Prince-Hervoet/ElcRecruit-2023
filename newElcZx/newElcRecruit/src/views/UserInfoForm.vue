@@ -64,7 +64,8 @@ import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import axios from "axios";
 import Register from "./Register.vue";
-let token = localStorage.getItem("token");
+// let token = localStorage.getItem("token");
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo";
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -137,40 +138,46 @@ const clickSubmitForm = async () => {
         // checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
-        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit',
+        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit', {
+            id: '',
+            name: studentInfo.name,
+            studentNumber: studentInfo.studentNumber,
+            college: studentInfo.college,
+            grade: studentInfo.grade,
+            phone: studentInfo.phone,
+            firstDepartment: studentInfo.firstDepartment,
+            secondDepartment: studentInfo.secondDepartment,
+            introduction: studentInfo.introduction,
+            qq: studentInfo.qq,
+            skills: studentInfo.skills,
+            state: 10,
+        },
             {
                 headers: {
+                    accept: "text/plain",
                     "content-type": "application/json",
-                    "authorization": "Bearer " + token
+                    Authorization: `Bearer ${token}`,
                 }
-            },
-            {
-                id: '',
-                name: studentInfo.name,
-                studentNumber: studentInfo.studentNumber,
-                college: studentInfo.college,
-                grade: studentInfo.grade,
-                phone: studentInfo.phone,
-                firstDepartment: studentInfo.firstDepartment,
-                secondDepartment: studentInfo.secondDepartment,
-                introduction: studentInfo.introduction,
-                qq: studentInfo.qq,
-                skills: studentInfo.skills,
-                state: 10,
-            })
+            }
+        )
             .then((res) => {
                 console.log(res);
                 console.log(res.headers);
             })
             .catch(function (error) {
                 console.log(error);
-                console.log(token);
+                console.log(`Bearer ${token}`);
             });
     } else {
         console.log("出错啦");
         console.log(studentInfo.studentNumber);
     }
 };
+
+/*
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo
+*/
 </script>
 
 <style scoped>
