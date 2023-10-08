@@ -10,7 +10,9 @@ public interface IUserService<in TUser> where TUser : class
 {
     Task<TokenResult> RegisterAsync(string username, string password);
     Task<TokenResult> WeChatLoginAsync(string id);
+    Task<TokenResult> RegisterStudentAsync(string phoneNumber, string password);
     Task<TokenResult> LoginAsync(string username, string password);
+    Task<EditResult> ResetPasswordAsync(string username, string newPassword);
     Task<TokenResult> WeChatRegisterAsync();
     Task<ExternalLoginInfo?> GetExternalLoginInfoAsync();
     Task<SignInResult> ExternalLoginSignInAsync(ExternalLoginInfo info);

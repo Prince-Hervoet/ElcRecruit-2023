@@ -49,9 +49,9 @@ public class RootController : ControllerBase
         }
         catch (Exception e)
         {
-            return Ok(new RootControllerResponses
+            return Ok(new RootControllerResults
             {
-                ErrorMessage = new[] { e.Message },
+                ErrorMessages = new[] { e.Message },
                 Data = null
             });
         }

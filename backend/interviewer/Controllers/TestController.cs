@@ -40,5 +40,43 @@ namespace interviewer.Controllers
             
             return Ok($"Hello {user.UserName}!");
         }
+        
+        [HttpGet("delete_user")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user is null)
+            {
+                return Ok("Hello Guest!");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok("User deleted!");
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+        [HttpGet("delete_user_by_name")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUserByName(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            if (user is null)
+            {
+                return Ok("User not found!");
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok("User deleted!");
+            }
+
+            return BadRequest(result.Errors);
+        }
     }
 }
