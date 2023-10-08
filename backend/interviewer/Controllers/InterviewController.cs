@@ -128,12 +128,12 @@ namespace interviewer.Controllers
                 ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentUserId)
                 ?.FirstDepartment;
-            if (interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
-                return Unauthorized(new
-                {
-                    success = false,
-                    errors = new string[] { "不能对其他部门的面试者提交评价" }
-                });
+            // if (interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
+            //     return Unauthorized(new
+            //     {
+            //         success = false,
+            //         errors = new string[] { "不能对其他部门的面试者提交评价" }
+            //     });
             comment.DepId = studentDepartment;
             _dbContext.Comments?.Add(comment);
             _dbContext.SaveChanges();
@@ -144,11 +144,24 @@ namespace interviewer.Controllers
             [Required] ElcDepartment targetDepId);
 
         [HttpPost("transfer_student")]
+        [Authorize(Roles = "Interviewer")]
         public IActionResult TransferStudent([Required] TransferStudentParms p)
         {
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.studentId);
             //TODO
             throw new NotImplementedException();
+        }
+        
+        [HttpGet("get_search_brief_info")]
+        [Authorize(Roles = "Interviewer")]
+        public IActionResult GetSearchBriefInfo([Required] string keyword,ElcDepartment depId = ElcDepartment.All)
+        {
+            var students = _dbContext.Students?.Where(s => (depId == ElcDepartment.All || s.FirstDepartment == depId) && (s.Name.StartsWith(keyword) || s.StudentNumber.StartsWith(keyword)));
+            return Ok(new
+            {
+                success = true,
+                data = students
+            });
         }
     }
 }
