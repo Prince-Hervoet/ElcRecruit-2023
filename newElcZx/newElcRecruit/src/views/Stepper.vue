@@ -1,16 +1,18 @@
 <template>
     <div class="progress-body">
-        <div class="progress-title-body"><span style="font-style: italic;">Progress</span> </div>
+        <div class="progress-title-body">
+            <span style="font-style: italic">Progress</span>
+        </div>
         <div class="progress-content-body">
             <div class="progress-content-group-body">
                 <div class="progress-content-card-body">
                     <Card :shadow="false" :padding="20">
-                        <template #title>我的申请</template>
-                        <p>当前所处状态: </p>
+                        <template #title>申请(第一志愿会根据情况进行内部调整)</template>
+                        <p>当前所处状态: {{ userStatusStr }}</p>
                         <p>&nbsp;</p>
-                        <p>第一志愿部门: </p>
+                        <p>第一志愿部门: {{ firstDepName }}</p>
                         <p>&nbsp;</p>
-                        <p>第二志愿部门: </p>
+                        <p>第二志愿部门: {{ secondDepName }}</p>
                     </Card>
                 </div>
                 <div class="progress-main-body">
@@ -23,7 +25,6 @@
                     </Steps>
                 </div>
             </div>
-
         </div>
 
         <button @click="queryStep">点我查询进度</button>
@@ -31,30 +32,78 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, } from 'vue';
-//正常通过面试进度条的名称
-const titles = reactive({
+import { ref, onMounted } from "vue";
+import { IdToDepName } from "../global.js";
+import { ServiceUrls } from "../requests/util.js";
+import axios from "axios";
+
+const titles = {
     partZero: "报名阶段",
     partOne: "一面阶段",
     partTwo: "笔试阶段",
     partThree: "二面阶段",
     partFour: "招新结束",
-})
+};
 
 const userStatusList = [
-    "报名中", "一面中", "笔试中", "二面中", "已录用", "已淘汰"
+    "报名中",
+    "一面中",
+    "笔试中",
+    "二面中",
+    "已录用",
+    "已淘汰",
 ];
 
 const current = ref(0);
-const userStatus = ref("无");
+const userStatusStr = ref("无");
+const firstDepName = ref("");
+const secondDepName = ref("");
 
-const queryStep = () => {
+const getProcess = async () => {
+    const url = ServiceUrls.getProcess;
+    try {
+        const res = await axios({
+            method: "GET",
+            url,
+        });
+        if (res.data) {
+            const processData = res.data.data[0];
+            const { processState, state } = processData;
+            current.value = processState;
+            if (state === 60) {
+                userStatusStr.value = userStatusList[5];
+            } else {
+                userStatusStr.value = userStatusList[processState];
+            }
+        }
+    } catch (e) {
+        alert("请检查登录状态和网络情况");
+    }
+};
 
-}
-const getUserInfo = () => {
+const getUserInfo = async () => {
+    const url = ServiceUrls.getInfo;
+    try {
+        const res = await axios({
+            method: "GET",
+            url,
+        });
+        if (res.data) {
+            const userInfo = res.data.data;
+            console.log(userInfo);
+            const { firstDepartment, secondDepartment } = userInfo;
+            firstDepName.value = IdToDepName[firstDepartment];
+            secondDepName.value = IdToDepName[secondDepartment];
+        }
+    } catch (e) {
+        alert("请检查登录状态和网络情况");
+    }
+};
 
-}
-
+onMounted(() => {
+    getProcess();
+    getUserInfo();
+});
 </script>
 
 <style scoped>
@@ -104,7 +153,7 @@ const getUserInfo = () => {
 
 .progress-content-group-body {}
 
-@media screen and (min-width:800px) {
+@media screen and (min-width: 800px) {
     .progress-content-group-body {
         max-width: 650px;
     }

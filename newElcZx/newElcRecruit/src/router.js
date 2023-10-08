@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Welcome from "./views/Welcome.vue";
 import Stepper from "./views/Stepper.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
@@ -7,7 +6,11 @@ import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntros from "./views/DepIntros.vue";
 import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
+<<<<<<< HEAD
 import ForgetPassword from "./views/ForgetPassword.vue";
+=======
+
+>>>>>>> 84fe03d11ea6bfa86a8f636a851719f8b2772da2
 const routes = [
   {
     path: "/",
@@ -35,14 +38,6 @@ const routes = [
   },
   {
     path: "/welcome",
-    component: Welcome,
-  },
-  {
-    path: "/Newwelcome",
-    component: NewWelcome,
-  },
-  {
-    path: "/Newwelcome",
     component: NewWelcome,
   },
   {
@@ -53,6 +48,10 @@ const routes = [
   {
     path: "/knowElc",
     component: KnowElc,
+  },
+  {
+    path: "/register",
+    component: Register,
   },
 ];
 

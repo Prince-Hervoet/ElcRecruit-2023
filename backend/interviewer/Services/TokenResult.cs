@@ -1,11 +1,11 @@
-﻿namespace interviewer.Services
+﻿using interviewer.Data;
+using interviewer.Responses;
+
+namespace interviewer.Services
 {
     // TokenResult 定义
-    public class TokenResult
+    public class TokenResult : Result
     {
-        public bool Success => Errors == null || !Errors.Any();
-        public IEnumerable<string> Errors { get; set; }
-
         public string AccessToken { get; set; }
         public string TokenType { get; set; }
     }

@@ -5,4 +5,6 @@ export const BASE_URL = "";
  */
 export const ServiceUrls = {
   login: `${BASE_URL}/xxx/login`,
+  getInfo: `/elc_recruit/student/get_info`,
+  getProcess: `/elc_recruit/student/get_process`,
 };
