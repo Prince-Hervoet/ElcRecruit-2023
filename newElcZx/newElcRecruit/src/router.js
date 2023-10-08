@@ -7,6 +7,11 @@ import DepIntros from "./views/DepIntros.vue";
 import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
 import ForgetPassword from "./views/ForgetPassword.vue";
+<<<<<<< HEAD
+=======
+import Welcome from "./views/Welcome.vue";
+
+>>>>>>> 41894941e53d50413784723432684f0910d5b67f
 const routes = [
   {
     path: "/",

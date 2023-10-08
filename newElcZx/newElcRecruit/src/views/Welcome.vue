@@ -78,9 +78,10 @@
 </template>
 
 <style scoped>
-.welcome-contain {
+.welcome-container {
     width: 100%;
     height: 100%;
+    background-color: red;
 }
 
 .welcome-content-container {
