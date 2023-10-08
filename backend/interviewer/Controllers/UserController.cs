@@ -1,14 +1,13 @@
-﻿using interviewer.Requests;
+﻿using System.ComponentModel.DataAnnotations;
+using interviewer.Requests;
 using interviewer.Responses;
 using interviewer.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Text.Json;
 using interviewer.Data;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.DataProtection;
+using StackExchange.Redis;
+using TokenResult = interviewer.Responses.TokenResult;
 
 namespace interviewer.Controllers
 {
@@ -24,15 +23,18 @@ namespace interviewer.Controllers
         private readonly ILogger _logger;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly IMessageService _messageService;
 
         public UserController(IUserService<InterviewerUser> userService, IHttpContextAccessor contextAccessor,
-            ILogger<UserController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+            ILogger<UserController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration,
+            IMessageService messageService)
         {
             _userService = userService;
             _contextAccessor = contextAccessor;
             _logger = logger;
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _messageService = messageService;
         }
 
         [HttpPost("Register")]
@@ -41,13 +43,13 @@ namespace interviewer.Controllers
             var result = await _userService.RegisterAsync(request.UserName, request.Password);
             if (!result.Success)
             {
-                return BadRequest(new FailedResponse()
+                return BadRequest(new FailedResult()
                 {
-                    Errors = result.Errors
+                    ErrorMessages = result.ErrorMessages
                 });
             }
 
-            return Ok(new TokenResponse
+            return Ok(new TokenResult
             {
                 AccessToken = result.AccessToken,
                 TokenType = result.TokenType
@@ -60,13 +62,13 @@ namespace interviewer.Controllers
             var result = await _userService.LoginAsync(request.UserName, request.Password);
             if (!result.Success)
             {
-                return Ok(new FailedResponse()
+                return Ok(new FailedResult()
                 {
-                    Errors = result.Errors
+                    ErrorMessages = result.ErrorMessages
                 });
             }
 
-            return Ok(new TokenResponse
+            return Ok(new TokenResult
             {
                 AccessToken = result.AccessToken,
                 TokenType = result.TokenType
@@ -80,11 +82,12 @@ namespace interviewer.Controllers
             var result = await _userService.AddToRoleAsync(request.Username, request.Password, request.Role);
             if (!result.Success)
             {
-                return BadRequest(new FailedResponse()
+                return BadRequest(new FailedResult()
                 {
-                    Errors = result.Errors
+                    ErrorMessages = result.ErrorMessages.ToArray()
                 });
             }
+
             return Ok();
         }
 
@@ -113,14 +116,14 @@ namespace interviewer.Controllers
             //TODO: sessionResponse.ErrorMessage
             if (sessionResponse is null || sessionResponse.ErrorCode != 0)
             {
-                var failResult = new TokenResult();
+                var failResult = new Services.TokenResult();
                 if (sessionResponse is not null)
                 {
-                    failResult.Errors = new[] { sessionResponse.ErrorMessage };
+                    failResult.ErrorMessages = new[] { sessionResponse.ErrorMessage };
                 }
                 else
                 {
-                    failResult.Errors = new[] { "WeChat session response is empty." };
+                    failResult.ErrorMessages = new[] { "WeChat session response is empty." };
                 }
 
                 return Ok(failResult);
@@ -130,6 +133,41 @@ namespace interviewer.Controllers
             var tokenResult = await _userService.WeChatLoginAsync(openId);
 
             return Ok(tokenResult);
+        }
+
+        [HttpGet("register_student")]
+        public async Task<IActionResult> RegisterStudent(
+            [RegularExpression(@"^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$",
+                ErrorMessage = "手机号格式不正确")]
+            string phoneNumber, string code, string password)
+        {
+            if (!await _messageService.VerifyCode(phoneNumber, code))
+            {
+                return Ok(new FailedResult()
+                {
+                    ErrorMessages = new[] { "验证码错误" }
+                });
+            }
+
+            Services.TokenResult tokenResult = await _userService.RegisterStudentAsync(phoneNumber, password);
+            return Ok(tokenResult);
+        }
+
+        [HttpPost("reset_password")]
+        public async Task<IActionResult> ResetPassword(
+            [RegularExpression(@"^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$",
+                ErrorMessage = "手机号格式不正确")]
+            string phoneNumber, string code, string password)
+        {
+            if (!await _messageService.VerifyCode(phoneNumber, code))
+            {
+                return Ok(new FailedResult()
+                {
+                    ErrorMessages = new[] { "验证码错误" }
+                });
+            }
+
+            return Ok(await _userService.ResetPasswordAsync("stu_" + phoneNumber, password));
         }
     }
 }

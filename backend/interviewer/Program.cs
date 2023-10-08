@@ -17,6 +17,11 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", policyBuilder =>
+    {
+        policyBuilder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+    }));
+
     builder.Services.AddHttpClient();
 
     builder.Services.AddControllers();
@@ -29,10 +34,19 @@ try
     if (jwtSettings is null)
         throw new Exception("JwtSettings is null");
     builder.Services.AddSingleton(jwtSettings);
+    
+    var messageSettings = builder.Configuration.GetSection(nameof(MessageSettings)).Get<MessageSettings>();
+    if(messageSettings is null)
+        throw new Exception("MessageSettings is null");
+
+    builder.Services.AddSingleton(messageSettings);
 
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
     builder.Services.AddScoped<IUserService<InterviewerUser>, UserService>();
+
+    //TODO: 非测试环境下更改！！
+    builder.Services.AddScoped<IMessageService, FakeMessageService>();
 
     var tokenValidationParameters = new TokenValidationParameters
     {
@@ -111,7 +125,7 @@ try
 
     app.UseRouting();
 
-    app.UseCors();
+    app.UseCors("CorsPolicy");
 
     app.UseAuthentication();
 

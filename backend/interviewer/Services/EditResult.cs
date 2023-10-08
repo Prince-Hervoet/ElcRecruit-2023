@@ -1,7 +1,7 @@
-﻿namespace interviewer.Services;
+﻿using interviewer.Data;
 
-public class EditResult
+namespace interviewer.Services;
+
+public class EditResult : Result
 {
-    public bool Success => Errors == null || !Errors.Any();
-    public IEnumerable<string> Errors { get; set; }
 }
