@@ -26,7 +26,6 @@ export const CollegeList = [
 // 部门选择对应表
 export const IdToDepName = {
   0: "总览表",
-  100: "调剂区",
   1: "维修部",
   2: "秘书部",
   3: "项目部",

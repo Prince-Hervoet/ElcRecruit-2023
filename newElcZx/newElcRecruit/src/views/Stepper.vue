@@ -1,6 +1,8 @@
 <template>
     <div class="progress-body">
-        <div class="progress-title-body"><span style="font-style: italic;">Progress</span> </div>
+        <div class="progress-title-body">
+            <span style="font-style: italic">Progress</span>
+        </div>
         <div class="progress-content-body">
             <div class="progress-content-group-body">
                 <div class="progress-content-card-body">
@@ -23,7 +25,6 @@
                     </Steps>
                 </div>
             </div>
-
         </div>
 
         <button @click="queryStep">点我查询进度</button>
@@ -31,10 +32,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, } from 'vue';
-import { IdToDepName } from "../global.js"
-import { ServiceUrls } from "../requests/util.js"
-import axios from 'axios';
+import { ref, onMounted } from "vue";
+import { IdToDepName } from "../global.js";
+import { ServiceUrls } from "../requests/util.js";
+import axios from "axios";
 
 const titles = {
     partZero: "报名阶段",
@@ -45,7 +46,12 @@ const titles = {
 };
 
 const userStatusList = [
-    "报名中", "一面中", "笔试中", "二面中", "已录用", "已淘汰"
+    "报名中",
+    "一面中",
+    "笔试中",
+    "二面中",
+    "已录用",
+    "已淘汰",
 ];
 
 const current = ref(0);
@@ -73,7 +79,7 @@ const getProcess = async () => {
     } catch (e) {
         alert("请检查登录状态和网络情况");
     }
-}
+};
 
 const getUserInfo = async () => {
     const url = ServiceUrls.getInfo;
@@ -92,14 +98,12 @@ const getUserInfo = async () => {
     } catch (e) {
         alert("请检查登录状态和网络情况");
     }
-}
+};
 
 onMounted(() => {
     getProcess();
     getUserInfo();
-})
-
-
+});
 </script>
 
 <style scoped>
@@ -149,7 +153,7 @@ onMounted(() => {
 
 .progress-content-group-body {}
 
-@media screen and (min-width:800px) {
+@media screen and (min-width: 800px) {
     .progress-content-group-body {
         max-width: 650px;
     }
