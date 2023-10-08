@@ -85,30 +85,30 @@ let isActive = ref(false);
 const goAhead = () => {
     isActive.value = !isActive.value;
     console.log("csc");
-    // //点击按钮请求查询后台面试进度
-    // wx.request({
-    //     url: "http://139.159.220.241:8081/elc_recruit/student/get_process",
-    //     method: "GET",
-    //     header: {
-    //         "content-type": "application/json", // 默认值
-    //         "Authorization": "Bearer " + loginToken
-    //     },
-    //     success(res) {
-    //         console.log(res);
-    //         //如果请求通过了，推进下一步
-    //         if (res.data.success) {
-    //             // const processState = res.data.data[res.data.data.length - 1].processState;
-    //             //循环遍历process（流程），state(新生通过与否的值)
-    //             for (let i = 0; i < res.data.data.length; i++) {
-    //                 const e = res.data.data[i];
-    //                 let process = e.processState;
-    //                 let state = e.state;
-    //                 console.log("process: " + process + ", state: " + state);
-    //             }
+    //点击按钮请求查询后台面试进度
+    wx.request({
+        url: "http://139.159.220.241:8081/elc_recruit/student/get_process",
+        method: "GET",
+        header: {
+            "content-type": "application/json", // 默认值
+            "Authorization": "Bearer " + loginToken
+        },
+        success(res) {
+            console.log(res);
+            //如果请求通过了，推进下一步
+            if (res.data.success) {
+                // const processState = res.data.data[res.data.data.length - 1].processState;
+                //循环遍历process（流程），state(新生通过与否的值)
+                for (let i = 0; i < res.data.data.length; i++) {
+                    const e = res.data.data[i];
+                    let process = e.processState;
+                    let state = e.state;
+                    console.log("process: " + process + ", state: " + state);
+                }
 
-    //         }
-    //     },
-    // });
+            }
+        },
+    });
 }
 
 </script>

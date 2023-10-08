@@ -9,20 +9,20 @@
 
         <div class="login-content-body">
             <div class="pho">
-                <MyInput header-name="手机号码" id="phoneNumber" :value="loginContent.phoneNumber" @on-change="setLoginInfo">
+                <MyInput header-name="请输入手机号码" id="phoneNumber" :value="loginContent.phoneNumber" @on-change="setLoginInfo">
                 </MyInput>
             </div>
 
             <div>
-                <MyInput header-name="密码" id="password" :value="loginContent.password" @on-change="setLoginInfo">
+                <MyInput header-name="请输入设置的新密码" id="password" :value="loginContent.password" @on-change="setLoginInfo">
                 </MyInput>
             </div>
             <div>
-                <MyInput header-name="验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
+                <MyInput header-name="请输入验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
             </div>
             <button class="vcode-button" v-if="requestCode" @click="getCode">{{ code }}</button>
             <div class="time" v-if="timing">
-                <Row>
+                <Row format="mat">
                     <Col span="12">
                     <CountDown :target="loginContent.targetTime2" @on-end="handleEnd" v-font="20" />
                     </Col>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <!-- <button class="vcode-button" v-if="requestCode" @click="getCode">获取验证码</button> -->
-        <button class="login-button" @click="getRegister">注册</button>
+        <button class="login-button" @click="getRegister">重置密码</button>
 
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/Login">我已经注册 , 前往登录</router-link> </div>
@@ -85,7 +85,9 @@ const setLoginInfo = (data) => {
         loginContent[data.id] = data.data;
     }
 };
+function mat() {
 
+}
 //检查手机号是否合适规范
 function checkphoneNumberSize(value) {
     let phoneNumberReg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
@@ -141,13 +143,9 @@ const getRegister = () => {
     } else if (!checkpassword(loginContent.password)) {
         console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
-        axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
-            { headers: { Authorization: ` ${token}` } },)
+        axios.post(`http://139.159.220.241:8081/elc_recruit/interviewer/reset_password?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,)
             .then((res) => {
                 console.log(res);
-                let token = res.data.accessToken
-                localStorage.setItem("token", token)
-                console.log(token);
             })
             .catch(function (error) {
                 console.log(error);
