@@ -6,6 +6,7 @@ import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntros from "./views/DepIntros.vue";
 import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
+import Welcome from "./views/Welcome.vue";
 
 const routes = [
   {
@@ -26,7 +27,7 @@ const routes = [
   },
   {
     path: "/welcome",
-    component: NewWelcome,
+    component: Welcome,
   },
   {
     path: "/depIntros/:depId",
