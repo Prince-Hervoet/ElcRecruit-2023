@@ -6,12 +6,7 @@ import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntros from "./views/DepIntros.vue";
 import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
-<<<<<<< HEAD
 import ForgetPassword from "./views/ForgetPassword.vue";
-=======
-import Welcome from "./views/Welcome.vue";
-
->>>>>>> 84fe03d11ea6bfa86a8f636a851719f8b2772da2
 const routes = [
   {
     path: "/",
@@ -38,8 +33,8 @@ const routes = [
     component: UserInfoForm,
   },
   {
-    path: "/welcome",
-    component: Welcome,
+    path: "/newWelcome",
+    component: NewWelcome,
   },
   {
     path: "/depIntros/:depId",
