@@ -9,11 +9,10 @@
 </template>
 
 <script setup>
-const props = defineProps(["headerName", "value"]);
+const props = defineProps(["id", "headerName", "value"]);
 const emit = defineEmits(["onChange"]);
-
 const handler = (event) => {
-  emit("onChange", event.target.value);
+  emit("onChange", { id: props.id, data: event.target.value });
 };
 </script>
 

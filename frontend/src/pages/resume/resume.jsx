@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 import "./resume.css";
-import { getUrlParam } from "../../util";
+import { getUrlParam } from "../../toolFuncs";
 import { ResumeRequest } from "../../requests/resumeRequest";
 import { CollegeObj, KeyToDepName } from "../../store/global";
 const { TextArea } = Input;
@@ -226,7 +226,7 @@ export default function Resume() {
               maxRows: 10,
             }}
             styles={{
-              fontSize: "larger",
+              fontSize: "16px",
             }}
             onChange={onChangeComment}
             value={comment}

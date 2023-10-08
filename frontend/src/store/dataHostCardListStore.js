@@ -8,16 +8,22 @@ class DataHostCardListStore {
 
   // 学生信息列表
   cardList = [];
+
   // 总数量
   total = 0;
+
   // 当前页码
   pageCount = 0;
+
   // 部门总人数列表
   depSizeList = [];
+
   // 是否进入loading状态
   isLoading = false;
+
   // 当前所属部门
   currentDepId = 0;
+
   // 递增请求id
   requestId = 0;
 

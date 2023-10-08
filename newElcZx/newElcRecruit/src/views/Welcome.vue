@@ -64,10 +64,6 @@ const clickGotoknow = () => {
   height: 100px;
   background-color: rgba(209 54 57);
   display: block;
-  /* margin-top: 80%; */
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   border-radius: 12px;
   color: #ffffff;
   transition: 0.1s all;
