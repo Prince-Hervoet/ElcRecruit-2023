@@ -18,12 +18,18 @@
                 </MyInput>
             </div>
             <div>
-                <MyInput header-name="验证码" id="code" v-if="alreadyLogin" :value="loginContent.code"
-                    @on-change="setLoginInfo"></MyInput>
+                <MyInput header-name="验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
             </div>
-            <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button>
+            <button class="vcode-button" v-if="requestCode" @click="getCode">{{ code }}</button>
+            <p style="text-align: center; width: 200px;" v-if="timing">
+                <Row>
+                    <Col span="12">
+                    <CountDown :target="loginContent.targetTime2" @on-end="handleEnd" v-font="20" />
+                    </Col>
+                </Row>
+            </p>
         </div>
-        <!-- <button class="vcode-button" v-if="alreadyLogin" @click="getCode">获取验证码</button> -->
+        <!-- <button class="vcode-button" v-if="requestCode" @click="getCode">获取验证码</button> -->
         <button class="login-button" @click="getRegister">注册</button>
 
         <div class="login-content-bottom-body">
@@ -35,6 +41,7 @@
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
 
+
     </div>
 </template>
 
@@ -44,13 +51,22 @@ import axios from "axios";
 import { ref, reactive } from "vue";
 let token = "";
 const second = 60;
-const alreadyLogin = ref(true);
-
+const requestCode = ref(true);
+const timing = ref(false);
+let code = "发送验证码"
 const loginContent = reactive({
     phoneNumber: "",
     password: "",
     code: "",
+    targetTime2: new Date().getTime() + 60000,
 });
+
+function handleEnd() {
+    console.log("重新发送验证码");
+    requestCode.value = !requestCode.value;
+    timing.value = !timing.value;
+    code = "重新发送验证码"
+}
 
 const setLoginInfo = (data) => {
     if (data && data.id) {
@@ -81,10 +97,17 @@ function checkpassword(value) {
 const getCode = () => {
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
+        requestCode.value = !requestCode.value;
+        timing.value = !timing.value;
         //todo发送验证码审核
         axios.get(`http://139.159.220.241:8081/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`)
-            .then(function (response) {
-                console.log(response);
+            .then((res) => {
+                console.log(res);
+                if (res.status === 200) {
+                    console.log("验证码发送成功");
+                } else {
+                    handleEnd
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -230,7 +253,7 @@ const getRegister = () => {
     display: block;
     margin-bottom: 10px;
     background-color: rgb(255, 255, 255);
-    width: 100px;
+    width: 200px;
     outline: 0;
     border: 0;
     transition: all 0.2s;

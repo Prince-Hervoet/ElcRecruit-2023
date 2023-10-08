@@ -123,7 +123,7 @@ function checkphoneSize(value) {
 function checkStuId(value) {
     return value.length === 10;
 }
-
+// axios.defaults.headers['token'] = localStorage.getItem("token");
 const clickSubmitForm = async () => {
     if (true
         // !hasNullContent(
@@ -141,7 +141,7 @@ const clickSubmitForm = async () => {
             {
                 headers: {
                     "content-type": "application/json",
-                    "Authorization": "Bearer" + token
+                    "authorization": "Bearer " + token
                 }
             },
             {
