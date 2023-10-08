@@ -80,7 +80,7 @@ const getCode = () => {
 }
 //检查手机号是否合适规范
 function checkphoneNumberSize(value) {
-    let phoneNumberReg = /^[1][3458][0-9]{9}$/;
+    let phoneNumberReg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
     if (phoneNumberReg.test(value)) {
         return true;
     } else {

@@ -10,7 +10,7 @@ import NewWelcome from "./views/NewWelcome.vue";
 const routes = [
   {
     path: "/",
-    component: Register,
+    component: UserInfoForm,
   },
   {
     path: "/login",

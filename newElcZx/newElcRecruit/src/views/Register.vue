@@ -60,7 +60,7 @@ const setLoginInfo = (data) => {
 
 //检查手机号是否合适规范
 function checkphoneNumberSize(value) {
-    let phoneNumberReg = /^[1][3458][0-9]{9}$/;
+    let phoneNumberReg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
     if (phoneNumberReg.test(value)) {
         return true;
     } else {
@@ -110,28 +110,16 @@ const getRegister = () => {
             { headers: { Authorization: ` ${token}` } },)
             .then((res) => {
                 console.log(res);
+                let token = res.data.accessToken
+                localStorage.setItem("token", token)
                 console.log(token);
             })
             .catch(function (error) {
                 console.log(error);
-                // console.log(loginContent.phoneNumber);
             });
 
     }
 }
-
-//获取短信验证码
-// async getCode() {
-//     console.log(loginContent.phoneNumber);
-//     let res = await http.$axios({
-//         url: "/api/code",
-//         method: "POST",
-//         data: {
-//             phoneNumber: this.phoneNumber,
-//         },
-//     });
-// }
-
 </script>
 
 

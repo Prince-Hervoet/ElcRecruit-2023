@@ -63,6 +63,8 @@ import MyInput from "../components/myInput/Input.vue";
 import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import axios from "axios";
+import Register from "./Register.vue";
+let token = localStorage.getItem("token");
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -135,25 +137,34 @@ const clickSubmitForm = async () => {
         // checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
-        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit', {
-            id: '',
-            name: studentInfo.name,
-            studentNumber: studentInfo.studentNumber,
-            college: studentInfo.college,
-            grade: studentInfo.grade,
-            phone: studentInfo.phone,
-            firstDepartment: studentInfo.firstDepartment,
-            secondDepartment: studentInfo.secondDepartment,
-            introduction: studentInfo.introduction,
-            qq: studentInfo.qq,
-            skills: studentInfo.skills,
-            state: 10
-        })
-            .then(function (response) {
-                console.log(response);
+        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit',
+            {
+                headers: {
+                    "content-type": "application/json",
+                    "Authorization": "Bearer" + token
+                }
+            },
+            {
+                id: '',
+                name: studentInfo.name,
+                studentNumber: studentInfo.studentNumber,
+                college: studentInfo.college,
+                grade: studentInfo.grade,
+                phone: studentInfo.phone,
+                firstDepartment: studentInfo.firstDepartment,
+                secondDepartment: studentInfo.secondDepartment,
+                introduction: studentInfo.introduction,
+                qq: studentInfo.qq,
+                skills: studentInfo.skills,
+                state: 10,
+            })
+            .then((res) => {
+                console.log(res);
+                console.log(res.headers);
             })
             .catch(function (error) {
                 console.log(error);
+                console.log(token);
             });
     } else {
         console.log("出错啦");
