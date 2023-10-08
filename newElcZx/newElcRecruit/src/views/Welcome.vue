@@ -111,9 +111,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(253, 253, 253);
+    background-color: rgba(224, 219, 219, 0.555);
     padding: 20px;
-    /* background-image: url("../assets/cool-background.png"); */
     overflow: auto;
 }
 

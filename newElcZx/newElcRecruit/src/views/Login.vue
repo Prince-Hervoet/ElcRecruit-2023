@@ -65,19 +65,25 @@ const setLoginInfo = (data) => {
 
 // }
 function getLogin() {
-    router.push({ path: 'Newwelcome' });
-    // axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/Login', {
-    //     userName: loginContent.phoneNumber,
-    //     password: loginContent.password
-    // })
-    //     .then((res) => {
-    //         console.log(res);
-    //         console.log(res.data.errors);
-    //         alert(res.data.errors);
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
+    // router.push({ path: 'Welcome' });
+    axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/Login', {
+        userName: loginContent.phoneNumber,
+        password: loginContent.password
+    })
+        .then((res) => {
+            console.log(res);
+            // alert(res.data.errorMesage);
+            if (res.data.errorMessages) {
+                alert(res.data.errorMessages);
+            } else {
+                let token = res.data.accessToken
+                localStorage.setItem("token", token)
+                console.log(token);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
 }
 
