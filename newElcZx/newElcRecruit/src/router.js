@@ -45,6 +45,10 @@ const routes = [
     path: "/knowElc",
     component: KnowElc,
   },
+  {
+    path: "/register",
+    component: Register,
+  },
 ];
 
 const router = new createRouter({
