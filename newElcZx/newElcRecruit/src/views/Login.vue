@@ -10,19 +10,30 @@
 
         <div class="login-content-body">
             <div>
-                <MyInput header-name="手机号码"></MyInput>
+                <MyInput header-name="手机号码" id="phoneNumber" :value="loginContent.phoneNumber" @on-change="setLoginInfo">
+                </MyInput>
             </div>
             <div>
-                <MyInput header-name="验证码"></MyInput>
+                <MyInput header-name="密码" id="password" :value="loginContent.password" @on-change="setLoginInfo">
+                </MyInput>
             </div>
+
+            <button class="login-button" @click="getLogin">登录</button>
         </div>
-        <button class="vcode-button" @click="CheckLoginButton">发送验证码</button>
-        <router-link to="/NewWelcome"><button class="login-button">登录</button></router-link>
+
         <div class="login-content-bottom-body">
-            <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
+            <div class="small">
+                <router-link to="/Register">
+                    <div class="small-explain"> <button class="toCode">我要注册</button></div>
+                </router-link>
+                <p style="font-size: larger;">|</p>
+                <router-link to="/ForgetPassword">
+                    <div class="small-explain"> <button @click="getCode" class="toCode">忘记密码</button></div>
+                </router-link>
             </div>
+
             <div class="divider"></div>
-            <div class="small-intro">ELC &2023</div>
+            <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
 
     </div>
@@ -31,32 +42,50 @@
 <script setup>
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
+import { ref, reactive } from "vue";
+let token = "";
+const second = 60;
+const alreadyLogin = ref(false);
 
-let loginToken = "";
-// const studentLogin = reactive({
-//     phone: "",
-//     check: "",
-// });
-const CheckLoginButton = () => {
-    // axios({
-    //     method: 'post',
-    //     url: 'url',
-    //     data: {
-    //         phone: "string",
-    //         check: "string",
-    //     }
-    // }).then;
-    axios.post('/user', {
-        phone: "string",
-        check: "string",
+const loginContent = reactive({
+    phoneNumber: "",
+    password: "",
+    code: "",
+});
+
+const setLoginInfo = (data) => {
+    if (data && data.id) {
+        loginContent[data.id] = data.data;
+    }
+};
+
+// const getLogin = () =>{
+
+// }
+function getLogin() {
+    axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/Login', {
+        userName: loginContent.phoneNumber,
+        password: loginContent.password
     })
-        .then(function (response) {
-            console.log(response);
-            loginToken = response.data.accessToken;
+        .then((res) => {
+            console.log(res);
+            console.log(res.data.errors);
+            alert(res.data.errors);
         })
         .catch(function (error) {
             console.log(error);
         });
+
+}
+
+//检查手机号是否合适规范
+function checkphoneNumberSize(value) {
+    let phoneNumberReg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+    if (phoneNumberReg.test(value)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 </script>
 
@@ -67,8 +96,6 @@ const CheckLoginButton = () => {
     margin: auto;
     user-select: none;
 }
-
-
 
 .perch {
     height: 130px;
@@ -91,7 +118,6 @@ const CheckLoginButton = () => {
         height: 180px;
     }
 }
-
 
 .login-topic {
     color: rgb(70, 69, 69);
@@ -155,23 +181,7 @@ const CheckLoginButton = () => {
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-    outline: 0;
-    border: 0;
-    transition: all 0.2s;
-    cursor: pointer;
-}
-
-.vcode-button {
-    background-color: rgb(54, 62, 209);
-    border-radius: 6px;
-    width: 100%;
-    height: 40px;
-    font-weight: bold;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.5em;
+    margin-bottom: 50px;
     outline: 0;
     border: 0;
     transition: all 0.2s;
@@ -182,9 +192,6 @@ const CheckLoginButton = () => {
     background-color: rgb(227, 227, 227);
 }
 
-.vcode-button:active {
-    background-color: rgb(227, 227, 227);
-}
 
 .login-content-bottom-body {
     position: fixed;
@@ -209,5 +216,22 @@ const CheckLoginButton = () => {
 .small-intro {
     font-family: "楷体";
     text-align: center;
+}
+
+.toCode {
+    border: none;
+    outline: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    color: rgb(45, 140, 240);
+}
+
+.toCode:hover {
+    color: rgba(209 54 57);
+}
+
+.small {
+    display: flex;
+    justify-content: center;
 }
 </style>

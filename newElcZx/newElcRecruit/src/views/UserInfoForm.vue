@@ -2,7 +2,7 @@
     <div class="postInfo-container">
         <div class="postInfo-header-container">
             <div style="font-size: 28px; margin-bottom: 15px">报名申请</div>
-            <div style="font-size: 15px">个人信息</div>
+            <div style="font-size: 15px">个人信息 ( * 为必填项)</div>
             <span style="font-size: 12px">Personal Information</span>
         </div>
         <div class="postInfo-table-container">
@@ -11,11 +11,12 @@
                     <MyInput id="name" header-name="您的姓名 *" :value="studentInfo.name" @onChange="setUserInfo"></MyInput>
                 </div>
                 <div>
-                    <MyInput id="studentId" header-name="您的学号 *" :value="studentInfo.studentNumber" @onChange="setUserInfo">
+                    <MyInput id="studentNumber" header-name="您的学号 *" :value="studentInfo.studentNumber"
+                        @onChange="setUserInfo">
                     </MyInput>
                 </div>
                 <div>
-                    <MyInput id="grade" header-name="就读专业和班级 *" :value="studentInfo.grade" @onChange="setUserInfo">
+                    <MyInput id="grade" header-name="专业班级 *" :value="studentInfo.grade" @onChange="setUserInfo">
                     </MyInput>
                 </div>
                 <div>
@@ -25,27 +26,27 @@
                     <MyInput id="qq" header-name="QQ 号码" :value="studentInfo.qq" @onChange="setUserInfo"></MyInput>
                 </div>
                 <div>
-                    <MyPicker id="college" header-name="所属学院 *" :value="studentInfo.college" :arr="collegeList"
+                    <MyPicker id="college" header-name="所属学院 *" :value="studentInfo.college" :arr="CollegeList"
                         @onChange="setUserInfo">
                     </MyPicker>
                 </div>
                 <div>
                     <MyPicker id="firstDepartment" header-name="第一志愿 *" :value="studentInfo.firstDepartment"
-                        :arr="depInfoList" @onChange="setUserInfo">
+                        :arr="DepInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
                 <div>
                     <MyPicker id="secondDepartment" header-name="第二志愿" :value="studentInfo.secondDepartment"
-                        :arr="depInfoList" @onChange="setUserInfo">
+                        :arr="DepInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
-                <div>
+                <div class="myTextareaBox">
                     <MyTextarea id="introduction" header-name="自我介绍 *" :value="studentInfo.introduction"
                         @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
-                <div>
-                    <MyTextarea id="skills" header-name="掌握技能" :value="studentInfo.skills" @onChange="setUserInfo">
+                <div class="myTextareaBox">
+                    <MyTextarea id="skills" header-name="掌握技能(概述)" :value="studentInfo.skills" @onChange="setUserInfo">
                     </MyTextarea>
                 </div>
             </div>
@@ -61,7 +62,10 @@ import { onMounted, reactive } from "vue";
 import MyInput from "../components/myInput/Input.vue";
 import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
+import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
+
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo";
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -74,31 +78,6 @@ const studentInfo = reactive({
     qq: "",
     skills: "",
 });
-
-const depInfoList = [
-    { id: 1, name: "维修部" },
-    { id: 2, name: "秘书部" },
-    { id: 3, name: "项目部" },
-    { id: 4, name: "网宣部" },
-    { id: 5, name: "外联部" },
-    { id: 6, name: "实践部" },
-    { id: 7, name: "软件组" },
-];
-
-const collegeList = [
-    { id: 0, name: "机电工程学院" },
-    { id: 1, name: "自动化学院" },
-    { id: 2, name: "轻工化工学院" },
-    { id: 3, name: "信息工程学院" },
-    { id: 6, name: "计算机学院" },
-    { id: 4, name: "土木与交通工程学院" },
-    { id: 7, name: "材料与能源学院" },
-    { id: 11, name: "物理与光电工程学院" },
-    { id: 8, name: "环境科学与工程学院" },
-    { id: 21, name: "集成电路学院" },
-    { id: 18, name: "生物医药学院" },
-    { id: 9, name: "外国语学院" },
-];
 
 const setUserInfo = (data) => {
     if (data && data.id) {
@@ -122,25 +101,6 @@ function checkStuId(value) {
 }
 
 const clickSubmitForm = async () => {
-    axios.post('/user', {
-        name: "",
-        studentNumber: "",
-        college: "",
-        grade: "",
-        phone: "",
-        firstDepartment: "",
-        secondDepartment: "",
-        introduction: "",
-        qq: "",
-        skills: "",
-
-    })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
     if (
         !hasNullContent(
             studentInfo.name,
@@ -153,10 +113,46 @@ const clickSubmitForm = async () => {
         checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
+        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit', {
+            id: '',
+            name: studentInfo.name,
+            studentNumber: studentInfo.studentNumber,
+            college: studentInfo.college,
+            grade: studentInfo.grade,
+            phone: studentInfo.phone,
+            firstDepartment: studentInfo.firstDepartment,
+            secondDepartment: studentInfo.secondDepartment,
+            introduction: studentInfo.introduction,
+            qq: studentInfo.qq,
+            skills: studentInfo.skills,
+            state: 10,
+        },
+            {
+                headers: {
+                    accept: "text/plain",
+                    "content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+        )
+            .then((res) => {
+                console.log(res);
+                console.log(res.headers);
+            })
+            .catch(function (error) {
+                console.log(error);
+                console.log(`Bearer ${token}`);
+            });
     } else {
         console.log("出错啦");
+        console.log(studentInfo.studentNumber);
     }
 };
+
+/*
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo
+*/
 </script>
 
 <style scoped>
@@ -166,13 +162,11 @@ const clickSubmitForm = async () => {
     padding: 10px;
 }
 
-@media screen and (min-width: 800px) {
-    .postInfo-container {
-        width: 75%;
-        margin: auto;
-        padding: 10px;
-        max-width: 650px;
-    }
+.postInfo-container {
+    width: 75%;
+    margin: auto;
+    padding: 10px;
+    max-width: 650px;
 }
 
 .postInfo-header-container {
@@ -186,7 +180,11 @@ const clickSubmitForm = async () => {
 
 .postInfo-table>div {
     margin-bottom: 30px;
-    height: 50px;
+    height: 55px;
+}
+
+.postInfo-table>.myTextareaBox {
+    margin-bottom: 100px;
 }
 
 .postInfo-button-container {

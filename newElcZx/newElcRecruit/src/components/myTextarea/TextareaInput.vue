@@ -34,11 +34,13 @@ const handler = (event) => {
 
 .myTextarea-textarea {
   width: 100%;
-  height: 95%;
+  height: 100%;
   background-color: rgb(244, 244, 244);
   padding: 5px;
   box-sizing: border-box;
   outline: 0;
   border: 0;
+  resize: none;
+  min-height: 100px;
 }
 </style>

@@ -1,7 +1,7 @@
 .dataHost-left-list-body {
   width: var(--dataHost-left-list-width, 200px);
   height: 100vh;
-  background-color: rgb(18, 11, 106);
+  background-color: rgb(30, 30, 43);
   display: flex;
   flex-direction: column;
   overflow: auto;

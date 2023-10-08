@@ -104,11 +104,10 @@ const clickNavDepInfo = (depId) => {
 }
 
 .knowMore-content-body {
-    /* background-color: red; */
     display: flex;
     justify-content: center;
-    background-image: url("../assets/knowElcBackground.png");
-    background-size: cover;
+    background-image: url("../assets/knowMoreBackground.png");
+    background-size: 100% 100%;
     overflow: auto
 }
 
