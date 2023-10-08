@@ -36,7 +36,7 @@
 <style scoped>
 .welcomeBigBox {
     height: 100vh;
-    background-image: url("../assets/bg.jpg");
+    background-image: url("../assets/welcomeBackground.png");
     background-size: cover;
 }
 

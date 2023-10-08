@@ -96,7 +96,6 @@ const clickNavDepInfo = (depId) => {
     background-image: url("../assets/cup.png");
     height: 300px;
     background-size: contain;
-    /* background-repeat: no-repeat; */
 }
 
 .knowMore-container {
@@ -105,10 +104,9 @@ const clickNavDepInfo = (depId) => {
 }
 
 .knowMore-content-body {
-    /* background-color: red; */
     display: flex;
     justify-content: center;
-    background-image: url("../assets/knowElcBackground.png");
+    background-image: url("../assets/knowMoreBackground.png");
     background-size: 100% 100%;
     overflow: auto
 }
