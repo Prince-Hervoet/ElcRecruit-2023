@@ -40,27 +40,15 @@
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
-
-
     </div>
 </template>
 
 <script setup>
-//如果请求通过了，推进下一步
-// if (res.data.success) {
-//     // const processState = res.data.data[res.data.data.length - 1].processState;
-//     //循环遍历process（流程），state(新生通过与否的值)
-//     for (let i = 0; i < res.data.data.length; i++) {
-//         const e = res.data.data[i];
-//         let process = e.processState;
-//         let state = e.state;
-//         console.log("process: " + process + ", state: " + state);
-//     }
 
-// }
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
+
 let token = "";
 const second = 60;
 const requestCode = ref(true);
