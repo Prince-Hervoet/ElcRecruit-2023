@@ -20,23 +20,21 @@
             <div>
                 <MyInput header-name="验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
             </div>
-            <button class="vcode-button" v-if="requestCode" @click="getCode">{{ code }}</button>
+        </div>
+        <div class="login-getCode-container">
+            <button class="vcode-button" v-if="!timing" @click="getCode">{{ code }}</button>
             <div class="time" v-if="timing">
                 <Row>
                     <Col span="12">
-                    <CountDown :target="loginContent.targetTime2" @on-end="handleEnd" v-font="20" />
+                    <CountDown :target="new Date().getTime() + 60000" @on-end="handleEnd" v-font="20" />
                     </Col>
                 </Row>
+                <span style="font-family: '楷体';">之后可用</span>
             </div>
         </div>
-        <!-- <button class="vcode-button" v-if="requestCode" @click="getCode">获取验证码</button> -->
         <button class="login-button" @click="getRegister">注册</button>
-
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/Login">我已经注册 , 前往登录</router-link> </div>
-            <!-- <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
-
-            </div> -->
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
@@ -70,12 +68,10 @@ const loginContent = reactive({
     phoneNumber: "",
     password: "",
     code: "",
-    targetTime2: new Date().getTime() + 60000,
 });
 
 function handleEnd() {
     console.log("重新发送验证码");
-    requestCode.value = !requestCode.value;
     timing.value = !timing.value;
     code = "重新发送验证码"
 }
@@ -207,43 +203,6 @@ const getRegister = () => {
     margin-bottom: 20px;
 }
 
-/* .login-content-body>.pho {
-    margin-bottom: 100px;
-} */
-
-.myInput-header {
-    height: 20px;
-    padding: 2px;
-    box-sizing: border-box;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    color: rgb(146, 146, 146);
-    margin-bottom: 5px;
-    margin-top: 20px;
-}
-
-.myInput-input-container {
-    height: 40px;
-}
-
-.myInput-input {
-    width: 100%;
-    height: 30px;
-    margin: auto;
-    border-radius: 6px;
-    background-color: rgb(244, 244, 244);
-    box-sizing: border-box;
-    padding-left: 10px;
-    border: 0;
-    outline: none;
-}
-
-.myInput-input:active {
-    border: 1px solid #dfdfdf;
-    background-color: #eee;
-}
-
 .login-button {
     background-color: rgba(209 54 57);
     border-radius: 6px;
@@ -312,5 +271,11 @@ const getRegister = () => {
 .small-intro {
     font-family: "楷体";
     text-align: center;
+}
+
+.login-getCode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

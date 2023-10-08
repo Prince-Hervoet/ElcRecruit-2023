@@ -113,6 +113,8 @@
     justify-content: center;
     background-color: rgb(253, 253, 253);
     padding: 20px;
+    /* background-image: url("../assets/cool-background.png"); */
+    overflow: auto;
 }
 
 .welcome-content-header {

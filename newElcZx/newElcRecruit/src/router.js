@@ -51,6 +51,7 @@ const routes = [
     path: "/register",
     component: Register,
   },
+  { path: "/welcome", component: Welcome },
 ];
 
 const router = new createRouter({
