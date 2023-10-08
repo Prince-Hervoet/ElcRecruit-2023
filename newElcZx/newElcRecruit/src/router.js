@@ -12,7 +12,7 @@ import Welcome from "./views/Welcome.vue";
 const routes = [
   {
     path: "/",
-    component: Login,
+    component: Welcome,
   },
   {
     path: "/login",
