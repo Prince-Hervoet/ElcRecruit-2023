@@ -7,35 +7,35 @@
         </div>
         <div class="postInfo-table-container">
             <div class="postInfo-table">
-                <div>
+                <div class="space">
                     <MyInput id="name" header-name="您的姓名 *" :value="studentInfo.name" @onChange="setUserInfo"></MyInput>
                 </div>
-                <div>
+                <div class="space">
                     <MyInput id="studentNumber" header-name="您的学号 *" :value="studentInfo.studentNumber"
                         @onChange="setUserInfo">
                     </MyInput>
                 </div>
-                <div>
+                <div class="space">
                     <MyInput id="grade" header-name="专业班级 *" :value="studentInfo.grade" @onChange="setUserInfo">
                     </MyInput>
                 </div>
-                <div>
+                <div class="space">
                     <MyInput id="phone" header-name="电话号码 *" :value="studentInfo.phone" @onChange="setUserInfo"></MyInput>
                 </div>
-                <div>
+                <div class="space">
                     <MyInput id="qq" header-name="QQ 号码" :value="studentInfo.qq" @onChange="setUserInfo"></MyInput>
                 </div>
-                <div>
+                <div class="space">
                     <MyPicker id="college" header-name="所属学院 *" :value="studentInfo.college" :arr="CollegeList"
                         @onChange="setUserInfo">
                     </MyPicker>
                 </div>
-                <div>
+                <div class="space">
                     <MyPicker id="firstDepartment" header-name="第一志愿 *" :value="studentInfo.firstDepartment"
                         :arr="DepInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
-                <div>
+                <div class="space">
                     <MyPicker id="secondDepartment" header-name="第二志愿" :value="studentInfo.secondDepartment"
                         :arr="DepInfoList" @onChange="setUserInfo">
                     </MyPicker>
@@ -55,10 +55,15 @@
             <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
         </button>
     </div>
+    <div v-if="hasError" style="margin: auto;text-align: center; width: 70%; margin-bottom: 10%;">
+        <Alert type="error">
+            提交失败！请仔细核验信息！
+        </Alert>
+    </div>
 </template>
 
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import MyInput from "../components/myInput/Input.vue";
 import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
@@ -66,6 +71,8 @@ import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
 
 let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo";
+
+let hasError = ref(false);
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -145,10 +152,10 @@ const clickSubmitForm = async () => {
             });
     } else {
         console.log("出错啦");
+        hasError.value = true;
         console.log(studentInfo.studentNumber);
     }
 };
-
 /*
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo
 Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo
@@ -178,13 +185,13 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgt
     flex-direction: column;
 }
 
-.postInfo-table>div {
+.postInfo-table>.space {
     margin-bottom: 30px;
-    height: 55px;
+    height: 50px;
 }
 
 .postInfo-table>.myTextareaBox {
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 
 .postInfo-button-container {
@@ -197,7 +204,7 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgt
     align-items: center;
     justify-content: center;
     margin-top: 1.5em;
-    margin-bottom: 10%;
+    margin-bottom: 1%;
     outline: 0;
     border: 0;
 }
