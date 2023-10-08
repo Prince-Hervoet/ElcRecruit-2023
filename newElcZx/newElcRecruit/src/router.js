@@ -35,8 +35,8 @@ const routes = [
     component: UserInfoForm,
   },
   {
-    path: "/welcome",
-    component: Welcome,
+    path: "/newWelcome",
+    component: NewWelcome,
   },
   {
     path: "/depIntros/:depId",

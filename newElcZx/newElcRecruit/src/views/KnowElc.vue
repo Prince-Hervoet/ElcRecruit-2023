@@ -104,7 +104,7 @@ const clickNavDepInfo = (depId) => {
 .IntroPic {
     background-image: url("../assets/cup.png");
     height: 300px;
-    background-size: cover;
+    background-size: contain;
     box-shadow: 0px 5px 1px 7px #ccc;
 }
 
