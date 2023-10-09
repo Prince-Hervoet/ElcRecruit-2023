@@ -54,6 +54,7 @@
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
+import { ServiceUrls } from "../requests/util.js";
 
 let token = "";
 const second = 60;
@@ -100,12 +101,13 @@ function checkpassword(value) {
 }
 
 const getCode = () => {
+    const codeUrl = ServiceUrls.getCode;
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
         requestCode.value = !requestCode.value;
         timing.value = !timing.value;
         //todo发送验证码审核
-        axios.get(`http://139.159.220.241:8081/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`)
+        axios.get(codeUrl)
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -124,6 +126,7 @@ const getCode = () => {
 }
 
 const getRegister = () => {
+    const registerUrl = ServiceUrls.getRegister;
     //手机号验证码密码符合要求
 
     //电话错误
@@ -134,7 +137,7 @@ const getRegister = () => {
     } else if (!checkpassword(loginContent.password)) {
         console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
-        axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
+        axios.get(registerUrl,
             { headers: { Authorization: ` ${token}` } },)
             .then((res) => {
                 console.log(res);

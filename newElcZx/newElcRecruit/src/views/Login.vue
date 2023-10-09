@@ -44,7 +44,7 @@ import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
 import router from '../router';
-
+import { ServiceUrls } from "../requests/util.js";
 let token = "";
 const second = 60;
 const alreadyLogin = ref(false);
@@ -65,7 +65,8 @@ const setLoginInfo = (data) => {
 
 // }
 function getLogin() {
-    axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/student_login', {
+    const url = ServiceUrls.getLogin;
+    axios.post(url, {
         phoneNumber: loginContent.phoneNumber,
         password: loginContent.password
     })

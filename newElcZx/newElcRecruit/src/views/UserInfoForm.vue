@@ -70,7 +70,7 @@ import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
 import Login from "./Login.vue"
-
+import { ServiceUrls } from "../requests/util.js";
 
 let token = localStorage.getItem("token")
 
@@ -110,6 +110,7 @@ function checkStuId(value) {
 }
 
 const clickSubmitForm = async () => {
+    const url = ServiceUrls.getCommit;
     if (true
         // !hasNullContent(
         //     studentInfo.name,
@@ -122,7 +123,7 @@ const clickSubmitForm = async () => {
         // checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
-        axios.post('http://139.159.220.241:8081/elc_recruit/student/commit', {
+        axios.post(url, {
             id: '',
             name: studentInfo.name,
             studentNumber: studentInfo.studentNumber,
@@ -138,7 +139,6 @@ const clickSubmitForm = async () => {
         },
             {
                 headers: {
-
                     authorization: token,
                 }
             }

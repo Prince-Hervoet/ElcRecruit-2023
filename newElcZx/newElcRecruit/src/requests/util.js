@@ -1,4 +1,4 @@
-export const BASE_URL = "";
+export const BASE_URL = "http://139.159.220.241:8081";
 
 /**
  * 服务端接口url
@@ -7,4 +7,8 @@ export const ServiceUrls = {
   login: `${BASE_URL}/xxx/login`,
   getInfo: `/elc_recruit/student/get_info`,
   getProcess: `/elc_recruit/student/get_process`,
+  getLogin:`/elc_recruit/interviewer/student_login`,
+  getCode:`/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`,
+  getRegister:`/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
+  getCommit:`/elc_recruit/student/commit`
 };
