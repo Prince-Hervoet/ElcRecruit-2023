@@ -76,7 +76,7 @@ function getLogin() {
                 alert(errorMsg);
             } else {
                 let token = res.data.access_token
-                localStorage.setItem("token", "Bearer" + token)
+                localStorage.setItem("token", `Bearer ${token}`)
                 console.log(token);
                 router.push({ path: 'Welcome' });
             }

@@ -138,7 +138,8 @@ const clickSubmitForm = async () => {
         },
             {
                 headers: {
-                    Authorization: token,
+
+                    authorization: token,
                 }
             }
         )

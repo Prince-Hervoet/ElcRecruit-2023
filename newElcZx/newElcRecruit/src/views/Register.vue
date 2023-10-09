@@ -139,7 +139,7 @@ const getRegister = () => {
             .then((res) => {
                 console.log(res);
                 let token = res.data.accessToken
-                localStorage.setItem("token", token)
+                localStorage.setItem(`Bearer ${token}`)
                 console.log(token);
                 if (res.data.errorMessages) {
                     alert(res.data.errorMessages)
