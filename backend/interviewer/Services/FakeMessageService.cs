@@ -26,12 +26,12 @@ class FakeMessageService : MessageServiceBase
         {
             int seconds = (int)DateTime.UtcNow.Subtract(new DateTime((long)redisValue)).TotalSeconds;
             return new Result()
-                { Data = null, ErrorMessages = new[] { "请勿频繁发送验证码，请在" + (_messageSettings.SendVerifyCodeInterval.Seconds - seconds) + "秒后重试" } };
+                { Data = null, ErrorMessages = new[] { "请勿频繁发送验证码，请在" + (int)(_messageSettings.SendCodeInterval.TotalSeconds - seconds) + "秒后重试" } };
         }
 
         const string code = "6666";
         _redisDb.StringSet(phoneNumber, code, _messageSettings.CodeExpireIn);
-        _redisDb.StringSet(phoneNumber + "_time", DateTime.UtcNow.Ticks, _messageSettings.SendVerifyCodeInterval);
+        _redisDb.StringSet(phoneNumber + "_time", DateTime.UtcNow.Ticks, _messageSettings.SendCodeInterval);
 
         //TODO: 发送短信
 
