@@ -37,22 +37,25 @@ namespace interviewer.Controllers
             var pageStudents = students
                 ?.Skip((pageCount - 1) * pageLimit).Take(pageLimit)
                 .ToArray();
-            return new
+            return new Result
             {
-                Count = count,
-                Data = pageStudents
+                Data = new
+                {
+                    Count = count,
+                    PageStudents = pageStudents
+                }
             };
         }
 
         [HttpGet("get_detailed_info")]
         [Authorize(Roles = "Interviewer")]
         public object? GetDetailedInfo(string userId) =>
-            new { data = _dbContext.Students?.FirstOrDefault(s => s.Id == userId) };
+            new Result { Data = _dbContext.Students?.FirstOrDefault(s => s.Id == userId) };
 
         [HttpGet("get_deps_size")]
-        public object GetDepsSize() => new
+        public object GetDepsSize() => new Result
         {
-            data = Enum.GetValues<ElcDepartment>().Select(depId =>
+            Data = Enum.GetValues<ElcDepartment>().Select(depId =>
             {
                 var size = _dbContext.Students?.Count(s => depId == ElcDepartment.All || s.FirstDepartment == depId);
                 return new
@@ -66,9 +69,9 @@ namespace interviewer.Controllers
         [HttpGet("get_dep_checked_in")]
         [Authorize(Roles = "Interviewer")]
         public object GetDepCheckedIn([Required] ElcDepartment depId) =>
-            new
+            new Result
             {
-                data = _dbContext.Students?.Where(s =>
+                Data = _dbContext.Students?.Where(s =>
                         (depId == ElcDepartment.All && s.FirstDepartment == depId) && s.State == StudentState.CheckedIn)
                     .ToArray()
             };
@@ -77,9 +80,9 @@ namespace interviewer.Controllers
         [Authorize(Roles = "Interviewer")]
         public IActionResult GetCommentScore([Required] string studentUserId)
         {
-            return Ok(new
+            return Ok(new Result
             {
-                data = _dbContext.Comments?.Where(comment => studentUserId == comment.StudentUserId)
+                Data = _dbContext.Comments?.Where(comment => studentUserId == comment.StudentUserId)
                     .Select(comment => comment)
             });
         }
@@ -94,28 +97,25 @@ namespace interviewer.Controllers
                 ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId)?.FirstDepartment;
             if (interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
-                return Unauthorized(new
+                return Unauthorized(new Result()
                 {
-                    success = false,
-                    errors = new string[] { "不能更新其他部门的面试者状态" }
+                    ErrorMessages = new[] { "不能更新其他部门的面试者状态" }
                 });
             _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId);
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId);
             if (student == null)
             {
-                return new
+                return new Result
                 {
-                    success = false,
-                    message = "找不到此学生"
+                    ErrorMessages = new[] { "找不到此学生" }
                 };
             }
 
             student.State = p.state;
             _dbContext.SaveChanges();
-            return new
+            return new Result
             {
-                success = true,
-                data = student
+                Data = student
             };
         }
 
@@ -128,39 +128,91 @@ namespace interviewer.Controllers
                 ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentUserId)
                 ?.FirstDepartment;
-            // if (interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
-            //     return Unauthorized(new
-            //     {
-            //         success = false,
-            //         errors = new string[] { "不能对其他部门的面试者提交评价" }
-            //     });
+            if (interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
+                return Unauthorized(new Result
+                {
+                    ErrorMessages = new string[] { "不能对其他部门的面试者提交评价" }
+                });
             comment.DepId = studentDepartment;
             _dbContext.Comments?.Add(comment);
             _dbContext.SaveChanges();
             return Ok();
         }
 
-        public record TransferStudentParms([Required] string studentId, [Required] ElcDepartment sourceDepId,
-            [Required] ElcDepartment targetDepId);
+        public record TransferStudentParms([Required] string StudentId, [Required] ElcDepartment SourceDepId,
+            [Required] ElcDepartment TargetDepId);
 
         [HttpPost("transfer_student")]
         [Authorize(Roles = "Interviewer")]
         public IActionResult TransferStudent([Required] TransferStudentParms p)
         {
-            var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.studentId);
-            //TODO
-            throw new NotImplementedException();
+            var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.StudentId);
+            if (student == null)
+                return Ok(new Result
+                {
+                    ErrorMessages = new[] { "找不到此学生" }
+                });
+
+            var interviewerDepartment = _dbContext.Interviewers
+                .FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
+            var studentDepartment = student.FirstDepartment;
+            
+            if (interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
+                return Unauthorized(new Result
+                {
+                    ErrorMessages = new[] { "不能调剂其他部门的面试者" }
+                });
+
+            student.FirstDepartment = p.TargetDepId;
+            _dbContext.SaveChanges();
+
+            return Ok(new Result
+            {
+                Data = student
+            });
         }
-        
+
         [HttpGet("get_search_brief_info")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult GetSearchBriefInfo([Required] string keyword,ElcDepartment depId = ElcDepartment.All)
+        public IActionResult GetSearchBriefInfo([Required] string keyword, ElcDepartment depId = ElcDepartment.All)
         {
-            var students = _dbContext.Students?.Where(s => (depId == ElcDepartment.All || s.FirstDepartment == depId) && (s.Name.StartsWith(keyword) || s.StudentNumber.StartsWith(keyword)));
-            return Ok(new
+            var students = _dbContext.Students?.Where(s =>
+                (depId == ElcDepartment.All || s.FirstDepartment == depId) &&
+                (s.Name.StartsWith(keyword) || s.StudentNumber.StartsWith(keyword)));
+            return Ok(new Result()
             {
-                success = true,
-                data = students
+                Data = students
+            });
+        }
+
+        [HttpPost("update_interviewer_info")]
+        [Authorize(Roles = "Interviewer")]
+        public IActionResult UpdateInterviewerInfo(Interviewer interviewer)
+        {
+            var user = _userManager.GetUserAsync(User).Result;
+            var interviewerInDb = _dbContext.Interviewers?.FirstOrDefault(i => i.Id == user!.Id);
+            if (interviewerInDb == null)
+            {
+                var newInterviewer = new Interviewer
+                {
+                    Id = user!.Id,
+                    Name = interviewer.Name,
+                    Department = interviewer.Department
+                };
+                _dbContext.Interviewers?.Add(newInterviewer);
+                _dbContext.SaveChanges();
+                return Ok(new Result
+                {
+                    Data = interviewerInDb
+                });
+            }
+
+            interviewerInDb.Name = interviewer.Name;
+            interviewerInDb.Department = interviewer.Department;
+            _dbContext.SaveChanges();
+            return Ok(new Result
+            {
+                Data = interviewerInDb
             });
         }
     }
