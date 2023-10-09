@@ -57,21 +57,11 @@
 </template>
 
 <script setup>
-//如果请求通过了，推进下一步
-// if (res.data.success) {
-//     // const processState = res.data.data[res.data.data.length - 1].processState;
-//     //循环遍历process（流程），state(新生通过与否的值)
-//     for (let i = 0; i < res.data.data.length; i++) {
-//         const e = res.data.data[i];
-//         let process = e.processState;
-//         let state = e.state;
-//         console.log("process: " + process + ", state: " + state);
-//     }
 
-// }
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
+import { ServiceUrls } from "../requests/util.js";
 let token = "";
 const second = 60;
 const requestCode = ref(true);
@@ -118,12 +108,13 @@ function checkpassword(value) {
 }
 
 const getCode = () => {
+    const codeUrl = ServiceUrls.getCode;
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
         requestCode.value = !requestCode.value;
         timing.value = !timing.value;
         //todo发送验证码审核
-        axios.get(`http://139.159.220.241:8081/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`)
+        axios.get(codeUrl + `phoneNumber=${loginContent.phoneNumber}`)
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -142,6 +133,7 @@ const getCode = () => {
 }
 
 const getRegister = () => {
+    const url = ServiceUrls.getForget;
     //手机号验证码密码符合要求
 
     //电话错误
@@ -152,7 +144,7 @@ const getRegister = () => {
     } else if (!checkpassword(loginContent.password)) {
         console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
-        axios.post(`http://139.159.220.241:8081/elc_recruit/interviewer/reset_password?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,)
+        axios.post(url + `phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,)
             .then((res) => {
                 console.log(res);
             })

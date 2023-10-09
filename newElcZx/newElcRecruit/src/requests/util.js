@@ -11,4 +11,5 @@ export const ServiceUrls = {
   getCode:`/elc_recruit/student/send_verification_code?`,
   getRegister:`/elc_recruit/interviewer/register_student?`,
   getCommit:`/elc_recruit/student/commit`,
+  getForget:`/elc_recruit/interviewer/reset_password?`
 };
