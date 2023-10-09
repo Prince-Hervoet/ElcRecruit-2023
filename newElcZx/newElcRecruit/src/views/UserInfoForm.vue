@@ -69,9 +69,10 @@ import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
+import Login from "./Login.vue"
 
-let token = localStorage.getItem("token")
-
+let token = ""
+token = localStorage.getItem("token")
 let hasError = ref(false);
 const studentInfo = reactive({
     name: "",
@@ -138,15 +139,17 @@ const clickSubmitForm = async () => {
                 headers: {
                     accept: "text/plain",
                     "content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    Authorization: token,
                 }
             }
         )
             .then((res) => {
                 console.log(res);
+
             })
             .catch(function (error) {
                 console.log(error);
+                console.log(token);
             });
     } else {
         console.log("出错啦");

@@ -75,10 +75,10 @@ function getLogin() {
             if (res.data.errorMessages) {
                 alert(res.data.errorMessages);
             } else {
-                let token = res.data.accessToken
+                let token = res.data.access_token
                 localStorage.setItem("token", token)
                 console.log(token);
-                router.push({ path: 'Welcome' });
+                // router.push({ path: 'Welcome' });
             }
         })
         .catch(function (error) {
