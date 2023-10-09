@@ -65,9 +65,8 @@ const setLoginInfo = (data) => {
 
 // }
 function getLogin() {
-    // router.push({ path: 'Welcome' });
-    axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/Login', {
-        userName: loginContent.phoneNumber,
+    axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/student_login', {
+        phoneNumber: loginContent.phoneNumber,
         password: loginContent.password
     })
         .then((res) => {
@@ -79,6 +78,7 @@ function getLogin() {
                 let token = res.data.accessToken
                 localStorage.setItem("token", token)
                 console.log(token);
+                router.push({ path: 'Welcome' });
             }
         })
         .catch(function (error) {
