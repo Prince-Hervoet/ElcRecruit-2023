@@ -144,8 +144,9 @@ const getRegister = () => {
                 let token = res.data.accessToken
                 localStorage.setItem(`Bearer ${token}`)
                 console.log(token);
-                if (res.data.errorMessages) {
-                    alert(res.data.errorMessages)
+                errorMessages = res.data.errorMessages;
+                if (errorMessages) {
+                    alert(errorMessages)
                 } else {
                     successRegister.value = !successRegister.value
                 }
