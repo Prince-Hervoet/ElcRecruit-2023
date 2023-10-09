@@ -70,7 +70,7 @@ import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
 
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDg2YzlmNC02YjAyLTRlMDgtYjRiZi1iMDk2MzFjMDU3ZWYiLCJzdWIiOiI2YTg5ZWI3OS0wODUzLTQzOWItYjQyOC1hZjYxZjUxNjEyNzEiLCJyb2xlIjoiU3R1ZGVudCIsIm5iZiI6MTY5Njc0NjI0NiwiZXhwIjoxNjk4ODE5ODQ2LCJpYXQiOjE2OTY3NDYyNDZ9.yn-zab5_HKMr338Wy-4SiDnOBGbgAkvbNy9Qqiamgyo";
+let token = localStorage.getItem("token")
 
 let hasError = ref(false);
 const studentInfo = reactive({
@@ -134,13 +134,13 @@ const clickSubmitForm = async () => {
             skills: studentInfo.skills,
             state: 10,
         },
-            // {
-            //     headers: {
-            //         accept: "text/plain",
-            //         "content-type": "application/json",
-            //         Authorization: `Bearer ${token}`,
-            //     }
-            // }
+            {
+                headers: {
+                    accept: "text/plain",
+                    "content-type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            }
         )
             .then((res) => {
                 console.log(res);
