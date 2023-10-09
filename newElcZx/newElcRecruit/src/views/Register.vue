@@ -121,7 +121,7 @@ const getCode = () => {
                 // console.log(loginContent.phoneNumber);
             });
     } else {
-        console.log("错");
+        alert("请输入符合规范的手机号")
     }
 }
 
@@ -135,7 +135,7 @@ const getRegister = () => {
 
         //密码错误
     } else if (!checkpassword(loginContent.password)) {
-        console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
+        alert("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
         axios.get(registerUrl + `phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
             { headers: { Authorization: ` ${token}` } },)
