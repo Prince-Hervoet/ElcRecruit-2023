@@ -144,7 +144,6 @@ const clickSubmitForm = async () => {
         )
             .then((res) => {
                 console.log(res);
-                console.log(res.headers);
             })
             .catch(function (error) {
                 console.log(error);

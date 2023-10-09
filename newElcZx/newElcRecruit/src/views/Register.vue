@@ -24,12 +24,18 @@
         <div class="login-getCode-container">
             <button class="vcode-button" v-if="!timing" @click="getCode">{{ code }}</button>
             <div class="time" v-if="timing">
-                <Row>
-                    <Col span="12">
-                    <CountDown :target="new Date().getTime() + 60000" @on-end="handleEnd" v-font="20" />
-                    </Col>
-                </Row>
-                <span style="font-family: '楷体';">之后可用</span>
+                <div class="small-explain">
+                    二维码发送成功
+                </div>
+                <div style="text-align: center;">
+                    <Row style="color: rgb(45, 140, 240); margin: auto;">
+                        <Col span="12">
+                        <CountDown :target="new Date().getTime() + 60000" @on-end="handleEnd" v-font="20" />
+                        </Col>
+                        <span style="font-family: '楷体'; font-size: larger; color: rgb(45, 140, 240);">之后可再次发送</span>
+                    </Row>
+                </div>
+
             </div>
         </div>
         <button class="login-button" @click="getRegister">注册</button>
@@ -248,6 +254,7 @@ const getRegister = () => {
     font-family: "楷体";
     text-align: center;
     font-size: 1.3em;
+    color: rgb(45, 140, 240);
 }
 
 .divider {
@@ -265,5 +272,9 @@ const getRegister = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.time {
+    width: 50%;
 }
 </style>
