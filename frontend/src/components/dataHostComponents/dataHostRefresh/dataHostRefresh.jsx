@@ -1,7 +1,7 @@
 import React from "react";
 import GdataHostCardListStore from "../../../store/dataHostCardListStore";
-import { clickSendGetCards } from "../utilClick/util";
 import { DEFAULT_PAGE_LIMIT } from "../../../requests/util";
+import { clickSendGetCards } from "../dataHostCardList/util";
 
 export default function DataHostRefresh() {
   const clickGetCardList = () => {

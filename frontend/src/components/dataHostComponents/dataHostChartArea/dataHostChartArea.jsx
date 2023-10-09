@@ -3,7 +3,7 @@ import "./dataHostChartArea.css";
 import * as echarts from "echarts";
 import { observer } from "mobx-react-lite";
 import dataHostChartStore from "../../../store/dataHostChartStore";
-import { KeyToDepName } from "../../../store/global";
+import { KeyToDepName, KeyToLeftListName } from "../../../store/global";
 import DataRequest from "../../../requests/dataRequest";
 
 const option = {
@@ -55,32 +55,33 @@ const option = {
 function getChartDataList(depSumList) {
   const ans = [];
   depSumList.forEach((value) => {
-    ans.push({ value: value.size, name: KeyToDepName[value.depId] });
+    if (KeyToDepName[value.depId]) {
+      ans.push({ value: value.size, name: KeyToDepName[value.depId] });
+    }
   });
   return ans;
 }
 
 function DataHostChartArea() {
-  const { isShow, depSumList } = dataHostChartStore;
+  const { isShow } = dataHostChartStore;
   const dom = useRef(null);
-  let mc = null;
+  const mc = useRef(null);
+
   useEffect(() => {
     if (!isShow) {
       return;
     }
-    if (!mc) mc = echarts.init(dom.current);
+    if (mc.current === null) mc.current = echarts.init(dom.current);
     (async function () {
       const res = await DataRequest.getDepSizeList();
-      if (res.success) {
-        const result = res.data.data.filter((value) => {
-          if (value.depId === 0 || value.depId === 100) {
-            return false;
-          }
-          return true;
-        });
-        const dataList = getChartDataList(result);
-        option.series[0].data = dataList;
-        mc.setOption(option);
+      if (res.isRequestSuccess) {
+        const responseData = res.data.data;
+        if (!responseData.success) {
+          return;
+        }
+        const depSizeList = getChartDataList(responseData.data);
+        option.series[0].data = depSizeList;
+        mc.current.setOption(option);
       } else {
       }
     })();

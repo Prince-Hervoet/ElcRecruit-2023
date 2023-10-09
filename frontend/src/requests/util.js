@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // 基础url
 export const BASE_URL = "http://localhost:3000";
 
@@ -33,3 +35,27 @@ export const ServiceUrls = {
   // 导出名单
   exportMenu: `/elc_recruit/root/ex_access`,
 };
+
+/**
+ * 通用请求方法
+ * @param {String} method
+ * @param {String} url
+ * @param {Object} data
+ * @param {Object} headers
+ * @returns Object
+ */
+export async function commonRequest(method, url, data, headers) {
+  const res = { isRequestSuccess: true };
+  try {
+    res.data = await axios({
+      method,
+      url,
+      data,
+      headers,
+    });
+  } catch (e) {
+    res.data = e;
+    res.isRequestSuccess = false;
+  }
+  return res;
+}

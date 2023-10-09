@@ -8,13 +8,26 @@ const { Search } = Input;
 export default function DataHostSearch() {
   const clickSearch = async (value) => {
     const depId = GdataHostCardListStore.getCurrentDepId();
-    if (!value || !depId) return;
+    if (!value) return;
+    GdataHostCardListStore.incRequestId();
+    const currentRequestId = GdataHostCardListStore.getRequestId();
+    GdataHostCardListStore.setIsLoading(true);
     const res = await DataRequest.getSearchBriefInfo(value, depId);
-    if (res.success) {
-      const searchResList = res.data.data;
-      GdataHostCardListStore.setCardList(searchResList);
+    GdataHostCardListStore.setIsLoading(false);
+    if (currentRequestId < GdataHostCardListStore.getRequestId()) return;
+
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
+      const searchList = responseData.data;
+      GdataHostCardListStore.setCardList(searchList);
+      GdataHostCardListStore.setPageCount(1);
+      GdataHostCardListStore.setTotal(1);
     } else {
-      alert(res.data);
+      alert(`请求失败: ${res.data.message}`);
     }
   };
 

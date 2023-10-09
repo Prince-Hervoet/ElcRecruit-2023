@@ -6,7 +6,8 @@ import { CollegeObj, ColorObj, KeyToDepName } from "../../../store/global";
 const { Meta } = Card;
 
 export default function DataHostCard({ info }) {
-  const { id, name, studentId, grade, college, firstDepartment, state } = info;
+  const { id, name, studentNumber, grade, college, firstDepartment, state } =
+    info;
   const stateColor = ColorObj[state];
   const depName = KeyToDepName[firstDepartment];
   const collegeName = CollegeObj[college];
@@ -34,7 +35,7 @@ export default function DataHostCard({ info }) {
         }}
       >
         <Meta
-          description={`学院: ${collegeName} | 专业班级: ${grade} | 学号: ${studentId}`}
+          description={`学院: ${collegeName} | 专业班级: ${grade} | 学号: ${studentNumber}`}
         />
         <p></p>
         <Meta description={`第一志愿: ${depName}`} />

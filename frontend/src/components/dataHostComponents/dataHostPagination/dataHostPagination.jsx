@@ -1,7 +1,7 @@
 import React from "react";
 import { Pagination } from "antd";
-import { clickSendGetCards } from "../utilClick/util";
 import GdataHostCardListStore from "../../../store/dataHostCardListStore";
+import { clickSendGetCards } from "../dataHostCardList/util";
 
 export default function DataHostPagination({ info }) {
   const { total = 0, pageSize = 0, current = 0 } = info;
