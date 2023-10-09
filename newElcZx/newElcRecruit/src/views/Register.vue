@@ -25,7 +25,7 @@
             <button class="vcode-button" v-if="!timing" @click="getCode">{{ code }}</button>
             <div class="time" v-if="timing">
                 <div class="small-explain">
-                    二维码发送成功
+                    验证码发送成功
                 </div>
                 <div style="text-align: center;">
                     <Row style="color: rgb(45, 140, 240); margin: auto;">
@@ -39,8 +39,10 @@
             </div>
         </div>
         <button class="login-button" @click="getRegister">注册</button>
+        <div class="small-explain1" v-if="successRegister">注册成功，请点击下方蓝字前往登录</div>
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/Login">我已经注册 , 前往登录</router-link> </div>
+
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
@@ -57,6 +59,7 @@ let token = "";
 const second = 60;
 const requestCode = ref(true);
 const timing = ref(false);
+const successRegister = ref(false)
 let code = "发送验证码"
 const loginContent = reactive({
     phoneNumber: "",
@@ -138,6 +141,11 @@ const getRegister = () => {
                 let token = res.data.accessToken
                 localStorage.setItem("token", token)
                 console.log(token);
+                if (res.data.errorMessages) {
+                    alert(res.data.errorMessages)
+                } else {
+                    successRegister.value = !successRegister.value
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -255,6 +263,13 @@ const getRegister = () => {
     text-align: center;
     font-size: 1.3em;
     color: rgb(45, 140, 240);
+}
+
+.small-explain1 {
+    font-family: "楷体";
+    text-align: center;
+    font-size: 1.3em;
+    color: rgba(209 54 57);
 }
 
 .divider {

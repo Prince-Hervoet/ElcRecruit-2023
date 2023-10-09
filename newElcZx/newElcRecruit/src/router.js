@@ -8,16 +8,13 @@ import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
 import ForgetPassword from "./views/ForgetPassword.vue";
 import Welcome from "./views/Welcome.vue";
-import Rey from "./views/Rey.vue"
+
 const routes = [
   {
     path: "/",
     component: Login,
   },
-  {
-    path: "/rey",
-    component: Rey,
-  },
+
   {
     path: "/login",
     component: Login,

@@ -71,8 +71,9 @@ import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
 import Login from "./Login.vue"
 
-let token = ""
-token = localStorage.getItem("token")
+
+let token = localStorage.getItem("token")
+
 let hasError = ref(false);
 const studentInfo = reactive({
     name: "",
@@ -137,8 +138,6 @@ const clickSubmitForm = async () => {
         },
             {
                 headers: {
-                    accept: "text/plain",
-                    "content-type": "application/json",
                     Authorization: token,
                 }
             }

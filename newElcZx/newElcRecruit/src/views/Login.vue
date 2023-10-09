@@ -71,14 +71,14 @@ function getLogin() {
     })
         .then((res) => {
             console.log(res);
-            // alert(res.data.errorMesage);
-            if (res.data.errorMessages) {
-                alert(res.data.errorMessages);
+            let errorMsg = res.data.errorMessages
+            if (errorMsg) {
+                alert(errorMsg);
             } else {
                 let token = res.data.access_token
-                localStorage.setItem("token", token)
+                localStorage.setItem("token", "Bearer" + token)
                 console.log(token);
-                // router.push({ path: 'Welcome' });
+                router.push({ path: 'Welcome' });
             }
         })
         .catch(function (error) {
