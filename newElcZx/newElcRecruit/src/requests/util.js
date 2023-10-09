@@ -8,7 +8,7 @@ export const ServiceUrls = {
   getInfo: `/elc_recruit/student/get_info`,
   getProcess: `/elc_recruit/student/get_process`,
   getLogin:`/elc_recruit/interviewer/student_login`,
-  getCode:`/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`,
-  getRegister:`/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
+  getCode:`/elc_recruit/student/send_verification_code?`,
+  getRegister:`/elc_recruit/interviewer/register_student?`,
   getCommit:`/elc_recruit/student/commit`,
 };

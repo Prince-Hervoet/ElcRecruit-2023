@@ -107,7 +107,7 @@ const getCode = () => {
         requestCode.value = !requestCode.value;
         timing.value = !timing.value;
         //todo发送验证码审核
-        axios.get(codeUrl)
+        axios.get(codeUrl + `phoneNumber=${loginContent.phoneNumber}`)
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -137,7 +137,7 @@ const getRegister = () => {
     } else if (!checkpassword(loginContent.password)) {
         console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
-        axios.get(registerUrl,
+        axios.get(registerUrl + `phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
             { headers: { Authorization: ` ${token}` } },)
             .then((res) => {
                 console.log(res);
