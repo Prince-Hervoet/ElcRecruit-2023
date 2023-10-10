@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace interviewer.Data;
@@ -14,7 +15,7 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
 
     private readonly string? _connectionString;
 
-    private readonly UserManager<InterviewerUser> _userManager;
+    [FromServices] public UserManager<InterviewerUser> UserManager { get; set; }
 
     public InterviewerDbContext(IConfiguration configuration)
     {
@@ -28,7 +29,7 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
         optionsBuilder.UseSqlServer(_connectionString);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override async void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
@@ -68,6 +69,18 @@ public class InterviewerDbContext : IdentityDbContext<InterviewerUser>
         }
 
         modelBuilder.Entity<Student>().HasData(students);
+
+        if (await UserManager.FindByNameAsync("admin") is null)
+        {
+            InterviewerUser user = new InterviewerUser()
+            {
+                Id = new Guid().ToString(),
+                UserName = "admin",
+            };
+            await UserManager.CreateAsync(user, "@Admin");
+
+            await UserManager.AddToRoleAsync(user, "Admin");
+        }
 
         string RandomString(int length)
         {

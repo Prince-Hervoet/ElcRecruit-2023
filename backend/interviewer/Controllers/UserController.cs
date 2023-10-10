@@ -74,6 +74,25 @@ namespace interviewer.Controllers
                 TokenType = result.TokenType
             });
         }
+        
+        [HttpPost("student_login")]
+        public async Task<IActionResult> StudentLogin(StudentLoginRequest request)
+        {
+            var result = await _userService.LoginAsync("stu_" + request.PhoneNumber, request.Password);
+            if (!result.Success)
+            {
+                return Ok(new FailedResult()
+                {
+                    ErrorMessages = result.ErrorMessages
+                });
+            }
+
+            return Ok(new TokenResult
+            {
+                AccessToken = result.AccessToken,
+                TokenType = result.TokenType
+            });
+        }
 
         [HttpPost("AddToUserRole")]
         [Authorize(Roles = "Admin")]
@@ -169,5 +188,6 @@ namespace interviewer.Controllers
 
             return Ok(await _userService.ResetPasswordAsync("stu_" + phoneNumber, password));
         }
+
     }
 }

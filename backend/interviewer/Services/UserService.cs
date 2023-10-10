@@ -42,7 +42,7 @@ namespace interviewer.Services
             {
                 return new TokenResult
                 {
-                    ErrorMessages = new[] { "user already exists!" }, //用户已存在
+                    ErrorMessages = new[] { "用户已存在" }, 
                 };
             }
 
@@ -89,7 +89,7 @@ namespace interviewer.Services
                 {
                     return new TokenResult
                     {
-                        ErrorMessages = new[] { "wrong user name or password!" }, //用户名或密码错误
+                        ErrorMessages = new[] { "用户名或密码错误" },
                     };
                 }
 
@@ -129,7 +129,7 @@ namespace interviewer.Services
             {
                 return new TokenResult
                 {
-                    ErrorMessages = new[] { "user already exists!" }, //用户已存在
+                    ErrorMessages = new[] { "用户已存在" },
                 };
             }
 
@@ -154,7 +154,7 @@ namespace interviewer.Services
             {
                 return new TokenResult
                 {
-                    ErrorMessages = new[] { "user does not exist!" }, //用户不存在
+                    ErrorMessages = new[] { "用户不存在" },
                 };
             }
 
@@ -163,7 +163,7 @@ namespace interviewer.Services
             {
                 return new TokenResult
                 {
-                    ErrorMessages = new[] { "wrong user name or password!" }, //用户名或密码错误
+                    ErrorMessages = new[] { "用户名或密码错误" },
                 };
             }
 
@@ -177,7 +177,7 @@ namespace interviewer.Services
             {
                 return new EditResult
                 {
-                    ErrorMessages = new[] { "user does not exist!" }, //用户不存在
+                    ErrorMessages = new[] { "用户不存在" },
                 };
             }
 
@@ -229,7 +229,7 @@ namespace interviewer.Services
             {
                 return new EditResult
                 {
-                    ErrorMessages = new[] { "user does not exist!" }, //用户不存在
+                    ErrorMessages = new[] { "用户不存在" },
                 };
             }
 
@@ -238,7 +238,7 @@ namespace interviewer.Services
             {
                 return new EditResult
                 {
-                    ErrorMessages = new[] { "wrong user name or password!" }, //用户名或密码错误
+                    ErrorMessages = new[] { "用户名或密码错误" },
                 };
             }
 

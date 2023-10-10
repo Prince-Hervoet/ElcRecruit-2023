@@ -91,12 +91,13 @@ namespace interviewer.Controllers
 
         [HttpPost("update_student_status")]
         [Authorize(Roles = "Interviewer")]
-        public object UpdateStudentStatus([Required] UpdateStudentStatusParms p)
+        public async Task<object> UpdateStudentStatus([Required] UpdateStudentStatusParms p)
         {
+            InterviewerUser interviewerUser = await _userManager.GetUserAsync(User);
             var interviewerDepartment = _dbContext.Interviewers
-                ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
+                ?.FirstOrDefault(i =>i.Id == interviewerUser.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == p.userId)?.FirstDepartment;
-            if (interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
+            if (!await _userManager.IsInRoleAsync(interviewerUser,"Admin") && interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
                 return Unauthorized(new Result()
                 {
                     ErrorMessages = new[] { "不能更新其他部门的面试者状态" }
@@ -121,14 +122,15 @@ namespace interviewer.Controllers
 
         [HttpPost("commit_comment")]
         [Authorize(Roles = "Interviewer")]
-        public IActionResult CommitComment([Required] Comment comment)
+        public async Task<IActionResult> CommitComment([Required] Comment comment)
         {
+            InterviewerUser interviewerUser = await _userManager.GetUserAsync(User);
             comment.Id = Guid.NewGuid().ToString();
             var interviewerDepartment = _dbContext.Interviewers
-                ?.FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
+                ?.FirstOrDefault(i => i.Id == interviewerUser.Id)?.Department;
             var studentDepartment = _dbContext.Students?.FirstOrDefault(s => s.Id == comment.StudentUserId)
                 ?.FirstDepartment;
-            if (interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
+            if (!await _userManager.IsInRoleAsync(interviewerUser,"Admin") && interviewerDepartment != ElcDepartment.All || interviewerDepartment != studentDepartment)
                 return Unauthorized(new Result
                 {
                     ErrorMessages = new string[] { "不能对其他部门的面试者提交评价" }
@@ -143,9 +145,10 @@ namespace interviewer.Controllers
             [Required] ElcDepartment TargetDepId);
 
         [HttpPost("transfer_student")]
-        [Authorize(Roles = "Interviewer")]
-        public IActionResult TransferStudent([Required] TransferStudentParms p)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> TransferStudent([Required] TransferStudentParms p)
         {
+            InterviewerUser interviewerUser = await _userManager.GetUserAsync(User);
             var student = _dbContext.Students?.FirstOrDefault(s => s.Id == p.StudentId);
             if (student == null)
                 return Ok(new Result
@@ -154,10 +157,10 @@ namespace interviewer.Controllers
                 });
 
             var interviewerDepartment = _dbContext.Interviewers
-                .FirstOrDefault(i => i.Id == _userManager.GetUserAsync(User).Result.Id)?.Department;
+                .FirstOrDefault(i => i.Id == interviewerUser.Id)?.Department;
             var studentDepartment = student.FirstDepartment;
             
-            if (interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
+            if (!await _userManager.IsInRoleAsync(interviewerUser,"Admin") && interviewerDepartment != ElcDepartment.All && interviewerDepartment != studentDepartment)
                 return Unauthorized(new Result
                 {
                     ErrorMessages = new[] { "不能调剂其他部门的面试者" }

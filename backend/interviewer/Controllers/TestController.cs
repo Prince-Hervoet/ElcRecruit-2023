@@ -1,6 +1,5 @@
 ﻿using interviewer.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,10 +36,10 @@ namespace interviewer.Controllers
             {
                 return Ok($"Hello {roles.Aggregate((prev, current) => prev + "|" + current)} {user.UserName}!");
             }
-            
+
             return Ok($"Hello {user.UserName}!");
         }
-        
+
         [HttpGet("delete_user")]
         [Authorize]
         public async Task<IActionResult> DeleteUser()
@@ -77,6 +76,46 @@ namespace interviewer.Controllers
             }
 
             return BadRequest(result.Errors);
+        }
+
+        [HttpGet("become_admin")]
+        [Authorize]
+        public async Task<IActionResult> BecomeAdmin()
+        {
+            InterviewerUser? interviewerUser = await _userManager.GetUserAsync(User);
+            if (interviewerUser is null)
+                return Ok(new Result
+                {
+                    ErrorMessages = new[] { "用户不存在" }
+                });
+            IdentityResult result = await _userManager.AddToRoleAsync(interviewerUser, "Admin");
+            if (result.Succeeded)
+                return Ok(new Result());
+
+            return Ok(new Result
+            {
+                ErrorMessages = result.Errors.Select(e => e.Description).ToArray()
+            });
+        }
+        
+        [HttpGet("become_interviewer")]
+        [Authorize]
+        public async Task<IActionResult> BecomeInterviewer()
+        {
+            InterviewerUser? interviewerUser = await _userManager.GetUserAsync(User);
+            if (interviewerUser is null)
+                return Ok(new Result
+                {
+                    ErrorMessages = new[] { "用户不存在" }
+                });
+            IdentityResult result = await _userManager.AddToRoleAsync(interviewerUser, "Interviewer");
+            if (result.Succeeded)
+                return Ok(new Result());
+
+            return Ok(new Result
+            {
+                ErrorMessages = result.Errors.Select(e => e.Description).ToArray()
+            });
         }
     }
 }

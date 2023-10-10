@@ -40,7 +40,7 @@ public class RootController : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Export(StudentState studentState, ElcDepartment department)
     {
-        Student[]? data = null;
+        Student[]? data;
         try
         {
             data = await _dbContext.Students.Where(s =>
@@ -63,7 +63,7 @@ public class RootController : ControllerBase
 
         serializer.Serialize(stream, data);
 
-        var response = File(stream.ToArray(), "application/vnd.ms-excel", "Export.xls");
+        var response = File(stream.ToArray(), "application/vnd.ms-excel", "Export.xml");
 
         return response;
     }
@@ -78,7 +78,7 @@ public class RootController : ControllerBase
             return new
             {
                 Success = false,
-                ErrorMessages = new string[] { "已到达最终阶段！" }
+                ErrorMessages = new[] { "已到达最终阶段！" }
             };
 
         Dictionary<StudentState, int> stateDict = new();
@@ -104,7 +104,7 @@ public class RootController : ControllerBase
                 return new
                 {
                     Success = false,
-                    ErrorMessages = new string[] { errorMessage }
+                    ErrorMessages = new[] { errorMessage }
                 };
             }
         }
@@ -117,7 +117,8 @@ public class RootController : ControllerBase
                 Id = Guid.NewGuid().ToString(),
                 StudentId = student.Id,
                 State = student.State,
-                ProcessState = (ProcessState)processState
+                ProcessState = (ProcessState)processState,
+                Department =  student.FirstDepartment
             });
             student.State = student.State == StudentState.Pass ? StudentState.Applied : StudentState.Failed;
         }
@@ -141,7 +142,7 @@ public class RootController : ControllerBase
             return new
             {
                 Success = false,
-                ErrorMessages = new string[] { "已到达最初阶段！" }
+                ErrorMessages = new[] { "已到达最初阶段！" }
             };
 
         foreach (StudentHistory history in _dbContext.StudentHistories.ToList()
@@ -149,7 +150,10 @@ public class RootController : ControllerBase
         {
             Student? student = _dbContext.Students.FirstOrDefault(student => student.Id == history.StudentId);
             if (student is not null)
+            {
                 student.State = history.State;
+                student.FirstDepartment = history.Department;
+            }
         }
 
         SetProcessState(processState - 1);

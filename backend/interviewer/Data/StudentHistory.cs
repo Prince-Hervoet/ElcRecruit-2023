@@ -9,6 +9,7 @@ public class StudentHistory
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string Id { get; set; } = new Guid().ToString();
     public required string StudentId { get; set; }
+    public ElcDepartment Department { get; set; }
     public StudentState State { get; set; }
     public ProcessState ProcessState { get; set; }
     public DateTime Time { get; set; } = DateTime.UtcNow;
