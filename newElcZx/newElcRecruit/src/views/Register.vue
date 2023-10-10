@@ -142,13 +142,11 @@ const getRegister = () => {
             .then((res) => {
                 console.log(res);
                 let token = res.data.accessToken
-                localStorage.setItem(`Bearer ${token}`)
-                console.log(token);
-                errorMessages = res.data.errorMessages;
-                if (errorMessages) {
-                    alert(errorMessages)
+                localStorage.setItem("token", `Bearer ${token}`)
+                if (res.data.errorMessages) {
+                    alert(res.data.errorMessages)
                 } else {
-                    successRegister.value = !successRegister.value
+                    successRegister.value = !successRegister.value;
                 }
             })
             .catch(function (error) {
