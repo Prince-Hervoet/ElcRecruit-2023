@@ -1,10 +1,11 @@
 <template>
     <div class="gradient">
-        <div class="depName">{{ depName }}</div>
-        <div class="divider"></div>
-        <div class="smallIntro">{{ smallIntro }}</div>
-        <div class="depText">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-            {{ depText }}
+        <div class="gradient-content-body">
+            <div class="depName">{{ depName }}</div>
+            <div class="smallIntro">{{ smallIntro }}</div>
+            <div class="depText">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                {{ depText }}
+            </div>
         </div>
     </div>
 </template>
@@ -104,8 +105,6 @@ onMounted(() => {
         background-image: url("../assets/bg0.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
         overflow: auto;
         user-select: none;
 
@@ -118,26 +117,30 @@ onMounted(() => {
         background-image: url("../assets/bg00.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
-        display: flex;
-        flex-direction: column;
         overflow: auto;
         user-select: none;
 
     }
 }
 
-.divider {
-    background: rgba(198, 198, 198, 0.663);
-    width: 70%;
-    height: 5rpx;
-    margin-top: 2px;
+.gradient-content-body {
+    height: 100%;
+    width: 80%;
+    margin: auto;
 }
 
+@media screen and (min-width: 800px) {
+    .gradient-content-body {
+        height: 100%;
+        width: 60%;
+        margin: auto;
+    }
+}
+
+
 .depName {
-    width: 70%;
     margin-top: 10%;
     font-size: 50px;
-    text-align: center;
     font-family: 楷体;
     font-weight: 700;
     color: rgb(247, 199, 110);
@@ -145,15 +148,15 @@ onMounted(() => {
 
 .smallIntro {
     color: rgba(124, 124, 124, 0.973);
-    width: 70%;
     margin-top: 5px;
-    text-align: center;
+    padding-left: 5px;
 }
 
 .depText {
-    width: 70%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
     margin: auto;
     font-weight: 500;
     font-size: 18px;
