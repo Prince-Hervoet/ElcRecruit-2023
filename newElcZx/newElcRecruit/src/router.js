@@ -6,15 +6,30 @@ import UserInfoForm from "./views/UserInfoForm.vue";
 import DepIntros from "./views/DepIntros.vue";
 import KnowElc from "./views/KnowElc.vue";
 import NewWelcome from "./views/NewWelcome.vue";
+import ForgetPassword from "./views/ForgetPassword.vue";
+import Welcome from "./views/Welcome.vue";
 
 const routes = [
   {
     path: "/",
-    component: Stepper,
+    component: Login,
   },
+
   {
     path: "/login",
     component: Login,
+  },
+  {
+    path: "/welcome",
+    component: Welcome,
+  },
+  {
+    path: "/register",
+    component: Register,
+  },
+  {
+    path: "/forgetPassword",
+    component: ForgetPassword,
   },
   {
     path: "/stepper",
@@ -25,7 +40,7 @@ const routes = [
     component: UserInfoForm,
   },
   {
-    path: "/welcome",
+    path: "/newWelcome",
     component: NewWelcome,
   },
   {
@@ -41,6 +56,7 @@ const routes = [
     path: "/register",
     component: Register,
   },
+  { path: "/welcome", component: Welcome },
 ];
 
 const router = new createRouter({

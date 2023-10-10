@@ -43,6 +43,8 @@
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
+import router from '../router';
+import { ServiceUrls } from "../requests/util.js";
 let token = "";
 const second = 60;
 const alreadyLogin = ref(false);
@@ -63,14 +65,22 @@ const setLoginInfo = (data) => {
 
 // }
 function getLogin() {
-    axios.post('http://139.159.220.241:8081/elc_recruit/interviewer/Login', {
-        userName: loginContent.phoneNumber,
+    const url = ServiceUrls.getLogin;
+    axios.post(url, {
+        phoneNumber: loginContent.phoneNumber,
         password: loginContent.password
     })
         .then((res) => {
             console.log(res);
-            console.log(res.data.errors);
-            alert(res.data.errors);
+            let errorMsg = res.data.errorMessages
+            if (errorMsg) {
+                alert(errorMsg);
+            } else {
+                let token = res.data.access_token
+                localStorage.setItem("token", `Bearer ${token}`)
+                console.log(token);
+                router.push({ path: 'Welcome' });
+            }
         })
         .catch(function (error) {
             console.log(error);

@@ -6,6 +6,7 @@ import { LoginRequest } from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import Bo from "../../components/loginComponents/bo/bo";
 import { getTokenDataToObj } from "../../toolFuncs";
+import { ServiceUrls, commonRequest } from "../../requests/util";
 
 export default function Login() {
   let userNameRef = useRef("");
@@ -26,19 +27,20 @@ export default function Login() {
       return;
     }
     const res = await LoginRequest.login(userName, password);
-    if (res.success) {
-      if (res.data.errors) {
-        alert(res.data.errors[0]);
-      } else {
-        const { token_type, access_token } = res.data;
-        const tokenDataObj = getTokenDataToObj(access_token);
-        const token = `${token_type} ${access_token}`;
-        localStorage.setItem("roleJson", JSON.stringify(tokenDataObj));
-        localStorage.setItem("token", token);
-        nav("/dataHost", { replace: true });
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
       }
+      const { access_token, token_type } = responseData;
+      const token = `${token_type} ${access_token}`;
+      const tokenDataObj = getTokenDataToObj(access_token);
+      localStorage.setItem("roleJson", JSON.stringify(tokenDataObj));
+      localStorage.setItem("token", token);
+      nav("/dataHost", { replace: true });
     } else {
-      alert(res.data.message);
+      alert(`请求失败: ${res.data.message}`);
     }
   };
 

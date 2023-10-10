@@ -6,6 +6,13 @@ export const ColorObj = {
   60: "red",
 };
 
+export const StudentStatusObj = {
+  HAS_COMMIT: 10,
+  INTERVIEWING: 30,
+  ACCESS: 50,
+  REJECT: 60,
+};
+
 // 部门对应表
 export const DepInfoArr = [
   { name: "总览表", id: 0 },
@@ -40,9 +47,18 @@ export const DepInfoArr = [
 ];
 
 // 部门选择对应表
-export const KeyToDepName = {
+export const KeyToLeftListName = {
   0: "总览表",
-  100: "调剂区",
+  1: "维修部",
+  2: "秘书部",
+  3: "项目部",
+  4: "网宣部",
+  5: "外联部",
+  6: "实践部",
+  7: "软件组",
+};
+
+export const KeyToDepName = {
   1: "维修部",
   2: "秘书部",
   3: "项目部",

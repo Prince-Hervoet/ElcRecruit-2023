@@ -20,62 +20,56 @@
             <div>
                 <MyInput header-name="验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
             </div>
-            <button class="vcode-button" v-if="requestCode" @click="getCode">{{ code }}</button>
+        </div>
+        <div class="login-getCode-container">
+            <button class="vcode-button" v-if="!timing" @click="getCode">{{ code }}</button>
             <div class="time" v-if="timing">
-                <Row>
-                    <Col span="12">
-                    <CountDown :target="loginContent.targetTime2" @on-end="handleEnd" v-font="20" />
-                    </Col>
-                </Row>
+                <div class="small-explain">
+                    验证码发送成功
+                </div>
+                <div style="text-align: center;">
+                    <Row style="color: rgb(45, 140, 240); margin: auto;">
+                        <Col span="12">
+                        <CountDown :target="new Date().getTime() + 60000" @on-end="handleEnd" v-font="20" />
+                        </Col>
+                        <span style="font-family: '楷体'; font-size: larger; color: rgb(45, 140, 240);">之后可再次发送</span>
+                    </Row>
+                </div>
+
             </div>
         </div>
-        <!-- <button class="vcode-button" v-if="requestCode" @click="getCode">获取验证码</button> -->
         <button class="login-button" @click="getRegister">注册</button>
-
+        <div class="small-explain1" v-if="successRegister">注册成功，请点击下方蓝字前往登录</div>
         <div class="login-content-bottom-body">
             <div class="small-explain"> <router-link to="/Login">我已经注册 , 前往登录</router-link> </div>
-            <!-- <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
 
-            </div> -->
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
-
-
     </div>
 </template>
 
 <script setup>
-//如果请求通过了，推进下一步
-// if (res.data.success) {
-//     // const processState = res.data.data[res.data.data.length - 1].processState;
-//     //循环遍历process（流程），state(新生通过与否的值)
-//     for (let i = 0; i < res.data.data.length; i++) {
-//         const e = res.data.data[i];
-//         let process = e.processState;
-//         let state = e.state;
-//         console.log("process: " + process + ", state: " + state);
-//     }
 
-// }
 import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
+import { ServiceUrls } from "../requests/util.js";
+
 let token = "";
 const second = 60;
 const requestCode = ref(true);
 const timing = ref(false);
+const successRegister = ref(false)
 let code = "发送验证码"
 const loginContent = reactive({
     phoneNumber: "",
     password: "",
     code: "",
-    targetTime2: new Date().getTime() + 60000,
 });
 
 function handleEnd() {
     console.log("重新发送验证码");
-    requestCode.value = !requestCode.value;
     timing.value = !timing.value;
     code = "重新发送验证码"
 }
@@ -107,12 +101,13 @@ function checkpassword(value) {
 }
 
 const getCode = () => {
+    const codeUrl = ServiceUrls.getCode;
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
         console.log("正确");
         requestCode.value = !requestCode.value;
         timing.value = !timing.value;
         //todo发送验证码审核
-        axios.get(`http://139.159.220.241:8081/elc_recruit/student/send_verification_code?phoneNumber=${loginContent.phoneNumber}`)
+        axios.get(codeUrl + `phoneNumber=${loginContent.phoneNumber}`)
             .then((res) => {
                 console.log(res);
                 if (res.status === 200) {
@@ -126,11 +121,12 @@ const getCode = () => {
                 // console.log(loginContent.phoneNumber);
             });
     } else {
-        console.log("错");
+        alert("请输入符合规范的手机号")
     }
 }
 
 const getRegister = () => {
+    const registerUrl = ServiceUrls.getRegister;
     //手机号验证码密码符合要求
 
     //电话错误
@@ -139,15 +135,21 @@ const getRegister = () => {
 
         //密码错误
     } else if (!checkpassword(loginContent.password)) {
-        console.log("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
+        alert("您的密码复杂度太低（密码中必须包含大小写字母、数字、特殊字符）");
     } else {
-        axios.get(`http://139.159.220.241:8081/elc_recruit/interviewer/register_student?phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
+        axios.get(registerUrl + `phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,
             { headers: { Authorization: ` ${token}` } },)
             .then((res) => {
                 console.log(res);
                 let token = res.data.accessToken
-                localStorage.setItem("token", token)
+                localStorage.setItem(`Bearer ${token}`)
                 console.log(token);
+                errorMessages = res.data.errorMessages;
+                if (errorMessages) {
+                    alert(errorMessages)
+                } else {
+                    successRegister.value = !successRegister.value
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -207,43 +209,6 @@ const getRegister = () => {
     margin-bottom: 20px;
 }
 
-/* .login-content-body>.pho {
-    margin-bottom: 100px;
-} */
-
-.myInput-header {
-    height: 20px;
-    padding: 2px;
-    box-sizing: border-box;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    color: rgb(146, 146, 146);
-    margin-bottom: 5px;
-    margin-top: 20px;
-}
-
-.myInput-input-container {
-    height: 40px;
-}
-
-.myInput-input {
-    width: 100%;
-    height: 30px;
-    margin: auto;
-    border-radius: 6px;
-    background-color: rgb(244, 244, 244);
-    box-sizing: border-box;
-    padding-left: 10px;
-    border: 0;
-    outline: none;
-}
-
-.myInput-input:active {
-    border: 1px solid #dfdfdf;
-    background-color: #eee;
-}
-
 .login-button {
     background-color: rgba(209 54 57);
     border-radius: 6px;
@@ -301,6 +266,14 @@ const getRegister = () => {
     font-family: "楷体";
     text-align: center;
     font-size: 1.3em;
+    color: rgb(45, 140, 240);
+}
+
+.small-explain1 {
+    font-family: "楷体";
+    text-align: center;
+    font-size: 1.3em;
+    color: rgba(209 54 57);
 }
 
 .divider {
@@ -312,5 +285,15 @@ const getRegister = () => {
 .small-intro {
     font-family: "楷体";
     text-align: center;
+}
+
+.login-getCode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time {
+    width: 50%;
 }
 </style>

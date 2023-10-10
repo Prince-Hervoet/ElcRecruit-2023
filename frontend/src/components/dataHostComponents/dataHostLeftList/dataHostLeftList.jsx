@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./dataHostLeftList.css";
 import ReactLogo from "../reactLogo/reactLogo";
 import { DepInfoArr } from "../../../store/global";
-import { clickSendGetCards } from "../utilClick/util";
 import GdataHostCardListStore from "../../../store/dataHostCardListStore";
 import { DEFAULT_PAGE_LIMIT } from "../../../requests/util";
+import { clickSendGetCards } from "../dataHostCardList/util";
 
 export default function DataHostLeftList() {
   const [selectId, setSelectId] = useState(0);

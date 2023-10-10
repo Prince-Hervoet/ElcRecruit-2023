@@ -10,7 +10,7 @@ import { Button } from "antd";
 import "./resume.css";
 import { getUrlParam } from "../../toolFuncs";
 import { ResumeRequest } from "../../requests/resumeRequest";
-import { CollegeObj, KeyToDepName } from "../../store/global";
+import { CollegeObj, KeyToDepName, StudentStatusObj } from "../../store/global";
 const { TextArea } = Input;
 
 export default function Resume() {
@@ -26,53 +26,20 @@ export default function Resume() {
   // 进入页面完成挂载时，请求数据和评论
   useEffect(() => {
     userIdRef.current = getUrlParam("userId");
-    (async function () {
-      const res = await ResumeRequest.sendGetStudentInfo(userIdRef.current);
-      if (res.success) {
-        const {
-          college,
-          firstDepartment,
-          grade,
-          id,
-          introduction,
-          name,
-          phone,
-          qq,
-          secondDepartment,
-          skills,
-          state,
-          studentId,
-          weChat,
-        } = res.data.data;
-        const firstDepName = KeyToDepName[firstDepartment];
-        const secondDepName = KeyToDepName[secondDepartment];
-        const collegeName = CollegeObj[college];
-        const nItems = {
-          collegeName,
-          firstDepName,
-          firstDepId: firstDepartment,
-          grade,
-          id,
-          introduction,
-          name,
-          phone,
-          qq,
-          secondDepName,
-          skills,
-          state,
-          studentId,
-          weChat,
-        };
-        setItems(nItems);
-      } else {
-        alert(res.data.message);
-      }
-    })();
-
+    sendGetUserInfo();
     (async function () {
       const res = await ResumeRequest.sendGetComments(userIdRef.current);
-      const commentList = res.data.data;
-      setCommentAndScores(commentList);
+      if (res.isRequestSuccess) {
+        const responseData = res.data.data;
+        if (!responseData.success) {
+          alert("评论获取失败");
+          return;
+        }
+        const commentList = responseData.data;
+        setCommentAndScores(commentList);
+      } else {
+        alert(`请求失败: ${res.data.message}`);
+      }
     })();
 
     try {
@@ -83,16 +50,39 @@ export default function Resume() {
     } catch (e) {}
   }, []);
 
+  const sendGetUserInfo = async () => {
+    const res = await ResumeRequest.sendGetStudentInfo(userIdRef.current);
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
+      const userInfo = responseData.data;
+      userInfo.firstDepName = KeyToDepName[userInfo.firstDepartment];
+      userInfo.secondDepName = KeyToDepName[userInfo.secondDepartment];
+      userInfo.collegeName = CollegeObj[userInfo.college];
+      setItems(userInfo);
+    } else {
+      alert(`请求失败: ${res.data.message}`);
+    }
+  };
+
   // 开始面试按钮
   const clickStartInterview = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
-      30
+      StudentStatusObj.INTERVIEWING
     );
-    if (res.success) {
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
       alert("修改成功");
     } else {
-      alert("修改失败，请检查角色权限和网络情况");
+      alert(`请求失败: ${res.data.message}`);
     }
   };
 
@@ -100,12 +90,17 @@ export default function Resume() {
   const clickAccept = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
-      50
+      StudentStatusObj.ACCESS
     );
-    if (res.success) {
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
       alert("修改成功");
     } else {
-      alert(res.data.response.data?.errors[0]);
+      alert(`请求失败: ${res.data.message}`);
     }
   };
 
@@ -113,12 +108,17 @@ export default function Resume() {
   const clickReject = async () => {
     const res = await ResumeRequest.sendUpdateStudentStatus(
       userIdRef.current,
-      60
+      StudentStatusObj.REJECT
     );
-    if (res.success) {
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
       alert("修改成功");
     } else {
-      alert(res.data.response.data?.errors[0]);
+      alert(`请求失败: ${res.data.message}`);
     }
   };
 
@@ -134,8 +134,12 @@ export default function Resume() {
       comment,
       score
     );
-    if (res.success) {
-      alert("提交成功");
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
       setCommentAndScores([
         ...commentAndScores,
         { interviewerName, content: comment, score },
@@ -143,8 +147,9 @@ export default function Resume() {
       setComment("");
       setInterviewerName("");
       setScore("");
+      alert("提交成功");
     } else {
-      alert("提交失败，请检查权限和网络");
+      alert(`请求失败: ${res.data.message}`);
     }
   };
 
@@ -170,14 +175,28 @@ export default function Resume() {
   // 修改学生的第一志愿
   const clickTransferStudent = async () => {
     const userId = userIdRef.current;
-    const sourceDepId = items.firstDepId;
-    const targetDepId = targetDepIdRef.current;
+    const sourceDepId = items.firstDepartment;
+    const targetDepId = parseInt(targetDepIdRef.current);
     const res = await ResumeRequest.transferStudent(
       userId,
       sourceDepId,
       targetDepId
     );
-    console.log(res);
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("处理失败");
+        return;
+      }
+      const userInfo = responseData.data;
+      userInfo.firstDepName = KeyToDepName[userInfo.firstDepartment];
+      userInfo.secondDepName = KeyToDepName[userInfo.secondDepartment];
+      userInfo.collegeName = CollegeObj[userInfo.college];
+      setItems(userInfo);
+      alert("修改成功");
+    } else {
+      alert(`请求失败: ${res.data.message}`);
+    }
   };
 
   return (
@@ -192,7 +211,7 @@ export default function Resume() {
           >
             <Descriptions.Item label="姓名">{items.name}</Descriptions.Item>
             <Descriptions.Item label="学号">
-              {items.studentId}
+              {items.studentNumber}
             </Descriptions.Item>
             <Descriptions.Item label="学院">
               {items.collegeName}

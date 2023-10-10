@@ -1,5 +1,4 @@
-import axios from "axios";
-import { ServiceUrls } from "./util";
+import { ServiceUrls, commonRequest } from "./util.js";
 
 // 分页 pageCount：页码  pageLimit：每页显示的数量
 
@@ -11,22 +10,11 @@ import { ServiceUrls } from "./util";
  * @returns {uid:"1Njd12",name:"张三",depId:"1",stuId:"3120003333",college:"ddd",major:"光电",status:10}
  */
 async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
-  const url =
-    ServiceUrls.getBriefInfos +
-    `?depId=${depId}&pageCount=${pageCount}&pageLimit=${pageLimit}`;
-  let ans = {};
-  try {
-    const res = await axios({
-      method: "GET",
-      url,
-    });
-    ans.success = true;
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest(
+    "GET",
+    `${ServiceUrls.getBriefInfos}?depId=${depId}&pageCount=${pageCount}&pageLimit=${pageLimit}`
+  );
+  return res;
 }
 
 /**
@@ -34,28 +22,9 @@ async function getBriefInfosByDepId(depId, pageCount, pageLimit) {
  * @returns {[{depId:1,size:"42"},{},{}]}
  */
 async function getDepSizeList() {
-  const url = ServiceUrls.getDepSizeList;
-  let ans = {};
-  try {
-    const res = await axios({
-      method: "GET",
-      url,
-    });
-    ans.success = true;
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest("GET", ServiceUrls.getDepSizeList);
+  return res;
 }
-
-/**
- * 获取当前部门的签到列表
- * @param {string} depId
- * @returns {uid:"123123",name:"张三",stuId:"3120007433"}
- */
-async function getCheckinInfos(depId) {}
 
 /**
  * 搜索
@@ -63,27 +32,16 @@ async function getCheckinInfos(depId) {}
  * @param {number} depId
  */
 async function getSearchBriefInfo(keyword, depId) {
-  const url =
-    ServiceUrls.getSearchBriefInfo + `?keyword=${keyword}&depId=${depId}`;
-  let ans = {};
-  try {
-    const res = await axios({
-      method: "GET",
-      url,
-    });
-    ans.success = true;
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest(
+    "GET",
+    `${ServiceUrls.getSearchBriefInfo}?keyword=${keyword}&depId=${depId}`
+  );
+  return res;
 }
 
 const DataRequest = {
   getBriefInfosByDepId,
   getDepSizeList,
-  getCheckinInfos,
   getSearchBriefInfo,
 };
 

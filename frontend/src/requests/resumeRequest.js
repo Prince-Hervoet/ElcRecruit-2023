@@ -1,25 +1,15 @@
-import axios from "axios";
-import { ServiceUrls } from "./util";
+import { ServiceUrls, commonRequest } from "./util";
 
 /**
  * 获取学生个人信息
  * @param {string} userId
  */
 async function sendGetStudentInfo(userId) {
-  const url = ServiceUrls.getDetailedInfo + `?userId=${userId}`;
-  const ans = {};
-  try {
-    const res = await axios({
-      method: "GET",
-      url,
-    });
-    ans.success = true;
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest(
+    "GET",
+    `${ServiceUrls.getDetailedInfo}?userId=${userId}`
+  );
+  return res;
 }
 
 /**
@@ -28,20 +18,11 @@ async function sendGetStudentInfo(userId) {
  * @returns {object}
  */
 async function sendGetComments(userId) {
-  const url = ServiceUrls.getCommentAndScore + `?studentUserId=${userId}`;
-  const ans = {};
-  try {
-    const res = await axios({
-      method: "GET",
-      url,
-    });
-    ans.success = true;
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = commonRequest(
+    "GET",
+    `${ServiceUrls.getCommentAndScore}?studentUserId=${userId}`
+  );
+  return res;
 }
 
 /**
@@ -50,23 +31,11 @@ async function sendGetComments(userId) {
  * @param {number} nStatus
  */
 async function sendUpdateStudentStatus(userId, nStatus) {
-  const url = ServiceUrls.updateStudentStatus;
-  const ans = { success: true };
-  try {
-    const res = await axios({
-      method: "POST",
-      data: {
-        userId,
-        state: nStatus,
-      },
-      url,
-    });
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest("POST", ServiceUrls.updateStudentStatus, {
+    userId,
+    state: nStatus,
+  });
+  return res;
 }
 
 /**
@@ -77,47 +46,23 @@ async function sendUpdateStudentStatus(userId, nStatus) {
  * @param {number} score
  */
 async function sendCommentAndScore(userId, interviewerName, content, score) {
-  const url = ServiceUrls.commitComment;
-  const ans = { success: true };
-  try {
-    const res = await axios({
-      method: "POST",
-      data: {
-        id: "",
-        studentUserId: userId,
-        interviewerName,
-        score,
-        content,
-      },
-      url,
-    });
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest("POST", ServiceUrls.commitComment, {
+    id: "",
+    studentUserId: userId,
+    interviewerName,
+    score,
+    content,
+  });
+  return res;
 }
 
 async function transferStudent(userId, sourceDepId, targetDepId) {
-  const url = ServiceUrls.transferStudent;
-  const ans = { success: true };
-  try {
-    const res = await axios({
-      method: "POST",
-      data: {
-        studentId: userId,
-        sourceDepId,
-        targetDepId,
-      },
-      url,
-    });
-    ans.data = res.data;
-  } catch (e) {
-    ans.success = false;
-    ans.data = e;
-  }
-  return ans;
+  const res = await commonRequest("POST", ServiceUrls.transferStudent, {
+    studentId: userId,
+    sourceDepId,
+    targetDepId,
+  });
+  return res;
 }
 
 export const ResumeRequest = {
