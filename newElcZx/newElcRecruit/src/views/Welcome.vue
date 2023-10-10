@@ -1,8 +1,11 @@
 <template>
     <div class="welcome-container">
         <div class="welcome-content-header">
-            <h1 class="title">
-                Welcome Page</h1>
+            <div class="title">
+                <div class="title-down">Welcome Page</div>
+                <div class="title-up">Welcome Page</div>
+            </div>
+
             <svg t="1696779219071" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="9866" width="36" height="36">
                 <path
@@ -16,8 +19,8 @@
         <div class="welcome-content-container">
             <div>
                 <router-link to="/userInfoForm">
-                    <Card style="width:320px">
-                        <div style="text-align:center" :shadow="true">
+                    <Card style="width: 320px">
+                        <div style="text-align: center" :shadow="true">
                             <svg t="1696777811238" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="4884" width="128" height="128">
                                 <path
@@ -37,8 +40,8 @@
             </div>
             <div>
                 <router-link to="/stepper">
-                    <Card style="width:320px">
-                        <div style="text-align:center" :shadow="true">
+                    <Card style="width: 320px">
+                        <div style="text-align: center" :shadow="true">
                             <svg t="1696778002951" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="7149" width="128" height="128">
                                 <path
@@ -55,12 +58,11 @@
                         </div>
                     </Card>
                 </router-link>
-
             </div>
             <div>
                 <router-link to="/knowElc">
-                    <Card style="width:320px">
-                        <div style="text-align:center" :shadow="true">
+                    <Card style="width: 320px">
+                        <div style="text-align: center" :shadow="true">
                             <svg t="1696778072814" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="8807" width="128" height="128">
                                 <path
@@ -92,16 +94,12 @@
                         </div>
                     </Card>
                 </router-link>
-
             </div>
         </div>
     </div>
 </template>
 
-<script setup>
-
-
-</script>
+<script setup></script>
 
 <style scoped>
 .welcome-container {
@@ -126,8 +124,33 @@
 .title {
     font-size: 45px;
     color: #444444;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: relative;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     text-shadow: 2px 2px #c6c6c6;
+}
+
+.title-up {
+    position: relative;
+    opacity: 1;
+    clip-path: ellipse(100px 200px at 0% 50%);
+    animation: lightMove 2.5s ease-in infinite;
+}
+
+.title-down {
+    position: absolute;
+    color: #F09B56;
+    top: 0;
+    left: 0;
+}
+
+@keyframes lightMove {
+    50% {
+        clip-path: ellipse(100px 200px at 100% 50%);
+    }
+
+    to {
+        clip-path: ellipse(100px 200px at 0% 50%);
+    }
 }
 
 .welcome-content-container {
@@ -141,7 +164,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width: 800px) {
     .welcome-content-container {
         display: flex;
         flex-direction: column;
