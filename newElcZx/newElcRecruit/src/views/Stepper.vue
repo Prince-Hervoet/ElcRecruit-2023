@@ -1,7 +1,14 @@
 <template>
     <div class="progress-body">
         <div class="progress-title-body">
-            <span style="font-style: italic">Progress</span>
+            <span style="font-style: italic">我的进度</span>
+            <div class="progress-title-refresh" @click="clickReFresh"><Button><svg t="1696940923711" class="icon"
+                        viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1658" width="30"
+                        height="30">
+                        <path
+                            d="M506.966868 131.167389c-228.252541 0-413.287791 185.03525-413.28779 413.28779s185.03525 413.287791 413.28779 413.287791 413.287791-185.03525 413.287791-413.287791c0-228.253564-185.03525-413.287791-413.287791-413.28779z m218.625277 321.171813c0 11.763928-9.56075 21.333888-21.324678 21.333888h-88.446402c-11.763928 0-21.324678-9.56996-21.324678-21.333888s9.56075-21.324678 21.324678-21.324678h33.71794c-33.070186-45.74281-86.234013-73.003687-142.571113-73.003687-97.03501 0-175.974897 78.939887-175.974897 175.974897 0 97.025801 78.939887 175.965687 175.974897 175.965687s175.974897-78.939887 175.974897-175.965687c0-11.763928 9.56075-21.333888 21.324678-21.333888s21.324678 9.56996 21.324678 21.333888c0 120.55468-98.069573 218.624253-218.624253 218.624252s-218.632439-98.069573-218.632439-218.624252 98.078783-218.632439 218.632439-218.63244c69.270666 0 134.827755 33.277918 175.974897 89.183182v-33.834596c0-11.763928 9.56075-21.333888 21.324678-21.333887s21.324678 9.56996 21.324678 21.333887v81.637322z"
+                            fill="#44CFC5" p-id="1659"></path>
+                    </svg></Button></div>
         </div>
         <div class="progress-content-body">
             <div class="progress-content-group-body">
@@ -45,64 +52,58 @@ const titles = {
     partFour: "招新结束",
 };
 
-const userStatusList = [
-    "报名中",
-    "一面中",
-    "笔试中",
-    "二面中",
-    "已录用",
-    "已淘汰",
-];
+const userStatusList = ["报名中", "一面中", "笔试中", "二面中", "已录用"];
 
 const current = ref(0);
 const userStatusStr = ref("无");
 const firstDepName = ref("");
 const secondDepName = ref("");
 
-const getProcess = async () => {
-    const url = ServiceUrls.getProcess;
+const getProcessInfo = async () => {
     try {
-        const res = await axios({
+        let res = await axios({
             method: "GET",
-            url,
+            url: ServiceUrls.getProcess,
         });
-        if (res.data) {
-            const processData = res.data.data[0];
-            const { processState, state } = processData;
-            current.value = processState;
-            if (state === 60) {
-                userStatusStr.value = userStatusList[5];
-            } else {
-                userStatusStr.value = userStatusList[processState];
-            }
+        let responseData = res.data;
+        if (!responseData.success) {
+            alert(`处理失败: ${responseData.errorMessages[0]}`);
+            return;
         }
+        const processData = responseData.data;
+
+        res = await axios({
+            method: "GET",
+            url: ServiceUrls.getInfo,
+        });
+        responseData = res.data;
+        if (!responseData.success) {
+            alert(`处理失败: ${responseData.errorMessages[0]}`);
+            return;
+        }
+        const userInfoData = responseData.data;
+
+        const { processState, state } = processData[0];
+        if (state === 60) {
+            userStatusStr.value = "已淘汰";
+        } else {
+            userStatusStr.value = userStatusList[processState];
+            current.value = processState;
+        }
+        firstDepName.value = IdToDepName[userInfoData.firstDepartment];
+        secondDepName.value = IdToDepName[userInfoData.secondDepartment];
     } catch (e) {
-        alert("请检查登录状态和网络情况");
+        alert(`请求失败: ${e}`);
     }
 };
 
-const getUserInfo = async () => {
-    const url = ServiceUrls.getInfo;
-    try {
-        const res = await axios({
-            method: "GET",
-            url,
-        });
-        if (res.data) {
-            const userInfo = res.data.data;
-            console.log(userInfo);
-            const { firstDepartment, secondDepartment } = userInfo;
-            firstDepName.value = IdToDepName[firstDepartment];
-            secondDepName.value = IdToDepName[secondDepartment];
-        }
-    } catch (e) {
-        alert("请检查登录状态和网络情况");
-    }
-};
+
+const clickReFresh = () => {
+    getProcessInfo();
+}
 
 onMounted(() => {
-    getProcess();
-    getUserInfo();
+    getProcessInfo();
 });
 </script>
 
@@ -125,7 +126,17 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     box-shadow: 1px 1px 3px 1px #e6e6e6;
+}
+
+.progress-title-refresh {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .progress-content-body {
