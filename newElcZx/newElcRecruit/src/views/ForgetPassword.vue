@@ -128,7 +128,7 @@ const getCode = () => {
                 // console.log(loginContent.phoneNumber);
             });
     } else {
-        console.log("错");
+        alert("电话号码错误")
     }
 }
 
