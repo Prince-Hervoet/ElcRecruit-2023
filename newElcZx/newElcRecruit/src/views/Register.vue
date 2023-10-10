@@ -253,11 +253,7 @@ const getRegister = () => {
 }
 
 .login-content-bottom-body {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+    margin-top: 50%;
 }
 
 .small-explain {

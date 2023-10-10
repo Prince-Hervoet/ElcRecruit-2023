@@ -54,12 +54,13 @@
         <button class="postInfo-button-container" @click="clickSubmitForm">
             <span style="font-size: 15px; font-weight: 700; line-height: 15px">提交</span>
         </button>
+        <div class="small-explain1" v-if="successCommit">报名成功</div>
     </div>
-    <div v-if="hasError" style="margin: auto;text-align: center; width: 70%; margin-bottom: 10%;">
+    <!-- <div v-if="hasError" style="margin: auto;text-align: center; width: 70%; margin-bottom: 10%;">
         <Alert type="error">
             提交失败！请仔细核验信息！
         </Alert>
-    </div>
+    </div> -->
 </template>
 
 <script setup>
@@ -73,7 +74,7 @@ import Login from "./Login.vue"
 import { ServiceUrls } from "../requests/util.js";
 
 let token = localStorage.getItem("token")
-
+let successCommit = ref(false)
 let hasError = ref(false);
 const studentInfo = reactive({
     name: "",
@@ -111,16 +112,16 @@ function checkStuId(value) {
 
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
-    if (true
-        // !hasNullContent(
-        //     studentInfo.name,
-        //     studentInfo.grade,
-        //     studentInfo.college,
-        //     studentInfo.firstDepartment,
-        //     studentInfo.introduction
-        // ) &&
-        // checkStuId(studentInfo.studentNumber) &&
-        // checkphoneSize(studentInfo.phone)
+    if (
+        !hasNullContent(
+            studentInfo.name,
+            studentInfo.grade,
+            studentInfo.college,
+            studentInfo.firstDepartment,
+            studentInfo.introduction
+        ) &&
+        checkStuId(studentInfo.studentNumber) &&
+        checkphoneSize(studentInfo.phone)
     ) {
         console.log("成功");
         axios.post(url, {
@@ -145,16 +146,19 @@ const clickSubmitForm = async () => {
         )
             .then((res) => {
                 console.log(res);
-
+                successCommit.value = !successCommit.value
             })
             .catch(function (error) {
                 console.log(error);
-                console.log(token);
+                if (res.status === 401) {
+                    alert("登录过期,请重新登录")
+                } else {
+                    alert("请检查网络")
+                }
             });
     } else {
         console.log("出错啦");
-        hasError.value = true;
-        console.log(studentInfo.studentNumber);
+        alert("信息不完整或信息不准确，请再次确认表单内容")
     }
 };
 </script>
@@ -208,5 +212,12 @@ const clickSubmitForm = async () => {
 
 .postInfo-button-container:active {
     background-color: rgb(227, 227, 227);
+}
+
+.small-explain1 {
+    font-family: "楷体";
+    text-align: center;
+    font-size: 1.3em;
+    color: rgba(209 54 57);
 }
 </style>

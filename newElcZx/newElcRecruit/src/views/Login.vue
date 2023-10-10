@@ -105,6 +105,7 @@ function checkphoneNumberSize(value) {
     height: 100%;
     margin: auto;
     user-select: none;
+    display: block;
 }
 
 .perch {
@@ -134,6 +135,7 @@ function checkphoneNumberSize(value) {
     font-family: "楷体";
     position: relative;
     bottom: 20px;
+    display: block;
 }
 
 .login-content-body {
@@ -204,11 +206,14 @@ function checkphoneNumberSize(value) {
 
 
 .login-content-bottom-body {
-    position: fixed;
+    /* position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
+    display: block; */
+    margin-top: 50%;
+
 }
 
 .small-explain {
