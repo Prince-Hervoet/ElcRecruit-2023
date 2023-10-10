@@ -114,7 +114,6 @@ onMounted(() => {
         background-image: url("../assets/bg00.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
-        overflow: auto;
         user-select: none;
     }
 }
@@ -122,18 +121,17 @@ onMounted(() => {
 .gradient-content-body {
     width: 80%;
     margin: auto;
-    margin-top: 10%;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 @media screen and (min-width: 800px) {
     .gradient-content-body {
-        height: 100%;
         width: 60%;
         margin: auto;
         margin-top: 10%;
     }
 }
-
 
 .depName {
     font-size: 50px;
