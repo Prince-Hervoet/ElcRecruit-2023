@@ -30,7 +30,7 @@ export default function Login() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       const { access_token, token_type } = responseData;

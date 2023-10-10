@@ -55,7 +55,7 @@ export default function Resume() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       const userInfo = responseData.data;
@@ -77,7 +77,7 @@ export default function Resume() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       alert("修改成功");
@@ -95,7 +95,7 @@ export default function Resume() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       alert("修改成功");
@@ -113,7 +113,7 @@ export default function Resume() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       alert("修改成功");
@@ -137,7 +137,7 @@ export default function Resume() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       setCommentAndScores([
@@ -185,7 +185,7 @@ export default function Resume() {
     if (res.isRequestSuccess) {
       const responseData = res.data.data;
       if (!responseData.success) {
-        alert("处理失败");
+        alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
       const userInfo = responseData.data;
