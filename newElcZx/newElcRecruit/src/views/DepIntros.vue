@@ -99,15 +99,13 @@ onMounted(() => {
 </script>
   
 <style scoped>
-@media screen and (max-width: 800px) {
-    .gradient {
-        height: 100%;
-        background-image: url("../assets/bg0.png");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        overflow: auto;
-        user-select: none;
-    }
+.gradient {
+    height: 100%;
+    background-image: url("../assets/bg0.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    overflow: auto;
+    user-select: none;
 }
 
 @media screen and (min-width: 800px) {
@@ -124,7 +122,7 @@ onMounted(() => {
 .gradient-content-body {
     width: 80%;
     margin: auto;
-    margin-top: 55px;
+    margin-top: 10%;
 }
 
 @media screen and (min-width: 800px) {
@@ -132,6 +130,7 @@ onMounted(() => {
         height: 100%;
         width: 60%;
         margin: auto;
+        margin-top: 10%;
     }
 }
 
