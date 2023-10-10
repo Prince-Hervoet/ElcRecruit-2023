@@ -4,21 +4,33 @@
       <span>{{ headerName }}</span>
     </div>
     <div class="myInput-input-container">
-      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" :type="passwordVisiable" />
-      <i class="icon1" v-if="showPassword" @click="eyeopen">&nbsp&nbsp&nbsp&nbsp&nbsp</i>
-      <i class="icon2" v-if="showPassword" @click="eyeopen">&nbsp&nbsp&nbsp&nbsp&nbsp</i>
+      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" :type="inputType" />
+      <div v-show="showType === 'password'" class="myInput-eye" @click="changeEye">
+        <img v-show="!isOpenEye" src="../../assets/eyeclose.png">
+        <img v-show="isOpenEye" src="../../assets/eyeopen.png">
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-let passwordVisiable = ["password", "text"]
-const props = defineProps(["id", "headerName", "value", "passwordVisiable",]);
+import { ref } from "vue";
+const props = defineProps(["id", "headerName", "value", "showType"]);
 const emit = defineEmits(["onChange"]);
+
+const isOpenEye = ref(false);
+const inputType = ref(props.showType);
+
 const handler = (event) => {
   emit("onChange", { id: props.id, data: event.target.value });
 };
+
+const changeEye = () => {
+  if (props.showType === "password") {
+    isOpenEye.value = !isOpenEye.value;
+    inputType.value = (isOpenEye.value) ? "text" : "password";
+  }
+}
 </script>
 
 <style scoped>
@@ -40,7 +52,7 @@ const handler = (event) => {
 
 .myInput-input-container {
   height: calc(100% - 20px);
-  /* box-shadow: 1px 1px 1px 1px #e2e2e2; */
+  position: relative;
 }
 
 .myInput-input {
@@ -57,5 +69,21 @@ const handler = (event) => {
 .myInput-input:active {
   border: 1px solid #dfdfdf;
   background-color: #eee;
+}
+
+.myInput-eye {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 32px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.myInput-eye>img {
+  width: 100%;
+  height: 100%;
 }
 </style>
