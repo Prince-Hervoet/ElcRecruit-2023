@@ -93,7 +93,6 @@ function setFields(_depName, _smallIntro, _depText) {
 };
 
 onMounted(() => {
-    console.log(route.params.depId);
     showText(route.params.depId);
 })
 </script>

@@ -14,7 +14,7 @@
                 </div>
 
                 <div @click="clickNavDepInfo(200)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
                             <img src="../assets/medal.png">
                             <h3>电协荣誉</h3>
@@ -23,9 +23,9 @@
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(5)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/contact.png">
+                            <img src="../assets/wailian.png" class="knowMore-card-img">
                             <h3>外联部</h3>
                             <p>相约外联，逐梦电协</p>
                         </div>
@@ -33,9 +33,9 @@
                 </div>
 
                 <div @click="clickNavDepInfo(1)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/repair.png">
+                            <img src="../assets/weixiu.png" class="knowMore-card-img">
                             <h3>维修部</h3>
                             <p>维物之态，修身之技</p>
                         </div>
@@ -43,45 +43,45 @@
                 </div>
 
                 <div @click="clickNavDepInfo(4)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/publicize.png">
+                            <img src="../assets/wangxuan.png" class="knowMore-card-img">
                             <h3>网宣部</h3>
                             <p>网宣之约，相见不散</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(3)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/project.png">
+                            <img src="../assets/xiangmu.png" class="knowMore-card-img">
                             <h3>项目部</h3>
                             <p>不远千里，项目等你</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(6)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/practice.png">
+                            <img src="../assets/shijian.png" class="knowMore-card-img">
                             <h3>实践部</h3>
                             <p>躬身实践，力学笃行</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(2)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/secretary.png">
+                            <img src="../assets/mishu.png" class="knowMore-card-img">
                             <h3>秘书部</h3>
                             <p>秘才八斗，书气翩翩</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(7)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:320px" :shadow="false">
                         <div style="text-align:center">
-                            <img src="../assets/coding.png">
+                            <img src="../assets/ruanjian.png" class="knowMore-card-img">
                             <h3>软件组</h3>
                             <p>代码，代码，还是代码</p>
                         </div>
@@ -118,6 +118,14 @@ const clickNavDepInfo = (depId) => {
     justify-content: center;
     background-color: rgb(253, 253, 253);
     overflow: auto
+}
+
+.knowMore-card-img {
+    width: 180px;
+    height: 160px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px 1px #ececec;
 }
 
 .KnowDep {
