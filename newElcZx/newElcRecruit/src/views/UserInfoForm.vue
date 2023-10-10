@@ -112,7 +112,10 @@ const clickSubmitForm = async () => {
             studentInfo.grade,
             studentInfo.college,
             studentInfo.firstDepartment,
-            studentInfo.introduction
+            studentInfo.introduction,
+            studentInfo.qq,
+            studentInfo.secondDepartment,
+            studentInfo.skills
         ) &&
         checkStuId(studentInfo.studentNumber) &&
         checkphoneSize(studentInfo.phone)
