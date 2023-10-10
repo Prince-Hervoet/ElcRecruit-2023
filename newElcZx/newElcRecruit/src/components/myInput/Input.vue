@@ -4,15 +4,18 @@
       <span>{{ headerName }}</span>
     </div>
     <div class="myInput-input-container">
-      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" :type="showType" />
+      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" :type="passwordVisiable" />
+      <i class="icon1" v-if="showPassword" @click="eyeopen">&nbsp&nbsp&nbsp&nbsp&nbsp</i>
+      <i class="icon2" v-if="showPassword" @click="eyeopen">&nbsp&nbsp&nbsp&nbsp&nbsp</i>
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(["id", "headerName", "value", "showType"]);
+import { ref } from 'vue';
+let passwordVisiable = ["password", "text"]
+const props = defineProps(["id", "headerName", "value", "passwordVisiable",]);
 const emit = defineEmits(["onChange"]);
-
 const handler = (event) => {
   emit("onChange", { id: props.id, data: event.target.value });
 };

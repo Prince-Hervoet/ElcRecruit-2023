@@ -11,12 +11,15 @@
             <div class="pho">
                 <MyInput header-name="手机号码" id="phoneNumber" :value="loginContent.phoneNumber" @on-change="setLoginInfo">
                 </MyInput>
+                <i class="icon1" v-if="showPassword" @click="eyeopen">&nbsp&nbsp&nbsp&nbsp&nbsp</i>
+                <i class="icon2" v-if="showPassword" @click="eyeopen">&nbsp&nbsp&nbsp&nbsp&nbsp</i>
             </div>
 
             <div>
-                <MyInput header-name="密码" id="password" showType="password" :value="loginContent.password"
+                <MyInput header-name="密码" id="password" showType="passwordVisiable[0]" :value="loginContent.password"
                     @on-change="setLoginInfo">
                 </MyInput>
+
             </div>
             <div>
                 <MyInput header-name="验证码" id="code" :value="loginContent.code" @on-change="setLoginInfo"></MyInput>
@@ -56,18 +59,24 @@ import MyInput from '../components/myInput/Input.vue';
 import axios from "axios";
 import { ref, reactive } from "vue";
 import { ServiceUrls } from "../requests/util.js";
-
+let passwordVisiable = ref(false)
 let token = "";
 const second = 60;
 const requestCode = ref(true);
 const timing = ref(false);
 const successRegister = ref(false)
 let code = "发送验证码"
+
 const loginContent = reactive({
     phoneNumber: "",
     password: "",
     code: "",
+    type: "password"
 });
+
+const eye = () => {
+    passwordVisiable.value = !passwordVisiable
+}
 
 function handleEnd() {
     console.log("重新发送验证码");
@@ -290,5 +299,27 @@ const getRegister = () => {
 
 .time {
     width: 50%;
+}
+
+.icon1 {
+    background-image: url("../assets/eyeopen.png");
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 50px;
+    left: 450px;
+    z-index: 2;
+}
+
+.icon2 {
+    background-image: url("../assets/eyeclose.png");
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 50px;
+    left: 450px;
+    z-index: 2;
 }
 </style>
