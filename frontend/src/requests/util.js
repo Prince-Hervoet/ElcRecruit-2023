@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 基础url
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://manage.gdutelc.com";
 
 // 默认每页显示的数量
 export const DEFAULT_PAGE_LIMIT = 7;
