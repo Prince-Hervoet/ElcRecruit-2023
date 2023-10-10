@@ -5,7 +5,7 @@ import "view-ui-plus/dist/styles/viewuiplus.css";
 import ViewUIPlus from "view-ui-plus";
 import axios from "axios";
 
-const BASE_URL_DEV = "http://139.159.220.241:8081";
+// const BASE_URL_DEV = "http://139.159.220.241:8081";
 const BASE_URL = "http://recruit.gdutelc.com";
 
 (function initAxios() {
@@ -20,7 +20,7 @@ const BASE_URL = "http://recruit.gdutelc.com";
     return config;
   });
 
-  axios.defaults.baseURL = BASE_URL_DEV;
+  axios.defaults.baseURL = BASE_URL;
 })();
 
 const app = createApp(App);

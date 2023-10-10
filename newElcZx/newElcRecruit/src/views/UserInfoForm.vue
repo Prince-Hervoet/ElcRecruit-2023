@@ -56,11 +56,6 @@
         </button>
         <div class="small-explain1" v-if="successCommit">报名成功</div>
     </div>
-    <!-- <div v-if="hasError" style="margin: auto;text-align: center; width: 70%; margin-bottom: 10%;">
-        <Alert type="error">
-            提交失败！请仔细核验信息！
-        </Alert>
-    </div> -->
 </template>
 
 <script setup>
@@ -70,7 +65,6 @@ import MyPicker from "../components/myPicker/SelectInput.vue";
 import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
-import Login from "./Login.vue"
 import { ServiceUrls } from "../requests/util.js";
 
 let token = localStorage.getItem("token")
@@ -157,7 +151,6 @@ const clickSubmitForm = async () => {
                 }
             });
     } else {
-        console.log("出错啦");
         alert("信息不完整或信息不准确，请再次确认表单内容")
     }
 };

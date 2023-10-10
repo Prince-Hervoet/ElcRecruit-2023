@@ -14,7 +14,8 @@
             </div>
 
             <div>
-                <MyInput header-name="请输入设置的新密码" id="password" :value="loginContent.password" @on-change="setLoginInfo">
+                <MyInput header-name="请输入设置的新密码" id="password" showType="password" :value="loginContent.password"
+                    @on-change="setLoginInfo">
                 </MyInput>
             </div>
             <div>

@@ -107,7 +107,6 @@ onMounted(() => {
         background-repeat: no-repeat;
         overflow: auto;
         user-select: none;
-
     }
 }
 
@@ -119,14 +118,13 @@ onMounted(() => {
         background-repeat: no-repeat;
         overflow: auto;
         user-select: none;
-
     }
 }
 
 .gradient-content-body {
-    height: 100%;
     width: 80%;
     margin: auto;
+    margin-top: 55px;
 }
 
 @media screen and (min-width: 800px) {
@@ -139,7 +137,6 @@ onMounted(() => {
 
 
 .depName {
-    margin-top: 10%;
     font-size: 50px;
     font-family: 楷体;
     font-weight: 700;
@@ -153,7 +150,6 @@ onMounted(() => {
 }
 
 .depText {
-    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -164,7 +160,6 @@ onMounted(() => {
     border-radius: 6px;
     line-height: 30px;
     margin-top: 8%;
-    margin-bottom: 10%;
     background-color: rgba(250, 250, 250, 0.4);
     box-shadow: 1px 1px 3px #ccc;
 }

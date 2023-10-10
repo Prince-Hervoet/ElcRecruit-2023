@@ -4,13 +4,13 @@
       <span>{{ headerName }}</span>
     </div>
     <div class="myInput-input-container">
-      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" />
+      <input id="myInput-input" class="myInput-input" :value="value" @input="handler" :type="showType" />
     </div>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(["id", "headerName", "value"]);
+const props = defineProps(["id", "headerName", "value", "showType"]);
 const emit = defineEmits(["onChange"]);
 
 const handler = (event) => {
