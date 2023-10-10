@@ -33,8 +33,6 @@
                 </div>
             </div>
         </div>
-
-        <button @click="queryStep">点我查询进度</button>
     </div>
 </template>
 

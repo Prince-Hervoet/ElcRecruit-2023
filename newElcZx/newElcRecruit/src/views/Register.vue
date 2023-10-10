@@ -16,7 +16,7 @@
             </div>
 
             <div>
-                <MyInput header-name="密码" id="password" showType="passwordVisiable[0]" :value="loginContent.password"
+                <MyInput header-name="密码" id="password" showType="password" :value="loginContent.password"
                     @on-change="setLoginInfo">
                 </MyInput>
 

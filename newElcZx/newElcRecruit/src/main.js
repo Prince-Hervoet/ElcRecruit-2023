@@ -6,7 +6,7 @@ import ViewUIPlus from "view-ui-plus";
 import axios from "axios";
 
 // const BASE_URL_DEV = "http://139.159.220.241:8081";
-const BASE_URL = "http://recruit.gdutelc.com";
+const BASE_URL = "https://recruit.gdutelc.com";
 
 (function initAxios() {
   // 请求头加上token

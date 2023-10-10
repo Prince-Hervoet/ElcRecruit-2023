@@ -109,7 +109,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(224, 219, 219, 0.555);
+    background-color: rgba(250, 250, 250);
     padding: 20px;
     overflow: auto;
 }
