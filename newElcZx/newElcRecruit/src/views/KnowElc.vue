@@ -15,7 +15,7 @@
                 </div>
 
                 <div @click="clickNavDepInfo(200)">
-                    <Card style="width:300px" :shadow="true">
+                    <Card style="width:300px" :shadow="false">
                         <div style="text-align:center">
                             <img src="../assets/medal.png" style="width: 30%;">
                             <h3>电协荣誉</h3>
@@ -119,6 +119,14 @@ const clickNavDepInfo = (depId) => {
     justify-content: center;
     background-color: rgb(253, 253, 253);
     overflow: auto
+}
+
+.knowMore-card-img {
+    width: 180px;
+    height: 160px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px 1px #ececec;
 }
 
 .KnowDep {
