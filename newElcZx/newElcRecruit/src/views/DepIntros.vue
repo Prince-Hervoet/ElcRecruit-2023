@@ -2,15 +2,12 @@
     <div class="gradient">
         <div class="gradient-content-body">
             <div class="depName">{{ depName }}</div>
-            <div class="smallIntro" @click="moreIntro">{{ smallIntro }}
-            </div>
-            <a :href="depurl"></a>
-            <div class="smallIntro" @click="toDepUrl">{{ smallIntro }} </div>
-
+            <div class="smallIntro">{{ smallIntro }} </div>
             <div class="depText">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 {{ depText }}
             </div>
         </div>
+        <div class="small-explain" @click="toDepUrl"> 点击查看更多信息 </div>
     </div>
 </template>
 
@@ -19,7 +16,6 @@ import { ref, onMounted, reactive } from "vue";
 import { useRoute } from "vue-router"
 const something = "https://mp.weixin.qq.com/s/0GDsNOfe9BNjMMGUoMiOgA";
 const route = useRoute()
-let depurl = ""
 const depName = ref("");
 const smallIntro = ref("");
 const depText = ref("");
@@ -51,7 +47,6 @@ function showText(depId = "1") {
                 "一堆奖",
                 "广工电协在各类学科竞赛，项目开发上均有不错的成绩。在全国大学生电子设计大赛，挑战杯，全美大学生数学建模竞赛，飞思卡尔等大赛中，广工电协取得瞩目的成绩，而在各类电子竞赛中电协成员更是独领风骚，省级奖项校级奖项不可胜数。在项目开发上，电协拥有3个国家级大创项目，省级项目若干个，其中拥有自主专利6项。电协的毕业生更是深入到华为、联发科、大疆、CVTE、bigo等著名企业中成为佼佼者。在学术领域，我们的毕业生考研或保研进入清华大学、中山大学、华南理工大学、电子科技大学、哈尔滨工业大学等大学继续深造学业。"
             );
-            let depurl = "https://mp.weixin.qq.com/s/0GDsNOfe9BNjMMGUoMiOgA"
             break;
         case "100":
             setFields(
@@ -67,7 +62,7 @@ function showText(depId = "1") {
                 "维物之态，修身之技",
                 "作为协会中最热闹也是最“卷”的部门之一，维修部当仁不让，在协会需要我们时挺身而出。我们维修部的工作日常是组织义修活动，维护协会元器件库以及处理学校内驿站的故障家电。义修活动的范围是在整个大学城校区，包括其他学校。"
             );
-            setDepUrl(depUrl.repair)
+            setDepUrl(depUrls.repair)
             break;
         case "2":
             setFields(
@@ -196,6 +191,28 @@ onMounted(() => {
     margin-top: 8%;
     background-color: rgba(250, 250, 250, 0.4);
     box-shadow: 1px 1px 3px #ccc;
+}
+
+.small-explain {
+    font-family: "楷体";
+    text-align: center;
+    font-size: 1.3em;
+    color: rgb(45, 140, 240);
+    cursor: pointer;
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+
+.small-explain:hover {
+    color: rgba(209 54 57);
+}
+
+.divider {
+    background: #3838375b;
+    height: 1px;
+    margin-top: 10px;
 }
 </style>
   
