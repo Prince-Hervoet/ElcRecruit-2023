@@ -141,7 +141,7 @@ const getRegister = () => {
 
     //电话错误
     if (!checkphoneNumberSize(loginContent.phoneNumber)) {
-        console.log("电话号码不合规");
+        alert("电话号码不合规");
 
         //密码错误
     } else if (!checkpassword(loginContent.password)) {
