@@ -44,7 +44,7 @@ const routes = [
     component: NewWelcome,
   },
   {
-    path: "/depIntros/:depId",
+    path: "/depIntros/:depId?",
     name: "depIntros",
     component: DepIntros,
   },
