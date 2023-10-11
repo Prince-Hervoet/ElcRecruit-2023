@@ -83,6 +83,12 @@ const studentInfo = reactive({
     skills: "",
 });
 
+function checkSame(dep1, dep2) {
+    if (dep1 === dep2) {
+        alert("第一志愿部门和第二志愿部门不能相同哦");
+        return false;
+    }
+}
 const setUserInfo = (data) => {
     if (data && data.id) {
         studentInfo[data.id] = data.data;
@@ -106,6 +112,7 @@ function checkStuId(value) {
 
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
+
     if (
         !hasNullContent(
             studentInfo.name,
@@ -118,7 +125,8 @@ const clickSubmitForm = async () => {
             studentInfo.skills
         ) &&
         checkStuId(studentInfo.studentNumber) &&
-        checkphoneSize(studentInfo.phone)
+        checkphoneSize(studentInfo.phone) &&
+        checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
     ) {
         console.log("成功");
         axios.post(url, {

@@ -6,9 +6,10 @@
                 <div @click="clickNavDepInfo(100)">
                     <Card style="width:320px" :shadow="true">
                         <div style="text-align:center">
-                            <img src="../assets/pcb.png">
+                            <img src="../assets/pcb.png" style="width: 22%;">
                             <h3>电协介绍</h3>
-                            <p>早晨的图书馆，凌晨的实验室</p>
+                            <p>早晨的图书馆</p>
+                            <p>凌晨的实验室</p>
                         </div>
                     </Card>
                 </div>
@@ -16,16 +17,16 @@
                 <div @click="clickNavDepInfo(200)">
                     <Card style="width:320px" :shadow="true">
                         <div style="text-align:center">
-                            <img src="../assets/medal.png">
+                            <img src="../assets/medal.png" style="width: 30%;">
                             <h3>电协荣誉</h3>
                             <p>一堆奖</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(5)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/contact.png">
+                            <img src="../assets/wailian.png" style="width: 50%;">
                             <h3>外联部</h3>
                             <p>相约外联，逐梦电协</p>
                         </div>
@@ -33,9 +34,9 @@
                 </div>
 
                 <div @click="clickNavDepInfo(1)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/repair.png">
+                            <img src="../assets/weixiu.png" style="width: 50%;">
                             <h3>维修部</h3>
                             <p>维物之态，修身之技</p>
                         </div>
@@ -43,45 +44,45 @@
                 </div>
 
                 <div @click="clickNavDepInfo(4)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/publicize.png">
+                            <img src="../assets/wangxuan.png" style="width: 50%;">
                             <h3>网宣部</h3>
                             <p>网宣之约，相见不散</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(3)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/project.png">
+                            <img src="../assets/xiangmu.png" style="width: 50%;">
                             <h3>项目部</h3>
                             <p>不远千里，项目等你</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(6)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/practice.png">
+                            <img src="../assets/shijian.png" style="width: 50%;">
                             <h3>实践部</h3>
                             <p>躬身实践，力学笃行</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(2)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/secretary.png">
+                            <img src="../assets/mishu.png" style="width: 50%;">
                             <h3>秘书部</h3>
                             <p>秘才八斗，书气翩翩</p>
                         </div>
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(7)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card>
                         <div style="text-align:center">
-                            <img src="../assets/coding.png">
+                            <img src="../assets/wangl.png" style="width: 50%;">
                             <h3>软件组</h3>
                             <p>代码，代码，还是代码</p>
                         </div>
@@ -124,6 +125,7 @@ const clickNavDepInfo = (depId) => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 60%;
     margin-top: 20px;
 }
 
@@ -140,7 +142,7 @@ const clickNavDepInfo = (depId) => {
         grid-template-columns: 1fr 1fr;
         align-items: center;
         justify-items: center;
-        max-width: 650px;
+        max-width: 60%;
         margin-top: 20px;
     }
 }
