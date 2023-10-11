@@ -36,7 +36,7 @@
                     </MyPicker>
                 </div>
                 <div class="space">
-                    <MyPicker id="secondDepartment" header-name="第二志愿" :value="studentInfo.secondDepartment"
+                    <MyPicker id="secondDepartment" header-name="第二志愿 *(不可与第一部门重合)" :value="studentInfo.secondDepartment"
                         :arr="DepInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>
@@ -83,6 +83,12 @@ const studentInfo = reactive({
     skills: "",
 });
 
+function checkSame(dep1, dep2) {
+    if (dep1 === dep2) {
+        alert("第一志愿部门和第二志愿部门不能相同哦");
+        return false;
+    }
+}
 const setUserInfo = (data) => {
     if (data && data.id) {
         studentInfo[data.id] = data.data;
@@ -106,16 +112,21 @@ function checkStuId(value) {
 
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
+
     if (
         !hasNullContent(
             studentInfo.name,
             studentInfo.grade,
             studentInfo.college,
             studentInfo.firstDepartment,
-            studentInfo.introduction
+            studentInfo.introduction,
+            studentInfo.qq,
+            studentInfo.secondDepartment,
+            studentInfo.skills
         ) &&
         checkStuId(studentInfo.studentNumber) &&
-        checkphoneSize(studentInfo.phone)
+        checkphoneSize(studentInfo.phone) &&
+        checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
     ) {
         console.log("成功");
         axios.post(url, {

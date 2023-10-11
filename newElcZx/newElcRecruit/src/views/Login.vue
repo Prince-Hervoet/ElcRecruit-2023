@@ -31,6 +31,10 @@
                 <router-link to="/ForgetPassword">
                     <div class="small-explain"> <button @click="getCode" class="toCode">忘记密码</button></div>
                 </router-link>
+                <p style="font-size: larger;">|</p>
+                <router-link to="/KnowElc">
+                    <div class="small-explain"> <button class="toCode">了解我们</button></div>
+                </router-link>
             </div>
 
             <div class="divider"></div>
