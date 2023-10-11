@@ -105,7 +105,7 @@ const clickNavDepInfo = (depId) => {
     background-image: url("../assets/cup.png");
     height: 300px;
     background-size: contain;
-    box-shadow: 0px 5px 1px 7px #ccc;
+    box-shadow: 1px 5px 1px 7px #5e5d5d;
 }
 
 .knowMore-container {

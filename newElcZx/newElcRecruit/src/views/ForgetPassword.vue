@@ -43,17 +43,15 @@
 
 
         <button class="login-button" @click="getRegister">重置密码</button>
-
+        <div class="small-explain1" v-if="successReset">重置密码成功，请点击下方进入登陆页面</div>
         <div class="login-content-bottom-body">
-            <div class="small-explain"> <router-link to="/Login">我已经注册 , 前往登录</router-link> </div>
+            <div class="small-explain"> <router-link to="/Login">我已经重设密码 , 前往登录</router-link> </div>
             <!-- <div class="small-explain"> <router-link to="/knowElc">了解更多</router-link>
 
             </div> -->
             <div class="divider"></div>
             <div class="small-intro">ELC &2023 -- Software Team Presents</div>
         </div>
-
-
     </div>
 </template>
 
@@ -68,6 +66,7 @@ const second = 60;
 const requestCode = ref(true);
 const timing = ref(false);
 let code = "发送验证码"
+let successReset = ref(false)
 const loginContent = reactive({
     phoneNumber: "",
     password: "",
@@ -107,7 +106,6 @@ function checkpassword(value) {
         return false;
     }
 }
-
 const getCode = () => {
     const codeUrl = ServiceUrls.getCode;
     if (checkphoneNumberSize(loginContent.phoneNumber)) {
@@ -148,9 +146,12 @@ const getRegister = () => {
         axios.post(url + `phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,)
             .then((res) => {
                 console.log(res);
+                successReset.value = !successReset.value
+
             })
             .catch(function (error) {
                 console.log(error);
+                alert(res.dat.errorMessages)
             });
 
     }
@@ -282,5 +283,12 @@ const getRegister = () => {
 
 .time {
     width: 50%;
+}
+
+.small-explain1 {
+    font-family: "楷体";
+    text-align: center;
+    font-size: 1.3em;
+    color: rgba(209 54 57);
 }
 </style>

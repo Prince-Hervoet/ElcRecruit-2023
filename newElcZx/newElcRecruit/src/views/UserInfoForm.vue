@@ -36,7 +36,7 @@
                     </MyPicker>
                 </div>
                 <div class="space">
-                    <MyPicker id="secondDepartment" header-name="第二志愿" :value="studentInfo.secondDepartment"
+                    <MyPicker id="secondDepartment" header-name="第二志愿 *(不可与第一部门重合)" :value="studentInfo.secondDepartment"
                         :arr="DepInfoList" @onChange="setUserInfo">
                     </MyPicker>
                 </div>

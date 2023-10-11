@@ -91,7 +91,8 @@ const getProcessInfo = async () => {
         firstDepName.value = IdToDepName[userInfoData.firstDepartment];
         secondDepName.value = IdToDepName[userInfoData.secondDepartment];
     } catch (e) {
-        alert(`请求失败: ${e}`);
+        console.log(`请求失败: ${e}`);
+        alert("请先前往提交报名表，或检查登录是否过期以重新登录");
     }
 };
 
