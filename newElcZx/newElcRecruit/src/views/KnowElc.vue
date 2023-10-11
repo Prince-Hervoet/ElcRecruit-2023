@@ -4,7 +4,7 @@
         <div class="knowMore-content-body">
             <div class="KnowDep">
                 <div @click="clickNavDepInfo(100)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:300px" :shadow="true">
                         <div style="text-align:center">
                             <img src="../assets/pcb.png" style="width: 22%;">
                             <h3>电协介绍</h3>
@@ -15,7 +15,7 @@
                 </div>
 
                 <div @click="clickNavDepInfo(200)">
-                    <Card style="width:320px" :shadow="true">
+                    <Card style="width:300px" :shadow="true">
                         <div style="text-align:center">
                             <img src="../assets/medal.png" style="width: 30%;">
                             <h3>电协荣誉</h3>
@@ -24,7 +24,7 @@
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(5)">
-                    <Card>
+                    <Card style="min-width:300px">
                         <div style="text-align:center">
                             <img src="../assets/wailian.png" style="width: 50%;">
                             <h3>外联部</h3>
@@ -34,7 +34,7 @@
                 </div>
 
                 <div @click="clickNavDepInfo(1)">
-                    <Card>
+                    <Card style="min-width:300px">
                         <div style="text-align:center">
                             <img src="../assets/weixiu.png" style="width: 50%;">
                             <h3>维修部</h3>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div @click="clickNavDepInfo(4)">
-                    <Card>
+                    <Card style="min-width:300px">
                         <div style="text-align:center">
                             <img src="../assets/wangxuan.png" style="width: 50%;">
                             <h3>网宣部</h3>
@@ -53,7 +53,7 @@
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(3)">
-                    <Card>
+                    <Card style="min-width:300px">
                         <div style="text-align:center">
                             <img src="../assets/xiangmu.png" style="width: 50%;">
                             <h3>项目部</h3>
@@ -62,7 +62,7 @@
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(6)">
-                    <Card>
+                    <Card style="min-width:300px">
                         <div style="text-align:center">
                             <img src="../assets/shijian.png" style="width: 50%;">
                             <h3>实践部</h3>
@@ -71,7 +71,7 @@
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(2)">
-                    <Card>
+                    <Card style="min-width:300px">
                         <div style="text-align:center">
                             <img src="../assets/mishu.png" style="width: 50%;">
                             <h3>秘书部</h3>
@@ -80,7 +80,7 @@
                     </Card>
                 </div>
                 <div @click="clickNavDepInfo(7)">
-                    <Card>
+                    <Card style="min-width:300px; ">
                         <div style="text-align:center">
                             <img src="../assets/wangl.png" style="width: 50%;">
                             <h3>软件组</h3>
