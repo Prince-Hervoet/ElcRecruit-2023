@@ -3,6 +3,7 @@
         <div class="gradient-content-body">
             <div class="depName">{{ depName }}</div>
             <div class="smallIntro" @click="moreIntro">{{ smallIntro }} </div>
+            <a :href="depurl"></a>
             <div class="depText">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 {{ depText }}
             </div>
@@ -15,6 +16,7 @@ import { ref, onMounted, reactive } from "vue";
 import { useRoute } from "vue-router"
 const something = "https://mp.weixin.qq.com/s/0GDsNOfe9BNjMMGUoMiOgA";
 const route = useRoute()
+let depurl = ""
 const depName = ref("");
 const smallIntro = ref("");
 const depText = ref("");
@@ -32,8 +34,6 @@ function moreIntro(data) {
     window.location.href = data;
 }
 
-
-
 function showText(depId = "1") {
     switch (depId) {
         case "200":
@@ -42,7 +42,7 @@ function showText(depId = "1") {
                 "一堆奖",
                 "广工电协在各类学科竞赛，项目开发上均有不错的成绩。在全国大学生电子设计大赛，挑战杯，全美大学生数学建模竞赛，飞思卡尔等大赛中，广工电协取得瞩目的成绩，而在各类电子竞赛中电协成员更是独领风骚，省级奖项校级奖项不可胜数。在项目开发上，电协拥有3个国家级大创项目，省级项目若干个，其中拥有自主专利6项。电协的毕业生更是深入到华为、联发科、大疆、CVTE、bigo等著名企业中成为佼佼者。在学术领域，我们的毕业生考研或保研进入清华大学、中山大学、华南理工大学、电子科技大学、哈尔滨工业大学等大学继续深造学业。"
             );
-
+            let depurl = "https://mp.weixin.qq.com/s/0GDsNOfe9BNjMMGUoMiOgA"
             break;
         case "100":
             setFields(
