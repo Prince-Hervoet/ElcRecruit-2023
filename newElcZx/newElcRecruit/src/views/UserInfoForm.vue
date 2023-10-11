@@ -87,7 +87,7 @@ function checkSame(dep1, dep2) {
     if (dep1 === dep2) {
         alert("第一志愿部门和第二志愿部门不能相同哦");
         return false;
-    }
+    } else return true
 }
 const setUserInfo = (data) => {
     if (data && data.id) {

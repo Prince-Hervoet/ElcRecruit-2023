@@ -26,7 +26,7 @@
             <button class="vcode-button" v-if="!timing" @click="getCode">{{ code }}</button>
             <div class="time" v-if="timing">
                 <div class="small-explain">
-                    二维码发送成功
+                    验证码发送成功
                 </div>
                 <div style="text-align: center;">
                     <Row style="color: rgb(45, 140, 240); margin: auto;">
@@ -145,13 +145,15 @@ const getRegister = () => {
     } else {
         axios.post(url + `phoneNumber=${loginContent.phoneNumber}&code=${loginContent.code}&password=${loginContent.password}`,)
             .then((res) => {
-                console.log(res);
-                successReset.value = !successReset.value
-
+                if (res.data.errorMessages) {
+                    alert(res.data.errorMessages)
+                } else {
+                    successReset.value = !successReset.value
+                }
             })
             .catch(function (error) {
-                console.log(error);
-                alert(res.dat.errorMessages)
+
+                alert(error.message)
             });
 
     }
