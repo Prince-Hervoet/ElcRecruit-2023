@@ -100,7 +100,7 @@ const getProcessInfo = async () => {
         }
         const userInfoData = responseData.data;
 
-        const { processState, state } = processData[Array.length];
+        const { processState, state } = processData[length];
         if (state === 60) {
             userStatusStr.value = "已淘汰";
             current.value = processState;
@@ -108,23 +108,25 @@ const getProcessInfo = async () => {
         } else {
             userStatusStr.value = userStatusList[processState];
             current.value = processState;
+            console.log(current);
 
         }
+        // firstDepName.value = IdToDepName[userInfoData.firstDepartment];
+        // secondDepName.value = IdToDepName[userInfoData.secondDepartment];
         if (firstDepName.value !== IdToDepName[userInfoData.firstDepartment]) {
             firstDepName.value = IdToDepName[userInfoData.firstDepartment] + "(第一志愿已调整)";
+            secondDepName.value = IdToDepName[userInfoData.secondDepartment];
+        } else {
+            firstDepName.value = IdToDepName[userInfoData.firstDepartment];
             secondDepName.value = IdToDepName[userInfoData.secondDepartment];
         }
 
 
     } catch (error) {
         console.log(`请求失败: ${error}`);
-        if (error.response.status === 500) {
-            alert("请先提交报名表再进行查看，正在为您跳转......");
-            router.push({ path: "/UserInfoForm" });
-        } else {
-            console.log("你没登录")
-        }
-        // alert("请先前往提交报名表，或检查登录是否过期以重新登录");
+
+        alert("请先提交报名表再进行查看，正在为您跳转......");
+        router.push({ path: "/UserInfoForm" });
     }
 };
 
