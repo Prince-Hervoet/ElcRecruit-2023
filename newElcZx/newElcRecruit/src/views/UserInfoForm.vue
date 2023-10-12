@@ -5,7 +5,9 @@
             <div style="font-size: 15px">个人信息 ( * 为必填项)</div>
             <span style="font-size: 12px">Personal Information</span>
         </div>
+
         <div class="postInfo-table-container">
+
             <div class="postInfo-table">
                 <div class="space">
                     <MyInput id="name" header-name="您的姓名 *" :value="studentInfo.name" @onChange="setUserInfo"></MyInput>
@@ -56,6 +58,7 @@
         </button>
         <div class="small-explain1" v-if="successCommit">报名成功</div>
     </div>
+    <button @click="qq">a</button>
 </template>
 
 <script setup>
@@ -70,6 +73,7 @@ import { ServiceUrls } from "../requests/util.js";
 let token = localStorage.getItem("token")
 let successCommit = ref(false)
 let hasError = ref(false);
+let userForm = localStorage.getItem("userForm")
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -83,13 +87,14 @@ const studentInfo = reactive({
     skills: "",
 });
 
+
 function checkSame(dep1, dep2) {
     if (dep1 === dep2) {
         alert("第一志愿部门和第二志愿部门不能相同哦");
         return false;
     } else return true
 }
-const setUserInfo = (data) => {
+let setUserInfo = (data) => {
     if (data && data.id) {
         studentInfo[data.id] = data.data;
     }
@@ -112,20 +117,20 @@ function checkStuId(value) {
 
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
-    if (
-        !hasNullContent(
-            studentInfo.name,
-            studentInfo.grade,
-            studentInfo.college,
-            studentInfo.firstDepartment,
-            studentInfo.introduction,
-            studentInfo.qq,
-            studentInfo.secondDepartment,
-            studentInfo.skills
-        ) &&
-        checkStuId(studentInfo.studentNumber) &&
-        checkphoneSize(studentInfo.phone) &&
-        checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
+    if (true
+        // !hasNullContent(
+        //     studentInfo.name,
+        //     studentInfo.grade,
+        //     studentInfo.college,
+        //     studentInfo.firstDepartment,
+        //     studentInfo.introduction,
+        //     studentInfo.qq,
+        //     studentInfo.secondDepartment,
+        //     studentInfo.skills
+        // ) &&
+        // checkStuId(studentInfo.studentNumber) &&
+        // checkphoneSize(studentInfo.phone) &&
+        // checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
     ) {
         axios.post(url, {
             id: '',
@@ -149,7 +154,18 @@ const clickSubmitForm = async () => {
         )
             .then((res) => {
                 console.log(res);
-                successCommit.value = !successCommit.value
+                successCommit.value = !successCommit.value;
+                userForm[10] = setUserInfo(
+                    studentInfo.name,
+                    // studentInfo.grade,
+                    studentInfo.college,
+                    // studentInfo.firstDepartment,
+                    // studentInfo.introduction,
+                    // studentInfo.qq,
+                    // studentInfo.secondDepartment,
+                    // studentInfo.skills
+                )
+                localStorage.setItem("userForm", `${userForm}`);
             })
             .catch(function (error) {
                 console.log(error);
@@ -163,6 +179,18 @@ const clickSubmitForm = async () => {
         alert("信息不完整或信息不准确，请再次确认表单内容是否完全填写，电话号和学号是否合法等")
     }
 };
+// console.log("名字" + studentInfo.name);
+// console.log(userForm);
+const getStudentData = async () => {
+    if (localStorage.userForm) {
+        // setUserInfo(userForm);
+        localStorage.getItem("userForm")
+        console.log(userForm[1]);
+    }
+}
+onMounted(() => {
+    getStudentData();
+});
 </script>
 
 <style scoped>
