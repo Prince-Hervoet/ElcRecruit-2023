@@ -28,21 +28,7 @@ export default function Resume() {
   useEffect(() => {
     userIdRef.current = getUrlParam("userId");
     sendGetUserInfo();
-    (async function () {
-      const res = await ResumeRequest.sendGetComments(userIdRef.current);
-      if (res.isRequestSuccess) {
-        const responseData = res.data.data;
-        if (!responseData.success) {
-          alert("评论获取失败");
-          return;
-        }
-        const commentList = responseData.data;
-        setCommentAndScores(commentList);
-      } else {
-        alert(`请求失败: ${res.data.message}`);
-      }
-    })();
-
+    sendGetComments();
     try {
       const roleData = JSON.parse(localStorage.getItem("roleJson"));
       if (roleData.role.includes("Admin")) {
@@ -60,24 +46,44 @@ export default function Resume() {
         return;
       }
       const userInfo = responseData.data;
-      userInfo.firstDepName = KeyToDepName[userInfo.firstDepartment];
-      userInfo.secondDepName = KeyToDepName[userInfo.secondDepartment];
-      userInfo.collegeName = CollegeObj[userInfo.college];
-      setItems(userInfo);
-      let str = "";
-      if (userInfo.state === 10) {
-        str = "/已报名.png";
-      } else if (userInfo.state === 30) {
-        str = "/进行中.png";
-      } else if (userInfo.state === 50) {
-        str = "/已通过.png";
-      } else if (userInfo.state === 60) {
-        str = "/已拒绝.png";
-      }
-      setStudentStatueStr(str);
+      setItemsFunc(userInfo);
     } else {
       alert(`请求失败: ${res.data.message}`);
     }
+  };
+
+  const sendGetComments = async () => {
+    const res = await ResumeRequest.sendGetComments(userIdRef.current);
+    if (res.isRequestSuccess) {
+      const responseData = res.data.data;
+      if (!responseData.success) {
+        alert("评论获取失败");
+        return;
+      }
+      const commentList = responseData.data;
+      setCommentAndScores(commentList);
+    } else {
+      alert(`请求失败: ${res.data.message}`);
+    }
+  };
+
+  const setItemsFunc = (userInfo) => {
+    userInfo.firstDepName = KeyToDepName[userInfo.firstDepartment];
+    userInfo.secondDepName = KeyToDepName[userInfo.secondDepartment];
+    userInfo.collegeName = CollegeObj[userInfo.college];
+    setItems(userInfo);
+    const state = userInfo.state;
+    let str = "";
+    if (state === 10) {
+      str = "/已报名.png";
+    } else if (state === 30) {
+      str = "/进行中.png";
+    } else if (state === 50) {
+      str = "/已通过.png";
+    } else if (state === 60) {
+      str = "/已拒绝.png";
+    }
+    setStudentStatueStr(str);
   };
 
   // 开始面试按钮
@@ -93,6 +99,8 @@ export default function Resume() {
         return;
       }
       alert("修改成功");
+      const userInfo = responseData.data;
+      setItemsFunc(userInfo);
     } else {
       alert(`请求失败: ${res.data.message}`);
     }
@@ -111,6 +119,8 @@ export default function Resume() {
         return;
       }
       alert("修改成功");
+      const userInfo = responseData.data;
+      setItemsFunc(userInfo);
     } else {
       alert(`请求失败: ${res.data.message}`);
     }
@@ -129,6 +139,8 @@ export default function Resume() {
         return;
       }
       alert("修改成功");
+      const userInfo = responseData.data;
+      setItemsFunc(userInfo);
     } else {
       alert(`请求失败: ${res.data.message}`);
     }
@@ -200,12 +212,9 @@ export default function Resume() {
         alert(`处理失败: ${responseData.errorMessages[0]}`);
         return;
       }
-      const userInfo = responseData.data;
-      userInfo.firstDepName = KeyToDepName[userInfo.firstDepartment];
-      userInfo.secondDepName = KeyToDepName[userInfo.secondDepartment];
-      userInfo.collegeName = CollegeObj[userInfo.college];
-      setItems(userInfo);
       alert("修改成功");
+      const userInfo = responseData.data;
+      setItemsFunc(userInfo);
     } else {
       alert(`请求失败: ${res.data.message}`);
     }
