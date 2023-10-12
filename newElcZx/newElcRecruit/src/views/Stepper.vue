@@ -70,7 +70,7 @@ const getProcessInfo = async () => {
             return;
         }
         const processData = responseData.data;
-
+        console.log(processData);
         res = await axios({
             method: "GET",
             url: ServiceUrls.getInfo,
