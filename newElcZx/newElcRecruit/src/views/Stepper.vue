@@ -23,12 +23,12 @@
                     </Card>
                 </div>
                 <div class="progress-main-body">
-                    <Steps :current="current" direction="vertical">
-                        <Step :status="no" :title="titles.partZero" content="请在报名界面填写个人信息进行报名"></Step>
-                        <Step :status="no" :title="titles.partOne" content="一面阶段中，请留意我们的通知"></Step>
-                        <Step :status="no" :title="titles.partTwo" content="笔试阶段中，请留意我们的通知"></Step>
-                        <Step :status="no" :title="titles.partThree" content="二面阶段中，请留意我们的通知"></Step>
-                        <Step :status="no" :title="titles.partFour" content="最终结果出炉，请做好准备"></Step>
+                    <Steps :current="current" direction="vertical" :status="e">
+                        <Step :title="titles.partZero" content="请在报名界面填写个人信息进行报名"></Step>
+                        <Step :title="titles.partOne" content="一面阶段中，请留意我们的通知"></Step>
+                        <Step :title="titles.partTwo" content="笔试阶段中，请留意我们的通知"></Step>
+                        <Step :title="titles.partThree" content="二面阶段中，请留意我们的通知"></Step>
+                        <Step :title="titles.partFour" content="最终结果出炉，请做好准备"></Step>
                     </Steps>
                 </div>
             </div>
@@ -69,7 +69,7 @@ const titles = {
 const userStatusList = ["报名中", "一面中", "笔试中", "二面中", "已录用"];
 
 const current = ref(0);
-const no = ref("");
+const e = ref("");
 const userStatusStr = ref("无");
 const firstDepName = ref("");
 const secondDepName = ref("");
@@ -103,7 +103,8 @@ const getProcessInfo = async () => {
         const { processState, state } = processData[Array.length];
         if (state === 60) {
             userStatusStr.value = "已淘汰";
-
+            current.value = processState;
+            e.value = "error"
         } else {
             userStatusStr.value = userStatusList[processState];
             current.value = processState;
