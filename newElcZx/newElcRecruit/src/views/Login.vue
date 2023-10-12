@@ -2,7 +2,6 @@
 <template>
     <div class="login-body">
         <div class="perch">
-            <img src="../assets/elcLogo.png" />
         </div>
         <div class="login-topic">
             <h3 style="color: #bbb;font-style: italic;">Welcome to ELC</h3>
@@ -25,13 +24,13 @@
         <div class="login-content-bottom-body">
             <div class="small">
                 <router-link to="/Register">
-                    <div class="small-explain"> <button class="toCode">我要注册</button></div>
+                    <div class="small-explain" style="margin-left: auto;"> <button class="toCode">我要注册</button></div>
                 </router-link>
-                <p style="font-size: larger;">|</p>
+
                 <router-link to="/ForgetPassword">
                     <div class="small-explain"> <button @click="getCode" class="toCode">忘记密码</button></div>
                 </router-link>
-                <p style="font-size: larger;">|</p>
+
                 <router-link to="/KnowElc">
                     <div class="small-explain"> <button class="toCode">了解我们</button></div>
                 </router-link>
@@ -114,15 +113,20 @@ function checkphoneNumberSize(value) {
 }
 
 .perch {
+    width: 100%;
     height: 130px;
+    background-image: url("../assets/elcLogo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.perch>img {
+/* .perch>img {
     width: 100%;
     height: 100%;
-}
+} */
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 700px) {
     .login-body {
         width: 75%;
         height: 100%;
@@ -130,9 +134,10 @@ function checkphoneNumberSize(value) {
         max-width: 500px;
     }
 
-    .perch {
+    /* .perch {
+        width: 100%;
         height: 180px;
-    }
+    } */
 }
 
 .login-topic {
@@ -252,6 +257,7 @@ function checkphoneNumberSize(value) {
 
 .small {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+
 }
 </style>
