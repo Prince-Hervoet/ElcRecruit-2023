@@ -11,6 +11,13 @@
   padding-top: 40px;
   box-sizing: border-box;
   border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+.resume-student-status {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .resume-content-header {

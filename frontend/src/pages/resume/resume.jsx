@@ -15,6 +15,7 @@ const { TextArea } = Input;
 
 export default function Resume() {
   const [items, setItems] = useState({});
+  const [studentStatusStr, setStudentStatueStr] = useState("");
   const [showUpdateFirstDep, setShowUpdateFirstDep] = useState(false);
   const [commentAndScores, setCommentAndScores] = useState([]);
   const [comment, setComment] = useState("");
@@ -63,6 +64,17 @@ export default function Resume() {
       userInfo.secondDepName = KeyToDepName[userInfo.secondDepartment];
       userInfo.collegeName = CollegeObj[userInfo.college];
       setItems(userInfo);
+      let str = "";
+      if (userInfo.state === 10) {
+        str = "/已报名.png";
+      } else if (userInfo.state === 30) {
+        str = "/进行中.png";
+      } else if (userInfo.state === 50) {
+        str = "/已通过.png";
+      } else if (userInfo.state === 60) {
+        str = "/已拒绝.png";
+      }
+      setStudentStatueStr(str);
     } else {
       alert(`请求失败: ${res.data.message}`);
     }
@@ -328,6 +340,9 @@ export default function Resume() {
             </List.Item>
           )}
         />
+        <div className="resume-student-status">
+          <img src={studentStatusStr}></img>
+        </div>
       </div>
     </div>
   );

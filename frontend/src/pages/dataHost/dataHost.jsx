@@ -29,7 +29,7 @@ export default function DataHost() {
           ></DataHostColorFlag>
           <DataHostColorFlag
             color={"purple"}
-            text={"面试中"}
+            text={"进行中"}
           ></DataHostColorFlag>
           <DataHostColorFlag
             color={"green"}
