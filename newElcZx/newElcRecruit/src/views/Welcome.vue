@@ -95,6 +95,14 @@
                     </Card>
                 </router-link>
             </div>
+            <div>
+                <Card style="width: 320px">
+                    <div style="text-align: center" :shadow="true">
+                        <img style="width: 128px;height: 128px;" src="../assets/qqcode.png">
+                        <h2>扫码加入招新咨询群</h2>
+                    </div>
+                </Card>
+            </div>
         </div>
     </div>
 </template>
