@@ -69,7 +69,7 @@ import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
 import { ServiceUrls } from "../requests/util.js";
-
+import router from '../router';
 let token = localStorage.getItem("token")
 let successCommit = ref(false)
 let hasError = ref(false);
@@ -86,6 +86,21 @@ const studentInfo = reactive({
     skills: "",
 });
 
+const checkLogin = async () => {
+    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    })
+        .then((res) => {
+            console.log(res);
+            // localStorage.removeItem("token")
+        })
+        .catch(function (error) {
+            console.log(error);
+            if (error) {
+                alert("请重新登录")
+                router.push({ path: "/login" });
+            }
+        });
+}
 
 function checkSame(dep1, dep2) {
     if (dep1 === dep2) {
@@ -204,6 +219,7 @@ const getStudentData = async () => {
 }
 onMounted(() => {
     getStudentData();
+    checkLogin();
 });
 </script>
 

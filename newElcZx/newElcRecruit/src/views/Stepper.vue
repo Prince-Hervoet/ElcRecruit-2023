@@ -42,6 +42,21 @@ import { IdToDepName } from "../global.js";
 import { ServiceUrls } from "../requests/util.js";
 import axios from "axios";
 import router from '../router';
+const checkLogin = async () => {
+    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    })
+        .then((res) => {
+            console.log(res);
+            // localStorage.removeItem("token")
+        })
+        .catch(function (error) {
+            console.log(error);
+            if (error) {
+                alert("请重新登录")
+                router.push({ path: "/login" });
+            }
+        });
+}
 
 const titles = {
     partZero: "报名阶段",
@@ -120,6 +135,7 @@ const clickReFresh = () => {
 
 onMounted(() => {
     getProcessInfo();
+    checkLogin();
 });
 </script>
 
