@@ -41,6 +41,7 @@ import { ref, onMounted } from "vue";
 import { IdToDepName } from "../global.js";
 import { ServiceUrls } from "../requests/util.js";
 import axios from "axios";
+import router from '../router';
 
 const titles = {
     partZero: "报名阶段",
@@ -90,9 +91,15 @@ const getProcessInfo = async () => {
         }
         firstDepName.value = IdToDepName[userInfoData.firstDepartment];
         secondDepName.value = IdToDepName[userInfoData.secondDepartment];
-    } catch (e) {
-        console.log(`请求失败: ${e}`);
-        alert("请先前往提交报名表，或检查登录是否过期以重新登录");
+    } catch (error) {
+        console.log(`请求失败: ${error}`);
+        if (error.response.status === 500) {
+            alert("请先提交报名表再进行查看，正在为您跳转......");
+            router.push({ path: "/Welcome" });
+        } else {
+            console.log("你没登录")
+        }
+        // alert("请先前往提交报名表，或检查登录是否过期以重新登录");
     }
 };
 

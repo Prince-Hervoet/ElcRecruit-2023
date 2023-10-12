@@ -1,7 +1,6 @@
 <template>
     <div class="login-body">
         <div class="perch">
-            <img src="../assets/elcLogo.png" />
         </div>
         <div class="login-topic">
             <h3 style="color: #bbb;font-style: italic;">Welcome to ELC</h3>
@@ -141,7 +140,7 @@ const getRegister = () => {
 
     //电话错误
     if (!checkphoneNumberSize(loginContent.phoneNumber)) {
-        console.log("电话号码不合规");
+        alert("电话号码不合规");
 
         //密码错误
     } else if (!checkpassword(loginContent.password)) {
@@ -177,12 +176,12 @@ const getRegister = () => {
 }
 
 .perch {
-    height: 130px;
-}
-
-.perch>img {
     width: 100%;
-    height: 100%;
+    height: 130px;
+    background-image: url("../assets/elcLogo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 @media screen and (min-width: 800px) {
@@ -191,10 +190,6 @@ const getRegister = () => {
         height: 100%;
         margin: auto;
         max-width: 500px;
-    }
-
-    .perch {
-        height: 180px;
     }
 }
 

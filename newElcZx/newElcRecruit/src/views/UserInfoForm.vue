@@ -87,7 +87,7 @@ function checkSame(dep1, dep2) {
     if (dep1 === dep2) {
         alert("第一志愿部门和第二志愿部门不能相同哦");
         return false;
-    }
+    } else return true
 }
 const setUserInfo = (data) => {
     if (data && data.id) {
@@ -112,7 +112,6 @@ function checkStuId(value) {
 
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
-
     if (
         !hasNullContent(
             studentInfo.name,
@@ -128,7 +127,6 @@ const clickSubmitForm = async () => {
         checkphoneSize(studentInfo.phone) &&
         checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
     ) {
-        console.log("成功");
         axios.post(url, {
             id: '',
             name: studentInfo.name,
@@ -155,14 +153,14 @@ const clickSubmitForm = async () => {
             })
             .catch(function (error) {
                 console.log(error);
-                if (res.status === 401) {
+                if (error.response.status === 401) {
                     alert("登录过期,请重新登录")
                 } else {
                     alert("请检查网络")
                 }
             });
     } else {
-        alert("信息不完整或信息不准确，请再次确认表单内容")
+        alert("信息不完整或信息不准确，请再次确认表单内容是否完全填写，电话号和学号是否合法等")
     }
 };
 </script>
