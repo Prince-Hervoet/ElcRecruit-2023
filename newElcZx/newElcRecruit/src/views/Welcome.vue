@@ -175,7 +175,7 @@ const outLogin = () => {
 
 .title-down {
     position: absolute;
-    color: #F09B56;
+    color: rgb(45, 140, 240);
     top: 0;
     left: 0;
 }

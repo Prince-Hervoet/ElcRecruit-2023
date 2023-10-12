@@ -119,7 +119,7 @@ const getProcessInfo = async () => {
         console.log(`请求失败: ${error}`);
         if (error.response.status === 500) {
             alert("请先提交报名表再进行查看，正在为您跳转......");
-            router.push({ path: "/Welcome" });
+            router.push({ path: "/UserInfoForm" });
         } else {
             console.log("你没登录")
         }
