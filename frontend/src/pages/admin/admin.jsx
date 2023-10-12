@@ -18,6 +18,7 @@ const processNameList = [
   {
     title: "二面",
   },
+  { title: "结束" },
 ];
 
 export default function Admin() {
