@@ -69,11 +69,10 @@ import MyTextarea from "../components/myTextarea/TextareaInput.vue";
 import { CollegeList, DepInfoList } from "../global.js"
 import axios from "axios";
 import { ServiceUrls } from "../requests/util.js";
-
+import router from '../router';
 let token = localStorage.getItem("token")
 let successCommit = ref(false)
 let hasError = ref(false);
-let userForm = localStorage.getItem("userForm")
 const studentInfo = reactive({
     name: "",
     studentNumber: "",
@@ -87,6 +86,21 @@ const studentInfo = reactive({
     skills: "",
 });
 
+const checkLogin = async () => {
+    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    })
+        .then((res) => {
+            console.log(res);
+            // localStorage.removeItem("token")
+        })
+        .catch(function (error) {
+            console.log(error);
+            if (error) {
+                alert("请重新登录")
+                router.push({ path: "/login" });
+            }
+        });
+}
 
 function checkSame(dep1, dep2) {
     if (dep1 === dep2) {
@@ -117,20 +131,21 @@ function checkStuId(value) {
 
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
-    if (true
-        // !hasNullContent(
-        //     studentInfo.name,
-        //     studentInfo.grade,
-        //     studentInfo.college,
-        //     studentInfo.firstDepartment,
-        //     studentInfo.introduction,
-        //     studentInfo.qq,
-        //     studentInfo.secondDepartment,
-        //     studentInfo.skills
-        // ) &&
-        // checkStuId(studentInfo.studentNumber) &&
-        // checkphoneSize(studentInfo.phone) &&
-        // checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
+
+    if (
+        !hasNullContent(
+            studentInfo.name,
+            studentInfo.grade,
+            studentInfo.college,
+            studentInfo.firstDepartment,
+            studentInfo.introduction,
+            studentInfo.qq,
+            studentInfo.secondDepartment,
+            studentInfo.skills
+        ) &&
+        checkStuId(studentInfo.studentNumber) &&
+        checkphoneSize(studentInfo.phone) &&
+        checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
     ) {
         axios.post(url, {
             id: '',
@@ -155,17 +170,6 @@ const clickSubmitForm = async () => {
             .then((res) => {
                 console.log(res);
                 successCommit.value = !successCommit.value;
-                userForm[10] = setUserInfo(
-                    studentInfo.name,
-                    // studentInfo.grade,
-                    studentInfo.college,
-                    // studentInfo.firstDepartment,
-                    // studentInfo.introduction,
-                    // studentInfo.qq,
-                    // studentInfo.secondDepartment,
-                    // studentInfo.skills
-                )
-                localStorage.setItem("userForm", `${userForm}`);
             })
             .catch(function (error) {
                 console.log(error);
@@ -179,17 +183,43 @@ const clickSubmitForm = async () => {
         alert("信息不完整或信息不准确，请再次确认表单内容是否完全填写，电话号和学号是否合法等")
     }
 };
-// console.log("名字" + studentInfo.name);
-// console.log(userForm);
+
 const getStudentData = async () => {
-    if (localStorage.userForm) {
-        // setUserInfo(userForm);
-        localStorage.getItem("userForm")
-        console.log(userForm[1]);
-    }
+    axios.get("http://139.159.220.241:8081/elc_recruit/student/get_info", {
+        id: '',
+        name: studentInfo.name,
+        studentNumber: studentInfo.studentNumber,
+        college: studentInfo.college,
+        grade: studentInfo.grade,
+        phone: studentInfo.phone,
+        firstDepartment: studentInfo.firstDepartment,
+        secondDepartment: studentInfo.secondDepartment,
+        introduction: studentInfo.introduction,
+        qq: studentInfo.qq,
+        skills: studentInfo.skills,
+        state: 10,
+    })
+        .then((res) => {
+            console.log(res);
+            let head = res.data.data
+            studentInfo.name = head.name;
+            studentInfo.grade = head.grade,
+                studentInfo.college = head.college,
+                studentInfo.firstDepartment = head.firstDepartment,
+                studentInfo.introduction = head.introduction,
+                studentInfo.qq = head.qq,
+                studentInfo.secondDepartment = head.secondDepartment,
+                studentInfo.skills = head.skills
+            studentInfo.studentNumber = head.studentNumber
+            studentInfo.phone = head.phone
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 onMounted(() => {
     getStudentData();
+    checkLogin();
 });
 </script>
 

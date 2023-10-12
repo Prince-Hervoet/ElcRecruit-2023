@@ -6,6 +6,7 @@
                 <div class="title-up">Welcome Page</div>
             </div>
 
+
             <svg t="1696779219071" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="9866" width="36" height="36">
                 <path
@@ -15,7 +16,9 @@
                     d="M282.305173 306.941862A126.869303 126.869303 0 0 1 256.215115 230.206396a127.892442 127.892442 0 0 1 255.784885 0A126.869303 126.869303 0 0 1 485.909942 306.941862l81.339593 61.388372A228.160117 228.160117 0 0 0 614.313954 230.206396a230.206396 230.206396 0 0 0-460.412793 0 228.160117 228.160117 0 0 0 46.552849 137.612269z"
                     fill="#333333" p-id="9868"></path>
             </svg>
+            <div class="out" @click="outLogin"><Button type="primary" ghost>退出登录</Button></div>
         </div>
+
         <div class="welcome-content-container">
             <div>
                 <router-link to="/userInfoForm">
@@ -99,7 +102,7 @@
                 <Card style="width: 320px">
                     <div style="text-align: center" :shadow="true">
                         <img style="width: 128px;height: 128px;" src="../assets/qqcode.png">
-                        <h2>扫码加入招新咨询群</h2>
+                        <h2 style="color: rgb(45, 140, 240);">扫码加入招新咨询群</h2>
                     </div>
                 </Card>
             </div>
@@ -107,7 +110,33 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import router from '../router';
+import { onMounted } from "vue";
+import axios from "axios";
+const checkLogin = async () => {
+    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(function (error) {
+            console.log(error);
+            if (error) {
+                alert("请重新登录")
+                router.push({ path: "/login" });
+            }
+        });
+}
+onMounted(() => {
+    checkLogin();
+});
+const outLogin = () => {
+    localStorage.removeItem("token")
+    router.push({ path: "/login" });
+}
+
+</script>
 
 <style scoped>
 .welcome-container {
@@ -170,6 +199,19 @@
     box-sizing: border-box;
     padding: 10px;
     cursor: pointer;
+}
+
+.out {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: larger;
+    cursor: pointer;
+    color: rgb(45, 140, 240);
+}
+
+.out:hover {
+    color: rgba(209 54 57);
 }
 
 @media screen and (max-width: 800px) {
