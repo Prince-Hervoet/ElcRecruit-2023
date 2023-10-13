@@ -114,8 +114,10 @@
 import router from '../router';
 import { onMounted } from "vue";
 import axios from "axios";
+import { ServiceUrls } from "../requests/util.js";
 const checkLogin = async () => {
-    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    const url = ServiceUrls.getCheck
+    axios.get(url, {
     })
         .then((res) => {
             console.log(res);

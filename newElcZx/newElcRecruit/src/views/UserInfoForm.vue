@@ -87,7 +87,8 @@ const studentInfo = reactive({
 });
 
 const checkLogin = async () => {
-    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    const checkUrl = ServiceUrls.getCheck
+    axios.get(checkUrl, {
     })
         .then((res) => {
             console.log(res);
@@ -185,7 +186,8 @@ const clickSubmitForm = async () => {
 };
 
 const getStudentData = async () => {
-    axios.get("http://139.159.220.241:8081/elc_recruit/student/get_info", {
+    const getInfo = ServiceUrls.getInfo
+    axios.get(getInfo, {
         id: '',
         name: studentInfo.name,
         studentNumber: studentInfo.studentNumber,
