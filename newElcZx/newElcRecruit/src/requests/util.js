@@ -1,4 +1,4 @@
-export const BASE_URL = "http://139.159.220.241:8081";
+export const BASE_URL = "https://recruit.gdutelc.com";
 
 /**
  * 服务端接口url
