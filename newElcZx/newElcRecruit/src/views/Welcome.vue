@@ -217,7 +217,21 @@ const outLogin = () => {
     color: rgba(209 54 57);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1200px) {
+    .welcome-content-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        user-select: none;
+    }
+
+    .welcome-container {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 700px) {
     .welcome-content-container {
         display: flex;
         flex-direction: column;
