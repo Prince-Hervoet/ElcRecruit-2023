@@ -1,5 +1,7 @@
 <template>
+    <div class="out" @click="outLogin"><Button type="primary" ghost>退出登录</Button></div>
     <div class="welcome-container">
+
         <div class="welcome-content-header">
             <div class="title">
                 <div class="title-down">Welcome Page</div>
@@ -16,7 +18,7 @@
                     d="M282.305173 306.941862A126.869303 126.869303 0 0 1 256.215115 230.206396a127.892442 127.892442 0 0 1 255.784885 0A126.869303 126.869303 0 0 1 485.909942 306.941862l81.339593 61.388372A228.160117 228.160117 0 0 0 614.313954 230.206396a230.206396 230.206396 0 0 0-460.412793 0 228.160117 228.160117 0 0 0 46.552849 137.612269z"
                     fill="#333333" p-id="9868"></path>
             </svg>
-            <div class="out" @click="outLogin"><Button type="primary" ghost>退出登录</Button></div>
+
         </div>
 
         <div class="welcome-content-container">
@@ -148,7 +150,7 @@ const outLogin = () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(250, 250, 250);
+    background-color: rgb(255, 255, 255);
     padding: 20px;
     overflow: auto;
 }
@@ -204,9 +206,8 @@ const outLogin = () => {
 }
 
 .out {
-    position: fixed;
-    top: 0;
-    right: 0;
+    margin-top: 0;
+    float: right;
     font-size: larger;
     cursor: pointer;
     color: rgb(45, 140, 240);
