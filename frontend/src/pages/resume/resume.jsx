@@ -226,7 +226,7 @@ export default function Resume() {
         <div className="resume-content-header">
           <Descriptions
             title="个人信息"
-            column={4}
+            column={2}
             labelStyle={{ fontWeight: 700, fontSize: "larger" }}
             contentStyle={{ fontSize: "larger" }}
           >
@@ -240,9 +240,6 @@ export default function Resume() {
             <Descriptions.Item label="专业班级">
               {items.grade}
             </Descriptions.Item>
-            <Descriptions.Item label="掌握技能">
-              {items.skills}
-            </Descriptions.Item>
             <Descriptions.Item label="手机号码">
               {items.phone}
             </Descriptions.Item>
@@ -253,6 +250,10 @@ export default function Resume() {
             <Descriptions.Item label="第二志愿">
               {items.secondDepName}
             </Descriptions.Item>
+            <Descriptions.Item label="掌握技能">
+              {items.skills}
+            </Descriptions.Item>
+            <Descriptions.Item></Descriptions.Item>
             <Descriptions.Item label="自我介绍">
               {items.introduction}
             </Descriptions.Item>
