@@ -13,7 +13,15 @@ export default function Login() {
   let passwordRef = useRef("");
   const nav = useNavigate();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    (async function () {
+      const res = await LoginRequest.judgeLogin();
+      console.log(res);
+      if (res.isRequestSuccess) {
+        nav("/dataHost", { replace: true });
+      }
+    })();
+  }, []);
 
   // 点击登录
   const clickOnLogin = async () => {

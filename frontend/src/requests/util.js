@@ -11,7 +11,7 @@ export const ServiceUrls = {
   // 登录
   login: `/elc_recruit/interviewer/Login`,
   // 判断是否登录
-  judgeLogin: `/judgeLogin`,
+  judgeLogin: `/elc_recruit/interviewer`,
   // 分页获取人员简要信息
   getBriefInfos: `/elc_recruit/interviewer/get_brief_infos`,
   // 获取报名者详细信息

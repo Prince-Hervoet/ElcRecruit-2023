@@ -13,6 +13,12 @@ async function login(userName, password) {
   return res;
 }
 
+async function judgeLogin() {
+  const res = await commonRequest("GET", ServiceUrls.judgeLogin);
+  return res;
+}
+
 export const LoginRequest = {
   login,
+  judgeLogin,
 };
