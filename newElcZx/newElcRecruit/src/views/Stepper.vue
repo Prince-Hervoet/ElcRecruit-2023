@@ -100,11 +100,12 @@ const getProcessInfo = async () => {
         }
         const userInfoData = responseData.data;
 
-        const { processState, state } = processData[length];
+        const { processState, state } = processData[Array.length];
         if (state === 60) {
             userStatusStr.value = "已淘汰";
             current.value = processState;
             e.value = "error"
+            console.log(current.value);
         } else {
             userStatusStr.value = userStatusList[processState];
             current.value = processState;
