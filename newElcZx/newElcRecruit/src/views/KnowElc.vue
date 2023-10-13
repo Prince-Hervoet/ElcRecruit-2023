@@ -1,12 +1,10 @@
 <template>
     <div class="knowMore-container">
-        <div class="IntroPic" style="display: flex; justify-content: center;">
+        <div class="IntroPic" style="display: flex; justify-content: center;width: 100%;">
             <div class="title">
-                <div class="title-down">Welcome to ELC</div>
+                <div class="title-down" style="width: 100%;">Welcome to ELC</div>
                 <div class="title-up">Welcome to ELC</div>
             </div>
-
-
             <svg t="1696779219071" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="9866" width="36" height="36">
                 <path
@@ -48,7 +46,7 @@
         <div class="knowMore-content-body">
             <div class="KnowDep">
                 <div class="box" @click="clickNavDepInfo(100)">
-                    <Card style="width:300px" :shadow="false">
+                    <Card style="width:300px;height: 180px;" :shadow="false">
                         <div style="text-align:center">
                             <img src="../assets/pcb.png" style="width: 22%;">
                             <h2>电协介绍</h2>
@@ -59,7 +57,7 @@
                 </div>
 
                 <div class="box" @click="clickNavDepInfo(200)">
-                    <Card style="width:300px" :shadow="false">
+                    <Card style="width:300px;height: 180px;" :shadow="false">
                         <div style="text-align:center">
                             <img src="../assets/medal.png" style="width: 22%;">
                             <h2>电协荣誉</h2>
@@ -152,6 +150,7 @@ const clickNavDepInfo = (depId) => {
     position: relative;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     text-shadow: 2px 2px #c6c6c6;
+
 }
 
 .title-up {
@@ -228,6 +227,35 @@ const clickNavDepInfo = (depId) => {
         justify-items: center;
         max-width: 60%;
         margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .IntroPic {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+
+    }
+
+    .title-up {
+        position: relative;
+        opacity: 1;
+        clip-path: ellipse(100px 200px at 0% 50%);
+        animation: lightMove 2.5s ease-in infinite;
+        width: 100%;
+    }
+
+    .title {
+        width: 100%;
+    }
+
+    .title-down {
+        position: absolute;
+        color: rgb(45, 140, 240);
+        top: 0;
+        left: 0;
+        width: 100%;
     }
 }
 
