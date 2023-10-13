@@ -111,22 +111,22 @@ const getProcessInfo = async () => {
             console.log(current);
 
         }
-        // firstDepName.value = IdToDepName[userInfoData.firstDepartment];
-        // secondDepName.value = IdToDepName[userInfoData.secondDepartment];
-        if (firstDepName.value !== IdToDepName[userInfoData.firstDepartment]) {
-            firstDepName.value = IdToDepName[userInfoData.firstDepartment] + "(第一志愿已调整)";
-            secondDepName.value = IdToDepName[userInfoData.secondDepartment];
-        } else {
-            firstDepName.value = IdToDepName[userInfoData.firstDepartment];
-            secondDepName.value = IdToDepName[userInfoData.secondDepartment];
-        }
+        firstDepName.value = IdToDepName[userInfoData.firstDepartment];
+        secondDepName.value = IdToDepName[userInfoData.secondDepartment];
+        // if (firstDepName.value !== IdToDepName[userInfoData.firstDepartment]) {
+        //     firstDepName.value = IdToDepName[userInfoData.firstDepartment] + "(第一志愿已调整)";
+        //     secondDepName.value = IdToDepName[userInfoData.secondDepartment];
+        // } else {
+        //     firstDepName.value = IdToDepName[userInfoData.firstDepartment];
+        //     secondDepName.value = IdToDepName[userInfoData.secondDepartment];
+        // }
 
 
     } catch (error) {
         console.log(`请求失败: ${error}`);
 
-        alert("请先提交报名表再进行查看，正在为您跳转......");
-        router.push({ path: "/UserInfoForm" });
+        alert("请先提交报名表再进行查看进度");
+        // router.push({ path: "/UserInfoForm" });
     }
 };
 
