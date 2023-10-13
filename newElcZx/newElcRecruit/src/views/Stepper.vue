@@ -43,7 +43,8 @@ import { ServiceUrls } from "../requests/util.js";
 import axios from "axios";
 import router from '../router';
 const checkLogin = async () => {
-    axios.get("http://139.159.220.241:8081/elc_recruit/student/is_logined", {
+    const checkUrl = ServiceUrls.getCheck
+    axios.get(checkUrl, {
     })
         .then((res) => {
             console.log(res);
@@ -57,7 +58,6 @@ const checkLogin = async () => {
             }
         });
 }
-
 const titles = {
     partZero: "报名阶段",
     partOne: "一面阶段",
