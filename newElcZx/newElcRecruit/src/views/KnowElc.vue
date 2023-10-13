@@ -15,7 +15,7 @@
                     fill="#333333" p-id="9868"></path>
             </svg>
         </div>
-        <div style="display: flex; justify-content: center;">
+        <div class="knowMore-points-container">
             <Space size="large">
                 <Spin size="small" />
                 <Spin size="small" />
@@ -27,21 +27,6 @@
                 <Spin size="large" />
                 <Spin size="large" />
             </Space>
-            <Space size="large">
-                <Spin size="large" />
-                <Spin size="large" />
-                <Spin size="large" />
-                <Spin />
-                <Spin />
-                <Spin />
-
-                <Spin size="small" />
-                <Spin size="small" />
-                <Spin size="small" />
-
-
-            </Space>
-
         </div>
         <div class="knowMore-content-body">
             <div class="KnowDep">
@@ -183,6 +168,11 @@ const clickNavDepInfo = (depId) => {
     margin-top: 50px;
 }
 
+.knowMore-points-container {
+    display: flex;
+    justify-content: center;
+}
+
 .box:hover {
     box-shadow: #444444;
 }
@@ -230,13 +220,14 @@ const clickNavDepInfo = (depId) => {
     }
 }
 
-@media screen and (max-width: 400px) {
-    .IntroPic {
-        display: flex;
-        align-items: center;
-        justify-items: center;
+.IntroPic {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    padding: 10px;
+}
 
-    }
+@media screen and (max-width: 400px) {
 
     .title-up {
         position: relative;
