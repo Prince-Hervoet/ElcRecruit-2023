@@ -6,7 +6,6 @@ import { LoginRequest } from "../../requests/loginRequest";
 import { useNavigate } from "react-router-dom";
 import Bo from "../../components/loginComponents/bo/bo";
 import { getTokenDataToObj } from "../../toolFuncs";
-import { ServiceUrls, commonRequest } from "../../requests/util";
 
 export default function Login() {
   let userNameRef = useRef("");
