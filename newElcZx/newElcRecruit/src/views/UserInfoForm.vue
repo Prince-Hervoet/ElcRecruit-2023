@@ -58,7 +58,6 @@
         </button>
         <div class="small-explain1" v-if="successCommit">报名成功</div>
     </div>
-    <button @click="qq">a</button>
 </template>
 
 <script setup>
