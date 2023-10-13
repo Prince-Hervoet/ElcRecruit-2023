@@ -130,60 +130,83 @@ function checkStuId(value) {
     return value.length === 10;
 }
 
+function closeSubmit() {
+    const closeUrl = ServiceUrls.getCurrent;
+    axios.get(closeUrl, {
+        data: "",
+    })
+        .then((res) => {
+            console.log(res);
+            const closeData = res.data.data;
+            console.log(closeData);
+            localStorage.setItem("closeData", closeData)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
 const clickSubmitForm = async () => {
     const url = ServiceUrls.getCommit;
+    const closeData = localStorage.getItem("closeData")
 
-    if (
-        !hasNullContent(
-            studentInfo.name,
-            studentInfo.grade,
-            studentInfo.college,
-            studentInfo.firstDepartment,
-            studentInfo.introduction,
-            studentInfo.qq,
-            studentInfo.secondDepartment,
-            studentInfo.skills
-        ) &&
-        checkStuId(studentInfo.studentNumber) &&
-        checkphoneSize(studentInfo.phone) &&
-        checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
-    ) {
-        axios.post(url, {
-            id: '',
-            name: studentInfo.name,
-            studentNumber: studentInfo.studentNumber,
-            college: studentInfo.college,
-            grade: studentInfo.grade,
-            phone: studentInfo.phone,
-            firstDepartment: studentInfo.firstDepartment,
-            secondDepartment: studentInfo.secondDepartment,
-            introduction: studentInfo.introduction,
-            qq: studentInfo.qq,
-            skills: studentInfo.skills,
-            state: 10,
-        },
-            {
-                headers: {
-                    authorization: token,
+    if (closeData === "0") {
+        if (
+            !hasNullContent(
+                studentInfo.name,
+                studentInfo.grade,
+                studentInfo.college,
+                studentInfo.firstDepartment,
+                studentInfo.introduction,
+                studentInfo.qq,
+                studentInfo.secondDepartment,
+                studentInfo.skills
+            ) &&
+            checkStuId(studentInfo.studentNumber) &&
+            checkphoneSize(studentInfo.phone) &&
+            checkSame(studentInfo.firstDepartment, studentInfo.secondDepartment,)
+        ) {
+            axios.post(url, {
+                id: '',
+                name: studentInfo.name,
+                studentNumber: studentInfo.studentNumber,
+                college: studentInfo.college,
+                grade: studentInfo.grade,
+                phone: studentInfo.phone,
+                firstDepartment: studentInfo.firstDepartment,
+                secondDepartment: studentInfo.secondDepartment,
+                introduction: studentInfo.introduction,
+                qq: studentInfo.qq,
+                skills: studentInfo.skills,
+                state: 10,
+            },
+                {
+                    headers: {
+                        authorization: token,
+                    }
                 }
-            }
-        )
-            .then((res) => {
-                console.log(res);
-                successCommit.value = !successCommit.value;
-            })
-            .catch(function (error) {
-                console.log(error);
-                if (error.response.status === 401) {
-                    alert("登录过期,请重新登录")
-                } else {
-                    alert("请检查网络")
-                }
-            });
+            )
+                .then((res) => {
+                    console.log(res);
+                    successCommit.value = !successCommit.value;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    if (error.response.status === 401) {
+                        alert("登录过期,请重新登录")
+                    } else {
+                        alert("请检查网络")
+                    }
+                });
+        } else {
+            alert("信息不完整或信息不准确，请再次确认表单内容是否完全填写，电话号和学号是否合法等")
+        }; localStorage.removeItem("closeData")
     } else {
-        alert("信息不完整或信息不准确，请再次确认表单内容是否完全填写，电话号和学号是否合法等")
+        alert("已过提交时间，禁止修改或提交");
+        localStorage.removeItem("closeData")
     }
-};
+
+}
 
 const getStudentData = async () => {
     const getInfo = ServiceUrls.getInfo
@@ -222,6 +245,7 @@ const getStudentData = async () => {
 onMounted(() => {
     getStudentData();
     checkLogin();
+    closeSubmit()
 });
 </script>
 

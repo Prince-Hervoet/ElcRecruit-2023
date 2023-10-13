@@ -13,4 +13,5 @@ export const ServiceUrls = {
   getCommit:`/elc_recruit/student/commit`,
   getForget:`/elc_recruit/interviewer/reset_password?`,
   getCheck:`/elc_recruit/student/is_logined`,
+  getCurrent:`/elc_recruit/root/get_current_process`,
 };

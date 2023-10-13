@@ -87,7 +87,7 @@ const getProcessInfo = async () => {
             return;
         }
         const processData = responseData.data;
-        console.log(processData);
+        console.log("qqq" + processData);
 
         res = await axios({
             method: "GET",
@@ -100,18 +100,25 @@ const getProcessInfo = async () => {
         }
         const userInfoData = responseData.data;
 
-        const { processState, state } = processData[Array.length];
-        if (state === 60) {
-            userStatusStr.value = "已淘汰";
-            current.value = processState;
-            e.value = "error"
-            console.log(current.value);
-        } else {
-            userStatusStr.value = userStatusList[processState];
-            current.value = processState;
-            console.log(current);
 
+        for (let i = 0; i < processData.length; i++) {
+            const { processState, state } = processData[i];
+            console.log("www" + processData[i].processState);
+            if (state === 60) {
+                userStatusStr.value = "已淘汰";
+                current.value = processState;
+                e.value = "error";
+                break;
+            } else {
+                userStatusStr.value = userStatusList[processState];
+                current.value = processState;
+                // e.value = "finish"
+                // console.log(current.value);
+            }
         }
+        console.log("dada" + current.value);
+
+
         firstDepName.value = IdToDepName[userInfoData.firstDepartment];
         secondDepName.value = IdToDepName[userInfoData.secondDepartment];
         // if (firstDepName.value !== IdToDepName[userInfoData.firstDepartment]) {
