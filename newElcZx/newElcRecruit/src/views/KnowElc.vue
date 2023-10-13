@@ -228,7 +228,6 @@ const clickNavDepInfo = (depId) => {
 }
 
 @media screen and (max-width: 400px) {
-
     .title-up {
         position: relative;
         opacity: 1;
