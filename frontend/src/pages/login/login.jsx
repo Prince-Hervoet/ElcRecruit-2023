@@ -16,7 +16,6 @@ export default function Login() {
   useEffect(() => {
     (async function () {
       const res = await LoginRequest.judgeLogin();
-      console.log(res);
       if (res.isRequestSuccess) {
         nav("/dataHost", { replace: true });
       }
